@@ -1,0 +1,88 @@
+<?php
+
+namespace Webkul\MasterDataManagement\Repositories;
+
+use DateTimeInterface;
+use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Webkul\Core\Eloquent\Repository;
+use Webkul\MasterDataManagement\Contracts\Code;
+use Webkul\MasterDataManagement\Models\Code as CodeModel;
+
+class CodeRepository extends Repository
+{
+    /**
+     * Get model class name.
+     */
+    public function model(): string
+    {
+        return Code::class;
+    }
+
+    /**
+     * Get the code of the version, or null when it belongs to another version.
+     */
+    public function findForVersion(int $versionId, int $id): ?CodeModel
+    {
+        return $this->model->newQuery()
+            ->where('version_id', $versionId)
+            ->whereKey($id)
+            ->first();
+    }
+
+    /**
+     * Get the codes of the version with the given code values, with their translations.
+     *
+     * @param  list<string>  $codes
+     * @return Collection<string, CodeModel> Keyed by code.
+     */
+    public function findManyForVersion(int $versionId, array $codes): Collection
+    {
+        if ($codes === []) {
+            return new Collection;
+        }
+
+        return $this->model->newQuery()
+            ->with('translations')
+            ->where('version_id', $versionId)
+            ->whereIn('code', array_values(array_unique($codes)))
+            ->get()
+            ->keyBy('code');
+    }
+
+    /**
+     * The active codes of the version in effect on the date, as select options labelled in the requested locale.
+     *
+     * @return list<array{id: string, label: string}>
+     */
+    public function optionsForVersion(int $versionId, DateTimeInterface $on): array
+    {
+        return $this->inEffectForVersion($versionId, $on)
+            ->map(fn (CodeModel $code): array => [
+                'id'    => (string) $code->code,
+                'label' => $code->getTranslatedValueWithFallback('label') ?: (string) $code->code,
+            ])
+            ->values()
+            ->all();
+    }
+
+    /**
+     * The active codes of the version in effect on the date, with their translations, ordered by sort then code.
+     *
+     * @return Collection<int, CodeModel>
+     */
+    public function inEffectForVersion(int $versionId, DateTimeInterface $on): Collection
+    {
+        $date = $on->format('Y-m-d');
+
+        return $this->model->newQuery()
+            ->with('translations')
+            ->where('version_id', $versionId)
+            ->where('is_active', true)
+            ->where(fn (Builder $query) => $query->whereNull('effective_from')->orWhere('effective_from', '<=', $date))
+            ->where(fn (Builder $query) => $query->whereNull('effective_to')->orWhere('effective_to', '>', $date))
+            ->orderBy('sort')
+            ->orderBy('code')
+            ->get();
+    }
+}

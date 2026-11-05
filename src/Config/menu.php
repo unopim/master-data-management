@@ -1,0 +1,82 @@
+<?php
+
+return [
+    [
+        'key'    => 'masterdata',
+        'name'   => 'masterdata::app.menu.master-data',
+        'module' => 'mdm',
+        'route'  => 'admin.masterdata.dashboard.index',
+        'sort'   => 4,
+        'icon'   => 'icon-mdm',
+    ], [
+        'key'    => 'masterdata.records',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.records',
+        'route'  => 'admin.masterdata.dashboard.index',
+        'sort'   => 0,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.entity_types',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.entity-types',
+        'route'  => 'admin.masterdata.entity_types.index',
+        'sort'   => 1,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.source_systems',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.source-systems',
+        'route'  => 'admin.masterdata.source_systems.index',
+        'sort'   => 2,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.icons',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.icons',
+        'route'  => 'admin.masterdata.icons.index',
+        'sort'   => 8,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.code_lists',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.reference-data',
+        'route'  => 'admin.masterdata.code_lists.index',
+        'sort'   => 3,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.matching',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.matching',
+        'route'  => 'admin.masterdata.matching.index',
+        'sort'   => 4,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.crosswalk',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.crosswalk',
+        'route'  => 'admin.masterdata.crosswalk.index',
+        'sort'   => 5,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.quality',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.quality',
+        'route'  => 'admin.masterdata.quality.index',
+        'sort'   => 6,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.approvals',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.menu.approvals',
+        'route'  => 'admin.masterdata.approvals.index',
+        'sort'   => 7,
+        'icon'   => '',
+    ], [
+        'key'    => 'masterdata.access',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.access.menu',
+        'route'  => 'admin.masterdata.access.index',
+        'sort'   => 9,
+        'icon'   => '',
+    ],
+];
