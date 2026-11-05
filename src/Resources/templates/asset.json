@@ -1,0 +1,45 @@
+{
+    "format_version": 1,
+    "entity_types": [
+        {
+            "code": "equipment",
+            "names": {
+                "en_US": "Equipment"
+            },
+            "label_field_code": "name",
+            "is_hierarchical": true,
+            "code_strategy": "identifier_fields",
+            "status": "active"
+        },
+        {
+            "code": "platform",
+            "names": {
+                "en_US": "Platform"
+            },
+            "label_field_code": "name",
+            "is_hierarchical": false,
+            "code_strategy": "identifier_fields",
+            "status": "active"
+        }
+    ],
+    "source_systems": [
+        {
+            "code": "erp",
+            "name": "ERP",
+            "type": "erp",
+            "priority": 10
+        },
+        {
+            "code": "mes",
+            "name": "MES",
+            "type": "mes",
+            "priority": 20
+        },
+        {
+            "code": "cmms",
+            "name": "CMMS",
+            "type": "cmms",
+            "priority": 30
+        }
+    ]
+}

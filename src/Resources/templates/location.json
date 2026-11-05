@@ -1,0 +1,45 @@
+{
+    "format_version": 1,
+    "entity_types": [
+        {
+            "code": "site",
+            "names": {
+                "en_US": "Site"
+            },
+            "label_field_code": "name",
+            "is_hierarchical": true,
+            "code_strategy": "identifier_fields",
+            "status": "active"
+        },
+        {
+            "code": "department",
+            "names": {
+                "en_US": "Department"
+            },
+            "label_field_code": "name",
+            "is_hierarchical": true,
+            "code_strategy": "identifier_fields",
+            "status": "active"
+        },
+        {
+            "code": "line",
+            "names": {
+                "en_US": "Line"
+            },
+            "label_field_code": "name",
+            "is_hierarchical": true,
+            "code_strategy": "identifier_fields",
+            "status": "active"
+        },
+        {
+            "code": "area",
+            "names": {
+                "en_US": "Area"
+            },
+            "label_field_code": "name",
+            "is_hierarchical": true,
+            "code_strategy": "identifier_fields",
+            "status": "active"
+        }
+    ]
+}

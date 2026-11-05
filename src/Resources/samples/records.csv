@@ -1,0 +1,4 @@
+code,parent_code,name,equipment_class,manufacturer,model,serial_number,criticality,operating_status,install_date,external_id
+LKV-L03-A1-E3,LKV-L03-A1,Lakeview L3 Case Labeler,Labeller,Etika Systems,LB-300,ETK-LB-300-02210,C,running,2024-03-11,A-0101210
+LKV-L03-A2-E3,LKV-L03-A2,Lakeview L3 Pallet Labeler,labeler,Etika Systems,LB-500,ETK-LB-500-00417,C,idle,2024-05-02,A-0101211
+LKV-L02-A1-E1,,,,,,,,maintenance,,A-0101005
