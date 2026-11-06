@@ -1842,4 +1842,10 @@ return [
         'update-success' => 'Data access grant updated.',
         'delete-success' => 'Data access grant deleted.',
     ],
+
+    'install' => [
+        'migrating' => 'Running the master data migrations.',
+        'demo'      => 'Installing the manufacturing demo data.',
+        'done'      => 'Master data management is installed. Active modules: :modules.',
+    ],
 ];

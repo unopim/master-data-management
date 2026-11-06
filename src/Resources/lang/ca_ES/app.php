@@ -466,4 +466,10 @@ return [
         'update-success' => 'S\'ha actualitzat el permís d\'accés a les dades.',
         'delete-success' => 'S\'ha eliminat el permís d\'accés a les dades.',
     ],
+
+    'install' => [
+        'migrating' => 'S\'estan executant les migracions de dades mestres.',
+        'demo'      => 'S\'estan instal·lant les dades de demostració de fabricació.',
+        'done'      => 'La gestió de dades mestres està instal·lada. Mòduls actius: :modules.',
+    ],
 ];

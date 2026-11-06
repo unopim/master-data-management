@@ -466,4 +466,10 @@ return [
         'update-success' => 'Datenzugriff-Berechtigung aktualisiert.',
         'delete-success' => 'Datenzugriff-Berechtigung gelöscht.',
     ],
+
+    'install' => [
+        'migrating' => 'Die Stammdaten-Migrationen werden ausgeführt.',
+        'demo'      => 'Die Demodaten für die Fertigung werden installiert.',
+        'done'      => 'Die Stammdatenverwaltung ist installiert. Aktive Module: :modules.',
+    ],
 ];

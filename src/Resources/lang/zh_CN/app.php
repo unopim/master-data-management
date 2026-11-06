@@ -466,4 +466,10 @@ return [
         'update-success' => '已更新数据访问授权。',
         'delete-success' => '已删除数据访问授权。',
     ],
+
+    'install' => [
+        'migrating' => '正在运行主数据迁移。',
+        'demo'      => '正在安装制造业演示数据。',
+        'done'      => '主数据管理已安装。已启用的模块::modules。',
+    ],
 ];

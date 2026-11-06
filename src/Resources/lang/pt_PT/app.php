@@ -466,4 +466,10 @@ return [
         'update-success' => 'Permissão de acesso a dados atualizada.',
         'delete-success' => 'Permissão de acesso a dados eliminada.',
     ],
+
+    'install' => [
+        'migrating' => 'A executar as migrações de dados mestres.',
+        'demo'      => 'A instalar os dados de demonstração de fabrico.',
+        'done'      => 'A gestão de dados mestres está instalada. Módulos ativos: :modules.',
+    ],
 ];

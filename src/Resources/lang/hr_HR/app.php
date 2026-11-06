@@ -466,4 +466,10 @@ return [
         'update-success' => 'Dozvola za pristup podacima ažurirana.',
         'delete-success' => 'Dozvola za pristup podacima izbrisana.',
     ],
+
+    'install' => [
+        'migrating' => 'Pokretanje migracija glavnih podataka.',
+        'demo'      => 'Instalacija demo podataka za proizvodnju.',
+        'done'      => 'Upravljanje glavnim podacima je instalirano. Aktivni moduli: :modules.',
+    ],
 ];

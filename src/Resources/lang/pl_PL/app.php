@@ -466,4 +466,10 @@ return [
         'update-success' => 'Zaktualizowano uprawnienie dostępu do danych.',
         'delete-success' => 'Usunięto uprawnienie dostępu do danych.',
     ],
+
+    'install' => [
+        'migrating' => 'Uruchamianie migracji danych głównych.',
+        'demo'      => 'Instalowanie danych demonstracyjnych dla produkcji.',
+        'done'      => 'Zarządzanie danymi głównymi zostało zainstalowane. Aktywne moduły: :modules.',
+    ],
 ];

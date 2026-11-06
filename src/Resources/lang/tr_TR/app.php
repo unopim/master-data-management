@@ -466,4 +466,10 @@ return [
         'update-success' => 'Veri erişimi izni güncellendi.',
         'delete-success' => 'Veri erişimi izni silindi.',
     ],
+
+    'install' => [
+        'migrating' => 'Ana veri geçişleri çalıştırılıyor.',
+        'demo'      => 'Üretim demo verileri yükleniyor.',
+        'done'      => 'Ana veri yönetimi yüklendi. Etkin modüller: :modules.',
+    ],
 ];
