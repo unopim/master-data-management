@@ -255,6 +255,29 @@ it('limits approvers and the approvals inbox to approve and view grants', functi
     $this->get(route('admin.masterdata.approvals.show', $onA->id))->assertOk();
 });
 
+it('shows pending create requests in the approvals inbox to a full access admin', function () {
+    $this->equipment->update(['approval_required' => true]);
+    $this->spare->update(['approval_required' => true]);
+
+    $requester = ($this->customAdmin)();
+    app(RoleEntityPermissionRepository::class)->syncForEntityType($this->equipment->id, [$requester->role_id => ['view', 'create', 'edit']]);
+    app(RoleEntityPermissionRepository::class)->syncForEntityType($this->spare->id, [$requester->role_id => ['view', 'create', 'edit']]);
+    app(EntityTypePermissions::class)->flush();
+    ($this->grant)(GrantPrincipal::User, $requester->id, $this->siteB, ['edit']);
+
+    $this->writer->create($this->equipment, ['code' => 'EQ-B9', 'parent' => $this->siteB->uuid], $requester);
+    $this->writer->create($this->spare, ['code' => 'SP-9'], $requester);
+
+    $creates = ChangeRequest::query()->whereNull('record_id')->whereIn('entity_type_id', [$this->equipment->id, $this->spare->id])->pluck('id')->all();
+
+    $this->loginAsAdmin();
+
+    $ids = collect($this->ajaxGrid(route('admin.masterdata.approvals.index'))->assertOk()->json('records'))->pluck('id')->map(fn ($id): int => (int) $id)->all();
+
+    expect($creates)->toHaveCount(2)
+        ->and($ids)->toContain(...$creates);
+});
+
 it('hides match inbox rows matched to a record outside the grants', function () {
     $admin = ($this->customAdmin)(['status' => 1]);
     $admin->role->update(['permissions' => [...$admin->role->permissions, 'masterdata.matching']]);
