@@ -31,6 +31,7 @@ use Webkul\MasterDataManagement\Repositories\FieldRepository;
 use Webkul\MasterDataManagement\Repositories\RecordRepository;
 use Webkul\MasterDataManagement\Repositories\RelationRepository;
 use Webkul\MasterDataManagement\Security\AccessGrantResolver;
+use Webkul\MasterDataManagement\Standardization\FieldTransformer;
 use Webkul\MasterDataManagement\ValueObjects\ChangeSet;
 use Webkul\MasterDataManagement\ValueObjects\GateResult;
 use Webkul\MasterDataManagement\ValueObjects\RecordWriteResult;
@@ -52,6 +53,7 @@ class RecordWriter
         protected RelationWriter $relationWriter,
         protected RelationRepository $relationRepository,
         protected AccessGrantResolver $accessGrantResolver,
+        protected FieldTransformer $fieldTransformer,
     ) {}
 
     /**
@@ -78,12 +80,17 @@ class RecordWriter
     /**
      * Validate and create a record of the given entity type, reporting whether the change gate held it.
      *
+     * The values are standardized by their field transforms first, so the rules check, and the record keeps, the
+     * standard form.
+     *
      * @param  array<string, mixed>  $input
      *
      * @throws ValidationException
      */
     public function submitCreate(EntityType $type, array $input, ?Admin $by, ?SourceContext $source = null): RecordWriteResult
     {
+        $input = $this->fieldTransformer->transformInput($type, $input);
+
         $data = $this->validate($type, $input, null, [], $by);
 
         $parent = $this->resolveParent($data, $by);
@@ -170,6 +177,7 @@ class RecordWriter
      * Validate and apply a partial update at the revision the caller read, reporting whether the change gate held it.
      *
      * An update that changes nothing is neither written nor held, so it bumps no revision and opens no change request.
+     * The values are standardized by their field transforms before they are validated.
      *
      * @param  array<string, mixed>  $input
      *
@@ -181,6 +189,8 @@ class RecordWriter
         $this->ensureEditable($record);
 
         $type = $record->entityType;
+
+        $input = $this->fieldTransformer->transformInput($type, $input);
 
         $currentReferences = $this->currentReferences($record);
 

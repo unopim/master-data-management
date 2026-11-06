@@ -7,10 +7,13 @@ use Webkul\MasterDataManagement\Enums\CodeStrategy;
 use Webkul\MasterDataManagement\FieldTypes\FieldTypeRegistry;
 use Webkul\MasterDataManagement\Models\EntityType;
 use Webkul\MasterDataManagement\Models\Field;
+use Webkul\MasterDataManagement\Models\FieldValidationRule;
 use Webkul\MasterDataManagement\Models\Record;
 use Webkul\MasterDataManagement\Repositories\FieldRepository;
+use Webkul\MasterDataManagement\Rules\FieldValueRules;
 use Webkul\MasterDataManagement\Rules\UniqueRecordReference;
 use Webkul\MasterDataManagement\Rules\UniqueRecordValue;
+use Webkul\MasterDataManagement\Validation\ValueRuleChecker;
 
 /**
  * Builds the validation rules of a record's values from the entity type's active fields.
@@ -22,6 +25,7 @@ class FieldRuleBuilder
     public function __construct(
         protected FieldRepository $fieldRepository,
         protected FieldTypeRegistry $fieldTypeRegistry,
+        protected ValueRuleChecker $valueRuleChecker,
     ) {}
 
     /**
@@ -49,8 +53,10 @@ class FieldRuleBuilder
 
         $ignoreRecordId = $ignore?->getKey();
 
+        $blocking = $this->valueRuleChecker->rulesByField((int) $type->id, true);
+
         foreach ($common as $field) {
-            $rules['values.common.'.$field->code] = $this->fieldRules($type, $field, $this->isRequired($type, $field), null, $ignoreRecordId);
+            $rules['values.common.'.$field->code] = $this->fieldRules($type, $field, $this->isRequired($type, $field), null, $ignoreRecordId, $blocking[$field->id] ?? []);
         }
 
         foreach ($localized as $field) {
@@ -60,7 +66,7 @@ class FieldRuleBuilder
         }
 
         foreach ($localized as $field) {
-            $rules['values.locale_specific.*.'.$field->code] = $this->fieldRules($type, $field, false, UniqueRecordValue::ATTRIBUTE_LOCALE, $ignoreRecordId);
+            $rules['values.locale_specific.*.'.$field->code] = $this->fieldRules($type, $field, false, UniqueRecordValue::ATTRIBUTE_LOCALE, $ignoreRecordId, $blocking[$field->id] ?? []);
         }
 
         return $rules;
@@ -121,16 +127,22 @@ class FieldRuleBuilder
     }
 
     /**
-     * The rules of one value: presence, the type's rules and the uniqueness check.
+     * The rules of one value: presence, the type's rules, the field's blocking validation rules and the uniqueness
+     * check.
      *
+     * @param  list<FieldValidationRule>  $blocking
      * @return array<int, mixed>
      */
-    protected function fieldRules(EntityType $type, Field $field, bool $required, ?string $locale, ?int $ignoreRecordId): array
+    protected function fieldRules(EntityType $type, Field $field, bool $required, ?string $locale, ?int $ignoreRecordId, array $blocking = []): array
     {
         $rules = [$required ? 'required' : 'nullable'];
 
         if ($this->fieldTypeRegistry->has($field->type)) {
             array_push($rules, ...$this->fieldTypeRegistry->get($field->type)->rules($field));
+        }
+
+        if ($blocking !== []) {
+            $rules[] = new FieldValueRules($field, $blocking, $this->valueRuleChecker);
         }
 
         if ($field->is_unique) {

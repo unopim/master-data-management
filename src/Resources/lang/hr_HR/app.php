@@ -350,6 +350,161 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validacija',
+        'title'          => 'Pravila validacije',
+        'info'           => 'Provjeravajte vrijednosti polja izvan njihova tipa. Blokirajuća pravila odbijaju spremanje, uvoz ili API zapis; pravila upozorenja ih propuštaju i prijavljuju upozorenje o kvaliteti podataka.',
+        'create-btn'     => 'Dodaj pravilo validacije',
+        'create-success' => 'Pravilo validacije uspješno je stvoreno.',
+        'update-success' => 'Pravilo validacije uspješno je ažurirano.',
+        'delete-success' => 'Pravilo validacije uspješno je izbrisano.',
+
+        'create' => [
+            'title' => 'Dodaj pravilo validacije',
+        ],
+
+        'edit' => [
+            'title' => 'Uredi pravilo validacije',
+        ],
+
+        'form' => [
+            'field'            => 'Polje',
+            'select-field'     => 'Odaberite polje',
+            'type'             => 'Pravilo',
+            'select-type'      => 'Odaberite pravilo',
+            'severity'         => 'Ozbiljnost',
+            'severity-info'    => '„Blokiraj” odbija vrijednosti koje krše pravilo. „Upozori” ih sprema i prijavljuje upozorenje o kvaliteti.',
+            'pattern'          => 'Uzorak',
+            'pattern-info'     => 'Regularni izraz s razdjelnicima, na primjer /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Vrijednost',
+            'min-length'       => 'Minimalna duljina',
+            'max-length'       => 'Maksimalna duljina',
+            'operator'         => 'Usporedba',
+            'other-field'      => 'Uspoređuje se s',
+            'other-field-info' => 'Pravilo je zadovoljeno dok je drugo polje prazno.',
+            'codes'            => 'Dopušteni kodovi',
+            'codes-info'       => 'Jedan kod po retku ili odvojeni zarezima. Vrijednosti se uspoređuju točno.',
+            'after'            => 'Ne prije',
+            'before'           => 'Ne poslije',
+            'date-info'        => 'Datum poput 2020-01-01 ili relativni datum poput today ili -18 years. Ostavite jedno prazno za otvoreni raspon.',
+            'messages'         => 'Poruka o pogrešci',
+            'messages-info'    => 'Prikazuje se kad vrijednost krši pravilo, na jeziku osobe ili API klijenta. Ostavite prazno za zadanu poruku. :attribute označava naziv polja.',
+            'sort-order'       => 'Redoslijed sortiranja',
+            'save-btn'         => 'Spremi pravilo validacije',
+        ],
+
+        'types' => [
+            'regex'        => 'Odgovara uzorku',
+            'min'          => 'Minimalna vrijednost',
+            'max'          => 'Maksimalna vrijednost',
+            'length'       => 'Duljina',
+            'cross_field'  => 'Uspoređeno s drugim poljem',
+            'one_of_codes' => 'Jedan od navedenih kodova',
+            'date_range'   => 'Raspon datuma',
+        ],
+
+        'severities' => [
+            'block' => 'Blokiraj',
+            'warn'  => 'Upozori',
+        ],
+
+        'operators' => [
+            'eq'  => 'jednako',
+            'neq' => 'različito od',
+            'gt'  => 'veće od',
+            'gte' => 'najmanje',
+            'lt'  => 'manje od',
+            'lte' => 'najviše',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute nije valjan.',
+            'regex'        => ':attribute nema očekivani format.',
+            'min'          => ':attribute mora biti najmanje :value.',
+            'max'          => ':attribute mora biti najviše :value.',
+            'length'       => ':attribute mora imati između :min i :max znakova.',
+            'cross_field'  => ':attribute mora biti :operator :field.',
+            'one_of_codes' => ':attribute mora biti jedan od: :codes.',
+            'date_range'   => ':attribute mora biti datum unutar dopuštenog raspona.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Polje',
+            'type'       => 'Pravilo',
+            'severity'   => 'Ozbiljnost',
+            'sort-order' => 'Redoslijed sortiranja',
+            'edit'       => 'Uredi',
+            'delete'     => 'Izbriši',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Tip entiteta može imati najviše :count pravila validacije.',
+            'invalid-date' => 'Unesite datum ili relativni datum poput today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardizacija',
+        'info'           => 'Očistite vrijednosti prije nego što se validiraju i spreme, iz administracije, uvoza i API-ja. Transformacije polja izvršavaju se prema redoslijedu sortiranja.',
+        'create-btn'     => 'Dodaj transformaciju',
+        'create-success' => 'Transformacija je uspješno stvorena.',
+        'update-success' => 'Transformacija je uspješno ažurirana.',
+        'delete-success' => 'Transformacija je uspješno izbrisana.',
+
+        'create' => [
+            'title' => 'Dodaj transformaciju',
+        ],
+
+        'edit' => [
+            'title' => 'Uredi transformaciju',
+        ],
+
+        'form' => [
+            'field'            => 'Polje',
+            'select-field'     => 'Odaberite polje',
+            'transform'        => 'Transformacija',
+            'select-transform' => 'Odaberite transformaciju',
+            'transform-info'   => 'Primjenjuje se samo na tekstualne vrijednosti; ostale vrijednosti ostaju nepromijenjene.',
+            'sort-order'       => 'Redoslijed sortiranja',
+            'sort-order-info'  => 'Transformacije istog polja izvršavaju se od najnižeg redoslijeda sortiranja prema višem.',
+            'save-btn'         => 'Spremi transformaciju',
+        ],
+
+        'types' => [
+            'trim'            => 'Ukloni okolne razmake',
+            'lower'           => 'Mala slova',
+            'upper'           => 'Velika slova',
+            'title'           => 'Velika početna slova',
+            'collapse_spaces' => 'Sažmi ponovljene razmake',
+            'email_normalize' => 'Normaliziraj adresu e-pošte',
+            'phone_e164'      => 'Normaliziraj telefonski broj (E.164)',
+            'strip_non_alnum' => 'Zadrži samo slova i znamenke',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Polje',
+            'transform'  => 'Transformacija',
+            'sort-order' => 'Redoslijed sortiranja',
+            'edit'       => 'Uredi',
+            'delete'     => 'Izbriši',
+        ],
+
+        'validation' => [
+            'taken'    => 'Ovo polje već izvršava ovu transformaciju.',
+            'too-many' => 'Tip entiteta može imati najviše :count transformacija.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Upozorenje validacije',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Pregledaj :type ispod',
     ],

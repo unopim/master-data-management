@@ -5,6 +5,7 @@ namespace Webkul\MasterDataManagement\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\MasterDataManagement\Models\Field;
+use Webkul\MasterDataManagement\Models\FieldTransform;
 
 /**
  * @mixin Field
@@ -12,7 +13,7 @@ use Webkul\MasterDataManagement\Models\Field;
 class FieldResource extends JsonResource
 {
     /**
-     * Transform the field into an array.
+     * Transform the field into an array; its validation rules and transforms, in run order, when loaded.
      *
      * @return array<string, mixed>
      */
@@ -36,6 +37,11 @@ class FieldResource extends JsonResource
             'validation'            => $this->validation ?? (object) [],
             'code_list'             => $this->codeList?->code,
             'reference_entity_type' => $this->referenceEntityType?->code,
+            'validation_rules'      => FieldValidationRuleResource::collection($this->whenLoaded('validationRules')),
+            'transforms'            => $this->whenLoaded('transforms', fn (): array => $this->transforms
+                ->map(fn (FieldTransform $transform): string => (string) $transform->transform)
+                ->values()
+                ->all()),
         ];
     }
 }

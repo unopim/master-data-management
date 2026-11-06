@@ -123,6 +123,46 @@ return [
         'route' => 'admin.masterdata.survivorship_rules.destroy',
         'sort'  => 2,
     ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.validation_rules.index',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.validation_rules.store',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.validation_rules.update',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.validation_rules.destroy',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.field_transforms.index',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.field_transforms.store',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.field_transforms.update',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.field_transforms.destroy',
+        'sort'  => 2,
+    ], [
         'key'  => 'masterdata.entity_types.governance',
         'name' => 'masterdata::app.acl.entity-types.governance',
         'sort' => 4,

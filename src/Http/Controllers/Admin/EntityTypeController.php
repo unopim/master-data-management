@@ -21,6 +21,7 @@ use Webkul\MasterDataManagement\Repositories\RecordRepository;
 use Webkul\MasterDataManagement\Repositories\RoleEntityPermissionRepository;
 use Webkul\MasterDataManagement\Security\EntityTypePermissions;
 use Webkul\MasterDataManagement\Services\EntityTypeFormOptions;
+use Webkul\MasterDataManagement\Services\FieldRuleFormOptions;
 use Webkul\MasterDataManagement\Services\MatchRuleFormOptions;
 use Webkul\MasterDataManagement\Services\SchemaPublisher;
 use Webkul\MasterDataManagement\Services\SurvivorshipRuleFormOptions;
@@ -37,6 +38,7 @@ class EntityTypeController extends Controller
         protected QualityScanner $qualityScanner,
         protected MatchRuleFormOptions $matchRuleFormOptions,
         protected SurvivorshipRuleFormOptions $survivorshipRuleFormOptions,
+        protected FieldRuleFormOptions $fieldRuleFormOptions,
     ) {}
 
     /**
@@ -106,6 +108,10 @@ class EntityTypeController extends Controller
 
         if (request()->has('survivorship')) {
             $data += $this->survivorshipRuleFormOptions->formData($entityType);
+        }
+
+        if (request()->has('validation')) {
+            $data += $this->fieldRuleFormOptions->formData($entityType);
         }
 
         return view('masterdata::entity-types.edit', $data);

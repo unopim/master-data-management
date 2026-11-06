@@ -350,6 +350,161 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Walidacja',
+        'title'          => 'Reguły walidacji',
+        'info'           => 'Sprawdzaj wartości pól poza ich typem. Reguły blokujące odrzucają zapis, import lub zapis przez API; reguły ostrzegawcze przepuszczają go i zgłaszają ostrzeżenie o jakości danych.',
+        'create-btn'     => 'Dodaj regułę walidacji',
+        'create-success' => 'Reguła walidacji została utworzona.',
+        'update-success' => 'Reguła walidacji została zaktualizowana.',
+        'delete-success' => 'Reguła walidacji została usunięta.',
+
+        'create' => [
+            'title' => 'Dodaj regułę walidacji',
+        ],
+
+        'edit' => [
+            'title' => 'Edytuj regułę walidacji',
+        ],
+
+        'form' => [
+            'field'            => 'Pole',
+            'select-field'     => 'Wybierz pole',
+            'type'             => 'Reguła',
+            'select-type'      => 'Wybierz regułę',
+            'severity'         => 'Waga',
+            'severity-info'    => '„Blokuj” odrzuca wartości łamiące regułę. „Ostrzegaj” zapisuje je i zgłasza ostrzeżenie o jakości.',
+            'pattern'          => 'Wzorzec',
+            'pattern-info'     => 'Wyrażenie regularne z ogranicznikami, np. /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Wartość',
+            'min-length'       => 'Minimalna długość',
+            'max-length'       => 'Maksymalna długość',
+            'operator'         => 'Porównanie',
+            'other-field'      => 'Porównywane z',
+            'other-field-info' => 'Reguła jest spełniona, dopóki drugie pole jest puste.',
+            'codes'            => 'Dozwolone kody',
+            'codes-info'       => 'Jeden kod w wierszu lub oddzielone przecinkami. Wartości są porównywane dokładnie.',
+            'after'            => 'Nie wcześniej niż',
+            'before'           => 'Nie później niż',
+            'date-info'        => 'Data, np. 2020-01-01, lub data względna, np. today albo -18 years. Pozostaw jedno puste, aby uzyskać zakres otwarty.',
+            'messages'         => 'Komunikat o błędzie',
+            'messages-info'    => 'Wyświetlany, gdy wartość łamie regułę, w języku danej osoby lub klienta API. Pozostaw puste, aby użyć komunikatu domyślnego. :attribute oznacza nazwę pola.',
+            'sort-order'       => 'Kolejność sortowania',
+            'save-btn'         => 'Zapisz regułę walidacji',
+        ],
+
+        'types' => [
+            'regex'        => 'Pasuje do wzorca',
+            'min'          => 'Wartość minimalna',
+            'max'          => 'Wartość maksymalna',
+            'length'       => 'Długość',
+            'cross_field'  => 'Porównanie z innym polem',
+            'one_of_codes' => 'Jeden z podanych kodów',
+            'date_range'   => 'Zakres dat',
+        ],
+
+        'severities' => [
+            'block' => 'Blokuj',
+            'warn'  => 'Ostrzegaj',
+        ],
+
+        'operators' => [
+            'eq'  => 'równe',
+            'neq' => 'różne od',
+            'gt'  => 'większe niż',
+            'gte' => 'co najmniej równe',
+            'lt'  => 'mniejsze niż',
+            'lte' => 'co najwyżej równe',
+        ],
+
+        'messages' => [
+            'default'      => 'Pole :attribute jest nieprawidłowe.',
+            'regex'        => 'Pole :attribute nie ma oczekiwanego formatu.',
+            'min'          => 'Pole :attribute musi mieć wartość co najmniej :value.',
+            'max'          => 'Pole :attribute musi mieć wartość co najwyżej :value.',
+            'length'       => 'Pole :attribute musi mieć długość od :min do :max znaków.',
+            'cross_field'  => 'Pole :attribute musi być :operator :field.',
+            'one_of_codes' => 'Pole :attribute musi być jednym z: :codes.',
+            'date_range'   => 'Pole :attribute musi zawierać datę z dozwolonego zakresu.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Pole',
+            'type'       => 'Reguła',
+            'severity'   => 'Waga',
+            'sort-order' => 'Kolejność sortowania',
+            'edit'       => 'Edytuj',
+            'delete'     => 'Usuń',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Typ encji może mieć co najwyżej :count reguł walidacji.',
+            'invalid-date' => 'Wpisz datę lub datę względną, np. today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standaryzacja',
+        'info'           => 'Czyść wartości przed ich walidacją i zapisem, zarówno w panelu administracyjnym, podczas importu, jak i w API. Transformacje pola są wykonywane zgodnie z kolejnością sortowania.',
+        'create-btn'     => 'Dodaj transformację',
+        'create-success' => 'Transformacja została utworzona.',
+        'update-success' => 'Transformacja została zaktualizowana.',
+        'delete-success' => 'Transformacja została usunięta.',
+
+        'create' => [
+            'title' => 'Dodaj transformację',
+        ],
+
+        'edit' => [
+            'title' => 'Edytuj transformację',
+        ],
+
+        'form' => [
+            'field'            => 'Pole',
+            'select-field'     => 'Wybierz pole',
+            'transform'        => 'Transformacja',
+            'select-transform' => 'Wybierz transformację',
+            'transform-info'   => 'Dotyczy tylko wartości tekstowych; pozostałe wartości pozostają bez zmian.',
+            'sort-order'       => 'Kolejność sortowania',
+            'sort-order-info'  => 'Transformacje tego samego pola są wykonywane od najniższej kolejności sortowania w górę.',
+            'save-btn'         => 'Zapisz transformację',
+        ],
+
+        'types' => [
+            'trim'            => 'Usuń otaczające spacje',
+            'lower'           => 'Małe litery',
+            'upper'           => 'Wielkie litery',
+            'title'           => 'Wielkie litery na początku wyrazów',
+            'collapse_spaces' => 'Zredukuj powtórzone spacje',
+            'email_normalize' => 'Normalizuj adres e-mail',
+            'phone_e164'      => 'Normalizuj numer telefonu (E.164)',
+            'strip_non_alnum' => 'Zachowaj tylko litery i cyfry',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Pole',
+            'transform'  => 'Transformacja',
+            'sort-order' => 'Kolejność sortowania',
+            'edit'       => 'Edytuj',
+            'delete'     => 'Usuń',
+        ],
+
+        'validation' => [
+            'taken'    => 'To pole ma już przypisaną tę transformację.',
+            'too-many' => 'Typ encji może mieć co najwyżej :count transformacji.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Ostrzeżenie walidacji',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Przeglądaj :type poniżej',
     ],

@@ -5,6 +5,7 @@ namespace Webkul\MasterDataManagement\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Webkul\Core\Eloquent\TranslatableModel;
 use Webkul\HistoryControl\Contracts\HistoryAuditable;
 use Webkul\HistoryControl\Interfaces\PresentableHistoryInterface;
@@ -71,6 +72,22 @@ class Field extends TranslatableModel implements FieldContract, HistoryAuditable
     public function referenceEntityType(): BelongsTo
     {
         return $this->belongsTo(EntityTypeProxy::modelClass(), 'reference_entity_type_id');
+    }
+
+    /**
+     * Get the validation rules checking the field's values, in their sort order.
+     */
+    public function validationRules(): HasMany
+    {
+        return $this->hasMany(FieldValidationRuleProxy::modelClass())->orderBy('sort_order')->orderBy('id');
+    }
+
+    /**
+     * Get the transforms standardizing the field's values, in the order they run.
+     */
+    public function transforms(): HasMany
+    {
+        return $this->hasMany(FieldTransformProxy::modelClass())->orderBy('sort_order')->orderBy('id');
     }
 
     /**

@@ -350,6 +350,161 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => '유효성 검사',
+        'title'          => '유효성 검사 규칙',
+        'info'           => '필드 값을 유형 이상으로 검사합니다. 차단 규칙은 저장, 가져오기, API 쓰기를 거부하고, 경고 규칙은 이를 허용하되 데이터 품질 경고를 발생시킵니다.',
+        'create-btn'     => '유효성 검사 규칙 추가',
+        'create-success' => '유효성 검사 규칙을 만들었습니다.',
+        'update-success' => '유효성 검사 규칙을 업데이트했습니다.',
+        'delete-success' => '유효성 검사 규칙을 삭제했습니다.',
+
+        'create' => [
+            'title' => '유효성 검사 규칙 추가',
+        ],
+
+        'edit' => [
+            'title' => '유효성 검사 규칙 편집',
+        ],
+
+        'form' => [
+            'field'            => '필드',
+            'select-field'     => '필드 선택',
+            'type'             => '규칙',
+            'select-type'      => '규칙 선택',
+            'severity'         => '심각도',
+            'severity-info'    => '"차단"은 규칙을 위반하는 값을 거부합니다. "경고"는 값을 저장하고 품질 경고를 보고합니다.',
+            'pattern'          => '패턴',
+            'pattern-info'     => '구분자가 있는 정규식입니다. 예: /^[A-Z]{2}[0-9]+$/',
+            'value'            => '값',
+            'min-length'       => '최소 길이',
+            'max-length'       => '최대 길이',
+            'operator'         => '비교',
+            'other-field'      => '비교 대상',
+            'other-field-info' => '다른 필드가 비어 있는 동안에는 규칙이 통과됩니다.',
+            'codes'            => '허용 코드',
+            'codes-info'       => '한 줄에 코드 하나 또는 쉼표로 구분합니다. 값은 정확히 일치하는지 비교합니다.',
+            'after'            => '이 날짜 이전 불가',
+            'before'           => '이 날짜 이후 불가',
+            'date-info'        => '2020-01-01 같은 날짜 또는 today, -18 years 같은 상대 날짜를 입력합니다. 한쪽을 비워 두면 열린 범위가 됩니다.',
+            'messages'         => '오류 메시지',
+            'messages-info'    => '값이 규칙을 위반했을 때 사용자 또는 API 클라이언트의 언어로 표시됩니다. 기본 메시지를 사용하려면 비워 두세요. :attribute는 필드 이름을 나타냅니다.',
+            'sort-order'       => '정렬 순서',
+            'save-btn'         => '유효성 검사 규칙 저장',
+        ],
+
+        'types' => [
+            'regex'        => '패턴과 일치',
+            'min'          => '최솟값',
+            'max'          => '최댓값',
+            'length'       => '길이',
+            'cross_field'  => '다른 필드와 비교',
+            'one_of_codes' => '나열된 코드 중 하나',
+            'date_range'   => '날짜 범위',
+        ],
+
+        'severities' => [
+            'block' => '차단',
+            'warn'  => '경고',
+        ],
+
+        'operators' => [
+            'eq'  => '같아야',
+            'neq' => '달라야',
+            'gt'  => '커야',
+            'gte' => '이상이어야',
+            'lt'  => '작아야',
+            'lte' => '이하여야',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute 값이 올바르지 않습니다.',
+            'regex'        => ':attribute 형식이 올바르지 않습니다.',
+            'min'          => ':attribute 값은 :value 이상이어야 합니다.',
+            'max'          => ':attribute 값은 :value 이하여야 합니다.',
+            'length'       => ':attribute 길이는 :min자에서 :max자 사이여야 합니다.',
+            'cross_field'  => ':attribute 값은 :field 값과 비교하여 :operator 합니다.',
+            'one_of_codes' => ':attribute 값은 다음 중 하나여야 합니다: :codes.',
+            'date_range'   => ':attribute 값은 허용된 범위 내의 날짜여야 합니다.',
+        ],
+
+        'datagrid' => [
+            'field'      => '필드',
+            'type'       => '규칙',
+            'severity'   => '심각도',
+            'sort-order' => '정렬 순서',
+            'edit'       => '편집',
+            'delete'     => '삭제',
+        ],
+
+        'validation' => [
+            'too-many'     => '엔터티 유형에는 유효성 검사 규칙을 최대 :count개까지 설정할 수 있습니다.',
+            'invalid-date' => '날짜 또는 today 같은 상대 날짜를 입력하세요.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => '표준화',
+        'info'           => '값을 검증하고 저장하기 전에 관리자 화면, 가져오기, API 어디에서든 정리합니다. 필드의 변환은 정렬 순서대로 실행됩니다.',
+        'create-btn'     => '변환 추가',
+        'create-success' => '변환을 만들었습니다.',
+        'update-success' => '변환을 업데이트했습니다.',
+        'delete-success' => '변환을 삭제했습니다.',
+
+        'create' => [
+            'title' => '변환 추가',
+        ],
+
+        'edit' => [
+            'title' => '변환 편집',
+        ],
+
+        'form' => [
+            'field'            => '필드',
+            'select-field'     => '필드 선택',
+            'transform'        => '변환',
+            'select-transform' => '변환 선택',
+            'transform-info'   => '텍스트 값에만 적용되며, 다른 값은 그대로 유지됩니다.',
+            'sort-order'       => '정렬 순서',
+            'sort-order-info'  => '같은 필드의 변환은 정렬 순서가 낮은 것부터 실행됩니다.',
+            'save-btn'         => '변환 저장',
+        ],
+
+        'types' => [
+            'trim'            => '앞뒤 공백 제거',
+            'lower'           => '소문자',
+            'upper'           => '대문자',
+            'title'           => '각 단어의 첫 글자를 대문자로',
+            'collapse_spaces' => '반복된 공백 합치기',
+            'email_normalize' => '이메일 주소 정규화',
+            'phone_e164'      => '전화번호 정규화(E.164)',
+            'strip_non_alnum' => '문자와 숫자만 남기기',
+        ],
+
+        'datagrid' => [
+            'field'      => '필드',
+            'transform'  => '변환',
+            'sort-order' => '정렬 순서',
+            'edit'       => '편집',
+            'delete'     => '삭제',
+        ],
+
+        'validation' => [
+            'taken'    => '이 필드는 이미 이 변환을 실행하고 있습니다.',
+            'too-many' => '엔터티 유형에는 변환을 최대 :count개까지 설정할 수 있습니다.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => '유효성 검사 경고',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => '하위 :type 둘러보기',
     ],

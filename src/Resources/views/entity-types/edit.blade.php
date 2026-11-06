@@ -6,12 +6,13 @@
         request()->has('relations')   => 'relations',
         request()->has('matching')    => 'matching',
         request()->has('survivorship') => 'survivorship',
+        request()->has('validation')   => 'validation',
         default                       => 'general',
     };
 
     $saveForm = $activeTab === 'permissions' ? 'entity-type-permissions-form' : 'entity-type-edit-form';
 
-    $hasSaveButton = ! in_array($activeTab, ['history', 'fields', 'relations', 'matching', 'survivorship'], true);
+    $hasSaveButton = ! in_array($activeTab, ['history', 'fields', 'relations', 'matching', 'survivorship', 'validation'], true);
 @endphp
 
 <x-admin::layouts.with-history
@@ -43,6 +44,11 @@
             'key'   => 'survivorship',
             'url'   => route('admin.masterdata.entity_types.edit', ['id' => $entityType->id, 'survivorship' => 1]),
             'label' => 'masterdata::app.survivorship-rules.tab',
+        ],
+        [
+            'key'   => 'validation',
+            'url'   => route('admin.masterdata.entity_types.edit', ['id' => $entityType->id, 'validation' => 1]),
+            'label' => 'masterdata::app.validation-rules.tab',
         ],
         [
             'key'   => 'permissions',
@@ -106,6 +112,12 @@
 
         @if ($activeTab === 'survivorship')
             @include('masterdata::entity-types.survivorship-rules._tab')
+        @endif
+
+        @if ($activeTab === 'validation')
+            @include('masterdata::entity-types.validation-rules._tab')
+
+            @include('masterdata::entity-types.field-transforms._tab')
         @endif
 
         @if ($activeTab === 'permissions')

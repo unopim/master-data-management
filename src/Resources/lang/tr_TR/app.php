@@ -350,6 +350,161 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Doğrulama',
+        'title'          => 'Doğrulama Kuralları',
+        'info'           => 'Alan değerlerini türlerinin ötesinde denetleyin. Engelleyen kurallar bir kaydı, içe aktarmayı veya API yazmasını reddeder; uyarı kuralları ise buna izin verir ve veri kalitesi uyarısı oluşturur.',
+        'create-btn'     => 'Doğrulama Kuralı Ekle',
+        'create-success' => 'Doğrulama kuralı başarıyla oluşturuldu.',
+        'update-success' => 'Doğrulama kuralı başarıyla güncellendi.',
+        'delete-success' => 'Doğrulama kuralı başarıyla silindi.',
+
+        'create' => [
+            'title' => 'Doğrulama Kuralı Ekle',
+        ],
+
+        'edit' => [
+            'title' => 'Doğrulama Kuralını Düzenle',
+        ],
+
+        'form' => [
+            'field'            => 'Alan',
+            'select-field'     => 'Bir alan seçin',
+            'type'             => 'Kural',
+            'select-type'      => 'Bir kural seçin',
+            'severity'         => 'Önem Derecesi',
+            'severity-info'    => '"Engelle", kuralı ihlal eden değerleri reddeder. "Uyar", bunları kaydeder ve bir kalite uyarısı bildirir.',
+            'pattern'          => 'Desen',
+            'pattern-info'     => 'Sınırlayıcılı bir düzenli ifade, örneğin /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Değer',
+            'min-length'       => 'Minimum Uzunluk',
+            'max-length'       => 'Maksimum Uzunluk',
+            'operator'         => 'Karşılaştırma',
+            'other-field'      => 'Karşılaştırılan Alan',
+            'other-field-info' => 'Diğer alan boş olduğu sürece kural geçerli sayılır.',
+            'codes'            => 'İzin Verilen Kodlar',
+            'codes-info'       => 'Her satıra bir kod veya virgülle ayrılmış. Değerler birebir karşılaştırılır.',
+            'after'            => 'Bundan Önce Olmasın',
+            'before'           => 'Bundan Sonra Olmasın',
+            'date-info'        => '2020-01-01 gibi bir tarih veya today ya da -18 years gibi göreli bir tarih. Açık aralık için birini boş bırakın.',
+            'messages'         => 'Hata Mesajı',
+            'messages-info'    => 'Bir değer kuralı ihlal ettiğinde, kişinin veya API istemcisinin dilinde gösterilir. Varsayılan mesaj için boş bırakın. :attribute alan adını temsil eder.',
+            'sort-order'       => 'Sıralama',
+            'save-btn'         => 'Doğrulama Kuralını Kaydet',
+        ],
+
+        'types' => [
+            'regex'        => 'Desenle eşleşir',
+            'min'          => 'Minimum değer',
+            'max'          => 'Maksimum değer',
+            'length'       => 'Uzunluk',
+            'cross_field'  => 'Başka bir alanla karşılaştırma',
+            'one_of_codes' => 'Listelenen kodlardan biri',
+            'date_range'   => 'Tarih aralığı',
+        ],
+
+        'severities' => [
+            'block' => 'Engelle',
+            'warn'  => 'Uyar',
+        ],
+
+        'operators' => [
+            'eq'  => 'eşit',
+            'neq' => 'farklı',
+            'gt'  => 'daha büyük',
+            'gte' => 'en az eşit',
+            'lt'  => 'daha küçük',
+            'lte' => 'en fazla eşit',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute geçerli değil.',
+            'regex'        => ':attribute beklenen biçimde değil.',
+            'min'          => ':attribute en az :value olmalıdır.',
+            'max'          => ':attribute en fazla :value olmalıdır.',
+            'length'       => ':attribute uzunluğu :min ile :max karakter arasında olmalıdır.',
+            'cross_field'  => ':attribute, :field alanının değeriyle karşılaştırıldığında :operator olmalıdır.',
+            'one_of_codes' => ':attribute şunlardan biri olmalıdır: :codes.',
+            'date_range'   => ':attribute izin verilen aralıkta bir tarih olmalıdır.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Alan',
+            'type'       => 'Kural',
+            'severity'   => 'Önem Derecesi',
+            'sort-order' => 'Sıralama',
+            'edit'       => 'Düzenle',
+            'delete'     => 'Sil',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Bir varlık türü en fazla :count doğrulama kuralına sahip olabilir.',
+            'invalid-date' => 'Bir tarih veya today gibi göreli bir tarih girin.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standartlaştırma',
+        'info'           => 'Değerleri doğrulanmadan ve kaydedilmeden önce yönetim panelinden, içe aktarmalardan ve API\'den temizleyin. Bir alanın dönüşümleri sıralama düzenine göre çalışır.',
+        'create-btn'     => 'Dönüşüm Ekle',
+        'create-success' => 'Dönüşüm başarıyla oluşturuldu.',
+        'update-success' => 'Dönüşüm başarıyla güncellendi.',
+        'delete-success' => 'Dönüşüm başarıyla silindi.',
+
+        'create' => [
+            'title' => 'Dönüşüm Ekle',
+        ],
+
+        'edit' => [
+            'title' => 'Dönüşümü Düzenle',
+        ],
+
+        'form' => [
+            'field'            => 'Alan',
+            'select-field'     => 'Bir alan seçin',
+            'transform'        => 'Dönüşüm',
+            'select-transform' => 'Bir dönüşüm seçin',
+            'transform-info'   => 'Yalnızca metin değerlerine uygulanır; diğer değerler olduğu gibi bırakılır.',
+            'sort-order'       => 'Sıralama',
+            'sort-order-info'  => 'Aynı alanın dönüşümleri en düşük sıradan başlayarak çalışır.',
+            'save-btn'         => 'Dönüşümü Kaydet',
+        ],
+
+        'types' => [
+            'trim'            => 'Baştaki ve sondaki boşlukları kırp',
+            'lower'           => 'Küçük harf',
+            'upper'           => 'Büyük harf',
+            'title'           => 'Başlık biçimi',
+            'collapse_spaces' => 'Tekrarlanan boşlukları birleştir',
+            'email_normalize' => 'E-posta adresini normalleştir',
+            'phone_e164'      => 'Telefon numarasını normalleştir (E.164)',
+            'strip_non_alnum' => 'Yalnızca harf ve rakamları tut',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Alan',
+            'transform'  => 'Dönüşüm',
+            'sort-order' => 'Sıralama',
+            'edit'       => 'Düzenle',
+            'delete'     => 'Sil',
+        ],
+
+        'validation' => [
+            'taken'    => 'Bu alan bu dönüşümü zaten çalıştırıyor.',
+            'too-many' => 'Bir varlık türü en fazla :count dönüşüme sahip olabilir.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Doğrulama uyarısı',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Alttaki :type kayıtlarına göz at',
     ],

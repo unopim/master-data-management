@@ -15,7 +15,9 @@ use Webkul\MasterDataManagement\Models\EntityType;
 use Webkul\MasterDataManagement\Models\EntityTypeTranslation;
 use Webkul\MasterDataManagement\Models\EntityTypeVersion;
 use Webkul\MasterDataManagement\Models\Field;
+use Webkul\MasterDataManagement\Models\FieldTransform;
 use Webkul\MasterDataManagement\Models\FieldTranslation;
+use Webkul\MasterDataManagement\Models\FieldValidationRule;
 use Webkul\MasterDataManagement\Models\Icon;
 use Webkul\MasterDataManagement\Models\IdempotencyKey;
 use Webkul\MasterDataManagement\Models\MatchCandidate;
@@ -46,7 +48,9 @@ class ModuleServiceProvider extends CoreModuleServiceProvider
         EntityTypeTranslation::class,
         EntityTypeVersion::class,
         Field::class,
+        FieldTransform::class,
         FieldTranslation::class,
+        FieldValidationRule::class,
         Icon::class,
         IdempotencyKey::class,
         MatchCandidate::class,

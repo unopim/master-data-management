@@ -350,6 +350,161 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => '验证',
+        'title'          => '验证规则',
+        'info'           => '在类型之外进一步检查字段值。阻止规则会拒绝保存、导入或 API 写入；警告规则会放行，并产生数据质量警告。',
+        'create-btn'     => '添加验证规则',
+        'create-success' => '验证规则创建成功。',
+        'update-success' => '验证规则更新成功。',
+        'delete-success' => '验证规则删除成功。',
+
+        'create' => [
+            'title' => '添加验证规则',
+        ],
+
+        'edit' => [
+            'title' => '编辑验证规则',
+        ],
+
+        'form' => [
+            'field'            => '字段',
+            'select-field'     => '选择字段',
+            'type'             => '规则',
+            'select-type'      => '选择规则',
+            'severity'         => '严重程度',
+            'severity-info'    => '“阻止”会拒绝违反规则的值。“警告”会保存这些值并报告质量警告。',
+            'pattern'          => '模式',
+            'pattern-info'     => '带分隔符的正则表达式，例如 /^[A-Z]{2}[0-9]+$/。',
+            'value'            => '值',
+            'min-length'       => '最小长度',
+            'max-length'       => '最大长度',
+            'operator'         => '比较方式',
+            'other-field'      => '比较对象',
+            'other-field-info' => '当另一个字段为空时，规则视为通过。',
+            'codes'            => '允许的代码',
+            'codes-info'       => '每行一个代码，或用逗号分隔。值按完全匹配进行比较。',
+            'after'            => '不早于',
+            'before'           => '不晚于',
+            'date-info'        => '日期，如 2020-01-01，或相对日期，如 today 或 -18 years。留空其中一项可得到开放区间。',
+            'messages'         => '错误消息',
+            'messages-info'    => '当值违反规则时，以用户或 API 客户端的语言显示。留空则使用默认消息。:attribute 代表字段名称。',
+            'sort-order'       => '排序',
+            'save-btn'         => '保存验证规则',
+        ],
+
+        'types' => [
+            'regex'        => '匹配模式',
+            'min'          => '最小值',
+            'max'          => '最大值',
+            'length'       => '长度',
+            'cross_field'  => '与另一个字段比较',
+            'one_of_codes' => '所列代码之一',
+            'date_range'   => '日期范围',
+        ],
+
+        'severities' => [
+            'block' => '阻止',
+            'warn'  => '警告',
+        ],
+
+        'operators' => [
+            'eq'  => '等于',
+            'neq' => '不等于',
+            'gt'  => '大于',
+            'gte' => '大于或等于',
+            'lt'  => '小于',
+            'lte' => '小于或等于',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute 无效。',
+            'regex'        => ':attribute 的格式不正确。',
+            'min'          => ':attribute 必须至少为 :value。',
+            'max'          => ':attribute 必须至多为 :value。',
+            'length'       => ':attribute 的长度必须在 :min 到 :max 个字符之间。',
+            'cross_field'  => ':attribute 必须 :operator :field。',
+            'one_of_codes' => ':attribute 必须是以下之一：:codes。',
+            'date_range'   => ':attribute 必须是允许范围内的日期。',
+        ],
+
+        'datagrid' => [
+            'field'      => '字段',
+            'type'       => '规则',
+            'severity'   => '严重程度',
+            'sort-order' => '排序',
+            'edit'       => '编辑',
+            'delete'     => '删除',
+        ],
+
+        'validation' => [
+            'too-many'     => '一个实体类型最多可以有 :count 条验证规则。',
+            'invalid-date' => '请输入日期或相对日期，如 today。',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => '标准化',
+        'info'           => '在值被验证和保存之前对其进行清理，无论来自管理后台、导入还是 API。字段的转换按排序顺序执行。',
+        'create-btn'     => '添加转换',
+        'create-success' => '转换创建成功。',
+        'update-success' => '转换更新成功。',
+        'delete-success' => '转换删除成功。',
+
+        'create' => [
+            'title' => '添加转换',
+        ],
+
+        'edit' => [
+            'title' => '编辑转换',
+        ],
+
+        'form' => [
+            'field'            => '字段',
+            'select-field'     => '选择字段',
+            'transform'        => '转换',
+            'select-transform' => '选择转换',
+            'transform-info'   => '仅适用于文本值；其他值保持不变。',
+            'sort-order'       => '排序',
+            'sort-order-info'  => '同一字段的转换按排序从小到大依次执行。',
+            'save-btn'         => '保存转换',
+        ],
+
+        'types' => [
+            'trim'            => '去除首尾空格',
+            'lower'           => '小写',
+            'upper'           => '大写',
+            'title'           => '首字母大写',
+            'collapse_spaces' => '合并重复空格',
+            'email_normalize' => '规范化电子邮件地址',
+            'phone_e164'      => '规范化电话号码 (E.164)',
+            'strip_non_alnum' => '仅保留字母和数字',
+        ],
+
+        'datagrid' => [
+            'field'      => '字段',
+            'transform'  => '转换',
+            'sort-order' => '排序',
+            'edit'       => '编辑',
+            'delete'     => '删除',
+        ],
+
+        'validation' => [
+            'taken'    => '该字段已应用此转换。',
+            'too-many' => '一个实体类型最多可以有 :count 个转换。',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => '验证警告',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => '浏览下级:type',
     ],

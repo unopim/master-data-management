@@ -14,6 +14,7 @@ use Webkul\MasterDataManagement\Models\Field;
 use Webkul\MasterDataManagement\Models\FieldProxy;
 use Webkul\MasterDataManagement\Repositories\FieldRepository;
 use Webkul\MasterDataManagement\Repositories\RelationRepository;
+use Webkul\MasterDataManagement\Rules\CompilableRegex;
 use Webkul\MasterDataManagement\Services\SchemaPublisher;
 
 class FieldRequest extends FormRequest
@@ -103,7 +104,7 @@ class FieldRequest extends FormRequest
             ],
             'validation'            => ['nullable', 'array:'.implode(',', self::VALIDATION_KEYS)],
             'validation.type'       => ['nullable', Rule::in(ValidationTypes::VALIDATION_TYPES)],
-            'validation.regex'      => ['nullable', 'required_if:validation.type,regex', 'string', 'max:255', $this->compilesRegex(...)],
+            'validation.regex'      => ['nullable', 'required_if:validation.type,regex', 'string', 'max:255', new CompilableRegex],
             'validation.min'        => ['nullable', 'numeric'],
             'validation.max'        => ['nullable', 'numeric'],
             'validation.max_length' => ['nullable', 'integer', 'min:1', 'max:65535'],
@@ -230,15 +231,5 @@ class FieldRequest extends FormRequest
                 $fail('masterdata::app.fields.validation.reference-locked')->translate();
             }
         };
-    }
-
-    /**
-     * Fail unless the value compiles as a PCRE pattern.
-     */
-    protected function compilesRegex(string $attribute, mixed $value, Closure $fail): void
-    {
-        if (is_string($value) && @preg_match($value, '') === false) {
-            $fail('masterdata::app.fields.validation.invalid-regex')->translate();
-        }
     }
 }

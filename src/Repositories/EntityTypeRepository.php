@@ -127,8 +127,8 @@ class EntityTypeRepository extends Repository
     }
 
     /**
-     * Entity types of any status with their names and active fields (labels, code list and reference type loaded),
-     * in display order, for the REST schema endpoints.
+     * Entity types of any status with their names and active fields (labels, code list, reference type, validation
+     * rules and transforms loaded), in display order, for the REST schema endpoints.
      *
      * @param  list<int>|null  $ids  Limit the list to these types; null lists every type.
      * @return Collection<int, EntityTypeModel>
@@ -142,6 +142,8 @@ class EntityTypeRepository extends Repository
                 'fields.translations',
                 'fields.codeList:id,code',
                 'fields.referenceEntityType:id,code',
+                'fields.validationRules',
+                'fields.transforms',
                 'matchRules',
                 'survivorshipRules',
             ])

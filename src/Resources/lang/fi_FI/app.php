@@ -350,6 +350,161 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validointi',
+        'title'          => 'Validointisäännöt',
+        'info'           => 'Tarkista kenttien arvoja tyyppiä tarkemmin. Estävät säännöt hylkäävät tallennuksen, tuonnin tai API-kirjoituksen; varoitussäännöt päästävät sen läpi ja nostavat esiin tietojen laatua koskevan varoituksen.',
+        'create-btn'     => 'Lisää validointisääntö',
+        'create-success' => 'Validointisääntö luotu.',
+        'update-success' => 'Validointisääntö päivitetty.',
+        'delete-success' => 'Validointisääntö poistettu.',
+
+        'create' => [
+            'title' => 'Lisää validointisääntö',
+        ],
+
+        'edit' => [
+            'title' => 'Muokkaa validointisääntöä',
+        ],
+
+        'form' => [
+            'field'            => 'Kenttä',
+            'select-field'     => 'Valitse kenttä',
+            'type'             => 'Sääntö',
+            'select-type'      => 'Valitse sääntö',
+            'severity'         => 'Vakavuus',
+            'severity-info'    => '”Estä” hylkää säännön rikkovat arvot. ”Varoita” tallentaa ne ja ilmoittaa laatuvaroituksen.',
+            'pattern'          => 'Kaava',
+            'pattern-info'     => 'Säännöllinen lauseke erottimineen, esimerkiksi /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Arvo',
+            'min-length'       => 'Vähimmäispituus',
+            'max-length'       => 'Enimmäispituus',
+            'operator'         => 'Vertailu',
+            'other-field'      => 'Verrataan kenttään',
+            'other-field-info' => 'Sääntö täyttyy, kun toinen kenttä on tyhjä.',
+            'codes'            => 'Sallitut koodit',
+            'codes-info'       => 'Yksi koodi riviä kohden tai pilkuilla erotettuina. Arvot verrataan täsmälleen.',
+            'after'            => 'Ei ennen',
+            'before'           => 'Ei jälkeen',
+            'date-info'        => 'Päivämäärä, kuten 2020-01-01, tai suhteellinen päivämäärä, kuten today tai -18 years. Jätä toinen tyhjäksi avoimen välin saamiseksi.',
+            'messages'         => 'Virheilmoitus',
+            'messages-info'    => 'Näytetään, kun arvo rikkoo säännön, henkilön tai API-asiakkaan kielellä. Jätä tyhjäksi oletusilmoitusta varten. :attribute tarkoittaa kentän nimeä.',
+            'sort-order'       => 'Lajittelujärjestys',
+            'save-btn'         => 'Tallenna validointisääntö',
+        ],
+
+        'types' => [
+            'regex'        => 'Vastaa kaavaa',
+            'min'          => 'Vähimmäisarvo',
+            'max'          => 'Enimmäisarvo',
+            'length'       => 'Pituus',
+            'cross_field'  => 'Verrattu toiseen kenttään',
+            'one_of_codes' => 'Yksi luetelluista koodeista',
+            'date_range'   => 'Päivämääräväli',
+        ],
+
+        'severities' => [
+            'block' => 'Estä',
+            'warn'  => 'Varoita',
+        ],
+
+        'operators' => [
+            'eq'  => 'yhtä suuri kuin',
+            'neq' => 'eri kuin',
+            'gt'  => 'suurempi kuin',
+            'gte' => 'vähintään',
+            'lt'  => 'pienempi kuin',
+            'lte' => 'enintään',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute ei kelpaa.',
+            'regex'        => ':attribute ei ole odotetussa muodossa.',
+            'min'          => ':attribute on oltava vähintään :value.',
+            'max'          => ':attribute saa olla enintään :value.',
+            'length'       => ':attribute on oltava :min–:max merkkiä pitkä.',
+            'cross_field'  => ':attribute on oltava :operator :field.',
+            'one_of_codes' => ':attribute on oltava jokin seuraavista: :codes.',
+            'date_range'   => ':attribute on oltava sallitulla välillä oleva päivämäärä.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Kenttä',
+            'type'       => 'Sääntö',
+            'severity'   => 'Vakavuus',
+            'sort-order' => 'Lajittelujärjestys',
+            'edit'       => 'Muokkaa',
+            'delete'     => 'Poista',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Entiteettityypillä voi olla enintään :count validointisääntöä.',
+            'invalid-date' => 'Anna päivämäärä tai suhteellinen päivämäärä, kuten today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardointi',
+        'info'           => 'Siivoa arvot ennen niiden validointia ja tallennusta niin hallinnasta, tuonneista kuin rajapinnasta. Kentän muunnokset suoritetaan lajittelujärjestyksessä.',
+        'create-btn'     => 'Lisää muunnos',
+        'create-success' => 'Muunnos luotu.',
+        'update-success' => 'Muunnos päivitetty.',
+        'delete-success' => 'Muunnos poistettu.',
+
+        'create' => [
+            'title' => 'Lisää muunnos',
+        ],
+
+        'edit' => [
+            'title' => 'Muokkaa muunnosta',
+        ],
+
+        'form' => [
+            'field'            => 'Kenttä',
+            'select-field'     => 'Valitse kenttä',
+            'transform'        => 'Muunnos',
+            'select-transform' => 'Valitse muunnos',
+            'transform-info'   => 'Koskee vain tekstiarvoja; muut arvot jätetään ennalleen.',
+            'sort-order'       => 'Lajittelujärjestys',
+            'sort-order-info'  => 'Saman kentän muunnokset suoritetaan pienimmästä lajittelujärjestyksestä ylöspäin.',
+            'save-btn'         => 'Tallenna muunnos',
+        ],
+
+        'types' => [
+            'trim'            => 'Poista ympäröivät välilyönnit',
+            'lower'           => 'Pienet kirjaimet',
+            'upper'           => 'Isot kirjaimet',
+            'title'           => 'Isot alkukirjaimet',
+            'collapse_spaces' => 'Tiivistä toistuvat välilyönnit',
+            'email_normalize' => 'Normalisoi sähköpostiosoite',
+            'phone_e164'      => 'Normalisoi puhelinnumero (E.164)',
+            'strip_non_alnum' => 'Säilytä vain kirjaimet ja numerot',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Kenttä',
+            'transform'  => 'Muunnos',
+            'sort-order' => 'Lajittelujärjestys',
+            'edit'       => 'Muokkaa',
+            'delete'     => 'Poista',
+        ],
+
+        'validation' => [
+            'taken'    => 'Tämä kenttä suorittaa jo tämän muunnoksen.',
+            'too-many' => 'Entiteettityypillä voi olla enintään :count muunnosta.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Validointivaroitus',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Selaa alla olevia (:type)',
     ],

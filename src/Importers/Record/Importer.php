@@ -31,6 +31,7 @@ use Webkul\MasterDataManagement\Services\FieldRuleBuilder;
 use Webkul\MasterDataManagement\Services\HierarchyService;
 use Webkul\MasterDataManagement\Services\RecordWriter;
 use Webkul\MasterDataManagement\Services\XrefWriter;
+use Webkul\MasterDataManagement\Standardization\FieldTransformer;
 use Webkul\MasterDataManagement\ValueObjects\RecordWriteResult;
 use Webkul\MasterDataManagement\ValueObjects\SourceContext;
 use Webkul\User\Repositories\AdminRepository;
@@ -110,6 +111,7 @@ class Importer extends MasterDataImporter
         protected XrefWriter $xrefWriter,
         protected Storage $storage,
         protected CellReader $cellReader,
+        protected FieldTransformer $fieldTransformer,
     ) {
         parent::__construct($importBatchRepository, $adminRepository);
     }
@@ -229,7 +231,8 @@ class Importer extends MasterDataImporter
     }
 
     /**
-     * Check the record columns and each field value against its field type, after alias resolution.
+     * Check the record columns and each field value against its field type, after alias resolution and the field's
+     * transforms.
      *
      * Uniqueness, required values and references are checked by the record writer when the row is imported.
      */
@@ -263,7 +266,7 @@ class Importer extends MasterDataImporter
             $label = is_string($field->label) && $field->label !== '' ? $field->label : $field->code;
 
             $validator = Validator::make(
-                ['value' => $this->cellReader->read($field, $raw)],
+                ['value' => $this->fieldTransformer->transformValue($field, $this->cellReader->read($field, $raw))],
                 ['value' => ['nullable', ...$this->fieldTypeRegistry->get($field->type)->rules($field)]],
                 [],
                 ['value' => $label],

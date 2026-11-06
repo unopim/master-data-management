@@ -350,6 +350,161 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validare',
+        'title'          => 'Reguli de validare',
+        'info'           => 'Verificați valorile câmpurilor dincolo de tipul lor. Regulile de blocare refuză o salvare, un import sau o scriere prin API; regulile de avertizare le lasă să treacă și generează un avertisment privind calitatea datelor.',
+        'create-btn'     => 'Adăugați o regulă de validare',
+        'create-success' => 'Regula de validare a fost creată cu succes.',
+        'update-success' => 'Regula de validare a fost actualizată cu succes.',
+        'delete-success' => 'Regula de validare a fost ștearsă cu succes.',
+
+        'create' => [
+            'title' => 'Adăugați o regulă de validare',
+        ],
+
+        'edit' => [
+            'title' => 'Editați regula de validare',
+        ],
+
+        'form' => [
+            'field'            => 'Câmp',
+            'select-field'     => 'Selectați un câmp',
+            'type'             => 'Regulă',
+            'select-type'      => 'Selectați o regulă',
+            'severity'         => 'Severitate',
+            'severity-info'    => '„Blocare” refuză valorile care încalcă regula. „Avertizare” le salvează și raportează un avertisment de calitate.',
+            'pattern'          => 'Model',
+            'pattern-info'     => 'O expresie regulată cu delimitatori, de exemplu /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Valoare',
+            'min-length'       => 'Lungime minimă',
+            'max-length'       => 'Lungime maximă',
+            'operator'         => 'Comparație',
+            'other-field'      => 'Comparat cu',
+            'other-field-info' => 'Regula este respectată cât timp celălalt câmp este gol.',
+            'codes'            => 'Coduri permise',
+            'codes-info'       => 'Un cod pe linie sau separate prin virgulă. Valorile sunt comparate exact.',
+            'after'            => 'Nu înainte de',
+            'before'           => 'Nu după',
+            'date-info'        => 'O dată precum 2020-01-01 sau o dată relativă precum today sau -18 years. Lăsați unul gol pentru un interval deschis.',
+            'messages'         => 'Mesaj de eroare',
+            'messages-info'    => 'Afișat când o valoare încalcă regula, în limba persoanei sau a clientului API. Lăsați gol pentru mesajul implicit. :attribute reprezintă numele câmpului.',
+            'sort-order'       => 'Ordine de sortare',
+            'save-btn'         => 'Salvați regula de validare',
+        ],
+
+        'types' => [
+            'regex'        => 'Se potrivește cu modelul',
+            'min'          => 'Valoare minimă',
+            'max'          => 'Valoare maximă',
+            'length'       => 'Lungime',
+            'cross_field'  => 'Comparat cu alt câmp',
+            'one_of_codes' => 'Unul dintre codurile listate',
+            'date_range'   => 'Interval de date',
+        ],
+
+        'severities' => [
+            'block' => 'Blocare',
+            'warn'  => 'Avertizare',
+        ],
+
+        'operators' => [
+            'eq'  => 'egal cu',
+            'neq' => 'diferit de',
+            'gt'  => 'mai mare decât',
+            'gte' => 'cel puțin',
+            'lt'  => 'mai mic decât',
+            'lte' => 'cel mult',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute nu este valid.',
+            'regex'        => ':attribute nu are formatul așteptat.',
+            'min'          => ':attribute trebuie să fie cel puțin :value.',
+            'max'          => ':attribute trebuie să fie cel mult :value.',
+            'length'       => ':attribute trebuie să aibă între :min și :max caractere.',
+            'cross_field'  => ':attribute trebuie să fie :operator :field.',
+            'one_of_codes' => ':attribute trebuie să fie unul dintre: :codes.',
+            'date_range'   => ':attribute trebuie să fie o dată din intervalul permis.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Câmp',
+            'type'       => 'Regulă',
+            'severity'   => 'Severitate',
+            'sort-order' => 'Ordine de sortare',
+            'edit'       => 'Editați',
+            'delete'     => 'Ștergeți',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Un tip de entitate poate avea cel mult :count reguli de validare.',
+            'invalid-date' => 'Introduceți o dată sau o dată relativă precum today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardizare',
+        'info'           => 'Curățați valorile înainte de a fi validate și salvate, din administrare, din importuri și din API. Transformările unui câmp rulează în ordinea de sortare.',
+        'create-btn'     => 'Adăugați o transformare',
+        'create-success' => 'Transformarea a fost creată cu succes.',
+        'update-success' => 'Transformarea a fost actualizată cu succes.',
+        'delete-success' => 'Transformarea a fost ștearsă cu succes.',
+
+        'create' => [
+            'title' => 'Adăugați o transformare',
+        ],
+
+        'edit' => [
+            'title' => 'Editați transformarea',
+        ],
+
+        'form' => [
+            'field'            => 'Câmp',
+            'select-field'     => 'Selectați un câmp',
+            'transform'        => 'Transformare',
+            'select-transform' => 'Selectați o transformare',
+            'transform-info'   => 'Se aplică doar valorilor text; celelalte valori rămân neschimbate.',
+            'sort-order'       => 'Ordine de sortare',
+            'sort-order-info'  => 'Transformările aceluiași câmp rulează de la cea mai mică ordine de sortare în sus.',
+            'save-btn'         => 'Salvați transformarea',
+        ],
+
+        'types' => [
+            'trim'            => 'Elimină spațiile de la capete',
+            'lower'           => 'Litere mici',
+            'upper'           => 'Litere mari',
+            'title'           => 'Prima literă majusculă la fiecare cuvânt',
+            'collapse_spaces' => 'Reduce spațiile repetate',
+            'email_normalize' => 'Normalizează adresa de e-mail',
+            'phone_e164'      => 'Normalizează numărul de telefon (E.164)',
+            'strip_non_alnum' => 'Păstrează doar litere și cifre',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Câmp',
+            'transform'  => 'Transformare',
+            'sort-order' => 'Ordine de sortare',
+            'edit'       => 'Editați',
+            'delete'     => 'Ștergeți',
+        ],
+
+        'validation' => [
+            'taken'    => 'Acest câmp rulează deja această transformare.',
+            'too-many' => 'Un tip de entitate poate avea cel mult :count transformări.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Avertisment de validare',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Răsfoiește :type de dedesubt',
     ],
