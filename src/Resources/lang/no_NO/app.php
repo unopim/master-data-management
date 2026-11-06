@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Slett permanent',
         ],
+
+        'entity-types' => [
+            'templates' => 'Installer maler',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Kjører migreringene for stamdata.',
         'demo'      => 'Installerer demodata for produksjon.',
         'done'      => 'Stamdatahåndtering er installert. Aktive moduler: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Installer mal',
+        'title'           => 'Installer domenemal',
+        'info'            => 'Legger til entitetstyper, felt og delte kodelister for et forretningsdomene, for eksempel kunder eller leverandører. Alt som allerede finnes, beholdes, så å installere en mal på nytt endrer ingenting.',
+        'template'        => 'Mal',
+        'label'           => 'Navn',
+        'select-template' => 'Velg en mal',
+        'with-samples'    => 'Legg til eksempelposter',
+        'save-btn'        => 'Installer',
+        'installed'       => 'Malen :name er installert: :types entitetstyper, :fields felt, :lists kodelister og :records eksempelposter ble lagt til.',
+        'choose'          => 'Oppgi minst én mal eller bruk --all. Tilgjengelige maler: :names.',
     ],
 ];

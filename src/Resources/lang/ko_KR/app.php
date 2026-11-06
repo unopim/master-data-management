@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => '영구 삭제',
         ],
+
+        'entity-types' => [
+            'templates' => '템플릿 설치',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => '마스터 데이터 마이그레이션을 실행하는 중입니다.',
         'demo'      => '제조 데모 데이터를 설치하는 중입니다.',
         'done'      => '마스터 데이터 관리가 설치되었습니다. 활성 모듈: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => '템플릿 설치',
+        'title'           => '도메인 템플릿 설치',
+        'info'            => '고객이나 공급업체 같은 비즈니스 도메인의 엔터티 유형, 필드 및 공유 코드 목록을 추가합니다. 이미 있는 항목은 그대로 유지되므로 템플릿을 다시 설치해도 아무것도 바뀌지 않습니다.',
+        'template'        => '템플릿',
+        'label'           => '이름',
+        'select-template' => '템플릿 선택',
+        'with-samples'    => '샘플 레코드 추가',
+        'save-btn'        => '설치',
+        'installed'       => ':name 템플릿을 설치했습니다. 엔터티 유형 :types개, 필드 :fields개, 코드 목록 :lists개, 샘플 레코드 :records개가 추가되었습니다.',
+        'choose'          => '템플릿을 하나 이상 지정하거나 --all을 사용하세요. 사용 가능한 템플릿: :names.',
     ],
 ];

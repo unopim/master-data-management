@@ -5,12 +5,15 @@ namespace Webkul\MasterDataManagement\Repositories;
 use DateTimeInterface;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\MasterDataManagement\Contracts\Code;
 use Webkul\MasterDataManagement\Models\Code as CodeModel;
 
 class CodeRepository extends Repository
 {
+    protected const INSERT_CHUNK = 200;
+
     /**
      * Get model class name.
      */
@@ -84,5 +87,51 @@ class CodeRepository extends Repository
             ->orderBy('sort')
             ->orderBy('code')
             ->get();
+    }
+
+    /**
+     * Insert the codes into the version in their given order, with a label per locale, in chunked bulk inserts.
+     *
+     * @param  list<array{code: string, labels: array<string, string>}>  $codes  Labels keyed by locale.
+     */
+    public function insertLabelled(int $versionId, array $codes): void
+    {
+        $sort = 0;
+
+        foreach (array_chunk($codes, self::INSERT_CHUNK) as $chunk) {
+            $rows = [];
+
+            foreach ($chunk as $code) {
+                $rows[] = [
+                    'version_id' => $versionId,
+                    'code'       => $code['code'],
+                    'sort'       => ++$sort,
+                    'is_active'  => true,
+                ];
+            }
+
+            DB::table('mdm_codes')->insert($rows);
+
+            $ids = DB::table('mdm_codes')
+                ->where('version_id', $versionId)
+                ->whereIn('code', array_column($chunk, 'code'))
+                ->pluck('id', 'code');
+
+            $translations = [];
+
+            foreach ($chunk as $code) {
+                foreach ($code['labels'] as $locale => $label) {
+                    $translations[] = [
+                        'code_id' => $ids[$code['code']],
+                        'locale'  => $locale,
+                        'label'   => $label,
+                    ];
+                }
+            }
+
+            foreach (array_chunk($translations, self::INSERT_CHUNK * 5) as $translationChunk) {
+                DB::table('mdm_code_translations')->insert($translationChunk);
+            }
+        }
     }
 }

@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Cancella definitivamente',
         ],
+
+        'entity-types' => [
+            'templates' => 'Installa modelli',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Esecuzione delle migrazioni dei dati anagrafici.',
         'demo'      => 'Installazione dei dati demo di produzione.',
         'done'      => 'La gestione dei dati anagrafici è installata. Moduli attivi: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Installa modello',
+        'title'           => 'Installa modello di dominio',
+        'info'            => 'Aggiunge i tipi di entità, i campi e gli elenchi di codici condivisi di un dominio aziendale, come clienti o fornitori. Tutto ciò che esiste già viene mantenuto, quindi reinstallare un modello non cambia nulla.',
+        'template'        => 'Modello',
+        'label'           => 'Nome',
+        'select-template' => 'Seleziona un modello',
+        'with-samples'    => 'Aggiungi record di esempio',
+        'save-btn'        => 'Installa',
+        'installed'       => 'Il modello :name è installato: sono stati aggiunti :types tipi di entità, :fields campi, :lists elenchi di codici e :records record di esempio.',
+        'choose'          => 'Indica almeno un modello oppure usa --all. Modelli disponibili: :names.',
     ],
 ];

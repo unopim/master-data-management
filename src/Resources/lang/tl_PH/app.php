@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Burahin nang Permanente',
         ],
+
+        'entity-types' => [
+            'templates' => 'Mag-install ng mga template',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Pinapatakbo ang mga migration ng master data.',
         'demo'      => 'Ini-install ang demo data ng manufacturing.',
         'done'      => 'Naka-install na ang master data management. Mga aktibong module: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Mag-install ng template',
+        'title'           => 'Mag-install ng template ng domain',
+        'info'            => 'Idinadagdag ang mga uri ng entity, field at pinagsasaluhang listahan ng code ng isang domain ng negosyo, gaya ng mga kustomer o tagapagtustos. Pinananatili ang anumang mayroon na, kaya walang nagbabago kapag muling in-install ang template.',
+        'template'        => 'Template',
+        'label'           => 'Pangalan',
+        'select-template' => 'Pumili ng template',
+        'with-samples'    => 'Magdagdag ng mga halimbawang record',
+        'save-btn'        => 'I-install',
+        'installed'       => 'Na-install ang template na :name: nadagdag ang :types uri ng entity, :fields field, :lists listahan ng code at :records halimbawang record.',
+        'choose'          => 'Magbigay ng kahit isang template o gamitin ang --all. Mga available na template: :names.',
     ],
 ];

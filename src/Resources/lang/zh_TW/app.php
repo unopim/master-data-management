@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => '永久清除',
         ],
+
+        'entity-types' => [
+            'templates' => '安裝範本',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => '正在執行主資料遷移。',
         'demo'      => '正在安裝製造業示範資料。',
         'done'      => '主資料管理已安裝。啟用的模組::modules。',
+    ],
+
+    'templates' => [
+        'install-btn'     => '安裝範本',
+        'title'           => '安裝領域範本',
+        'info'            => '新增某個業務領域（例如客戶或供應商）的實體類型、欄位與共用代碼清單。已存在的內容會保留，因此再次安裝範本不會有任何變更。',
+        'template'        => '範本',
+        'label'           => '名稱',
+        'select-template' => '選擇範本',
+        'with-samples'    => '新增範例記錄',
+        'save-btn'        => '安裝',
+        'installed'       => '已安裝範本 :name：新增 :types 個實體類型、:fields 個欄位、:lists 個代碼清單及 :records 筆範例記錄。',
+        'choose'          => '請至少指定一個範本，或使用 --all。可用範本：:names。',
     ],
 ];

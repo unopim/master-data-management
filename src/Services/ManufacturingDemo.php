@@ -61,6 +61,7 @@ class ManufacturingDemo
         protected RecordWriter $recordWriter,
         protected XrefService $xrefService,
         protected ManufacturingReferenceData $referenceData,
+        protected TemplateInstaller $templateInstaller,
     ) {}
 
     /**
@@ -83,7 +84,7 @@ class ManufacturingDemo
             $data = $this->templateReader->read($template);
 
             foreach ($data['entity_types'] ?? [] as $definition) {
-                $types[$definition['code']] = $this->ensureEntityType($definition);
+                $types[$definition['code']] = $this->templateInstaller->ensureEntityType($definition);
                 $totals['entity_types']++;
             }
 
@@ -221,30 +222,6 @@ class ManufacturingDemo
         }
 
         return $items;
-    }
-
-    /**
-     * @param  array<string, mixed>  $definition
-     */
-    protected function ensureEntityType(array $definition): EntityType
-    {
-        $existing = $this->entityTypeRepository->findOneByField('code', $definition['code']);
-
-        if ($existing) {
-            return $existing;
-        }
-
-        $activeLocales = core()->getAllActiveLocales()->pluck('code')->all();
-
-        $attributes = array_diff_key($definition, ['names' => true]);
-
-        foreach ($definition['names'] ?? [] as $locale => $name) {
-            if (in_array($locale, $activeLocales, true)) {
-                $attributes[$locale] = ['name' => $name];
-            }
-        }
-
-        return $this->entityTypeRepository->create($attributes);
     }
 
     /**

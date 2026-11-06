@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Kalıcı Olarak Sil',
         ],
+
+        'entity-types' => [
+            'templates' => 'Şablonları yükle',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Ana veri geçişleri çalıştırılıyor.',
         'demo'      => 'Üretim demo verileri yükleniyor.',
         'done'      => 'Ana veri yönetimi yüklendi. Etkin modüller: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Şablon yükle',
+        'title'           => 'Alan şablonu yükle',
+        'info'            => 'Müşteriler veya tedarikçiler gibi bir iş alanının varlık türlerini, alanlarını ve ortak kod listelerini ekler. Var olan her şey korunur; bu nedenle bir şablonu yeniden yüklemek hiçbir şeyi değiştirmez.',
+        'template'        => 'Şablon',
+        'label'           => 'Ad',
+        'select-template' => 'Bir şablon seçin',
+        'with-samples'    => 'Örnek kayıtlar ekle',
+        'save-btn'        => 'Yükle',
+        'installed'       => ':name şablonu yüklendi: :types varlık türü, :fields alan, :lists kod listesi ve :records örnek kayıt eklendi.',
+        'choose'          => 'En az bir şablon belirtin veya --all kullanın. Kullanılabilir şablonlar: :names.',
     ],
 ];

@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Apagar permanentemente',
         ],
+
+        'entity-types' => [
+            'templates' => 'Instalar modelos',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Executando as migrações de dados mestres.',
         'demo'      => 'Instalando os dados de demonstração de manufatura.',
         'done'      => 'O gerenciamento de dados mestres está instalado. Módulos ativos: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Instalar modelo',
+        'title'           => 'Instalar modelo de domínio',
+        'info'            => 'Adiciona os tipos de entidade, os campos e as listas de códigos compartilhadas de um domínio de negócio, como clientes ou fornecedores. Tudo o que já existe é mantido, então instalar um modelo de novo não altera nada.',
+        'template'        => 'Modelo',
+        'label'           => 'Nome',
+        'select-template' => 'Selecione um modelo',
+        'with-samples'    => 'Adicionar registros de exemplo',
+        'save-btn'        => 'Instalar',
+        'installed'       => 'O modelo :name foi instalado: foram adicionados :types tipos de entidade, :fields campos, :lists listas de códigos e :records registros de exemplo.',
+        'choose'          => 'Informe pelo menos um modelo ou use --all. Modelos disponíveis: :names.',
     ],
 ];

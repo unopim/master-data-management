@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Trajno izbriši',
         ],
+
+        'entity-types' => [
+            'templates' => 'Instaliraj predloške',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Pokretanje migracija glavnih podataka.',
         'demo'      => 'Instalacija demo podataka za proizvodnju.',
         'done'      => 'Upravljanje glavnim podacima je instalirano. Aktivni moduli: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Instaliraj predložak',
+        'title'           => 'Instaliraj predložak domene',
+        'info'            => 'Dodaje vrste entiteta, polja i zajedničke popise šifri poslovne domene, primjerice kupaca ili dobavljača. Sve što već postoji ostaje, pa ponovna instalacija predloška ništa ne mijenja.',
+        'template'        => 'Predložak',
+        'label'           => 'Naziv',
+        'select-template' => 'Odaberite predložak',
+        'with-samples'    => 'Dodaj ogledne zapise',
+        'save-btn'        => 'Instaliraj',
+        'installed'       => 'Predložak :name je instaliran: dodano je :types vrsta entiteta, :fields polja, :lists popisa šifri i :records oglednih zapisa.',
+        'choose'          => 'Navedite barem jedan predložak ili upotrijebite --all. Dostupni predlošci: :names.',
     ],
 ];

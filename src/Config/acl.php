@@ -127,6 +127,11 @@ return [
         'name' => 'masterdata::app.acl.entity-types.governance',
         'sort' => 4,
     ], [
+        'key'   => 'masterdata.entity_types.templates',
+        'name'  => 'masterdata::app.acl.entity-types.templates',
+        'route' => 'admin.masterdata.templates.install',
+        'sort'  => 5,
+    ], [
         'key'             => 'masterdata.entity_types.delete',
         'name'            => 'masterdata::app.acl.entity-types.delete',
         'route'           => 'admin.masterdata.entity_types.destroy',

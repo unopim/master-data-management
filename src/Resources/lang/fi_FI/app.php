@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Poista pysyvästi',
         ],
+
+        'entity-types' => [
+            'templates' => 'Asenna mallipohjia',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Suoritetaan perustietojen migraatioita.',
         'demo'      => 'Asennetaan valmistuksen demotiedot.',
         'done'      => 'Perustietojen hallinta on asennettu. Aktiiviset moduulit: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Asenna mallipohja',
+        'title'           => 'Asenna toimialueen mallipohja',
+        'info'            => 'Lisää liiketoiminta-alueen, kuten asiakkaiden tai toimittajien, entiteettityypit, kentät ja jaetut koodiluettelot. Kaikki jo olemassa oleva säilyy, joten mallipohjan asentaminen uudelleen ei muuta mitään.',
+        'template'        => 'Mallipohja',
+        'label'           => 'Nimi',
+        'select-template' => 'Valitse mallipohja',
+        'with-samples'    => 'Lisää esimerkkitietueita',
+        'save-btn'        => 'Asenna',
+        'installed'       => 'Mallipohja :name on asennettu: lisättiin :types entiteettityyppiä, :fields kenttää, :lists koodiluetteloa ja :records esimerkkitietuetta.',
+        'choose'          => 'Anna vähintään yksi mallipohja tai käytä valitsinta --all. Saatavilla olevat mallipohjat: :names.',
     ],
 ];

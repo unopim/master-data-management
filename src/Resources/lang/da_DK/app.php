@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Slet permanent',
         ],
+
+        'entity-types' => [
+            'templates' => 'Installér skabeloner',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Kører migreringerne for stamdata.',
         'demo'      => 'Installerer demodata for produktion.',
         'done'      => 'Stamdatastyring er installeret. Aktive moduler: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Installér skabelon',
+        'title'           => 'Installér domæneskabelon',
+        'info'            => 'Tilføjer entitetstyper, felter og delte kodelister for et forretningsdomæne, f.eks. kunder eller leverandører. Alt, der allerede findes, bevares, så en ny installation af en skabelon ændrer intet.',
+        'template'        => 'Skabelon',
+        'label'           => 'Navn',
+        'select-template' => 'Vælg en skabelon',
+        'with-samples'    => 'Tilføj eksempelposter',
+        'save-btn'        => 'Installér',
+        'installed'       => 'Skabelonen :name er installeret: :types entitetstyper, :fields felter, :lists kodelister og :records eksempelposter blev tilføjet.',
+        'choose'          => 'Angiv mindst én skabelon, eller brug --all. Tilgængelige skabeloner: :names.',
     ],
 ];

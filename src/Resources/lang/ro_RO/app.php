@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Șterge definitiv',
         ],
+
+        'entity-types' => [
+            'templates' => 'Instalare șabloane',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Se rulează migrările datelor master.',
         'demo'      => 'Se instalează datele demo pentru producție.',
         'done'      => 'Gestionarea datelor master este instalată. Module active: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Instalează șablon',
+        'title'           => 'Instalează un șablon de domeniu',
+        'info'            => 'Adaugă tipurile de entități, câmpurile și listele de coduri comune ale unui domeniu de activitate, cum ar fi clienții sau furnizorii. Tot ce există deja se păstrează, așa că reinstalarea unui șablon nu schimbă nimic.',
+        'template'        => 'Șablon',
+        'label'           => 'Nume',
+        'select-template' => 'Selectați un șablon',
+        'with-samples'    => 'Adaugă înregistrări exemplu',
+        'save-btn'        => 'Instalează',
+        'installed'       => 'Șablonul :name a fost instalat: au fost adăugate :types tipuri de entități, :fields câmpuri, :lists liste de coduri și :records înregistrări exemplu.',
+        'choose'          => 'Indicați cel puțin un șablon sau folosiți --all. Șabloane disponibile: :names.',
     ],
 ];

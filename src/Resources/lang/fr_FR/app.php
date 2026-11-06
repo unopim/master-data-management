@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Effacer définitivement',
         ],
+
+        'entity-types' => [
+            'templates' => 'Installer des modèles',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Exécution des migrations des données de référence.',
         'demo'      => 'Installation des données de démonstration de fabrication.',
         'done'      => 'La gestion des données de référence est installée. Modules actifs : :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Installer un modèle',
+        'title'           => 'Installer un modèle de domaine',
+        'info'            => 'Ajoute les types d\'entité, les champs et les listes de codes partagées d\'un domaine métier, comme les clients ou les fournisseurs. Tout ce qui existe déjà est conservé : réinstaller un modèle ne change donc rien.',
+        'template'        => 'Modèle',
+        'label'           => 'Nom',
+        'select-template' => 'Sélectionnez un modèle',
+        'with-samples'    => 'Ajouter des enregistrements d\'exemple',
+        'save-btn'        => 'Installer',
+        'installed'       => 'Le modèle :name est installé : :types types d\'entité, :fields champs, :lists listes de codes et :records enregistrements d\'exemple ont été ajoutés.',
+        'choose'          => 'Indiquez au moins un modèle ou utilisez --all. Modèles disponibles : :names.',
     ],
 ];

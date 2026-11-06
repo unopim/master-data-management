@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Erase Permanently',
         ],
+
+        'entity-types' => [
+            'templates' => 'Install Templates',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Running the master data migrations.',
         'demo'      => 'Installing the manufacturing demo data.',
         'done'      => 'Master data management is installed. Active modules: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Install Template',
+        'title'           => 'Install Domain Template',
+        'info'            => 'Adds the entity types, fields and shared code lists of a business domain, such as customers or suppliers. Anything that already exists is kept, so installing a template again changes nothing.',
+        'template'        => 'Template',
+        'label'           => 'Name',
+        'select-template' => 'Select a template',
+        'with-samples'    => 'Add sample records',
+        'save-btn'        => 'Install',
+        'installed'       => 'The :name template is installed: :types entity types, :fields fields, :lists code lists and :records sample records were added.',
+        'choose'          => 'Name at least one template or use --all. Available templates: :names.',
     ],
 ];
