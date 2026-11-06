@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Workbook ng Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Wala na ang uri ng entidad na :code na pinili para sa export na ito.',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'Pinapatakbo ang mga migration ng master data.',
         'demo'      => 'Ini-install ang demo data ng manufacturing.',
         'done'      => 'Naka-install na ang master data management. Mga aktibong module: :modules.',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'I-export ang modelo',
+            'import' => 'I-import ang modelo',
+        ],
+        'export' => [
+            'button' => 'I-export ang modelo',
+        ],
+        'import' => [
+            'button'       => 'I-import ang modelo',
+            'title'        => 'Mag-import ng model bundle',
+            'file'         => 'Bundle ng modelo (JSON)',
+            'file-info'    => 'Isang JSON model bundle na na-export mula sa isang master data install, hanggang :size KB. Itinutugma ang mga depinisyon ayon sa code; pinananatili ang mga hindi kasama sa bundle.',
+            'publish'      => 'I-publish pagkatapos mag-import',
+            'publish-info' => 'I-publish ang mga binagong schema ng entity type at code list. Kung hindi, mananatili ang mga ito bilang draft na susuriin.',
+            'save-btn'     => 'I-import',
+            'success'      => 'Na-import ang modelo: :created ang nagawa, :updated ang na-update, :published ang na-publish.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Hindi wastong JSON model bundle ang file.',
+            'unsupported-version' => 'Hindi sinusuportahan ang bersyon ng format ng bundle na ":version". Bersyon :supported ang binabasa ng install na ito.',
+            'unknown-reference'   => 'Tumutukoy ang bundle sa ":value", na wala sa bundle at wala rin sa install na ito.',
+            'duplicate'           => 'Lumilitaw nang higit sa isang beses ang ":value".',
+            'effective-range'     => 'Dapat magtapos ang code na :code pagkatapos itong magsimula.',
+            'code-pattern'        => 'Dapat may {seq} token ang code pattern ng :code.',
+            'code-list-required'  => 'Kailangan ng code list ng field na :code.',
+            'reference-required'  => 'Kailangan ng entity type na tutukuyin ng reference field na :code.',
+            'type-locked'         => 'Hindi mababago ang uri ng umiiral na field na :code.',
+            'reference-locked'    => 'Ginagamit ng mga record ang reference field na :code, kaya hindi mababago ang target at cardinality nito.',
+            'relation-locked'     => 'Ginagamit ang relation type na :code, kaya hindi mababago ang mga entity type at cardinality nito.',
+            'system-relation'     => 'Kabilang ang relation type na :code sa isang reference field at hindi ito maaaring i-import.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Walang entity type na may code na: :codes.',
+            'path-invalid'  => 'Ang path na :path ay hindi nababasang .json file sa loob ng limitasyon ng laki.',
+            'exported'      => 'Na-export ang :types entity type at :lists code list sa :path.',
+            'imported'      => 'Na-import ang :path: :created ang nagawa, :updated ang na-update, :published ang na-publish.',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'Dokumentasyon ng API',
     ],
 ];

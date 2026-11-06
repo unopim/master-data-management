@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel radna knjiga (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Tip entiteta :code odabran za ovaj izvoz više ne postoji.',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'Pokretanje migracija glavnih podataka.',
         'demo'      => 'Instalacija demo podataka za proizvodnju.',
         'done'      => 'Upravljanje glavnim podacima je instalirano. Aktivni moduli: :modules.',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Izvezi model',
+            'import' => 'Uvezi model',
+        ],
+        'export' => [
+            'button' => 'Izvezi model',
+        ],
+        'import' => [
+            'button'       => 'Uvezi model',
+            'title'        => 'Uvezi paket modela',
+            'file'         => 'Paket modela (JSON)',
+            'file-info'    => 'JSON paket modela izvezen iz instalacije matičnih podataka, do :size KB. Definicije se povezuju prema šifri; one koje paket izostavlja zadržavaju se.',
+            'publish'      => 'Objavi nakon uvoza',
+            'publish-info' => 'Objavi izmijenjene sheme tipova entiteta i popise šifri. Inače ostaju kao skice za pregled.',
+            'save-btn'     => 'Uvezi',
+            'success'      => 'Model uvezen: :created stvoreno, :updated ažurirano, :published objavljeno.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Datoteka nije valjan JSON paket modela.',
+            'unsupported-version' => 'Verzija formata paketa „:version” nije podržana. Ova instalacija čita verziju :supported.',
+            'unknown-reference'   => 'Paket upućuje na „:value”, kojeg nema ni u paketu ni u ovoj instalaciji.',
+            'duplicate'           => '„:value” se pojavljuje više puta.',
+            'effective-range'     => 'Šifra :code mora završiti nakon što počne.',
+            'code-pattern'        => 'Obrazac šifre za :code mora sadržavati token {seq}.',
+            'code-list-required'  => 'Polje :code treba popis šifri.',
+            'reference-required'  => 'Referentno polje :code treba tip entiteta na koji se odnosi.',
+            'type-locked'         => 'Tip postojećeg polja :code ne može se mijenjati.',
+            'reference-locked'    => 'Referentno polje :code koriste zapisi, pa se njegov cilj i kardinalnost ne mogu mijenjati.',
+            'relation-locked'     => 'Tip relacije :code je u upotrebi, pa se njegovi tipovi entiteta i kardinalnost ne mogu mijenjati.',
+            'system-relation'     => 'Tip relacije :code pripada referentnom polju i ne može se uvesti.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Nijedan tip entiteta nema šifre: :codes.',
+            'path-invalid'  => 'Putanja :path nije čitljiva .json datoteka unutar ograničenja veličine.',
+            'exported'      => 'Izvezeno tipova entiteta: :types i popisa šifri: :lists u :path.',
+            'imported'      => 'Uvezeno :path: :created stvoreno, :updated ažurirano, :published objavljeno.',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'API dokumentacija',
     ],
 ];

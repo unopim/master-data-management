@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel ワークブック(XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'このエクスポートに選択されたエンティティタイプ :code は存在しません。',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'マスターデータのマイグレーションを実行しています。',
         'demo'      => '製造業向けのデモデータをインストールしています。',
         'done'      => 'マスターデータ管理がインストールされました。有効なモジュール: :modules。',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'モデルをエクスポート',
+            'import' => 'モデルをインポート',
+        ],
+        'export' => [
+            'button' => 'モデルをエクスポート',
+        ],
+        'import' => [
+            'button'       => 'モデルをインポート',
+            'title'        => 'モデルバンドルをインポート',
+            'file'         => 'モデルバンドル(JSON)',
+            'file-info'    => 'マスターデータのインストールからエクスポートした JSON モデルバンドル(最大 :size KB)。定義はコードで照合され、バンドルに含まれないものは保持されます。',
+            'publish'      => 'インポート後に公開',
+            'publish-info' => '変更されたエンティティタイプのスキーマとコードリストを公開します。公開しない場合は、確認用の下書きのままになります。',
+            'save-btn'     => 'インポート',
+            'success'      => 'モデルをインポートしました:作成 :created 件、更新 :updated 件、公開 :published 件。',
+        ],
+        'errors' => [
+            'invalid-json'        => 'このファイルは有効な JSON モデルバンドルではありません。',
+            'unsupported-version' => 'バンドル形式のバージョン「:version」はサポートされていません。このインストールはバージョン :supported を読み取ります。',
+            'unknown-reference'   => 'バンドルは「:value」を参照していますが、バンドルにもこのインストールにも存在しません。',
+            'duplicate'           => '「:value」が複数回出現しています。',
+            'effective-range'     => 'コード :code は開始後に終了する必要があります。',
+            'code-pattern'        => ':code のコードパターンには {seq} トークンを含める必要があります。',
+            'code-list-required'  => 'フィールド :code にはコードリストが必要です。',
+            'reference-required'  => '参照フィールド :code には参照先のエンティティタイプが必要です。',
+            'type-locked'         => '既存フィールド :code のタイプは変更できません。',
+            'reference-locked'    => '参照フィールド :code はレコードで使用されているため、参照先と多重度は変更できません。',
+            'relation-locked'     => 'リレーションタイプ :code は使用中のため、そのエンティティタイプと多重度は変更できません。',
+            'system-relation'     => 'リレーションタイプ :code は参照フィールドに属しているため、インポートできません。',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'コード :codes を持つエンティティタイプはありません。',
+            'path-invalid'  => 'パス :path は、サイズ制限内で読み取り可能な .json ファイルではありません。',
+            'exported'      => 'エンティティタイプ :types 件とコードリスト :lists 件を :path にエクスポートしました。',
+            'imported'      => ':path をインポートしました:作成 :created 件、更新 :updated 件、公開 :published 件。',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'API ドキュメント',
     ],
 ];

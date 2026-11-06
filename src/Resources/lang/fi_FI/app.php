@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel-työkirja (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Tälle viennille valittua entiteettityyppiä :code ei ole enää olemassa.',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'Suoritetaan perustietojen migraatioita.',
         'demo'      => 'Asennetaan valmistuksen demotiedot.',
         'done'      => 'Perustietojen hallinta on asennettu. Aktiiviset moduulit: :modules.',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Vie malli',
+            'import' => 'Tuo malli',
+        ],
+        'export' => [
+            'button' => 'Vie malli',
+        ],
+        'import' => [
+            'button'       => 'Tuo malli',
+            'title'        => 'Tuo mallipaketti',
+            'file'         => 'Mallipaketti (JSON)',
+            'file-info'    => 'Perustietojärjestelmästä viety JSON-mallipaketti, enintään :size kt. Määritykset yhdistetään koodin perusteella; paketista puuttuvat säilytetään.',
+            'publish'      => 'Julkaise tuonnin jälkeen',
+            'publish-info' => 'Julkaise muuttuneet entiteettityyppien skeemat ja koodiluettelot. Muuten ne jäävät luonnoksiksi tarkistettaviksi.',
+            'save-btn'     => 'Tuo',
+            'success'      => 'Malli tuotu: :created luotu, :updated päivitetty, :published julkaistu.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Tiedosto ei ole kelvollinen JSON-mallipaketti.',
+            'unsupported-version' => 'Paketin muotoversiota ":version" ei tueta. Tämä asennus lukee version :supported.',
+            'unknown-reference'   => 'Paketti viittaa arvoon ":value", jota ei ole paketissa eikä tässä asennuksessa.',
+            'duplicate'           => '":value" esiintyy useammin kuin kerran.',
+            'effective-range'     => 'Koodin :code on päätyttävä alkamisensa jälkeen.',
+            'code-pattern'        => 'Koodin :code kuvion on sisällettävä {seq}-merkki.',
+            'code-list-required'  => 'Kenttä :code tarvitsee koodiluettelon.',
+            'reference-required'  => 'Viitekenttä :code tarvitsee entiteettityypin, johon viitata.',
+            'type-locked'         => 'Olemassa olevan kentän :code tyyppiä ei voi muuttaa.',
+            'reference-locked'    => 'Viitekenttää :code käyttävät tietueet, joten sen kohdetta ja kardinaliteettia ei voi muuttaa.',
+            'relation-locked'     => 'Suhdetyyppi :code on käytössä, joten sen entiteettityyppejä ja kardinaliteettia ei voi muuttaa.',
+            'system-relation'     => 'Suhdetyyppi :code kuuluu viitekenttään, eikä sitä voi tuoda.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Millään entiteettityypillä ei ole koodeja: :codes.',
+            'path-invalid'  => 'Polku :path ei ole luettava .json-tiedosto kokorajan sisällä.',
+            'exported'      => 'Viety :types entiteettityyppiä ja :lists koodiluetteloa kohteeseen :path.',
+            'imported'      => 'Tuotu :path: :created luotu, :updated päivitetty, :published julkaistu.',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'API-dokumentaatio',
     ],
 ];

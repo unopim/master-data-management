@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel çalışma kitabı (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Bu dışa aktarma için seçilen :code varlık türü artık mevcut değil.',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'Ana veri geçişleri çalıştırılıyor.',
         'demo'      => 'Üretim demo verileri yükleniyor.',
         'done'      => 'Ana veri yönetimi yüklendi. Etkin modüller: :modules.',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Modeli dışa aktar',
+            'import' => 'Modeli içe aktar',
+        ],
+        'export' => [
+            'button' => 'Modeli dışa aktar',
+        ],
+        'import' => [
+            'button'       => 'Modeli içe aktar',
+            'title'        => 'Model paketini içe aktar',
+            'file'         => 'Model paketi (JSON)',
+            'file-info'    => 'Bir ana veri kurulumundan dışa aktarılan, en fazla :size KB boyutunda JSON model paketi. Tanımlar koda göre eşleştirilir; pakette olmayanlar korunur.',
+            'publish'      => 'İçe aktardıktan sonra yayımla',
+            'publish-info' => 'Değişen varlık türü şemalarını ve kod listelerini yayımlar. Aksi halde incelenmek üzere taslak olarak kalırlar.',
+            'save-btn'     => 'İçe aktar',
+            'success'      => 'Model içe aktarıldı: :created oluşturuldu, :updated güncellendi, :published yayımlandı.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Dosya geçerli bir JSON model paketi değil.',
+            'unsupported-version' => '":version" paket biçimi sürümü desteklenmiyor. Bu kurulum :supported sürümünü okur.',
+            'unknown-reference'   => 'Paket, ne pakette ne de bu kurulumda bulunan ":value" öğesine başvuruyor.',
+            'duplicate'           => '":value" birden fazla kez geçiyor.',
+            'effective-range'     => ':code kodu başladıktan sonra bitmelidir.',
+            'code-pattern'        => ':code kod deseni bir {seq} belirteci içermelidir.',
+            'code-list-required'  => ':code alanı bir kod listesi gerektirir.',
+            'reference-required'  => ':code başvuru alanı, başvuracağı bir varlık türü gerektirir.',
+            'type-locked'         => 'Mevcut :code alanının türü değiştirilemez.',
+            'reference-locked'    => ':code başvuru alanı kayıtlar tarafından kullanıldığından hedefi ve kardinalitesi değiştirilemez.',
+            'relation-locked'     => ':code ilişki türü kullanımda olduğundan varlık türleri ve kardinalitesi değiştirilemez.',
+            'system-relation'     => ':code ilişki türü bir başvuru alanına aittir ve içe aktarılamaz.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Hiçbir varlık türünde şu kod(lar) yok: :codes.',
+            'path-invalid'  => ':path yolu, boyut sınırı içinde okunabilir bir .json dosyası değil.',
+            'exported'      => ':types varlık türü ve :lists kod listesi :path konumuna dışa aktarıldı.',
+            'imported'      => ':path içe aktarıldı: :created oluşturuldu, :updated güncellendi, :published yayımlandı.',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'API belgeleri',
     ],
 ];

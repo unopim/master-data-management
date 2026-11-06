@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel-werkmap (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Het entiteitstype :code dat voor deze export is gekozen, bestaat niet meer.',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'De stamgegevensmigraties worden uitgevoerd.',
         'demo'      => 'De demogegevens voor productie worden geïnstalleerd.',
         'done'      => 'Stamgegevensbeheer is geïnstalleerd. Actieve modules: :modules.',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Model exporteren',
+            'import' => 'Model importeren',
+        ],
+        'export' => [
+            'button' => 'Model exporteren',
+        ],
+        'import' => [
+            'button'       => 'Model importeren',
+            'title'        => 'Een modelbundel importeren',
+            'file'         => 'Modelbundel (JSON)',
+            'file-info'    => 'Een JSON-modelbundel geëxporteerd uit een masterdata-installatie, tot :size KB. Definities worden op code gekoppeld; definities die de bundel weglaat, blijven behouden.',
+            'publish'      => 'Publiceren na import',
+            'publish-info' => 'Publiceer de gewijzigde schema\'s van entiteitstypen en codelijsten. Anders blijven ze concepten om te controleren.',
+            'save-btn'     => 'Importeren',
+            'success'      => 'Model geïmporteerd: :created aangemaakt, :updated bijgewerkt, :published gepubliceerd.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Het bestand is geen geldige JSON-modelbundel.',
+            'unsupported-version' => 'De bundelformaatversie ":version" wordt niet ondersteund. Deze installatie leest versie :supported.',
+            'unknown-reference'   => 'De bundel verwijst naar ":value", dat niet in de bundel en niet in deze installatie staat.',
+            'duplicate'           => '":value" komt meer dan eens voor.',
+            'effective-range'     => 'De code :code moet eindigen nadat deze begint.',
+            'code-pattern'        => 'Het codepatroon van :code moet een {seq}-token bevatten.',
+            'code-list-required'  => 'Het veld :code heeft een codelijst nodig.',
+            'reference-required'  => 'Het verwijzingsveld :code heeft een entiteitstype nodig om naar te verwijzen.',
+            'type-locked'         => 'Het type van het bestaande veld :code kan niet worden gewijzigd.',
+            'reference-locked'    => 'Het verwijzingsveld :code wordt door records gebruikt, dus doel en kardinaliteit kunnen niet worden gewijzigd.',
+            'relation-locked'     => 'Het relatietype :code is in gebruik, dus de entiteitstypen en kardinaliteit kunnen niet worden gewijzigd.',
+            'system-relation'     => 'Het relatietype :code hoort bij een verwijzingsveld en kan niet worden geïmporteerd.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Geen enkel entiteitstype heeft de code(s): :codes.',
+            'path-invalid'  => 'Het pad :path is geen leesbaar .json-bestand binnen de groottelimiet.',
+            'exported'      => ':types entiteitstype(n) en :lists codelijst(en) geëxporteerd naar :path.',
+            'imported'      => ':path geïmporteerd: :created aangemaakt, :updated bijgewerkt, :published gepubliceerd.',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'API-documentatie',
     ],
 ];

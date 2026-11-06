@@ -5,6 +5,8 @@
 
     <x-admin::layouts.page-header :title="trans('masterdata::app.entity-types.index.title')">
         <x-slot:actions>
+            @include('masterdata::entity-types._model-transfer')
+
             @if (bouncer()->hasPermission('masterdata.entity_types.create'))
                 <x-admin::catalog.quick-create-modal
                     id="entityTypeCreateModal"

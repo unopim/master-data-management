@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel 工作簿(XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => '为此导出选择的实体类型 :code 已不存在。',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => '正在运行主数据迁移。',
         'demo'      => '正在安装制造业演示数据。',
         'done'      => '主数据管理已安装。已启用的模块::modules。',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => '导出模型',
+            'import' => '导入模型',
+        ],
+        'export' => [
+            'button' => '导出模型',
+        ],
+        'import' => [
+            'button'       => '导入模型',
+            'title'        => '导入模型包',
+            'file'         => '模型包(JSON)',
+            'file-info'    => '从主数据安装导出的 JSON 模型包,最大 :size KB。定义按编码匹配;模型包中未包含的定义将保留。',
+            'publish'      => '导入后发布',
+            'publish-info' => '发布已更改的实体类型架构和编码列表。否则它们将保持为草稿,待审核。',
+            'save-btn'     => '导入',
+            'success'      => '模型已导入:创建 :created 项,更新 :updated 项,发布 :published 项。',
+        ],
+        'errors' => [
+            'invalid-json'        => '该文件不是有效的 JSON 模型包。',
+            'unsupported-version' => '不支持模型包格式版本“:version”。此安装读取版本 :supported。',
+            'unknown-reference'   => '模型包引用了“:value”,但它既不在模型包中,也不在此安装中。',
+            'duplicate'           => '“:value”出现了多次。',
+            'effective-range'     => '编码 :code 必须在开始之后结束。',
+            'code-pattern'        => ':code 的编码模式必须包含 {seq} 标记。',
+            'code-list-required'  => '字段 :code 需要一个编码列表。',
+            'reference-required'  => '引用字段 :code 需要一个要引用的实体类型。',
+            'type-locked'         => '现有字段 :code 的类型无法更改。',
+            'reference-locked'    => '引用字段 :code 已被记录使用,因此其目标和基数无法更改。',
+            'relation-locked'     => '关系类型 :code 正在使用中,因此其实体类型和基数无法更改。',
+            'system-relation'     => '关系类型 :code 属于某个引用字段,无法导入。',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => '没有实体类型使用编码::codes。',
+            'path-invalid'  => '路径 :path 不是大小限制内可读取的 .json 文件。',
+            'exported'      => '已将 :types 个实体类型和 :lists 个编码列表导出到 :path。',
+            'imported'      => '已导入 :path:创建 :created 项,更新 :updated 项,发布 :published 项。',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'API 文档',
     ],
 ];

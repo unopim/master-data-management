@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Pasta de trabalho do Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'O tipo de entidade :code escolhido para esta exportação não existe mais.',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'Executando as migrações de dados mestres.',
         'demo'      => 'Instalando os dados de demonstração de manufatura.',
         'done'      => 'O gerenciamento de dados mestres está instalado. Módulos ativos: :modules.',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Exportar modelo',
+            'import' => 'Importar modelo',
+        ],
+        'export' => [
+            'button' => 'Exportar modelo',
+        ],
+        'import' => [
+            'button'       => 'Importar modelo',
+            'title'        => 'Importar um pacote de modelo',
+            'file'         => 'Pacote de modelo (JSON)',
+            'file-info'    => 'Um pacote de modelo JSON exportado de uma instalação de dados mestres, com até :size KB. As definições são associadas pelo código; as que o pacote não inclui são mantidas.',
+            'publish'      => 'Publicar após a importação',
+            'publish-info' => 'Publica os esquemas de tipos de entidade e as listas de códigos alterados. Caso contrário, eles ficam como rascunhos para revisão.',
+            'save-btn'     => 'Importar',
+            'success'      => 'Modelo importado: :created criados, :updated atualizados, :published publicados.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'O arquivo não é um pacote de modelo JSON válido.',
+            'unsupported-version' => 'A versão do formato do pacote ":version" não é suportada. Esta instalação lê a versão :supported.',
+            'unknown-reference'   => 'O pacote faz referência a ":value", que não está nem no pacote nem nesta instalação.',
+            'duplicate'           => '":value" aparece mais de uma vez.',
+            'effective-range'     => 'O código :code deve terminar depois de começar.',
+            'code-pattern'        => 'O padrão de código de :code deve conter um token {seq}.',
+            'code-list-required'  => 'O campo :code precisa de uma lista de códigos.',
+            'reference-required'  => 'O campo de referência :code precisa de um tipo de entidade para referenciar.',
+            'type-locked'         => 'O tipo do campo existente :code não pode ser alterado.',
+            'reference-locked'    => 'O campo de referência :code é usado por registros, portanto seu destino e cardinalidade não podem ser alterados.',
+            'relation-locked'     => 'O tipo de relação :code está em uso, portanto seus tipos de entidade e cardinalidade não podem ser alterados.',
+            'system-relation'     => 'O tipo de relação :code pertence a um campo de referência e não pode ser importado.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Nenhum tipo de entidade possui os códigos: :codes.',
+            'path-invalid'  => 'O caminho :path não é um arquivo .json legível dentro do limite de tamanho.',
+            'exported'      => 'Exportados :types tipo(s) de entidade e :lists lista(s) de códigos para :path.',
+            'imported'      => 'Importado :path: :created criados, :updated atualizados, :published publicados.',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'Documentação da API',
     ],
 ];

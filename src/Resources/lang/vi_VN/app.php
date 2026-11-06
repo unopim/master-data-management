@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Sổ làm việc Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Loại thực thể :code đã chọn cho lần xuất này không còn tồn tại.',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => 'Đang chạy các bản di chuyển dữ liệu chủ.',
         'demo'      => 'Đang cài đặt dữ liệu demo sản xuất.',
         'done'      => 'Đã cài đặt quản lý dữ liệu chủ. Các mô-đun đang hoạt động: :modules.',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Xuất mô hình',
+            'import' => 'Nhập mô hình',
+        ],
+        'export' => [
+            'button' => 'Xuất mô hình',
+        ],
+        'import' => [
+            'button'       => 'Nhập mô hình',
+            'title'        => 'Nhập gói mô hình',
+            'file'         => 'Gói mô hình (JSON)',
+            'file-info'    => 'Gói mô hình JSON được xuất từ một bản cài đặt dữ liệu chủ, tối đa :size KB. Các định nghĩa được khớp theo mã; những định nghĩa gói không có sẽ được giữ lại.',
+            'publish'      => 'Xuất bản sau khi nhập',
+            'publish-info' => 'Xuất bản các lược đồ loại thực thể và danh sách mã đã thay đổi. Nếu không, chúng vẫn là bản nháp để xem xét.',
+            'save-btn'     => 'Nhập',
+            'success'      => 'Đã nhập mô hình: :created đã tạo, :updated đã cập nhật, :published đã xuất bản.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Tệp không phải là gói mô hình JSON hợp lệ.',
+            'unsupported-version' => 'Phiên bản định dạng gói ":version" không được hỗ trợ. Bản cài đặt này đọc phiên bản :supported.',
+            'unknown-reference'   => 'Gói tham chiếu đến ":value", không có trong gói cũng như trong bản cài đặt này.',
+            'duplicate'           => '":value" xuất hiện nhiều lần.',
+            'effective-range'     => 'Mã :code phải kết thúc sau khi bắt đầu.',
+            'code-pattern'        => 'Mẫu mã của :code phải chứa token {seq}.',
+            'code-list-required'  => 'Trường :code cần một danh sách mã.',
+            'reference-required'  => 'Trường tham chiếu :code cần một loại thực thể để tham chiếu.',
+            'type-locked'         => 'Không thể thay đổi loại của trường hiện có :code.',
+            'reference-locked'    => 'Trường tham chiếu :code đang được các bản ghi sử dụng nên không thể thay đổi đích và bản số của nó.',
+            'relation-locked'     => 'Loại quan hệ :code đang được sử dụng nên không thể thay đổi các loại thực thể và bản số của nó.',
+            'system-relation'     => 'Loại quan hệ :code thuộc về một trường tham chiếu và không thể nhập.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Không có loại thực thể nào có mã: :codes.',
+            'path-invalid'  => 'Đường dẫn :path không phải là tệp .json đọc được trong giới hạn kích thước.',
+            'exported'      => 'Đã xuất :types loại thực thể và :lists danh sách mã vào :path.',
+            'imported'      => 'Đã nhập :path: :created đã tạo, :updated đã cập nhật, :published đã xuất bản.',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'Tài liệu API',
     ],
 ];

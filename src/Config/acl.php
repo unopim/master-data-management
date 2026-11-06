@@ -23,6 +23,16 @@ return [
         'route' => 'admin.masterdata.entity_types.store',
         'sort'  => 1,
     ], [
+        'key'   => 'masterdata.entity_types.model_export',
+        'name'  => 'masterdata::app.model-transfer.acl.export',
+        'route' => 'admin.masterdata.model_transfer.export',
+        'sort'  => 5,
+    ], [
+        'key'   => 'masterdata.entity_types.model_import',
+        'name'  => 'masterdata::app.model-transfer.acl.import',
+        'route' => 'admin.masterdata.model_transfer.import',
+        'sort'  => 6,
+    ], [
         'key'   => 'masterdata.entity_types.edit',
         'name'  => 'masterdata::app.acl.entity-types.edit',
         'route' => 'admin.masterdata.entity_types.edit',

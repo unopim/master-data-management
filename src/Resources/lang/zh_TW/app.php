@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel 活頁簿(XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => '為此匯出選擇的實體類型 :code 已不存在。',
@@ -1688,5 +1689,50 @@ return [
         'migrating' => '正在執行主資料遷移。',
         'demo'      => '正在安裝製造業示範資料。',
         'done'      => '主資料管理已安裝。啟用的模組::modules。',
+    ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => '匯出模型',
+            'import' => '匯入模型',
+        ],
+        'export' => [
+            'button' => '匯出模型',
+        ],
+        'import' => [
+            'button'       => '匯入模型',
+            'title'        => '匯入模型套件',
+            'file'         => '模型套件(JSON)',
+            'file-info'    => '從主資料安裝匯出的 JSON 模型套件,最大 :size KB。定義依代碼比對;套件中未包含的定義會保留。',
+            'publish'      => '匯入後發佈',
+            'publish-info' => '發佈已變更的實體類型結構描述與代碼清單。否則它們會維持草稿狀態,等待審閱。',
+            'save-btn'     => '匯入',
+            'success'      => '模型已匯入:建立 :created 項,更新 :updated 項,發佈 :published 項。',
+        ],
+        'errors' => [
+            'invalid-json'        => '此檔案不是有效的 JSON 模型套件。',
+            'unsupported-version' => '不支援模型套件格式版本「:version」。此安裝讀取版本 :supported。',
+            'unknown-reference'   => '模型套件參照了「:value」,但它既不在模型套件中,也不在此安裝中。',
+            'duplicate'           => '「:value」出現多次。',
+            'effective-range'     => '代碼 :code 必須在開始之後結束。',
+            'code-pattern'        => ':code 的代碼模式必須包含 {seq} 標記。',
+            'code-list-required'  => '欄位 :code 需要一個代碼清單。',
+            'reference-required'  => '參照欄位 :code 需要一個要參照的實體類型。',
+            'type-locked'         => '現有欄位 :code 的類型無法變更。',
+            'reference-locked'    => '參照欄位 :code 已被記錄使用,因此其目標與基數無法變更。',
+            'relation-locked'     => '關係類型 :code 正在使用中,因此其實體類型與基數無法變更。',
+            'system-relation'     => '關係類型 :code 屬於某個參照欄位,無法匯入。',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => '沒有實體類型使用代碼::codes。',
+            'path-invalid'  => '路徑 :path 不是大小限制內可讀取的 .json 檔案。',
+            'exported'      => '已將 :types 個實體類型與 :lists 個代碼清單匯出至 :path。',
+            'imported'      => '已匯入 :path:建立 :created 項,更新 :updated 項,發佈 :published 項。',
+        ],
+    ],
+
+    'openapi' => [
+        'acl' => 'API 文件',
     ],
 ];

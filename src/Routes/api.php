@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Webkul\MasterDataManagement\Http\Controllers\Api\CodeListController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\EntityTypeController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\MatchCandidateController;
+use Webkul\MasterDataManagement\Http\Controllers\Api\OpenApiController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\RecordController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\RecordUpsertController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\XrefController;
@@ -19,6 +20,8 @@ Route::group([
         'cache.headers:private;etag',
     ],
 ], function (): void {
+    Route::get('openapi.json', [OpenApiController::class, 'show'])->name('admin.api.masterdata.openapi');
+
     Route::get('xref/resolve', [XrefController::class, 'resolve'])->name('admin.api.masterdata.xref.resolve');
 
     Route::get('entity-types', [EntityTypeController::class, 'index'])->name('admin.api.masterdata.entity_types.index');

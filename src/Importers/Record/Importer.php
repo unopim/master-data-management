@@ -15,6 +15,7 @@ use Webkul\MasterDataManagement\Enums\XrefStatus;
 use Webkul\MasterDataManagement\Exceptions\ChangeRequestPendingException;
 use Webkul\MasterDataManagement\Exceptions\StaleRecordException;
 use Webkul\MasterDataManagement\Exceptions\XrefConflictException;
+use Webkul\MasterDataManagement\Export\RecordCsvFlattener;
 use Webkul\MasterDataManagement\FieldTypes\FieldTypeRegistry;
 use Webkul\MasterDataManagement\Importers\MasterDataImporter;
 use Webkul\MasterDataManagement\Models\EntityType;
@@ -42,7 +43,8 @@ use Webkul\User\Repositories\AdminRepository;
  * code matches a record column other than `code` (a `status` field, say) takes that column. Without a code a row
  * finds its record by external id, else creates one; `parent_code` names a record of the type or of its allowed
  * parent types. Every write passes the change gate as the job's author, so on a type that requires approval the
- * changes are held instead.
+ * changes are held instead. A file in the record export layout (CSV or XLSX) imports as it is: its `value_` columns
+ * read into their fields and its informational columns are read past.
  */
 class Importer extends MasterDataImporter
 {
@@ -95,6 +97,13 @@ class Importer extends MasterDataImporter
      * @var array<string, array{name: string, field: ?Field, locale: ?string}|null>
      */
     protected array $columnSpecs = [];
+
+    /**
+     * The field target of each value column of the record export layout, so an exported file imports as it is.
+     *
+     * @var array<string, string>
+     */
+    protected array $exportColumns = [];
 
     public function __construct(
         protected JobTrackBatchRepository $importBatchRepository,
@@ -162,6 +171,8 @@ class Importer extends MasterDataImporter
 
         $this->locales = core()->getAllActiveLocales()->pluck('code')->map(strval(...))->all();
 
+        $this->exportColumns = $this->exportColumnTargets();
+
         $allowed = $this->hierarchyService->allowedParentTypeIds($type);
 
         $this->parentTypeIds = in_array((int) $type->id, $allowed, true)
@@ -197,13 +208,44 @@ class Importer extends MasterDataImporter
             }
         }
 
-        foreach (array_keys($this->mapping->targets) as $column) {
+        foreach ([...array_keys($this->mapping->targets), ...array_keys($this->exportColumns)] as $column) {
             if ($this->spec((string) $column) !== null) {
                 $columns[] = (string) $column;
             }
         }
 
         return array_values(array_unique($columns));
+    }
+
+    /**
+     * The informational columns of the record export layout, unless the mapping reads them into a target.
+     *
+     * {@inheritdoc}
+     */
+    protected function ignoredColumns(array $columnNames): array
+    {
+        return array_values(array_filter(
+            $columnNames,
+            fn (string $column): bool => RecordCsvFlattener::isReadOnlyColumn($column) && $this->spec($column) === null,
+        ));
+    }
+
+    /**
+     * The field target of each value column the record export writes for the type's fields and active locales.
+     *
+     * @return array<string, string>
+     */
+    protected function exportColumnTargets(): array
+    {
+        $targets = [];
+
+        foreach ($this->fields as $field) {
+            foreach ($field->value_per_locale ? $this->locales : [null] as $locale) {
+                $targets[RecordCsvFlattener::valueColumn($field->code, $locale)] = $locale === null ? $field->code : $field->code.'-'.$locale;
+            }
+        }
+
+        return $targets;
     }
 
     /**
@@ -549,7 +591,9 @@ class Importer extends MasterDataImporter
             return $this->columnSpecs[$column];
         }
 
-        $target = $this->mapping->targetOf($column);
+        $target = array_key_exists($column, $this->mapping->targets)
+            ? $this->mapping->targetOf($column)
+            : ($this->exportColumns[$column] ?? $column);
 
         if (in_array($target, ColumnMapping::RECORD_COLUMNS, true) && ! $this->isCommonFieldOtherThanCode($target)) {
             $spec = $target !== 'external_id' || $this->sourceSystem instanceof SourceSystem
