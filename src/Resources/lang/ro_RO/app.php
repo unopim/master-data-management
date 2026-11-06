@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Panou de calitate',
+        'acl'      => 'Panou de calitate',
+        'index'    => [
+            'title'         => 'Panou de calitate a datelor',
+            'info'          => 'Instantanee zilnice ale completitudinii, validității și duplicatelor pe tip de entitate, cu munca ce așteaptă fiecare responsabil de date.',
+            'empty'         => 'Nu există tipuri de entitate de raportat.',
+            'scorecards'    => 'Fișe de scor',
+            'no-snapshot'   => 'Nu a fost realizat încă niciun instantaneu.',
+            'not-available' => 'n/a',
+            'percent'       => ':value%',
+            'delta'         => ':value pct.',
+            'records'       => 'Înregistrări: :count',
+            'open-tasks'    => 'Sarcini deschise: :count',
+            'snapshot-date' => 'Instantaneu din :date',
+            'trend'         => 'Evoluție: :type',
+            'trend-empty'   => 'Nu există încă instantanee în acest interval.',
+            'chart-label'   => 'Evoluția calității datelor pentru :type de la :from la :to',
+            'workload'      => 'Volumul de lucru al responsabililor',
+        ],
+        'ranges' => [
+            '7'  => 'Ultimele 7 zile',
+            '30' => 'Ultimele 30 de zile',
+            '90' => 'Ultimele 90 de zile',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Completitudine',
+            'validity_rate'    => 'Validitate',
+            'duplicate_rate'   => 'Duplicate',
+        ],
+        'workload' => [
+            'steward'          => 'Responsabil',
+            'change-requests'  => 'Cereri de modificare deschise',
+            'match-candidates' => 'Candidați de potrivire deschiși',
+            'unassigned'       => 'Fără proprietar de date',
+            'empty'            => 'Nu există sarcini deschise ale responsabililor.',
+            'buckets'          => [
+                'day'   => 'Sub 1 zi',
+                'week'  => 'Între 1 și 7 zile',
+                'month' => 'Între 7 și 30 de zile',
+                'older' => 'Peste 30 de zile',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Capturarea instantaneului de calitate a fost pusă în coadă.',
+            'done'   => 'Au fost capturate instantaneele de calitate pentru :count tipuri de entitate.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Aprobare necesară: cerere de modificare #:id',

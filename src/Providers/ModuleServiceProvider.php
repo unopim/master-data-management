@@ -21,6 +21,7 @@ use Webkul\MasterDataManagement\Models\IdempotencyKey;
 use Webkul\MasterDataManagement\Models\MatchCandidate;
 use Webkul\MasterDataManagement\Models\MatchRule;
 use Webkul\MasterDataManagement\Models\QualityIssue;
+use Webkul\MasterDataManagement\Models\QualitySnapshot;
 use Webkul\MasterDataManagement\Models\Record;
 use Webkul\MasterDataManagement\Models\RecordMerge;
 use Webkul\MasterDataManagement\Models\Relation;
@@ -52,6 +53,7 @@ class ModuleServiceProvider extends CoreModuleServiceProvider
         MatchCandidate::class,
         MatchRule::class,
         QualityIssue::class,
+        QualitySnapshot::class,
         Record::class,
         RecordMerge::class,
         Relation::class,

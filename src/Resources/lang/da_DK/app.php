@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Kvalitetsdashboard',
+        'acl'      => 'Kvalitetsdashboard',
+        'index'    => [
+            'title'         => 'Datakvalitetsdashboard',
+            'info'          => 'Daglige øjebliksbilleder af fuldstændighed, gyldighed og dubletter pr. enhedstype samt det arbejde, der venter på hver dataansvarlig.',
+            'empty'         => 'Der er ingen enhedstyper at rapportere om.',
+            'scorecards'    => 'Scorekort',
+            'no-snapshot'   => 'Der er endnu ikke taget et øjebliksbillede.',
+            'not-available' => 'i/t',
+            'percent'       => ':value %',
+            'delta'         => ':value point',
+            'records'       => 'Poster: :count',
+            'open-tasks'    => 'Åbne opgaver: :count',
+            'snapshot-date' => 'Øjebliksbillede fra :date',
+            'trend'         => 'Udvikling: :type',
+            'trend-empty'   => 'Der er endnu ingen øjebliksbilleder i dette interval.',
+            'chart-label'   => 'Udvikling i datakvalitet for :type fra :from til :to',
+            'workload'      => 'Arbejdsbyrde for dataansvarlige',
+        ],
+        'ranges' => [
+            '7'  => 'Seneste 7 dage',
+            '30' => 'Seneste 30 dage',
+            '90' => 'Seneste 90 dage',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Fuldstændighed',
+            'validity_rate'    => 'Gyldighed',
+            'duplicate_rate'   => 'Dubletter',
+        ],
+        'workload' => [
+            'steward'          => 'Dataansvarlig',
+            'change-requests'  => 'Åbne ændringsanmodninger',
+            'match-candidates' => 'Åbne matchkandidater',
+            'unassigned'       => 'Ingen dataejer',
+            'empty'            => 'Ingen åbne opgaver for dataansvarlige.',
+            'buckets'          => [
+                'day'   => 'Under 1 dag',
+                'week'  => '1 til 7 dage',
+                'month' => '7 til 30 dage',
+                'older' => 'Over 30 dage',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Optagelse af kvalitetsøjebliksbillede er sat i kø.',
+            'done'   => 'Kvalitetsøjebliksbilleder for :count enhedstyper er gemt.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Godkendelse påkrævet: ændringsanmodning #:id',

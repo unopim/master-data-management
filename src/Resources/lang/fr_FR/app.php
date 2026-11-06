@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Tableau de bord qualité',
+        'acl'      => 'Tableau de bord qualité',
+        'index'    => [
+            'title'         => 'Tableau de bord de la qualité des données',
+            'info'          => 'Instantanés quotidiens de la complétude, de la validité et des doublons par type d\'entité, avec le travail en attente de chaque responsable des données.',
+            'empty'         => 'Aucun type d\'entité à présenter.',
+            'scorecards'    => 'Tableaux de bord',
+            'no-snapshot'   => 'Aucun instantané n\'a encore été pris.',
+            'not-available' => 'n.d.',
+            'percent'       => ':value %',
+            'delta'         => ':value pts',
+            'records'       => 'Enregistrements : :count',
+            'open-tasks'    => 'Tâches ouvertes : :count',
+            'snapshot-date' => 'Instantané du :date',
+            'trend'         => 'Tendance : :type',
+            'trend-empty'   => 'Aucun instantané sur cette période pour le moment.',
+            'chart-label'   => 'Tendance de la qualité des données de :type du :from au :to',
+            'workload'      => 'Charge de travail des responsables',
+        ],
+        'ranges' => [
+            '7'  => '7 derniers jours',
+            '30' => '30 derniers jours',
+            '90' => '90 derniers jours',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Complétude',
+            'validity_rate'    => 'Validité',
+            'duplicate_rate'   => 'Doublons',
+        ],
+        'workload' => [
+            'steward'          => 'Responsable',
+            'change-requests'  => 'Demandes de modification ouvertes',
+            'match-candidates' => 'Candidats de rapprochement ouverts',
+            'unassigned'       => 'Aucun propriétaire des données',
+            'empty'            => 'Aucune tâche ouverte pour les responsables.',
+            'buckets'          => [
+                'day'   => 'Moins d\'1 jour',
+                'week'  => '1 à 7 jours',
+                'month' => '7 à 30 jours',
+                'older' => 'Plus de 30 jours',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Capture de l\'instantané qualité mise en file d\'attente.',
+            'done'   => 'Instantanés qualité capturés pour :count types d\'entité.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Approbation requise : demande de modification #:id',

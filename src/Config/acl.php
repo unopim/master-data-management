@@ -457,6 +457,11 @@ return [
         'route' => 'admin.masterdata.quality.issues.ignore',
         'sort'  => 2,
     ], [
+        'key'   => 'masterdata.quality_dashboard',
+        'name'  => 'masterdata::app.quality-dashboard.acl',
+        'route' => 'admin.masterdata.quality_dashboard.index',
+        'sort'  => 7,
+    ], [
         'key'   => 'masterdata.approvals',
         'name'  => 'masterdata::app.acl.approvals.index',
         'route' => 'admin.masterdata.approvals.index',

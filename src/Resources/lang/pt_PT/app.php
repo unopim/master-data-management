@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Painel de qualidade',
+        'acl'      => 'Painel de qualidade',
+        'index'    => [
+            'title'         => 'Painel de qualidade dos dados',
+            'info'          => 'Instantâneos diários da completude, validade e duplicados por tipo de entidade, com o trabalho pendente de cada responsável pelos dados.',
+            'empty'         => 'Não existem tipos de entidade para reportar.',
+            'scorecards'    => 'Indicadores',
+            'no-snapshot'   => 'Ainda não foi tirado nenhum instantâneo.',
+            'not-available' => 'n/d',
+            'percent'       => ':value%',
+            'delta'         => ':value pts',
+            'records'       => 'Registos: :count',
+            'open-tasks'    => 'Tarefas em aberto: :count',
+            'snapshot-date' => 'Instantâneo de :date',
+            'trend'         => 'Tendência: :type',
+            'trend-empty'   => 'Ainda não existem instantâneos neste período.',
+            'chart-label'   => 'Tendência da qualidade dos dados de :type de :from a :to',
+            'workload'      => 'Carga de trabalho dos responsáveis',
+        ],
+        'ranges' => [
+            '7'  => 'Últimos 7 dias',
+            '30' => 'Últimos 30 dias',
+            '90' => 'Últimos 90 dias',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Completude',
+            'validity_rate'    => 'Validade',
+            'duplicate_rate'   => 'Duplicados',
+        ],
+        'workload' => [
+            'steward'          => 'Responsável',
+            'change-requests'  => 'Pedidos de alteração em aberto',
+            'match-candidates' => 'Candidatos de correspondência em aberto',
+            'unassigned'       => 'Sem proprietário dos dados',
+            'empty'            => 'Não existem tarefas em aberto dos responsáveis.',
+            'buckets'          => [
+                'day'   => 'Menos de 1 dia',
+                'week'  => 'De 1 a 7 dias',
+                'month' => 'De 7 a 30 dias',
+                'older' => 'Mais de 30 dias',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Captura do instantâneo de qualidade colocada em fila.',
+            'done'   => 'Instantâneos de qualidade capturados para :count tipos de entidade.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Aprovação necessária: pedido de alteração #:id',

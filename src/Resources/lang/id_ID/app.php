@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Dasbor Kualitas',
+        'acl'      => 'Dasbor Kualitas',
+        'index'    => [
+            'title'         => 'Dasbor Kualitas Data',
+            'info'          => 'Snapshot harian kelengkapan, validitas, dan duplikat per tipe entitas, beserta pekerjaan yang menunggu setiap pengelola data.',
+            'empty'         => 'Tidak ada tipe entitas untuk dilaporkan.',
+            'scorecards'    => 'Kartu skor',
+            'no-snapshot'   => 'Belum ada snapshot yang diambil.',
+            'not-available' => 't/a',
+            'percent'       => ':value%',
+            'delta'         => ':value poin',
+            'records'       => 'Rekaman: :count',
+            'open-tasks'    => 'Tugas terbuka: :count',
+            'snapshot-date' => 'Snapshot tanggal :date',
+            'trend'         => 'Tren: :type',
+            'trend-empty'   => 'Belum ada snapshot dalam rentang ini.',
+            'chart-label'   => 'Tren kualitas data :type dari :from sampai :to',
+            'workload'      => 'Beban kerja pengelola data',
+        ],
+        'ranges' => [
+            '7'  => '7 hari terakhir',
+            '30' => '30 hari terakhir',
+            '90' => '90 hari terakhir',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Kelengkapan',
+            'validity_rate'    => 'Validitas',
+            'duplicate_rate'   => 'Duplikat',
+        ],
+        'workload' => [
+            'steward'          => 'Pengelola data',
+            'change-requests'  => 'Permintaan perubahan terbuka',
+            'match-candidates' => 'Kandidat pencocokan terbuka',
+            'unassigned'       => 'Tanpa pemilik data',
+            'empty'            => 'Tidak ada tugas terbuka untuk pengelola data.',
+            'buckets'          => [
+                'day'   => 'Kurang dari 1 hari',
+                'week'  => '1 sampai 7 hari',
+                'month' => '7 sampai 30 hari',
+                'older' => 'Lebih dari 30 hari',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Pengambilan snapshot kualitas dimasukkan ke antrean.',
+            'done'   => 'Snapshot kualitas untuk :count tipe entitas telah diambil.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Perlu persetujuan: permintaan perubahan #:id',

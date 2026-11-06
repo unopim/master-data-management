@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => '品質ダッシュボード',
+        'acl'      => '品質ダッシュボード',
+        'index'    => [
+            'title'         => 'データ品質ダッシュボード',
+            'info'          => 'エンティティタイプごとの完全性、妥当性、重複の日次スナップショットと、各データスチュワードが抱える作業を表示します。',
+            'empty'         => 'レポート対象のエンティティタイプがありません。',
+            'scorecards'    => 'スコアカード',
+            'no-snapshot'   => 'スナップショットはまだ取得されていません。',
+            'not-available' => 'なし',
+            'percent'       => ':value%',
+            'delta'         => ':value pt',
+            'records'       => 'レコード: :count',
+            'open-tasks'    => '未完了タスク: :count',
+            'snapshot-date' => ':date のスナップショット',
+            'trend'         => '推移: :type',
+            'trend-empty'   => 'この期間のスナップショットはまだありません。',
+            'chart-label'   => ':type のデータ品質の推移（:from 〜 :to）',
+            'workload'      => 'スチュワードの作業量',
+        ],
+        'ranges' => [
+            '7'  => '過去 7 日間',
+            '30' => '過去 30 日間',
+            '90' => '過去 90 日間',
+        ],
+        'metrics' => [
+            'completeness_avg' => '完全性',
+            'validity_rate'    => '妥当性',
+            'duplicate_rate'   => '重複',
+        ],
+        'workload' => [
+            'steward'          => 'スチュワード',
+            'change-requests'  => '未処理の変更リクエスト',
+            'match-candidates' => '未処理のマッチ候補',
+            'unassigned'       => 'データオーナーなし',
+            'empty'            => 'スチュワードの未完了タスクはありません。',
+            'buckets'          => [
+                'day'   => '1 日未満',
+                'week'  => '1〜7 日',
+                'month' => '7〜30 日',
+                'older' => '30 日超',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => '品質スナップショットの取得をキューに追加しました。',
+            'done'   => ':count 件のエンティティタイプの品質スナップショットを取得しました。',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => '承認が必要です: 変更リクエスト #:id',

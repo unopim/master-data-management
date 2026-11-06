@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Qualitäts-Dashboard',
+        'acl'      => 'Qualitäts-Dashboard',
+        'index'    => [
+            'title'         => 'Datenqualitäts-Dashboard',
+            'info'          => 'Tägliche Momentaufnahmen von Vollständigkeit, Gültigkeit und Dubletten je Entitätstyp, mit den offenen Aufgaben jedes Data Stewards.',
+            'empty'         => 'Es gibt keine Entitätstypen für einen Bericht.',
+            'scorecards'    => 'Scorecards',
+            'no-snapshot'   => 'Noch keine Momentaufnahme erstellt.',
+            'not-available' => 'k. A.',
+            'percent'       => ':value %',
+            'delta'         => ':value Pkt.',
+            'records'       => 'Datensätze: :count',
+            'open-tasks'    => 'Offene Aufgaben: :count',
+            'snapshot-date' => 'Momentaufnahme vom :date',
+            'trend'         => 'Verlauf: :type',
+            'trend-empty'   => 'In diesem Zeitraum gibt es noch keine Momentaufnahmen.',
+            'chart-label'   => 'Verlauf der Datenqualität von :type vom :from bis :to',
+            'workload'      => 'Arbeitslast der Data Stewards',
+        ],
+        'ranges' => [
+            '7'  => 'Letzte 7 Tage',
+            '30' => 'Letzte 30 Tage',
+            '90' => 'Letzte 90 Tage',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Vollständigkeit',
+            'validity_rate'    => 'Gültigkeit',
+            'duplicate_rate'   => 'Dubletten',
+        ],
+        'workload' => [
+            'steward'          => 'Data Steward',
+            'change-requests'  => 'Offene Änderungsanträge',
+            'match-candidates' => 'Offene Abgleichskandidaten',
+            'unassigned'       => 'Kein Dateneigentümer',
+            'empty'            => 'Keine offenen Aufgaben für Data Stewards.',
+            'buckets'          => [
+                'day'   => 'Unter 1 Tag',
+                'week'  => '1 bis 7 Tage',
+                'month' => '7 bis 30 Tage',
+                'older' => 'Über 30 Tage',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Erfassung der Qualitäts-Momentaufnahme eingereiht.',
+            'done'   => 'Qualitäts-Momentaufnahmen für :count Entitätstypen erfasst.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Freigabe erforderlich: Änderungsanfrage #:id',

@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Bảng điều khiển chất lượng',
+        'acl'      => 'Bảng điều khiển chất lượng',
+        'index'    => [
+            'title'         => 'Bảng điều khiển chất lượng dữ liệu',
+            'info'          => 'Ảnh chụp hằng ngày về độ đầy đủ, tính hợp lệ và bản trùng theo từng loại thực thể, cùng công việc đang chờ mỗi người quản lý dữ liệu.',
+            'empty'         => 'Không có loại thực thể nào để báo cáo.',
+            'scorecards'    => 'Thẻ điểm',
+            'no-snapshot'   => 'Chưa có ảnh chụp nào.',
+            'not-available' => 'không có',
+            'percent'       => ':value%',
+            'delta'         => ':value điểm',
+            'records'       => 'Bản ghi: :count',
+            'open-tasks'    => 'Tác vụ đang mở: :count',
+            'snapshot-date' => 'Ảnh chụp ngày :date',
+            'trend'         => 'Xu hướng: :type',
+            'trend-empty'   => 'Chưa có ảnh chụp nào trong khoảng này.',
+            'chart-label'   => 'Xu hướng chất lượng dữ liệu của :type từ :from đến :to',
+            'workload'      => 'Khối lượng công việc của người quản lý',
+        ],
+        'ranges' => [
+            '7'  => '7 ngày qua',
+            '30' => '30 ngày qua',
+            '90' => '90 ngày qua',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Độ đầy đủ',
+            'validity_rate'    => 'Tính hợp lệ',
+            'duplicate_rate'   => 'Bản trùng',
+        ],
+        'workload' => [
+            'steward'          => 'Người quản lý',
+            'change-requests'  => 'Yêu cầu thay đổi đang mở',
+            'match-candidates' => 'Ứng viên khớp đang mở',
+            'unassigned'       => 'Không có chủ sở hữu dữ liệu',
+            'empty'            => 'Người quản lý không có tác vụ đang mở.',
+            'buckets'          => [
+                'day'   => 'Dưới 1 ngày',
+                'week'  => '1 đến 7 ngày',
+                'month' => '7 đến 30 ngày',
+                'older' => 'Trên 30 ngày',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Đã đưa việc chụp ảnh chất lượng vào hàng đợi.',
+            'done'   => 'Đã chụp ảnh chất lượng cho :count loại thực thể.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Cần phê duyệt: yêu cầu thay đổi #:id',

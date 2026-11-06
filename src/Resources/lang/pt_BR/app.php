@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Painel de qualidade',
+        'acl'      => 'Painel de qualidade',
+        'index'    => [
+            'title'         => 'Painel de qualidade de dados',
+            'info'          => 'Snapshots diários de completude, validade e duplicados por tipo de entidade, com o trabalho pendente de cada responsável pelos dados.',
+            'empty'         => 'Não há tipos de entidade para relatar.',
+            'scorecards'    => 'Indicadores',
+            'no-snapshot'   => 'Nenhum snapshot foi gerado ainda.',
+            'not-available' => 'n/d',
+            'percent'       => ':value%',
+            'delta'         => ':value pts',
+            'records'       => 'Registros: :count',
+            'open-tasks'    => 'Tarefas abertas: :count',
+            'snapshot-date' => 'Snapshot de :date',
+            'trend'         => 'Tendência: :type',
+            'trend-empty'   => 'Ainda não há snapshots neste período.',
+            'chart-label'   => 'Tendência de qualidade de dados de :type de :from a :to',
+            'workload'      => 'Carga de trabalho dos responsáveis',
+        ],
+        'ranges' => [
+            '7'  => 'Últimos 7 dias',
+            '30' => 'Últimos 30 dias',
+            '90' => 'Últimos 90 dias',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Completude',
+            'validity_rate'    => 'Validade',
+            'duplicate_rate'   => 'Duplicados',
+        ],
+        'workload' => [
+            'steward'          => 'Responsável',
+            'change-requests'  => 'Solicitações de alteração abertas',
+            'match-candidates' => 'Candidatos de correspondência abertos',
+            'unassigned'       => 'Sem proprietário dos dados',
+            'empty'            => 'Nenhuma tarefa aberta dos responsáveis.',
+            'buckets'          => [
+                'day'   => 'Menos de 1 dia',
+                'week'  => 'De 1 a 7 dias',
+                'month' => 'De 7 a 30 dias',
+                'older' => 'Mais de 30 dias',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Captura do snapshot de qualidade colocada na fila.',
+            'done'   => 'Snapshots de qualidade capturados para :count tipos de entidade.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Aprovação necessária: solicitação de alteração #:id',

@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Tauler de qualitat',
+        'acl'      => 'Tauler de qualitat',
+        'index'    => [
+            'title'         => 'Tauler de qualitat de dades',
+            'info'          => 'Instantànies diàries de completesa, validesa i duplicats per tipus d\'entitat, amb la feina pendent de cada responsable de dades.',
+            'empty'         => 'No hi ha tipus d\'entitat sobre els quals informar.',
+            'scorecards'    => 'Quadres de comandament',
+            'no-snapshot'   => 'Encara no s\'ha pres cap instantània.',
+            'not-available' => 'n/d',
+            'percent'       => ':value%',
+            'delta'         => ':value punts',
+            'records'       => 'Registres: :count',
+            'open-tasks'    => 'Tasques obertes: :count',
+            'snapshot-date' => 'Instantània del :date',
+            'trend'         => 'Tendència: :type',
+            'trend-empty'   => 'Encara no hi ha instantànies en aquest interval.',
+            'chart-label'   => 'Tendència de qualitat de dades de :type del :from al :to',
+            'workload'      => 'Càrrega de treball dels responsables',
+        ],
+        'ranges' => [
+            '7'  => 'Últims 7 dies',
+            '30' => 'Últims 30 dies',
+            '90' => 'Últims 90 dies',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Completesa',
+            'validity_rate'    => 'Validesa',
+            'duplicate_rate'   => 'Duplicats',
+        ],
+        'workload' => [
+            'steward'          => 'Responsable',
+            'change-requests'  => 'Sol·licituds de canvi obertes',
+            'match-candidates' => 'Candidats de coincidència oberts',
+            'unassigned'       => 'Sense propietari de dades',
+            'empty'            => 'No hi ha tasques obertes dels responsables.',
+            'buckets'          => [
+                'day'   => 'Menys d\'1 dia',
+                'week'  => 'D\'1 a 7 dies',
+                'month' => 'De 7 a 30 dies',
+                'older' => 'Més de 30 dies',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Captura d\'instantània de qualitat posada a la cua.',
+            'done'   => 'S\'han capturat les instantànies de qualitat de :count tipus d\'entitat.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Cal aprovació: sol·licitud de canvi #:id',

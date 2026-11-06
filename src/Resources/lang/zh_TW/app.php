@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => '品質儀表板',
+        'acl'      => '品質儀表板',
+        'index'    => [
+            'title'         => '資料品質儀表板',
+            'info'          => '依實體類型每日記錄完整性、有效性與重複項快照，並顯示每位資料管理員的待辦工作。',
+            'empty'         => '沒有可報告的實體類型。',
+            'scorecards'    => '計分卡',
+            'no-snapshot'   => '尚未產生快照。',
+            'not-available' => '無',
+            'percent'       => ':value%',
+            'delta'         => ':value 個百分點',
+            'records'       => '記錄：:count',
+            'open-tasks'    => '未完成任務：:count',
+            'snapshot-date' => ':date 的快照',
+            'trend'         => '趨勢：:type',
+            'trend-empty'   => '此範圍內尚無快照。',
+            'chart-label'   => ':type 從 :from 到 :to 的資料品質趨勢',
+            'workload'      => '管理員工作量',
+        ],
+        'ranges' => [
+            '7'  => '最近 7 天',
+            '30' => '最近 30 天',
+            '90' => '最近 90 天',
+        ],
+        'metrics' => [
+            'completeness_avg' => '完整性',
+            'validity_rate'    => '有效性',
+            'duplicate_rate'   => '重複項',
+        ],
+        'workload' => [
+            'steward'          => '資料管理員',
+            'change-requests'  => '未處理的變更請求',
+            'match-candidates' => '未處理的比對候選',
+            'unassigned'       => '無資料擁有者',
+            'empty'            => '資料管理員沒有未完成的任務。',
+            'buckets'          => [
+                'day'   => '少於 1 天',
+                'week'  => '1 至 7 天',
+                'month' => '7 至 30 天',
+                'older' => '超過 30 天',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => '品質快照擷取已加入佇列。',
+            'done'   => '已擷取 :count 個實體類型的品質快照。',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => '需要核准：變更請求 #:id',
