@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'バリデーション',
+        'title'          => 'バリデーションルール',
+        'info'           => '型だけでなくフィールドの値を検証します。ブロックルールは保存、インポート、API書き込みを拒否し、警告ルールはそれらを通したうえでデータ品質の警告を出します。',
+        'create-btn'     => 'バリデーションルールを追加',
+        'create-success' => 'バリデーションルールを作成しました。',
+        'update-success' => 'バリデーションルールを更新しました。',
+        'delete-success' => 'バリデーションルールを削除しました。',
+
+        'create' => [
+            'title' => 'バリデーションルールを追加',
+        ],
+
+        'edit' => [
+            'title' => 'バリデーションルールを編集',
+        ],
+
+        'form' => [
+            'field'            => 'フィールド',
+            'select-field'     => 'フィールドを選択',
+            'type'             => 'ルール',
+            'select-type'      => 'ルールを選択',
+            'severity'         => '重大度',
+            'severity-info'    => '「ブロック」はルールに違反する値を拒否します。「警告」は値を保存し、品質警告を報告します。',
+            'pattern'          => 'パターン',
+            'pattern-info'     => '区切り文字付きの正規表現です。例: /^[A-Z]{2}[0-9]+$/',
+            'value'            => '値',
+            'min-length'       => '最小文字数',
+            'max-length'       => '最大文字数',
+            'operator'         => '比較',
+            'other-field'      => '比較対象',
+            'other-field-info' => 'もう一方のフィールドが空の間は、ルールを満たしたものとして扱われます。',
+            'codes'            => '許可されるコード',
+            'codes-info'       => '1行に1つ、またはカンマ区切りで入力します。値は完全一致で比較されます。',
+            'after'            => 'この日付より前は不可',
+            'before'           => 'この日付より後は不可',
+            'date-info'        => '2020-01-01 のような日付、または today や -18 years のような相対日付を入力します。どちらかを空にすると、範囲の片側が無制限になります。',
+            'messages'         => 'エラーメッセージ',
+            'messages-info'    => '値がルールに違反したときに、ユーザーまたはAPIクライアントの言語で表示されます。空にすると既定のメッセージが使われます。:attribute はフィールド名を表します。',
+            'sort-order'       => '並び順',
+            'save-btn'         => 'バリデーションルールを保存',
+        ],
+
+        'types' => [
+            'regex'        => 'パターンに一致',
+            'min'          => '最小値',
+            'max'          => '最大値',
+            'length'       => '文字数',
+            'cross_field'  => '別のフィールドと比較',
+            'one_of_codes' => '指定したコードのいずれか',
+            'date_range'   => '日付範囲',
+        ],
+
+        'severities' => [
+            'block' => 'ブロック',
+            'warn'  => '警告',
+        ],
+
+        'operators' => [
+            'eq'  => 'と等しい',
+            'neq' => 'と異なる',
+            'gt'  => 'より大きい',
+            'gte' => '以上の',
+            'lt'  => 'より小さい',
+            'lte' => '以下の',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute は無効です。',
+            'regex'        => ':attribute の形式が正しくありません。',
+            'min'          => ':attribute は :value 以上である必要があります。',
+            'max'          => ':attribute は :value 以下である必要があります。',
+            'length'       => ':attribute は :min 文字以上 :max 文字以下である必要があります。',
+            'cross_field'  => ':attribute は :field:operator値にする必要があります。',
+            'one_of_codes' => ':attribute は次のいずれかである必要があります: :codes',
+            'date_range'   => ':attribute は許可された範囲内の日付である必要があります。',
+            'unavailable'  => ':attribute の :rule チェックは利用できなくなりました。管理者にルールの削除または置き換えを依頼してください。',
+        ],
+
+        'datagrid' => [
+            'field'      => 'フィールド',
+            'type'       => 'ルール',
+            'severity'   => '重大度',
+            'sort-order' => '並び順',
+            'edit'       => '編集',
+            'delete'     => '削除',
+        ],
+
+        'validation' => [
+            'too-many'     => '1つのエンティティタイプに設定できるバリデーションルールは最大 :count 件です。',
+            'invalid-date' => '日付、または today のような相対日付を入力してください。',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => '標準化',
+        'info'           => '検証と保存の前に、管理画面、インポート、APIのいずれからでも値をクリーンアップします。フィールドの変換は並び順に実行されます。',
+        'create-btn'     => '変換を追加',
+        'create-success' => '変換を作成しました。',
+        'update-success' => '変換を更新しました。',
+        'delete-success' => '変換を削除しました。',
+        'unavailable'    => ':attribute の :transform 変換は利用できなくなりました。管理者に削除または置き換えを依頼してください。',
+
+        'create' => [
+            'title' => '変換を追加',
+        ],
+
+        'edit' => [
+            'title' => '変換を編集',
+        ],
+
+        'form' => [
+            'field'            => 'フィールド',
+            'select-field'     => 'フィールドを選択',
+            'transform'        => '変換',
+            'select-transform' => '変換を選択',
+            'transform-info'   => 'テキスト値にのみ適用されます。それ以外の値はそのままになります。',
+            'sort-order'       => '並び順',
+            'sort-order-info'  => '同じフィールドの変換は、並び順の小さいものから順に実行されます。',
+            'save-btn'         => '変換を保存',
+        ],
+
+        'types' => [
+            'trim'            => '前後の空白を削除',
+            'lower'           => '小文字',
+            'upper'           => '大文字',
+            'title'           => '各単語の先頭を大文字',
+            'collapse_spaces' => '連続する空白を1つにまとめる',
+            'email_normalize' => 'メールアドレスを正規化',
+            'phone_e164'      => '電話番号を正規化 (E.164)',
+            'strip_non_alnum' => '英数字のみを残す',
+        ],
+
+        'datagrid' => [
+            'field'      => 'フィールド',
+            'transform'  => '変換',
+            'sort-order' => '並び順',
+            'edit'       => '編集',
+            'delete'     => '削除',
+        ],
+
+        'validation' => [
+            'taken'    => 'このフィールドには、すでにこの変換が設定されています。',
+            'too-many' => '1つのエンティティタイプに設定できる変換は最大 :count 件です。',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'バリデーション警告',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => '下位の :type を表示',
     ],

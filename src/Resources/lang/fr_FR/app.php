@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validation',
+        'title'          => 'Règles de validation',
+        'info'           => 'Contrôlez les valeurs des champs au-delà de leur type. Les règles bloquantes refusent un enregistrement, un import ou une écriture via l’API ; les règles d’avertissement les laissent passer et déclenchent un avertissement de qualité des données.',
+        'create-btn'     => 'Ajouter une règle de validation',
+        'create-success' => 'Règle de validation créée avec succès.',
+        'update-success' => 'Règle de validation mise à jour avec succès.',
+        'delete-success' => 'Règle de validation supprimée avec succès.',
+
+        'create' => [
+            'title' => 'Ajouter une règle de validation',
+        ],
+
+        'edit' => [
+            'title' => 'Modifier la règle de validation',
+        ],
+
+        'form' => [
+            'field'            => 'Champ',
+            'select-field'     => 'Sélectionner un champ',
+            'type'             => 'Règle',
+            'select-type'      => 'Sélectionner une règle',
+            'severity'         => 'Gravité',
+            'severity-info'    => '« Bloquer » refuse les valeurs qui enfreignent la règle. « Avertir » les enregistre et signale un avertissement de qualité.',
+            'pattern'          => 'Motif',
+            'pattern-info'     => 'Une expression régulière avec délimiteurs, par exemple /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Valeur',
+            'min-length'       => 'Longueur minimale',
+            'max-length'       => 'Longueur maximale',
+            'operator'         => 'Comparaison',
+            'other-field'      => 'Comparé à',
+            'other-field-info' => 'La règle est respectée tant que l’autre champ est vide.',
+            'codes'            => 'Codes autorisés',
+            'codes-info'       => 'Un code par ligne ou séparés par des virgules. Les valeurs sont comparées exactement.',
+            'after'            => 'Pas avant',
+            'before'           => 'Pas après',
+            'date-info'        => 'Une date telle que 2020-01-01 ou une date relative telle que today ou -18 years. Laissez l’un des deux vides pour une plage ouverte.',
+            'messages'         => 'Message d’erreur',
+            'messages-info'    => 'Affiché lorsqu’une valeur enfreint la règle, dans la langue de la personne ou du client API. Laissez vide pour le message par défaut. :attribute représente le nom du champ.',
+            'sort-order'       => 'Ordre de tri',
+            'save-btn'         => 'Enregistrer la règle de validation',
+        ],
+
+        'types' => [
+            'regex'        => 'Correspond au motif',
+            'min'          => 'Valeur minimale',
+            'max'          => 'Valeur maximale',
+            'length'       => 'Longueur',
+            'cross_field'  => 'Comparé à un autre champ',
+            'one_of_codes' => 'Un des codes listés',
+            'date_range'   => 'Plage de dates',
+        ],
+
+        'severities' => [
+            'block' => 'Bloquer',
+            'warn'  => 'Avertir',
+        ],
+
+        'operators' => [
+            'eq'  => 'égal à',
+            'neq' => 'différent de',
+            'gt'  => 'supérieur à',
+            'gte' => 'au moins égal à',
+            'lt'  => 'inférieur à',
+            'lte' => 'au plus égal à',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute n’est pas valide.',
+            'regex'        => ':attribute n’a pas le format attendu.',
+            'min'          => ':attribute doit être au moins égal à :value.',
+            'max'          => ':attribute doit être au plus égal à :value.',
+            'length'       => ':attribute doit contenir entre :min et :max caractères.',
+            'cross_field'  => ':attribute doit être :operator :field.',
+            'one_of_codes' => ':attribute doit être l’un des codes suivants : :codes.',
+            'date_range'   => ':attribute doit être une date comprise dans la plage autorisée.',
+            'unavailable'  => 'La vérification :rule sur :attribute n\'est plus disponible. Demandez à un administrateur de supprimer ou de remplacer la règle.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Champ',
+            'type'       => 'Règle',
+            'severity'   => 'Gravité',
+            'sort-order' => 'Ordre de tri',
+            'edit'       => 'Modifier',
+            'delete'     => 'Supprimer',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Un type d’entité peut avoir au maximum :count règles de validation.',
+            'invalid-date' => 'Saisissez une date ou une date relative telle que today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardisation',
+        'info'           => 'Nettoyez les valeurs avant leur validation et leur enregistrement, depuis l’administration, les imports et l’API. Les transformations d’un champ s’exécutent selon leur ordre de tri.',
+        'create-btn'     => 'Ajouter une transformation',
+        'create-success' => 'Transformation créée avec succès.',
+        'update-success' => 'Transformation mise à jour avec succès.',
+        'delete-success' => 'Transformation supprimée avec succès.',
+        'unavailable'    => 'La transformation :transform sur :attribute n\'est plus disponible. Demandez à un administrateur de la supprimer ou de la remplacer.',
+
+        'create' => [
+            'title' => 'Ajouter une transformation',
+        ],
+
+        'edit' => [
+            'title' => 'Modifier la transformation',
+        ],
+
+        'form' => [
+            'field'            => 'Champ',
+            'select-field'     => 'Sélectionner un champ',
+            'transform'        => 'Transformation',
+            'select-transform' => 'Sélectionner une transformation',
+            'transform-info'   => 'S’applique uniquement aux valeurs textuelles ; les autres valeurs restent inchangées.',
+            'sort-order'       => 'Ordre de tri',
+            'sort-order-info'  => 'Les transformations d’un même champ s’exécutent de l’ordre de tri le plus bas au plus élevé.',
+            'save-btn'         => 'Enregistrer la transformation',
+        ],
+
+        'types' => [
+            'trim'            => 'Supprimer les espaces en début et fin',
+            'lower'           => 'Minuscules',
+            'upper'           => 'Majuscules',
+            'title'           => 'Casse de titre',
+            'collapse_spaces' => 'Réduire les espaces répétés',
+            'email_normalize' => 'Normaliser l’adresse e-mail',
+            'phone_e164'      => 'Normaliser le numéro de téléphone (E.164)',
+            'strip_non_alnum' => 'Conserver uniquement lettres et chiffres',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Champ',
+            'transform'  => 'Transformation',
+            'sort-order' => 'Ordre de tri',
+            'edit'       => 'Modifier',
+            'delete'     => 'Supprimer',
+        ],
+
+        'validation' => [
+            'taken'    => 'Ce champ exécute déjà cette transformation.',
+            'too-many' => 'Un type d’entité peut avoir au maximum :count transformations.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Avertissement de validation',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Parcourir les :type en dessous',
     ],

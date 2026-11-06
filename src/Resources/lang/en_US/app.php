@@ -712,6 +712,153 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validation',
+        'title'          => 'Validation Rules',
+        'info'           => 'Check field values beyond their type. Blocking rules refuse a save, import or API write; warning rules let it through and raise a data quality warning.',
+        'create-btn'     => 'Add Validation Rule',
+        'create-success' => 'Validation rule created successfully.',
+        'update-success' => 'Validation rule updated successfully.',
+        'delete-success' => 'Validation rule deleted successfully.',
+
+        'create' => [
+            'title' => 'Add Validation Rule',
+        ],
+
+        'edit' => [
+            'title' => 'Edit Validation Rule',
+        ],
+
+        'form' => [
+            'field'            => 'Field',
+            'select-field'     => 'Select a field',
+            'type'             => 'Rule',
+            'select-type'      => 'Select a rule',
+            'severity'         => 'Severity',
+            'severity-info'    => 'Block refuses values that break the rule. Warn stores them and reports a quality warning.',
+            'pattern'          => 'Pattern',
+            'pattern-info'     => 'A regular expression with delimiters, such as /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Value',
+            'min-length'       => 'Minimum Length',
+            'max-length'       => 'Maximum Length',
+            'operator'         => 'Comparison',
+            'other-field'      => 'Compared With',
+            'other-field-info' => 'The rule passes while the other field is empty.',
+            'codes'            => 'Allowed Codes',
+            'codes-info'       => 'One code per line or separated by commas. Values are compared exactly.',
+            'after'            => 'Not Before',
+            'before'           => 'Not After',
+            'date-info'        => 'A date such as 2020-01-01 or a relative date such as today or -18 years. Leave one empty for an open range.',
+            'messages'         => 'Error Message',
+            'messages-info'    => 'Shown when a value breaks the rule, in the language of the person or API client. Leave empty for the default message. :attribute stands for the field name.',
+            'sort-order'       => 'Sort Order',
+            'save-btn'         => 'Save Validation Rule',
+        ],
+
+        'types' => [
+            'regex'        => 'Matches pattern',
+            'min'          => 'Minimum value',
+            'max'          => 'Maximum value',
+            'length'       => 'Length',
+            'cross_field'  => 'Compared with another field',
+            'one_of_codes' => 'One of the listed codes',
+            'date_range'   => 'Date range',
+        ],
+
+        'severities' => [
+            'block' => 'Block',
+            'warn'  => 'Warn',
+        ],
+
+        'operators' => [
+            'eq'  => 'equal to',
+            'neq' => 'different from',
+            'gt'  => 'greater than',
+            'gte' => 'at least',
+            'lt'  => 'less than',
+            'lte' => 'at most',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute is not valid.',
+            'regex'        => ':attribute does not have the expected format.',
+            'min'          => ':attribute must be at least :value.',
+            'max'          => ':attribute must be at most :value.',
+            'length'       => ':attribute must be between :min and :max characters long.',
+            'cross_field'  => ':attribute must be :operator :field.',
+            'one_of_codes' => ':attribute must be one of: :codes.',
+            'date_range'   => ':attribute must be a date within the allowed range.',
+            'unavailable'  => 'The :rule check on :attribute is no longer available. Ask an administrator to remove or replace the rule.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Field',
+            'type'       => 'Rule',
+            'severity'   => 'Severity',
+            'sort-order' => 'Sort Order',
+            'edit'       => 'Edit',
+            'delete'     => 'Delete',
+        ],
+
+        'validation' => [
+            'too-many'      => 'An entity type can have at most :count validation rules.',
+            'invalid-date'  => 'Enter a date or a relative date such as today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardization',
+        'info'           => 'Clean up values before they are validated and saved, from the admin, imports and the API alike. Transforms of a field run in their sort order.',
+        'create-btn'     => 'Add Transform',
+        'create-success' => 'Transform created successfully.',
+        'update-success' => 'Transform updated successfully.',
+        'delete-success' => 'Transform deleted successfully.',
+        'unavailable'    => 'The :transform transform on :attribute is no longer available. Ask an administrator to remove or replace it.',
+
+        'create' => [
+            'title' => 'Add Transform',
+        ],
+
+        'edit' => [
+            'title' => 'Edit Transform',
+        ],
+
+        'form' => [
+            'field'            => 'Field',
+            'select-field'     => 'Select a field',
+            'transform'        => 'Transform',
+            'select-transform' => 'Select a transform',
+            'transform-info'   => 'Applies to text values only; other values are left as they are.',
+            'sort-order'       => 'Sort Order',
+            'sort-order-info'  => 'Transforms of the same field run from the lowest sort order up.',
+            'save-btn'         => 'Save Transform',
+        ],
+
+        'types' => [
+            'trim'            => 'Trim surrounding spaces',
+            'lower'           => 'Lower case',
+            'upper'           => 'Upper case',
+            'title'           => 'Title case',
+            'collapse_spaces' => 'Collapse repeated spaces',
+            'email_normalize' => 'Normalize e-mail address',
+            'phone_e164'      => 'Normalize phone number (E.164)',
+            'strip_non_alnum' => 'Keep letters and digits only',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Field',
+            'transform'  => 'Transform',
+            'sort-order' => 'Sort Order',
+            'edit'       => 'Edit',
+            'delete'     => 'Delete',
+        ],
+
+        'validation' => [
+            'taken'    => 'This field already runs this transform.',
+            'too-many' => 'An entity type can have at most :count transforms.',
+        ],
+    ],
+
     'hierarchy' => [
         'title'                => 'Hierarchy',
         'ancestors'            => 'Path',
@@ -1378,6 +1525,7 @@ return [
             'hierarchy'     => 'Consistency: hierarchy',
             'required_xref' => 'Consistency: cross-reference',
             'duplicate'     => 'Likely duplicate',
+            'field_rule'    => 'Validation warning',
         ],
 
         'messages' => [
@@ -1388,6 +1536,7 @@ return [
             ],
             'required_xref' => 'No external id from the required source system :system.',
             'duplicate'     => 'Likely duplicate of :record (:score% similar label).',
+            'field_rule'    => ':message',
         ],
 
         'severities' => [

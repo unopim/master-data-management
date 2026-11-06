@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validatie',
+        'title'          => 'Validatieregels',
+        'info'           => 'Controleer veldwaarden verder dan hun type. Blokkerende regels weigeren een opslag, import of API-schrijfactie; waarschuwingsregels laten die door en geven een datakwaliteitswaarschuwing.',
+        'create-btn'     => 'Validatieregel toevoegen',
+        'create-success' => 'Validatieregel succesvol aangemaakt.',
+        'update-success' => 'Validatieregel succesvol bijgewerkt.',
+        'delete-success' => 'Validatieregel succesvol verwijderd.',
+
+        'create' => [
+            'title' => 'Validatieregel toevoegen',
+        ],
+
+        'edit' => [
+            'title' => 'Validatieregel bewerken',
+        ],
+
+        'form' => [
+            'field'            => 'Veld',
+            'select-field'     => 'Selecteer een veld',
+            'type'             => 'Regel',
+            'select-type'      => 'Selecteer een regel',
+            'severity'         => 'Ernst',
+            'severity-info'    => '"Blokkeren" weigert waarden die de regel overtreden. "Waarschuwen" slaat ze op en meldt een kwaliteitswaarschuwing.',
+            'pattern'          => 'Patroon',
+            'pattern-info'     => 'Een reguliere expressie met scheidingstekens, zoals /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Waarde',
+            'min-length'       => 'Minimale lengte',
+            'max-length'       => 'Maximale lengte',
+            'operator'         => 'Vergelijking',
+            'other-field'      => 'Vergeleken met',
+            'other-field-info' => 'De regel slaagt zolang het andere veld leeg is.',
+            'codes'            => 'Toegestane codes',
+            'codes-info'       => 'Eén code per regel of gescheiden door komma\'s. Waarden worden exact vergeleken.',
+            'after'            => 'Niet vóór',
+            'before'           => 'Niet na',
+            'date-info'        => 'Een datum zoals 2020-01-01 of een relatieve datum zoals today of -18 years. Laat er één leeg voor een open bereik.',
+            'messages'         => 'Foutmelding',
+            'messages-info'    => 'Wordt getoond wanneer een waarde de regel overtreedt, in de taal van de persoon of de API-client. Laat leeg voor de standaardmelding. :attribute staat voor de veldnaam.',
+            'sort-order'       => 'Sorteervolgorde',
+            'save-btn'         => 'Validatieregel opslaan',
+        ],
+
+        'types' => [
+            'regex'        => 'Komt overeen met patroon',
+            'min'          => 'Minimumwaarde',
+            'max'          => 'Maximumwaarde',
+            'length'       => 'Lengte',
+            'cross_field'  => 'Vergeleken met een ander veld',
+            'one_of_codes' => 'Een van de opgegeven codes',
+            'date_range'   => 'Datumbereik',
+        ],
+
+        'severities' => [
+            'block' => 'Blokkeren',
+            'warn'  => 'Waarschuwen',
+        ],
+
+        'operators' => [
+            'eq'  => 'gelijk aan',
+            'neq' => 'anders dan',
+            'gt'  => 'groter dan',
+            'gte' => 'minstens',
+            'lt'  => 'kleiner dan',
+            'lte' => 'hoogstens',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute is ongeldig.',
+            'regex'        => ':attribute heeft niet de verwachte notatie.',
+            'min'          => ':attribute moet minstens :value zijn.',
+            'max'          => ':attribute mag hoogstens :value zijn.',
+            'length'       => ':attribute moet tussen :min en :max tekens lang zijn.',
+            'cross_field'  => ':attribute moet :operator :field zijn.',
+            'one_of_codes' => ':attribute moet een van de volgende zijn: :codes.',
+            'date_range'   => ':attribute moet een datum binnen het toegestane bereik zijn.',
+            'unavailable'  => 'De controle :rule op :attribute is niet meer beschikbaar. Vraag een beheerder de regel te verwijderen of te vervangen.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Veld',
+            'type'       => 'Regel',
+            'severity'   => 'Ernst',
+            'sort-order' => 'Sorteervolgorde',
+            'edit'       => 'Bewerken',
+            'delete'     => 'Verwijderen',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Een entiteitstype kan maximaal :count validatieregels hebben.',
+            'invalid-date' => 'Voer een datum of een relatieve datum in, zoals today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standaardisatie',
+        'info'           => 'Maak waarden schoon voordat ze worden gevalideerd en opgeslagen, vanuit de beheeromgeving, imports en de API. Transformaties van een veld worden uitgevoerd in hun sorteervolgorde.',
+        'create-btn'     => 'Transformatie toevoegen',
+        'create-success' => 'Transformatie succesvol aangemaakt.',
+        'update-success' => 'Transformatie succesvol bijgewerkt.',
+        'delete-success' => 'Transformatie succesvol verwijderd.',
+        'unavailable'    => 'De transformatie :transform op :attribute is niet meer beschikbaar. Vraag een beheerder deze te verwijderen of te vervangen.',
+
+        'create' => [
+            'title' => 'Transformatie toevoegen',
+        ],
+
+        'edit' => [
+            'title' => 'Transformatie bewerken',
+        ],
+
+        'form' => [
+            'field'            => 'Veld',
+            'select-field'     => 'Selecteer een veld',
+            'transform'        => 'Transformatie',
+            'select-transform' => 'Selecteer een transformatie',
+            'transform-info'   => 'Geldt alleen voor tekstwaarden; andere waarden blijven ongewijzigd.',
+            'sort-order'       => 'Sorteervolgorde',
+            'sort-order-info'  => 'Transformaties van hetzelfde veld worden uitgevoerd van de laagste sorteervolgorde omhoog.',
+            'save-btn'         => 'Transformatie opslaan',
+        ],
+
+        'types' => [
+            'trim'            => 'Omringende spaties verwijderen',
+            'lower'           => 'Kleine letters',
+            'upper'           => 'Hoofdletters',
+            'title'           => 'Hoofdletter per woord',
+            'collapse_spaces' => 'Herhaalde spaties samenvoegen',
+            'email_normalize' => 'E-mailadres normaliseren',
+            'phone_e164'      => 'Telefoonnummer normaliseren (E.164)',
+            'strip_non_alnum' => 'Alleen letters en cijfers behouden',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Veld',
+            'transform'  => 'Transformatie',
+            'sort-order' => 'Sorteervolgorde',
+            'edit'       => 'Bewerken',
+            'delete'     => 'Verwijderen',
+        ],
+
+        'validation' => [
+            'taken'    => 'Dit veld voert deze transformatie al uit.',
+            'too-many' => 'Een entiteitstype kan maximaal :count transformaties hebben.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Validatiewaarschuwing',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Onderliggende :type bekijken',
     ],

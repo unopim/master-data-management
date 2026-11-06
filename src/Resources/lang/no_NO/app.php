@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validering',
+        'title'          => 'Valideringsregler',
+        'info'           => 'Kontroller feltverdier utover typen. Blokkerende regler avviser en lagring, import eller API-skriving; advarselsregler lar den gå gjennom og gir en advarsel om datakvalitet.',
+        'create-btn'     => 'Legg til valideringsregel',
+        'create-success' => 'Valideringsregelen ble opprettet.',
+        'update-success' => 'Valideringsregelen ble oppdatert.',
+        'delete-success' => 'Valideringsregelen ble slettet.',
+
+        'create' => [
+            'title' => 'Legg til valideringsregel',
+        ],
+
+        'edit' => [
+            'title' => 'Rediger valideringsregel',
+        ],
+
+        'form' => [
+            'field'            => 'Felt',
+            'select-field'     => 'Velg et felt',
+            'type'             => 'Regel',
+            'select-type'      => 'Velg en regel',
+            'severity'         => 'Alvorlighetsgrad',
+            'severity-info'    => '«Blokker» avviser verdier som bryter regelen. «Advar» lagrer dem og melder en kvalitetsadvarsel.',
+            'pattern'          => 'Mønster',
+            'pattern-info'     => 'Et regulært uttrykk med skilletegn, for eksempel /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Verdi',
+            'min-length'       => 'Minimumslengde',
+            'max-length'       => 'Maksimumslengde',
+            'operator'         => 'Sammenligning',
+            'other-field'      => 'Sammenlignet med',
+            'other-field-info' => 'Regelen er oppfylt så lenge det andre feltet er tomt.',
+            'codes'            => 'Tillatte koder',
+            'codes-info'       => 'Én kode per linje eller atskilt med komma. Verdier sammenlignes nøyaktig.',
+            'after'            => 'Ikke før',
+            'before'           => 'Ikke etter',
+            'date-info'        => 'En dato som 2020-01-01 eller en relativ dato som today eller -18 years. La ett stå tomt for et åpent intervall.',
+            'messages'         => 'Feilmelding',
+            'messages-info'    => 'Vises når en verdi bryter regelen, på språket til personen eller API-klienten. La stå tomt for standardmeldingen. :attribute står for feltnavnet.',
+            'sort-order'       => 'Sorteringsrekkefølge',
+            'save-btn'         => 'Lagre valideringsregel',
+        ],
+
+        'types' => [
+            'regex'        => 'Samsvarer med mønster',
+            'min'          => 'Minimumsverdi',
+            'max'          => 'Maksimumsverdi',
+            'length'       => 'Lengde',
+            'cross_field'  => 'Sammenlignet med et annet felt',
+            'one_of_codes' => 'En av de oppførte kodene',
+            'date_range'   => 'Datointervall',
+        ],
+
+        'severities' => [
+            'block' => 'Blokker',
+            'warn'  => 'Advar',
+        ],
+
+        'operators' => [
+            'eq'  => 'lik',
+            'neq' => 'forskjellig fra',
+            'gt'  => 'større enn',
+            'gte' => 'minst',
+            'lt'  => 'mindre enn',
+            'lte' => 'høyst',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute er ugyldig.',
+            'regex'        => ':attribute har ikke det forventede formatet.',
+            'min'          => ':attribute må være minst :value.',
+            'max'          => ':attribute må være høyst :value.',
+            'length'       => ':attribute må være mellom :min og :max tegn langt.',
+            'cross_field'  => ':attribute må være :operator :field.',
+            'one_of_codes' => ':attribute må være en av følgende: :codes.',
+            'date_range'   => ':attribute må være en dato innenfor det tillatte intervallet.',
+            'unavailable'  => 'Kontrollen :rule på :attribute er ikke lenger tilgjengelig. Be en administrator om å fjerne eller erstatte regelen.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Felt',
+            'type'       => 'Regel',
+            'severity'   => 'Alvorlighetsgrad',
+            'sort-order' => 'Sorteringsrekkefølge',
+            'edit'       => 'Rediger',
+            'delete'     => 'Slett',
+        ],
+
+        'validation' => [
+            'too-many'     => 'En enhetstype kan ha høyst :count valideringsregler.',
+            'invalid-date' => 'Skriv inn en dato eller en relativ dato som today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardisering',
+        'info'           => 'Rydd opp i verdier før de valideres og lagres, enten det skjer fra administrasjonen, importer eller API-et. Transformasjoner for et felt kjøres i sorteringsrekkefølge.',
+        'create-btn'     => 'Legg til transformasjon',
+        'create-success' => 'Transformasjonen ble opprettet.',
+        'update-success' => 'Transformasjonen ble oppdatert.',
+        'delete-success' => 'Transformasjonen ble slettet.',
+        'unavailable'    => 'Transformasjonen :transform på :attribute er ikke lenger tilgjengelig. Be en administrator om å fjerne eller erstatte den.',
+
+        'create' => [
+            'title' => 'Legg til transformasjon',
+        ],
+
+        'edit' => [
+            'title' => 'Rediger transformasjon',
+        ],
+
+        'form' => [
+            'field'            => 'Felt',
+            'select-field'     => 'Velg et felt',
+            'transform'        => 'Transformasjon',
+            'select-transform' => 'Velg en transformasjon',
+            'transform-info'   => 'Gjelder bare tekstverdier; andre verdier beholdes som de er.',
+            'sort-order'       => 'Sorteringsrekkefølge',
+            'sort-order-info'  => 'Transformasjoner for samme felt kjøres fra laveste sorteringsrekkefølge og oppover.',
+            'save-btn'         => 'Lagre transformasjon',
+        ],
+
+        'types' => [
+            'trim'            => 'Fjern omkringliggende mellomrom',
+            'lower'           => 'Små bokstaver',
+            'upper'           => 'Store bokstaver',
+            'title'           => 'Stor forbokstav',
+            'collapse_spaces' => 'Slå sammen gjentatte mellomrom',
+            'email_normalize' => 'Normaliser e-postadresse',
+            'phone_e164'      => 'Normaliser telefonnummer (E.164)',
+            'strip_non_alnum' => 'Behold bare bokstaver og sifre',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Felt',
+            'transform'  => 'Transformasjon',
+            'sort-order' => 'Sorteringsrekkefølge',
+            'edit'       => 'Rediger',
+            'delete'     => 'Slett',
+        ],
+
+        'validation' => [
+            'taken'    => 'Dette feltet kjører allerede denne transformasjonen.',
+            'too-many' => 'En enhetstype kan ha høyst :count transformasjoner.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Valideringsadvarsel',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Bla gjennom :type under',
     ],

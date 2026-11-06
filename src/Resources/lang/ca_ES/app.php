@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validació',
+        'title'          => 'Regles de validació',
+        'info'           => 'Comproveu els valors dels camps més enllà del seu tipus. Les regles de bloqueig rebutgen un desament, una importació o una escriptura per API; les regles d\'avís ho deixen passar i generen un avís de qualitat de dades.',
+        'create-btn'     => 'Afegeix una regla de validació',
+        'create-success' => 'Regla de validació creada correctament.',
+        'update-success' => 'Regla de validació actualitzada correctament.',
+        'delete-success' => 'Regla de validació eliminada correctament.',
+
+        'create' => [
+            'title' => 'Afegeix una regla de validació',
+        ],
+
+        'edit' => [
+            'title' => 'Edita la regla de validació',
+        ],
+
+        'form' => [
+            'field'            => 'Camp',
+            'select-field'     => 'Seleccioneu un camp',
+            'type'             => 'Regla',
+            'select-type'      => 'Seleccioneu una regla',
+            'severity'         => 'Gravetat',
+            'severity-info'    => '«Bloqueja» rebutja els valors que incompleixen la regla. «Avisa» els desa i informa d\'un avís de qualitat.',
+            'pattern'          => 'Patró',
+            'pattern-info'     => 'Una expressió regular amb delimitadors, com ara /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Valor',
+            'min-length'       => 'Longitud mínima',
+            'max-length'       => 'Longitud màxima',
+            'operator'         => 'Comparació',
+            'other-field'      => 'Comparat amb',
+            'other-field-info' => 'La regla es compleix mentre l\'altre camp estigui buit.',
+            'codes'            => 'Codis permesos',
+            'codes-info'       => 'Un codi per línia o separats per comes. Els valors es comparen exactament.',
+            'after'            => 'No abans de',
+            'before'           => 'No després de',
+            'date-info'        => 'Una data com 2020-01-01 o una data relativa com today o -18 years. Deixeu-ne un en blanc per a un interval obert.',
+            'messages'         => 'Missatge d\'error',
+            'messages-info'    => 'Es mostra quan un valor incompleix la regla, en l\'idioma de la persona o del client API. Deixeu-ho en blanc per al missatge per defecte. :attribute representa el nom del camp.',
+            'sort-order'       => 'Ordre',
+            'save-btn'         => 'Desa la regla de validació',
+        ],
+
+        'types' => [
+            'regex'        => 'Coincideix amb el patró',
+            'min'          => 'Valor mínim',
+            'max'          => 'Valor màxim',
+            'length'       => 'Longitud',
+            'cross_field'  => 'Comparat amb un altre camp',
+            'one_of_codes' => 'Un dels codis indicats',
+            'date_range'   => 'Interval de dates',
+        ],
+
+        'severities' => [
+            'block' => 'Bloqueja',
+            'warn'  => 'Avisa',
+        ],
+
+        'operators' => [
+            'eq'  => 'igual a',
+            'neq' => 'diferent de',
+            'gt'  => 'més gran que',
+            'gte' => 'com a mínim',
+            'lt'  => 'més petit que',
+            'lte' => 'com a màxim',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute no és vàlid.',
+            'regex'        => ':attribute no té el format esperat.',
+            'min'          => ':attribute ha de ser com a mínim :value.',
+            'max'          => ':attribute ha de ser com a màxim :value.',
+            'length'       => ':attribute ha de tenir entre :min i :max caràcters.',
+            'cross_field'  => ':attribute ha de ser :operator :field.',
+            'one_of_codes' => ':attribute ha de ser un dels següents: :codes.',
+            'date_range'   => ':attribute ha de ser una data dins de l\'interval permès.',
+            'unavailable'  => 'La comprovació :rule de :attribute ja no està disponible. Demaneu a un administrador que elimini o substitueixi la regla.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Camp',
+            'type'       => 'Regla',
+            'severity'   => 'Gravetat',
+            'sort-order' => 'Ordre',
+            'edit'       => 'Edita',
+            'delete'     => 'Elimina',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Un tipus d\'entitat pot tenir com a màxim :count regles de validació.',
+            'invalid-date' => 'Introduïu una data o una data relativa com today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Estandardització',
+        'info'           => 'Netegeu els valors abans que es validin i es desin, des de l\'administració, les importacions i l\'API. Les transformacions d\'un camp s\'executen segons el seu ordre.',
+        'create-btn'     => 'Afegeix una transformació',
+        'create-success' => 'Transformació creada correctament.',
+        'update-success' => 'Transformació actualitzada correctament.',
+        'delete-success' => 'Transformació eliminada correctament.',
+        'unavailable'    => 'La transformació :transform de :attribute ja no està disponible. Demaneu a un administrador que l\'elimini o la substitueixi.',
+
+        'create' => [
+            'title' => 'Afegeix una transformació',
+        ],
+
+        'edit' => [
+            'title' => 'Edita la transformació',
+        ],
+
+        'form' => [
+            'field'            => 'Camp',
+            'select-field'     => 'Seleccioneu un camp',
+            'transform'        => 'Transformació',
+            'select-transform' => 'Seleccioneu una transformació',
+            'transform-info'   => 'S\'aplica només als valors de text; els altres valors es deixen tal com estan.',
+            'sort-order'       => 'Ordre',
+            'sort-order-info'  => 'Les transformacions del mateix camp s\'executen de l\'ordre més baix al més alt.',
+            'save-btn'         => 'Desa la transformació',
+        ],
+
+        'types' => [
+            'trim'            => 'Elimina els espais als extrems',
+            'lower'           => 'Minúscules',
+            'upper'           => 'Majúscules',
+            'title'           => 'Majúscula inicial a cada paraula',
+            'collapse_spaces' => 'Redueix els espais repetits',
+            'email_normalize' => 'Normalitza l\'adreça electrònica',
+            'phone_e164'      => 'Normalitza el número de telèfon (E.164)',
+            'strip_non_alnum' => 'Conserva només lletres i dígits',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Camp',
+            'transform'  => 'Transformació',
+            'sort-order' => 'Ordre',
+            'edit'       => 'Edita',
+            'delete'     => 'Elimina',
+        ],
+
+        'validation' => [
+            'taken'    => 'Aquest camp ja executa aquesta transformació.',
+            'too-many' => 'Un tipus d\'entitat pot tenir com a màxim :count transformacions.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Avís de validació',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Explora els :type inferiors',
     ],

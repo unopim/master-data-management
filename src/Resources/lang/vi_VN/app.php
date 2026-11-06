@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Xác thực',
+        'title'          => 'Quy tắc xác thực',
+        'info'           => 'Kiểm tra giá trị trường ngoài kiểu dữ liệu của chúng. Quy tắc chặn sẽ từ chối việc lưu, nhập hoặc ghi qua API; quy tắc cảnh báo cho phép thực hiện và tạo cảnh báo về chất lượng dữ liệu.',
+        'create-btn'     => 'Thêm quy tắc xác thực',
+        'create-success' => 'Đã tạo quy tắc xác thực thành công.',
+        'update-success' => 'Đã cập nhật quy tắc xác thực thành công.',
+        'delete-success' => 'Đã xóa quy tắc xác thực thành công.',
+
+        'create' => [
+            'title' => 'Thêm quy tắc xác thực',
+        ],
+
+        'edit' => [
+            'title' => 'Chỉnh sửa quy tắc xác thực',
+        ],
+
+        'form' => [
+            'field'            => 'Trường',
+            'select-field'     => 'Chọn một trường',
+            'type'             => 'Quy tắc',
+            'select-type'      => 'Chọn một quy tắc',
+            'severity'         => 'Mức độ nghiêm trọng',
+            'severity-info'    => '"Chặn" từ chối các giá trị vi phạm quy tắc. "Cảnh báo" lưu chúng và báo cáo cảnh báo chất lượng.',
+            'pattern'          => 'Mẫu',
+            'pattern-info'     => 'Biểu thức chính quy có dấu phân cách, ví dụ /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Giá trị',
+            'min-length'       => 'Độ dài tối thiểu',
+            'max-length'       => 'Độ dài tối đa',
+            'operator'         => 'So sánh',
+            'other-field'      => 'So sánh với',
+            'other-field-info' => 'Quy tắc được thỏa mãn khi trường kia còn trống.',
+            'codes'            => 'Mã được phép',
+            'codes-info'       => 'Mỗi dòng một mã hoặc phân tách bằng dấu phẩy. Giá trị được so sánh chính xác.',
+            'after'            => 'Không trước',
+            'before'           => 'Không sau',
+            'date-info'        => 'Một ngày như 2020-01-01 hoặc ngày tương đối như today hay -18 years. Để trống một ô để tạo khoảng mở.',
+            'messages'         => 'Thông báo lỗi',
+            'messages-info'    => 'Hiển thị khi giá trị vi phạm quy tắc, theo ngôn ngữ của người dùng hoặc ứng dụng API. Để trống để dùng thông báo mặc định. :attribute đại diện cho tên trường.',
+            'sort-order'       => 'Thứ tự sắp xếp',
+            'save-btn'         => 'Lưu quy tắc xác thực',
+        ],
+
+        'types' => [
+            'regex'        => 'Khớp với mẫu',
+            'min'          => 'Giá trị tối thiểu',
+            'max'          => 'Giá trị tối đa',
+            'length'       => 'Độ dài',
+            'cross_field'  => 'So sánh với trường khác',
+            'one_of_codes' => 'Một trong các mã đã liệt kê',
+            'date_range'   => 'Khoảng ngày',
+        ],
+
+        'severities' => [
+            'block' => 'Chặn',
+            'warn'  => 'Cảnh báo',
+        ],
+
+        'operators' => [
+            'eq'  => 'bằng',
+            'neq' => 'khác với',
+            'gt'  => 'lớn hơn',
+            'gte' => 'tối thiểu bằng',
+            'lt'  => 'nhỏ hơn',
+            'lte' => 'tối đa bằng',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute không hợp lệ.',
+            'regex'        => ':attribute không đúng định dạng mong đợi.',
+            'min'          => ':attribute phải tối thiểu là :value.',
+            'max'          => ':attribute phải tối đa là :value.',
+            'length'       => ':attribute phải có độ dài từ :min đến :max ký tự.',
+            'cross_field'  => ':attribute phải :operator :field.',
+            'one_of_codes' => ':attribute phải là một trong các mã: :codes.',
+            'date_range'   => ':attribute phải là ngày nằm trong khoảng cho phép.',
+            'unavailable'  => 'Kiểm tra :rule trên :attribute không còn khả dụng. Hãy yêu cầu quản trị viên xóa hoặc thay thế quy tắc.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Trường',
+            'type'       => 'Quy tắc',
+            'severity'   => 'Mức độ nghiêm trọng',
+            'sort-order' => 'Thứ tự sắp xếp',
+            'edit'       => 'Chỉnh sửa',
+            'delete'     => 'Xóa',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Một loại thực thể có thể có tối đa :count quy tắc xác thực.',
+            'invalid-date' => 'Nhập một ngày hoặc ngày tương đối như today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Chuẩn hóa',
+        'info'           => 'Làm sạch giá trị trước khi được xác thực và lưu, từ trang quản trị, khi nhập dữ liệu và qua API. Các phép biến đổi của một trường chạy theo thứ tự sắp xếp.',
+        'create-btn'     => 'Thêm phép biến đổi',
+        'create-success' => 'Đã tạo phép biến đổi thành công.',
+        'update-success' => 'Đã cập nhật phép biến đổi thành công.',
+        'delete-success' => 'Đã xóa phép biến đổi thành công.',
+        'unavailable'    => 'Phép biến đổi :transform trên :attribute không còn khả dụng. Hãy yêu cầu quản trị viên xóa hoặc thay thế nó.',
+
+        'create' => [
+            'title' => 'Thêm phép biến đổi',
+        ],
+
+        'edit' => [
+            'title' => 'Chỉnh sửa phép biến đổi',
+        ],
+
+        'form' => [
+            'field'            => 'Trường',
+            'select-field'     => 'Chọn một trường',
+            'transform'        => 'Phép biến đổi',
+            'select-transform' => 'Chọn một phép biến đổi',
+            'transform-info'   => 'Chỉ áp dụng cho giá trị văn bản; các giá trị khác được giữ nguyên.',
+            'sort-order'       => 'Thứ tự sắp xếp',
+            'sort-order-info'  => 'Các phép biến đổi của cùng một trường chạy từ thứ tự thấp nhất trở lên.',
+            'save-btn'         => 'Lưu phép biến đổi',
+        ],
+
+        'types' => [
+            'trim'            => 'Cắt khoảng trắng ở hai đầu',
+            'lower'           => 'Chữ thường',
+            'upper'           => 'Chữ hoa',
+            'title'           => 'Viết hoa chữ cái đầu mỗi từ',
+            'collapse_spaces' => 'Gộp các khoảng trắng lặp lại',
+            'email_normalize' => 'Chuẩn hóa địa chỉ email',
+            'phone_e164'      => 'Chuẩn hóa số điện thoại (E.164)',
+            'strip_non_alnum' => 'Chỉ giữ lại chữ cái và chữ số',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Trường',
+            'transform'  => 'Phép biến đổi',
+            'sort-order' => 'Thứ tự sắp xếp',
+            'edit'       => 'Chỉnh sửa',
+            'delete'     => 'Xóa',
+        ],
+
+        'validation' => [
+            'taken'    => 'Trường này đã chạy phép biến đổi này.',
+            'too-many' => 'Một loại thực thể có thể có tối đa :count phép biến đổi.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Cảnh báo xác thực',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Duyệt :type bên dưới',
     ],

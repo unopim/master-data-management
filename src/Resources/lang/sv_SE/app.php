@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validering',
+        'title'          => 'Valideringsregler',
+        'info'           => 'Kontrollera fältvärden utöver deras typ. Blockerande regler nekar en sparning, import eller API-skrivning; varningsregler släpper igenom den och ger en varning om datakvalitet.',
+        'create-btn'     => 'Lägg till valideringsregel',
+        'create-success' => 'Valideringsregeln har skapats.',
+        'update-success' => 'Valideringsregeln har uppdaterats.',
+        'delete-success' => 'Valideringsregeln har tagits bort.',
+
+        'create' => [
+            'title' => 'Lägg till valideringsregel',
+        ],
+
+        'edit' => [
+            'title' => 'Redigera valideringsregel',
+        ],
+
+        'form' => [
+            'field'            => 'Fält',
+            'select-field'     => 'Välj ett fält',
+            'type'             => 'Regel',
+            'select-type'      => 'Välj en regel',
+            'severity'         => 'Allvarlighetsgrad',
+            'severity-info'    => '”Blockera” nekar värden som bryter mot regeln. ”Varna” sparar dem och rapporterar en kvalitetsvarning.',
+            'pattern'          => 'Mönster',
+            'pattern-info'     => 'Ett reguljärt uttryck med avgränsare, till exempel /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Värde',
+            'min-length'       => 'Minsta längd',
+            'max-length'       => 'Största längd',
+            'operator'         => 'Jämförelse',
+            'other-field'      => 'Jämförs med',
+            'other-field-info' => 'Regeln uppfylls så länge det andra fältet är tomt.',
+            'codes'            => 'Tillåtna koder',
+            'codes-info'       => 'En kod per rad eller separerade med kommatecken. Värden jämförs exakt.',
+            'after'            => 'Inte före',
+            'before'           => 'Inte efter',
+            'date-info'        => 'Ett datum som 2020-01-01 eller ett relativt datum som today eller -18 years. Lämna ett tomt för ett öppet intervall.',
+            'messages'         => 'Felmeddelande',
+            'messages-info'    => 'Visas när ett värde bryter mot regeln, på personens eller API-klientens språk. Lämna tomt för standardmeddelandet. :attribute står för fältnamnet.',
+            'sort-order'       => 'Sorteringsordning',
+            'save-btn'         => 'Spara valideringsregel',
+        ],
+
+        'types' => [
+            'regex'        => 'Matchar mönster',
+            'min'          => 'Minsta värde',
+            'max'          => 'Största värde',
+            'length'       => 'Längd',
+            'cross_field'  => 'Jämfört med ett annat fält',
+            'one_of_codes' => 'En av de angivna koderna',
+            'date_range'   => 'Datumintervall',
+        ],
+
+        'severities' => [
+            'block' => 'Blockera',
+            'warn'  => 'Varna',
+        ],
+
+        'operators' => [
+            'eq'  => 'lika med',
+            'neq' => 'skilt från',
+            'gt'  => 'större än',
+            'gte' => 'minst',
+            'lt'  => 'mindre än',
+            'lte' => 'högst',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute är inte giltigt.',
+            'regex'        => ':attribute har inte det förväntade formatet.',
+            'min'          => ':attribute måste vara minst :value.',
+            'max'          => ':attribute får vara högst :value.',
+            'length'       => ':attribute måste vara mellan :min och :max tecken långt.',
+            'cross_field'  => ':attribute måste vara :operator :field.',
+            'one_of_codes' => ':attribute måste vara en av följande: :codes.',
+            'date_range'   => ':attribute måste vara ett datum inom det tillåtna intervallet.',
+            'unavailable'  => 'Kontrollen :rule för :attribute är inte längre tillgänglig. Be en administratör ta bort eller ersätta regeln.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Fält',
+            'type'       => 'Regel',
+            'severity'   => 'Allvarlighetsgrad',
+            'sort-order' => 'Sorteringsordning',
+            'edit'       => 'Redigera',
+            'delete'     => 'Ta bort',
+        ],
+
+        'validation' => [
+            'too-many'     => 'En entitetstyp kan ha högst :count valideringsregler.',
+            'invalid-date' => 'Ange ett datum eller ett relativt datum som today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardisering',
+        'info'           => 'Rensa värden innan de valideras och sparas, oavsett om det sker från administrationen, importer eller API-gränssnittet. Transformationer för ett fält körs i sorteringsordning.',
+        'create-btn'     => 'Lägg till transformation',
+        'create-success' => 'Transformationen har skapats.',
+        'update-success' => 'Transformationen har uppdaterats.',
+        'delete-success' => 'Transformationen har tagits bort.',
+        'unavailable'    => 'Omvandlingen :transform för :attribute är inte längre tillgänglig. Be en administratör ta bort eller ersätta den.',
+
+        'create' => [
+            'title' => 'Lägg till transformation',
+        ],
+
+        'edit' => [
+            'title' => 'Redigera transformation',
+        ],
+
+        'form' => [
+            'field'            => 'Fält',
+            'select-field'     => 'Välj ett fält',
+            'transform'        => 'Transformation',
+            'select-transform' => 'Välj en transformation',
+            'transform-info'   => 'Gäller endast textvärden; andra värden lämnas oförändrade.',
+            'sort-order'       => 'Sorteringsordning',
+            'sort-order-info'  => 'Transformationer för samma fält körs från lägsta sorteringsordning och uppåt.',
+            'save-btn'         => 'Spara transformation',
+        ],
+
+        'types' => [
+            'trim'            => 'Ta bort omgivande blanksteg',
+            'lower'           => 'Gemener',
+            'upper'           => 'Versaler',
+            'title'           => 'Stor begynnelsebokstav',
+            'collapse_spaces' => 'Slå ihop upprepade blanksteg',
+            'email_normalize' => 'Normalisera e-postadress',
+            'phone_e164'      => 'Normalisera telefonnummer (E.164)',
+            'strip_non_alnum' => 'Behåll endast bokstäver och siffror',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Fält',
+            'transform'  => 'Transformation',
+            'sort-order' => 'Sorteringsordning',
+            'edit'       => 'Redigera',
+            'delete'     => 'Ta bort',
+        ],
+
+        'validation' => [
+            'taken'    => 'Det här fältet kör redan den här transformationen.',
+            'too-many' => 'En entitetstyp kan ha högst :count transformationer.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Valideringsvarning',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Bläddra bland :type nedanför',
     ],

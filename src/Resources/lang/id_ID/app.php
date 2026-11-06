@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Validasi',
+        'title'          => 'Aturan Validasi',
+        'info'           => 'Periksa nilai bidang lebih dari sekadar tipenya. Aturan pemblokir menolak penyimpanan, impor, atau penulisan API; aturan peringatan meloloskannya dan memunculkan peringatan kualitas data.',
+        'create-btn'     => 'Tambah Aturan Validasi',
+        'create-success' => 'Aturan validasi berhasil dibuat.',
+        'update-success' => 'Aturan validasi berhasil diperbarui.',
+        'delete-success' => 'Aturan validasi berhasil dihapus.',
+
+        'create' => [
+            'title' => 'Tambah Aturan Validasi',
+        ],
+
+        'edit' => [
+            'title' => 'Ubah Aturan Validasi',
+        ],
+
+        'form' => [
+            'field'            => 'Bidang',
+            'select-field'     => 'Pilih bidang',
+            'type'             => 'Aturan',
+            'select-type'      => 'Pilih aturan',
+            'severity'         => 'Tingkat Keparahan',
+            'severity-info'    => '"Blokir" menolak nilai yang melanggar aturan. "Peringatkan" menyimpannya dan melaporkan peringatan kualitas.',
+            'pattern'          => 'Pola',
+            'pattern-info'     => 'Ekspresi reguler dengan pembatas, misalnya /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Nilai',
+            'min-length'       => 'Panjang Minimum',
+            'max-length'       => 'Panjang Maksimum',
+            'operator'         => 'Perbandingan',
+            'other-field'      => 'Dibandingkan Dengan',
+            'other-field-info' => 'Aturan terpenuhi selama bidang lainnya kosong.',
+            'codes'            => 'Kode yang Diizinkan',
+            'codes-info'       => 'Satu kode per baris atau dipisahkan koma. Nilai dibandingkan secara persis.',
+            'after'            => 'Tidak Sebelum',
+            'before'           => 'Tidak Setelah',
+            'date-info'        => 'Tanggal seperti 2020-01-01 atau tanggal relatif seperti today atau -18 years. Kosongkan salah satunya untuk rentang terbuka.',
+            'messages'         => 'Pesan Kesalahan',
+            'messages-info'    => 'Ditampilkan saat nilai melanggar aturan, dalam bahasa orang atau klien API. Kosongkan untuk pesan default. :attribute mewakili nama bidang.',
+            'sort-order'       => 'Urutan Pengurutan',
+            'save-btn'         => 'Simpan Aturan Validasi',
+        ],
+
+        'types' => [
+            'regex'        => 'Cocok dengan pola',
+            'min'          => 'Nilai minimum',
+            'max'          => 'Nilai maksimum',
+            'length'       => 'Panjang',
+            'cross_field'  => 'Dibandingkan dengan bidang lain',
+            'one_of_codes' => 'Salah satu kode yang tercantum',
+            'date_range'   => 'Rentang tanggal',
+        ],
+
+        'severities' => [
+            'block' => 'Blokir',
+            'warn'  => 'Peringatkan',
+        ],
+
+        'operators' => [
+            'eq'  => 'sama dengan',
+            'neq' => 'berbeda dari',
+            'gt'  => 'lebih besar dari',
+            'gte' => 'minimal sama dengan',
+            'lt'  => 'lebih kecil dari',
+            'lte' => 'maksimal sama dengan',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute tidak valid.',
+            'regex'        => ':attribute tidak sesuai dengan format yang diharapkan.',
+            'min'          => ':attribute minimal harus :value.',
+            'max'          => ':attribute maksimal harus :value.',
+            'length'       => ':attribute harus memiliki panjang antara :min dan :max karakter.',
+            'cross_field'  => ':attribute harus :operator :field.',
+            'one_of_codes' => ':attribute harus salah satu dari: :codes.',
+            'date_range'   => ':attribute harus berupa tanggal dalam rentang yang diizinkan.',
+            'unavailable'  => 'Pemeriksaan :rule pada :attribute tidak lagi tersedia. Minta administrator untuk menghapus atau mengganti aturan tersebut.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Bidang',
+            'type'       => 'Aturan',
+            'severity'   => 'Tingkat Keparahan',
+            'sort-order' => 'Urutan Pengurutan',
+            'edit'       => 'Ubah',
+            'delete'     => 'Hapus',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Satu tipe entitas dapat memiliki maksimal :count aturan validasi.',
+            'invalid-date' => 'Masukkan tanggal atau tanggal relatif seperti today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardisasi',
+        'info'           => 'Bersihkan nilai sebelum divalidasi dan disimpan, baik dari admin, impor, maupun API. Transformasi suatu bidang berjalan sesuai urutan pengurutannya.',
+        'create-btn'     => 'Tambah Transformasi',
+        'create-success' => 'Transformasi berhasil dibuat.',
+        'update-success' => 'Transformasi berhasil diperbarui.',
+        'delete-success' => 'Transformasi berhasil dihapus.',
+        'unavailable'    => 'Transformasi :transform pada :attribute tidak lagi tersedia. Minta administrator untuk menghapus atau menggantinya.',
+
+        'create' => [
+            'title' => 'Tambah Transformasi',
+        ],
+
+        'edit' => [
+            'title' => 'Ubah Transformasi',
+        ],
+
+        'form' => [
+            'field'            => 'Bidang',
+            'select-field'     => 'Pilih bidang',
+            'transform'        => 'Transformasi',
+            'select-transform' => 'Pilih transformasi',
+            'transform-info'   => 'Hanya berlaku untuk nilai teks; nilai lain dibiarkan apa adanya.',
+            'sort-order'       => 'Urutan Pengurutan',
+            'sort-order-info'  => 'Transformasi pada bidang yang sama berjalan dari urutan terendah ke atas.',
+            'save-btn'         => 'Simpan Transformasi',
+        ],
+
+        'types' => [
+            'trim'            => 'Pangkas spasi di sekitarnya',
+            'lower'           => 'Huruf kecil',
+            'upper'           => 'Huruf besar',
+            'title'           => 'Huruf kapital di awal kata',
+            'collapse_spaces' => 'Ringkas spasi berulang',
+            'email_normalize' => 'Normalisasi alamat email',
+            'phone_e164'      => 'Normalisasi nomor telepon (E.164)',
+            'strip_non_alnum' => 'Pertahankan hanya huruf dan angka',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Bidang',
+            'transform'  => 'Transformasi',
+            'sort-order' => 'Urutan Pengurutan',
+            'edit'       => 'Ubah',
+            'delete'     => 'Hapus',
+        ],
+
+        'validation' => [
+            'taken'    => 'Bidang ini sudah menjalankan transformasi ini.',
+            'too-many' => 'Satu tipe entitas dapat memiliki maksimal :count transformasi.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Peringatan validasi',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'Jelajahi :type di bawahnya',
     ],

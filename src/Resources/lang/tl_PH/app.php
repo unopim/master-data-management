@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => 'Pag-validate',
+        'title'          => 'Mga Patakaran sa Pag-validate',
+        'info'           => 'Suriin ang mga halaga ng field lampas sa uri ng mga ito. Tinatanggihan ng mga patakarang nagba-block ang pag-save, pag-import, o pagsulat sa API; pinapayagan ito ng mga patakarang nagbababala at nagtataas ng babala sa kalidad ng data.',
+        'create-btn'     => 'Magdagdag ng Patakaran sa Pag-validate',
+        'create-success' => 'Matagumpay na nagawa ang patakaran sa pag-validate.',
+        'update-success' => 'Matagumpay na na-update ang patakaran sa pag-validate.',
+        'delete-success' => 'Matagumpay na natanggal ang patakaran sa pag-validate.',
+
+        'create' => [
+            'title' => 'Magdagdag ng Patakaran sa Pag-validate',
+        ],
+
+        'edit' => [
+            'title' => 'I-edit ang Patakaran sa Pag-validate',
+        ],
+
+        'form' => [
+            'field'            => 'Field',
+            'select-field'     => 'Pumili ng field',
+            'type'             => 'Patakaran',
+            'select-type'      => 'Pumili ng patakaran',
+            'severity'         => 'Kalubhaan',
+            'severity-info'    => 'Tinatanggihan ng "I-block" ang mga halagang lumalabag sa patakaran. Sine-save ng "Magbabala" ang mga ito at nag-uulat ng babala sa kalidad.',
+            'pattern'          => 'Pattern',
+            'pattern-info'     => 'Isang regular expression na may mga delimiter, tulad ng /^[A-Z]{2}[0-9]+$/.',
+            'value'            => 'Halaga',
+            'min-length'       => 'Pinakamababang Haba',
+            'max-length'       => 'Pinakamataas na Haba',
+            'operator'         => 'Paghahambing',
+            'other-field'      => 'Inihahambing Sa',
+            'other-field-info' => 'Natutupad ang patakaran habang walang laman ang kabilang field.',
+            'codes'            => 'Mga Pinapayagang Code',
+            'codes-info'       => 'Isang code bawat linya o pinaghihiwalay ng kuwit. Eksaktong inihahambing ang mga halaga.',
+            'after'            => 'Hindi Bago ang',
+            'before'           => 'Hindi Pagkatapos ng',
+            'date-info'        => 'Isang petsa tulad ng 2020-01-01 o kaugnay na petsa tulad ng today o -18 years. Iwanang walang laman ang isa para sa bukas na saklaw.',
+            'messages'         => 'Mensahe ng Error',
+            'messages-info'    => 'Ipinapakita kapag lumabag ang isang halaga sa patakaran, sa wika ng tao o API client. Iwanang walang laman para sa default na mensahe. Ang :attribute ay kumakatawan sa pangalan ng field.',
+            'sort-order'       => 'Pagkakasunud-sunod',
+            'save-btn'         => 'I-save ang Patakaran sa Pag-validate',
+        ],
+
+        'types' => [
+            'regex'        => 'Tumutugma sa pattern',
+            'min'          => 'Pinakamababang halaga',
+            'max'          => 'Pinakamataas na halaga',
+            'length'       => 'Haba',
+            'cross_field'  => 'Inihambing sa ibang field',
+            'one_of_codes' => 'Isa sa mga nakalistang code',
+            'date_range'   => 'Saklaw ng petsa',
+        ],
+
+        'severities' => [
+            'block' => 'I-block',
+            'warn'  => 'Magbabala',
+        ],
+
+        'operators' => [
+            'eq'  => 'katumbas ng',
+            'neq' => 'iba sa',
+            'gt'  => 'mas malaki kaysa sa',
+            'gte' => 'hindi bababa sa',
+            'lt'  => 'mas maliit kaysa sa',
+            'lte' => 'hindi hihigit sa',
+        ],
+
+        'messages' => [
+            'default'      => 'Hindi valid ang :attribute.',
+            'regex'        => 'Wala sa inaasahang format ang :attribute.',
+            'min'          => 'Ang :attribute ay dapat na hindi bababa sa :value.',
+            'max'          => 'Ang :attribute ay dapat na hindi hihigit sa :value.',
+            'length'       => 'Ang :attribute ay dapat na may haba na nasa pagitan ng :min at :max na karakter.',
+            'cross_field'  => 'Ang :attribute ay dapat na :operator :field.',
+            'one_of_codes' => 'Ang :attribute ay dapat na isa sa: :codes.',
+            'date_range'   => 'Ang :attribute ay dapat na petsang nasa pinapayagang saklaw.',
+            'unavailable'  => 'Hindi na available ang pagsusuring :rule sa :attribute. Hilingin sa isang administrator na alisin o palitan ang patakaran.',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Field',
+            'type'       => 'Patakaran',
+            'severity'   => 'Kalubhaan',
+            'sort-order' => 'Pagkakasunud-sunod',
+            'edit'       => 'I-edit',
+            'delete'     => 'Tanggalin',
+        ],
+
+        'validation' => [
+            'too-many'     => 'Ang isang uri ng entity ay maaaring magkaroon ng hanggang :count patakaran sa pag-validate.',
+            'invalid-date' => 'Maglagay ng petsa o kaugnay na petsa tulad ng today.',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => 'Standardisasyon',
+        'info'           => 'Linisin ang mga halaga bago i-validate at i-save, mula sa admin, mga import, at API. Tumatakbo ang mga transform ng isang field ayon sa pagkakasunud-sunod ng mga ito.',
+        'create-btn'     => 'Magdagdag ng Transform',
+        'create-success' => 'Matagumpay na nagawa ang transform.',
+        'update-success' => 'Matagumpay na na-update ang transform.',
+        'delete-success' => 'Matagumpay na natanggal ang transform.',
+        'unavailable'    => 'Hindi na available ang transform na :transform sa :attribute. Hilingin sa isang administrator na alisin o palitan ito.',
+
+        'create' => [
+            'title' => 'Magdagdag ng Transform',
+        ],
+
+        'edit' => [
+            'title' => 'I-edit ang Transform',
+        ],
+
+        'form' => [
+            'field'            => 'Field',
+            'select-field'     => 'Pumili ng field',
+            'transform'        => 'Transform',
+            'select-transform' => 'Pumili ng transform',
+            'transform-info'   => 'Para lamang sa mga halagang teksto; hindi ginagalaw ang ibang halaga.',
+            'sort-order'       => 'Pagkakasunud-sunod',
+            'sort-order-info'  => 'Tumatakbo ang mga transform ng parehong field mula sa pinakamababang pagkakasunud-sunod pataas.',
+            'save-btn'         => 'I-save ang Transform',
+        ],
+
+        'types' => [
+            'trim'            => 'Alisin ang mga espasyo sa paligid',
+            'lower'           => 'Maliliit na titik',
+            'upper'           => 'Malalaking titik',
+            'title'           => 'Malaking titik sa simula ng bawat salita',
+            'collapse_spaces' => 'Pagsamahin ang paulit-ulit na espasyo',
+            'email_normalize' => 'I-normalize ang email address',
+            'phone_e164'      => 'I-normalize ang numero ng telepono (E.164)',
+            'strip_non_alnum' => 'Panatilihin lamang ang mga titik at digit',
+        ],
+
+        'datagrid' => [
+            'field'      => 'Field',
+            'transform'  => 'Transform',
+            'sort-order' => 'Pagkakasunud-sunod',
+            'edit'       => 'I-edit',
+            'delete'     => 'Tanggalin',
+        ],
+
+        'validation' => [
+            'taken'    => 'Pinapatakbo na ng field na ito ang transform na ito.',
+            'too-many' => 'Ang isang uri ng entity ay maaaring magkaroon ng hanggang :count transform.',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => 'Babala sa pag-validate',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => 'I-browse ang :type sa ilalim',
     ],

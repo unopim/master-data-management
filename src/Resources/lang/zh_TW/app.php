@@ -350,6 +350,163 @@ return [
         ],
     ],
 
+    'validation-rules' => [
+        'tab'            => '驗證',
+        'title'          => '驗證規則',
+        'info'           => '在類型之外進一步檢查欄位值。封鎖規則會拒絕儲存、匯入或 API 寫入；警告規則會放行，並產生資料品質警告。',
+        'create-btn'     => '新增驗證規則',
+        'create-success' => '驗證規則建立成功。',
+        'update-success' => '驗證規則更新成功。',
+        'delete-success' => '驗證規則刪除成功。',
+
+        'create' => [
+            'title' => '新增驗證規則',
+        ],
+
+        'edit' => [
+            'title' => '編輯驗證規則',
+        ],
+
+        'form' => [
+            'field'            => '欄位',
+            'select-field'     => '選擇欄位',
+            'type'             => '規則',
+            'select-type'      => '選擇規則',
+            'severity'         => '嚴重程度',
+            'severity-info'    => '「封鎖」會拒絕違反規則的值。「警告」會儲存這些值並回報品質警告。',
+            'pattern'          => '模式',
+            'pattern-info'     => '含分隔符號的正規表示式，例如 /^[A-Z]{2}[0-9]+$/。',
+            'value'            => '值',
+            'min-length'       => '最小長度',
+            'max-length'       => '最大長度',
+            'operator'         => '比較方式',
+            'other-field'      => '比較對象',
+            'other-field-info' => '當另一個欄位為空時，規則視為通過。',
+            'codes'            => '允許的代碼',
+            'codes-info'       => '每行一個代碼，或以逗號分隔。值會以完全相符的方式比較。',
+            'after'            => '不早於',
+            'before'           => '不晚於',
+            'date-info'        => '日期，如 2020-01-01，或相對日期，如 today 或 -18 years。其中一項留空即為開放區間。',
+            'messages'         => '錯誤訊息',
+            'messages-info'    => '當值違反規則時，以使用者或 API 用戶端的語言顯示。留空則使用預設訊息。:attribute 代表欄位名稱。',
+            'sort-order'       => '排序',
+            'save-btn'         => '儲存驗證規則',
+        ],
+
+        'types' => [
+            'regex'        => '符合模式',
+            'min'          => '最小值',
+            'max'          => '最大值',
+            'length'       => '長度',
+            'cross_field'  => '與另一個欄位比較',
+            'one_of_codes' => '所列代碼之一',
+            'date_range'   => '日期範圍',
+        ],
+
+        'severities' => [
+            'block' => '封鎖',
+            'warn'  => '警告',
+        ],
+
+        'operators' => [
+            'eq'  => '等於',
+            'neq' => '不等於',
+            'gt'  => '大於',
+            'gte' => '大於或等於',
+            'lt'  => '小於',
+            'lte' => '小於或等於',
+        ],
+
+        'messages' => [
+            'default'      => ':attribute 無效。',
+            'regex'        => ':attribute 的格式不正確。',
+            'min'          => ':attribute 必須至少為 :value。',
+            'max'          => ':attribute 必須至多為 :value。',
+            'length'       => ':attribute 的長度必須介於 :min 到 :max 個字元之間。',
+            'cross_field'  => ':attribute 必須 :operator :field。',
+            'one_of_codes' => ':attribute 必須是下列其中之一：:codes。',
+            'date_range'   => ':attribute 必須是允許範圍內的日期。',
+            'unavailable'  => ':attribute 的 :rule 檢查已無法使用。請聯絡管理員移除或取代此規則。',
+        ],
+
+        'datagrid' => [
+            'field'      => '欄位',
+            'type'       => '規則',
+            'severity'   => '嚴重程度',
+            'sort-order' => '排序',
+            'edit'       => '編輯',
+            'delete'     => '刪除',
+        ],
+
+        'validation' => [
+            'too-many'     => '一個實體類型最多可以有 :count 條驗證規則。',
+            'invalid-date' => '請輸入日期或相對日期，如 today。',
+        ],
+    ],
+
+    'field-transforms' => [
+        'title'          => '標準化',
+        'info'           => '在值被驗證和儲存之前加以清理，無論來自管理後台、匯入或 API。欄位的轉換會依排序順序執行。',
+        'create-btn'     => '新增轉換',
+        'create-success' => '轉換建立成功。',
+        'update-success' => '轉換更新成功。',
+        'delete-success' => '轉換刪除成功。',
+        'unavailable'    => ':attribute 的 :transform 轉換已無法使用。請聯絡管理員移除或取代它。',
+
+        'create' => [
+            'title' => '新增轉換',
+        ],
+
+        'edit' => [
+            'title' => '編輯轉換',
+        ],
+
+        'form' => [
+            'field'            => '欄位',
+            'select-field'     => '選擇欄位',
+            'transform'        => '轉換',
+            'select-transform' => '選擇轉換',
+            'transform-info'   => '僅適用於文字值；其他值保持不變。',
+            'sort-order'       => '排序',
+            'sort-order-info'  => '同一欄位的轉換會依排序由小到大依序執行。',
+            'save-btn'         => '儲存轉換',
+        ],
+
+        'types' => [
+            'trim'            => '移除前後空白',
+            'lower'           => '小寫',
+            'upper'           => '大寫',
+            'title'           => '首字母大寫',
+            'collapse_spaces' => '合併重複空白',
+            'email_normalize' => '正規化電子郵件地址',
+            'phone_e164'      => '正規化電話號碼 (E.164)',
+            'strip_non_alnum' => '僅保留字母和數字',
+        ],
+
+        'datagrid' => [
+            'field'      => '欄位',
+            'transform'  => '轉換',
+            'sort-order' => '排序',
+            'edit'       => '編輯',
+            'delete'     => '刪除',
+        ],
+
+        'validation' => [
+            'taken'    => '此欄位已套用此轉換。',
+            'too-many' => '一個實體類型最多可以有 :count 個轉換。',
+        ],
+    ],
+
+    'quality' => [
+        'rules' => [
+            'field_rule' => '驗證警告',
+        ],
+
+        'messages' => [
+            'field_rule' => ':message',
+        ],
+    ],
+
     'hierarchy' => [
         'browse-children' => '瀏覽下層:type',
     ],

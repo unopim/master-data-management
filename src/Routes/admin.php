@@ -11,6 +11,7 @@ use Webkul\MasterDataManagement\Http\Controllers\Admin\DashboardController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\EntityTypeController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\ExportFilterController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\FieldController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\FieldTransformController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\IconController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\ImportFilterController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchingController;
@@ -23,6 +24,7 @@ use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordXrefController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RelationTypeController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\SourceSystemController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\SurvivorshipRuleController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\ValidationRuleController;
 use Webkul\MasterDataManagement\Repositories\EntityTypeRepository;
 
 Route::bind('entity_type', fn (string $code) => resolve(EntityTypeRepository::class)->findOneByField('code', $code) ?? abort(404));
@@ -70,6 +72,20 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
             Route::post('', 'store')->name('admin.masterdata.survivorship_rules.store');
             Route::put('{id}', 'update')->name('admin.masterdata.survivorship_rules.update')->whereNumber('id');
             Route::delete('{id}', 'destroy')->name('admin.masterdata.survivorship_rules.destroy')->whereNumber('id');
+        });
+
+        Route::controller(ValidationRuleController::class)->prefix('entity-types/{entityTypeId}/validation-rules')->whereNumber('entityTypeId')->group(function (): void {
+            Route::get('', 'index')->name('admin.masterdata.validation_rules.index');
+            Route::post('', 'store')->name('admin.masterdata.validation_rules.store');
+            Route::put('{id}', 'update')->name('admin.masterdata.validation_rules.update')->whereNumber('id');
+            Route::delete('{id}', 'destroy')->name('admin.masterdata.validation_rules.destroy')->whereNumber('id');
+        });
+
+        Route::controller(FieldTransformController::class)->prefix('entity-types/{entityTypeId}/field-transforms')->whereNumber('entityTypeId')->group(function (): void {
+            Route::get('', 'index')->name('admin.masterdata.field_transforms.index');
+            Route::post('', 'store')->name('admin.masterdata.field_transforms.store');
+            Route::put('{id}', 'update')->name('admin.masterdata.field_transforms.update')->whereNumber('id');
+            Route::delete('{id}', 'destroy')->name('admin.masterdata.field_transforms.destroy')->whereNumber('id');
         });
 
         Route::controller(AliasController::class)->prefix('code-lists/aliases')->group(function (): void {
