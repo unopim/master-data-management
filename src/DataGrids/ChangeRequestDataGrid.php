@@ -58,7 +58,7 @@ class ChangeRequestDataGrid extends DataGrid
 
             $queryBuilder->where(fn (Builder $creates) => $creates
                 ->whereNotNull('mdm_change_requests.record_id')
-                ->orWhere(fn (Builder $placed) => $this->recordScope->applyToRows($placed, $admin, 'mdm_change_requests.entity_type_id', 'proposed_parents.path')));
+                ->orWhere(fn (Builder $placed) => $this->recordScope->applyToRows($placed->whereNull('mdm_change_requests.record_id'), $admin, 'mdm_change_requests.entity_type_id', 'proposed_parents.path')));
         }
 
         $this->addFilter('id', 'mdm_change_requests.id');
