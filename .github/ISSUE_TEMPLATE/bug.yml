@@ -1,0 +1,111 @@
+name: 🐛 Bug report
+description: Report a bug or unexpected behavior in UnoPim Master Data Management.
+title: '[Bug]: '
+labels: ['Bug']
+
+body:
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: I have searched the [existing issues](https://github.com/unopim/master-data-management/issues?q=) and this bug has not already been reported.
+          required: true
+
+  - type: input
+    id: versioninput
+    attributes:
+      label: Master Data Management version affected
+      description: Please enter the package version, or the commit SHA if you run it from `main`.
+      placeholder: 'x.y.z'
+    validations:
+      required: true
+
+  - type: input
+    id: unopimversion
+    attributes:
+      label: UnoPim version
+      description: Please enter the UnoPim version the package runs on.
+      placeholder: 'x.y.z'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: modules
+    attributes:
+      label: Platform modules
+      description: Which modules are enabled under Configuration › General › Platform?
+      options:
+        - PIM + MDM
+        - MDM only (standalone)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: Provide a more detailed introduction to the issue itself.
+    validations:
+      required: true
+
+  - type: textarea
+    id: precon
+    attributes:
+      label: Preconditions (environment)
+      description: Please provide as much detailed information about your environment as possible.
+      value: |
+        - PHP version:
+        - Database (MySQL/MariaDB/PostgreSQL + version):
+        - Elasticsearch version (or "not used"):
+        - Queue driver:
+        - Web server:
+        - OS:
+        - Browser:
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: It is important to provide a set of clear steps to reproduce this bug. If relevant, please include code samples.
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Result
+      description: A clear and concise description of what should happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Result
+      description: A clear and concise description of what happens instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Please add screenshots if applicable. You can also drag and drop videos or log files here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here.
+    validations:
+      required: false

@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ❔ Support Question
+    url: https://webkul.uvdesk.com/en/customer/create-ticket/
+    about: This repository is only for reporting bugs or feature requests, please create a support ticket if you need any assistance from our team.
+  - name: 🐛 UnoPim core issue
+    url: https://github.com/unopim/unopim/issues/new/choose
+    about: Products, categories, users, data transfer and other non-MDM screens belong to UnoPim. Report those issues there.
+  - name: 💬 Community Discussions
+    url: https://github.com/unopim/unopim/discussions
+    about: Ask questions and discuss ideas with the UnoPim community.
+  - name: 📖 Documentation
+    url: https://devdocs.unopim.com/
+    about: Read the official UnoPim developer documentation.
