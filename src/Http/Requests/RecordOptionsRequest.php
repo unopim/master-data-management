@@ -5,9 +5,9 @@ namespace Webkul\MasterDataManagement\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * The async record picker's query: a search term, the record being edited, an optional type filter, the reference
- * field a reference picker fills (`field`) and, when the picker restores a saved value, the uuids to look up
- * (`identifiers.values`).
+ * The async record picker's query: a search term, the page, the record being edited, an optional type filter, the
+ * reference or select field a picker fills (`field`) and, when the picker restores a saved value, the uuids or codes
+ * to look up (`identifiers.values`).
  */
 class RecordOptionsRequest extends FormRequest
 {
@@ -23,6 +23,7 @@ class RecordOptionsRequest extends FormRequest
     {
         return [
             'query'                => ['nullable', 'string', 'max:255'],
+            'page'                 => ['nullable', 'integer', 'min:1'],
             'record'               => ['nullable', 'uuid'],
             'field'                => ['nullable', 'string', 'max:64'],
             'types'                => ['nullable', 'array', 'max:50'],

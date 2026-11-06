@@ -74,6 +74,11 @@ class RecordController extends Controller
     protected const int OPTIONS_LIMIT = 20;
 
     /**
+     * The field types whose values are codes of the field's code list.
+     */
+    protected const array CODE_FIELD_TYPES = ['select', 'multiselect'];
+
+    /**
      * Display the records of an entity type.
      */
     public function index(Request $request, EntityType $entityType): View|JsonResponse
@@ -344,14 +349,29 @@ class RecordController extends Controller
     }
 
     /**
-     * Search the draft and active records of the type a reference field points to, for the async reference picker.
+     * Search the draft and active records of the type a reference field points to, for the async reference picker,
+     * or the codes of a select field's code list, for the record grid's option filter.
      */
     protected function referenceOptions(RecordOptionsRequest $request, EntityType $entityType): JsonResponse
     {
         $field = $this->fieldRepository->activeFor((int) $entityType->id)
-            ->first(fn (Field $field): bool => $field->code === $request->validated('field') && $field->type === 'reference');
+            ->first(fn (Field $field): bool => $field->code === $request->validated('field') && in_array($field->type, ['reference', ...self::CODE_FIELD_TYPES], true));
 
-        abort_unless($field instanceof Field && $field->reference_entity_type_id !== null, 404);
+        abort_unless($field instanceof Field, 404);
+
+        if ($field->type !== 'reference') {
+            abort_if($field->code_list_id === null, 404);
+
+            return new JsonResponse($this->recordFormBuilder->searchCodeOptions(
+                $field,
+                (string) $request->validated('query', ''),
+                array_values(array_map(strval(...), (array) $request->validated('identifiers.values', []))),
+                max(1, (int) $request->validated('page', 1)),
+                self::OPTIONS_LIMIT,
+            ));
+        }
+
+        abort_if($field->reference_entity_type_id === null, 404);
 
         $options = $this->recordRepository
             ->parentCandidates(

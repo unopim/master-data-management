@@ -3,11 +3,15 @@
 namespace Webkul\MasterDataManagement\DataGrids;
 
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
+use Webkul\Admin\Filters\ProductFilterOperators;
+use Webkul\DataGrid\Column;
 use Webkul\DataGrid\DataGrid;
 use Webkul\MasterDataManagement\Enums\RecordStatus;
 use Webkul\MasterDataManagement\Enums\XrefStatus;
@@ -18,8 +22,10 @@ use Webkul\MasterDataManagement\Quality\Completeness;
 use Webkul\MasterDataManagement\Repositories\EntityTypeRepository;
 use Webkul\MasterDataManagement\Repositories\FieldRepository;
 use Webkul\MasterDataManagement\Repositories\RecordRepository;
+use Webkul\MasterDataManagement\Repositories\RelationRepository;
 use Webkul\MasterDataManagement\Security\EntityTypePermissions;
 use Webkul\MasterDataManagement\Security\RecordPolicy;
+use Webkul\MasterDataManagement\Services\RecordFormBuilder;
 use Webkul\MasterDataManagement\Services\RecordIndexer;
 use Webkul\MasterDataManagement\Services\RecordPresenter;
 use Webkul\User\Models\Admin;
@@ -40,6 +46,25 @@ class RecordDataGrid extends DataGrid
      * The most parents one parent filter accepts.
      */
     protected const int PARENT_FILTER_LIMIT = 20;
+
+    /**
+     * The most values one option or reference field filter accepts.
+     */
+    protected const int OPTION_FILTER_LIMIT = 20;
+
+    /**
+     * The alias of the index rows joined to sort by a searchable field.
+     */
+    protected const string SORT_ALIAS = 'mdm_sort_value';
+
+    /**
+     * The grid filter operators each kind of field column offers, picked from the shared attribute filter operators.
+     */
+    protected const array FIELD_OPERATORS = [
+        'text'    => ['type' => 'text', 'operators' => ['has', 'eq', 'blank', 'not_blank']],
+        'numeric' => ['type' => 'integer', 'operators' => ['eq', 'lt', 'lte', 'gt', 'gte', 'within_range', 'blank', 'not_blank']],
+        'date'    => ['type' => 'date', 'operators' => ['lt', 'gt', 'within_range', 'blank', 'not_blank']],
+    ];
 
     /**
      * @var Collection<int, Field>|null
@@ -74,12 +99,28 @@ class RecordDataGrid extends DataGrid
      */
     protected ?Collection $childTypes = null;
 
+    /**
+     * The labels of the codes the option fields of the page's rows hold, keyed by field code then code.
+     *
+     * @var array<string, array<string, string>>
+     */
+    protected array $codeLabels = [];
+
+    /**
+     * The labels of the visible reference targets of the page's rows, keyed by record id then field code.
+     *
+     * @var array<int, array<string, list<string>>>
+     */
+    protected array $referenceLabels = [];
+
     public function __construct(
         protected RecordRepository $recordRepository,
         protected FieldRepository $fieldRepository,
         protected RecordPresenter $recordPresenter,
         protected EntityTypeRepository $entityTypeRepository,
         protected EntityTypePermissions $entityTypePermissions,
+        protected RelationRepository $relationRepository,
+        protected RecordFormBuilder $recordFormBuilder,
     ) {}
 
     /**
@@ -107,10 +148,6 @@ class RecordDataGrid extends DataGrid
                 'mdm_records.path',
             )
             ->selectRaw($this->externalIdsExpression().' as external_ids');
-
-        foreach ($this->searchableFields() as $field) {
-            $queryBuilder->selectSub($this->fieldValueSubQuery($field), self::FIELD_PREFIX.$field->code);
-        }
 
         $this->addFilter('id', 'mdm_records.id');
         $this->addFilter('code', 'mdm_records.code');
@@ -307,6 +344,8 @@ class RecordDataGrid extends DataGrid
             $this->loadHierarchy($this->paginator->items());
         }
 
+        $this->loadFieldLabels($this->paginator->items());
+
         $data = parent::formatData();
 
         foreach ($data['records'] as $record) {
@@ -355,6 +394,51 @@ class RecordDataGrid extends DataGrid
         }
 
         return $queryBuilder;
+    }
+
+    /**
+     * Sort by a sortable column, a searchable field through one left join on its index rows; records without a value
+     * come last in either direction and the record id breaks ties. Unknown or unsortable columns keep the default.
+     *
+     * @param  array<string, mixed>  $requestedSort
+     * @return Builder
+     */
+    public function processRequestedSorting(array $requestedSort)
+    {
+        $index = $requestedSort['column'] ?? null;
+
+        $order = is_string($requestedSort['order'] ?? null) && in_array(strtolower($requestedSort['order']), ['asc', 'desc'], true)
+            ? strtolower($requestedSort['order'])
+            : $this->sortOrder;
+
+        $column = collect($this->columns)->first(fn (Column $column): bool => $column->index === $index && $column->sortable);
+
+        if (! $column instanceof Column) {
+            return parent::processRequestedSorting([]);
+        }
+
+        $field = str_starts_with($column->index, self::FIELD_PREFIX)
+            ? $this->searchableFields()->firstWhere('code', substr($column->index, strlen(self::FIELD_PREFIX)))
+            : null;
+
+        if (! $field instanceof Field) {
+            return parent::processRequestedSorting(['column' => $column->index, 'order' => $order]);
+        }
+
+        $value = self::SORT_ALIAS.'.'.$this->indexColumn($field);
+
+        return $this->queryBuilder
+            ->leftJoin(RecordIndexer::TABLE.' as '.self::SORT_ALIAS, function (JoinClause $join) use ($field): void {
+                $join->on(self::SORT_ALIAS.'.record_id', '=', 'mdm_records.id')
+                    ->where(self::SORT_ALIAS.'.field_code', '=', $field->code);
+
+                $field->value_per_locale
+                    ? $join->where(self::SORT_ALIAS.'.locale', '=', $this->recordFormBuilder->editLocale(null))
+                    : $join->whereNull(self::SORT_ALIAS.'.locale');
+            })
+            ->orderByRaw(DB::getQueryGrammar()->wrap($value).' is null')
+            ->orderBy($value, $order)
+            ->orderBy('mdm_records.id', $order);
     }
 
     /**
@@ -528,103 +612,170 @@ class RecordDataGrid extends DataGrid
     }
 
     /**
-     * Add the column that shows and filters one searchable field.
+     * Add the column that shows and filters one searchable field: option and reference fields filter by picked
+     * values, text, numbers and dates by an operator. A list field cannot be sorted, since a record holds several.
      */
     protected function addFieldColumn(Field $field): void
     {
         $kind = $this->fieldKind($field);
 
-        $this->addColumn([
-            'index'          => self::FIELD_PREFIX.$field->code,
+        $index = self::FIELD_PREFIX.$field->code;
+
+        $column = [
+            'index'          => $index,
             'label'          => $field->label ?: $field->code,
-            'type'           => match ($kind) {
-                'numeric' => 'integer',
-                'date'    => 'date_range',
-                default   => 'string',
-            },
             'searchable'     => false,
             'filterable'     => true,
-            'sortable'       => true,
+            'sortable'       => ! $this->holdsList($field),
             'default_filter' => false,
-            'closure'        => fn ($row): string => e($kind === 'text'
-                ? $this->storedDisplayValue($row, $field)
-                : $this->displayValue($kind, $row->{self::FIELD_PREFIX.$field->code} ?? null)),
-        ]);
+            'closure'        => fn ($row): string => e($this->cellValue($row, $field, $kind)),
+        ];
+
+        $this->addColumn($column + match ($kind) {
+            'option', 'reference' => [
+                'type'    => 'dropdown',
+                'options' => [
+                    'type'     => 'searchable',
+                    'route'    => route('admin.masterdata.records.options', $this->entityType()->code),
+                    'track_by' => 'id',
+                    'label_by' => 'label',
+                    'params'   => ['field' => $field->code],
+                ],
+            ],
+            'boolean' => [
+                'type'    => 'dropdown',
+                'options' => [
+                    'type'   => 'basic',
+                    'params' => [
+                        'options' => [
+                            ['label' => trans('admin::app.components.datagrid.filters.boolean-options.true'), 'value' => '1'],
+                            ['label' => trans('admin::app.components.datagrid.filters.boolean-options.false'), 'value' => '0'],
+                        ],
+                    ],
+                ],
+            ],
+            default => [
+                'type'           => match ($kind) {
+                    'numeric' => 'integer',
+                    'date'    => 'date_range',
+                    default   => 'string',
+                },
+                'attribute_type' => self::FIELD_OPERATORS[$kind]['type'],
+                'operators'      => $this->fieldOperators($kind),
+            ],
+        });
     }
 
     /**
-     * The kind of index value the field holds: text, numeric or date.
+     * The shared attribute filter operators the kind of field column supports, labelled for the filter panel.
+     *
+     * @return list<array{value: string, label: string, control: string}>
+     */
+    protected function fieldOperators(string $kind): array
+    {
+        $supported = self::FIELD_OPERATORS[$kind]['operators'];
+
+        return array_values(array_filter(
+            ProductFilterOperators::optionsForType(self::FIELD_OPERATORS[$kind]['type']),
+            fn (array $operator): bool => in_array($operator['value'], $supported, true),
+        ));
+    }
+
+    /**
+     * The kind of values the field holds: text, numeric, date, boolean, option (code list codes) or reference.
      */
     protected function fieldKind(Field $field): string
     {
         return match ($field->type) {
-            'integer', 'decimal', 'boolean', 'measurement' => 'numeric',
-            'date', 'datetime'                             => 'date',
-            default                                        => 'text',
+            'integer', 'decimal', 'measurement' => 'numeric',
+            'date', 'datetime'                  => 'date',
+            'boolean'                           => 'boolean',
+            'select', 'multiselect'             => 'option',
+            'reference'                         => 'reference',
+            default                             => 'text',
         };
     }
 
     /**
-     * Build the correlated sub-select that reads one indexed value of a record for the field.
+     * Whether a record may hold several values of the field.
+     */
+    protected function holdsList(Field $field): bool
+    {
+        return $field->type === 'multiselect' || $field->type === 'reference';
+    }
+
+    /**
+     * The index column a field's values are compared and sorted on.
+     */
+    protected function indexColumn(Field $field): string
+    {
+        return match ($this->fieldKind($field)) {
+            'numeric', 'boolean' => 'value_numeric',
+            'date'               => 'value_date',
+            default              => 'value_normalized',
+        };
+    }
+
+    /**
+     * Load the labels the field cells of the page's rows show: the codes of each option field in one lookup per
+     * field and the reference targets of every reference field in one lookup for the page.
      *
-     * A per-locale field holds one row per locale, so the first locale by code stands for the record.
+     * @param  array<int, object>  $rows
      */
-    protected function fieldValueSubQuery(Field $field): Builder
+    protected function loadFieldLabels(array $rows): void
     {
-        $table = RecordIndexer::TABLE;
+        $fields = $this->searchableFields();
 
-        $column = match ($this->fieldKind($field)) {
-            'numeric' => 'value_numeric',
-            'date'    => 'value_date',
-            default   => 'value_normalized',
-        };
+        if ($rows === [] || $fields->isEmpty()) {
+            return;
+        }
 
-        return DB::table($table)
-            ->select($table.'.'.$column)
-            ->whereColumn($table.'.record_id', 'mdm_records.id')
-            ->where($table.'.field_code', $field->code)
-            ->orderBy($table.'.locale')
-            ->limit(1);
+        if ($fields->contains(fn (Field $field): bool => $this->fieldKind($field) === 'reference')) {
+            $this->referenceLabels = $this->relationRepository->referenceLabelsFor(array_map(fn (object $row): int => (int) $row->id, $rows));
+        }
+
+        foreach ($fields->filter(fn (Field $field): bool => $this->fieldKind($field) === 'option') as $field) {
+            $codes = [];
+
+            foreach ($rows as $row) {
+                foreach ((array) $this->storedValue($row, $field) as $code) {
+                    if (is_string($code) && $code !== '') {
+                        $codes[$code] = true;
+                    }
+                }
+            }
+
+            if ($codes === []) {
+                continue;
+            }
+
+            $options = $this->recordFormBuilder->searchCodeOptions($field, null, array_keys($codes), 1, count($codes))['options'];
+
+            $this->codeLabels[$field->code] = array_column($options, 'label', 'id');
+        }
     }
 
     /**
-     * Format an indexed value for the cell: decimals lose their trailing zeros.
+     * The text a field cell shows: code labels for an option field, the target labels for a reference field, yes or
+     * no for a boolean and the stored value otherwise.
      */
-    protected function displayValue(string $kind, mixed $value): string
+    protected function cellValue(object $row, Field $field, string $kind): string
     {
-        if ($value === null || $value === '') {
-            return '';
+        if ($kind === 'reference') {
+            return implode(', ', $this->referenceLabels[(int) $row->id][$field->code] ?? []);
         }
 
-        if ($kind === 'numeric' && is_numeric($value)) {
-            return (string) (float) $value;
+        $value = $this->storedValue($row, $field);
+
+        if ($kind === 'option') {
+            return implode(', ', array_map(
+                fn (mixed $code): string => is_scalar($code) ? ($this->codeLabels[$field->code][(string) $code] ?? (string) $code) : '',
+                (array) $value,
+            ));
         }
 
-        return (string) $value;
-    }
-
-    /**
-     * The field's value as stored on the record, not its normalised index form, so the cell keeps the original case
-     * and spelling; a per-locale field shows the first locale by code, like the sort column.
-     */
-    protected function storedDisplayValue(object $row, Field $field): string
-    {
-        if ($this->decodedValues[0] !== $row->id) {
-            $values = is_string($row->values ?? null) ? json_decode($row->values, true) : null;
-
-            $this->decodedValues = [$row->id, is_array($values) ? $values : []];
-        }
-
-        $values = $this->decodedValues[1];
-
-        if ($field->value_per_locale) {
-            $locales = (array) ($values['locale_specific'] ?? []);
-
-            ksort($locales, SORT_STRING);
-
-            $value = array_find(array_map(fn (mixed $section): mixed => is_array($section) ? ($section[$field->code] ?? null) : null, $locales), fn (mixed $item): bool => $item !== null);
-        } else {
-            $value = $values['common'][$field->code] ?? null;
+        if ($kind === 'boolean' && is_bool($value)) {
+            return trans('admin::app.components.datagrid.filters.boolean-options.'.($value ? 'true' : 'false'));
         }
 
         return match (true) {
@@ -636,7 +787,41 @@ class RecordDataGrid extends DataGrid
     }
 
     /**
-     * Constrain the grid to the records whose indexed value of the field matches any requested value.
+     * The field's value as stored on the record, not its normalised index form, so the cell keeps the original case
+     * and spelling; a per-locale field shows the default locale, else the first locale by code holding a value.
+     */
+    protected function storedValue(object $row, Field $field): mixed
+    {
+        if ($this->decodedValues[0] !== $row->id) {
+            $values = is_string($row->values ?? null) ? json_decode($row->values, true) : null;
+
+            $this->decodedValues = [$row->id, is_array($values) ? $values : []];
+        }
+
+        $values = $this->decodedValues[1];
+
+        if (! $field->value_per_locale) {
+            return $values['common'][$field->code] ?? null;
+        }
+
+        $locales = (array) ($values['locale_specific'] ?? []);
+
+        ksort($locales, SORT_STRING);
+
+        $default = $this->recordFormBuilder->editLocale(null);
+
+        $locales = [$default => $locales[$default] ?? null] + $locales;
+
+        return array_find(
+            array_map(fn (mixed $section): mixed => is_array($section) ? ($section[$field->code] ?? null) : null, $locales),
+            fn (mixed $item): bool => $item !== null,
+        );
+    }
+
+    /**
+     * Constrain the grid to the records matching any requested value of the field: the picked codes or flags of an
+     * option or boolean field, the visible picked targets of a reference field, or any operator condition otherwise.
+     * Each field adds one semi-join, whatever the number of values.
      *
      * @param  array<array-key, mixed>  $values
      *
@@ -644,20 +829,35 @@ class RecordDataGrid extends DataGrid
      */
     protected function applyFieldFilter(Field $field, array $values): void
     {
-        $typeId = $this->entityType()->id;
-
-        $key = $this->recordRepository->scopedQuery($typeId)->getModel()->getQualifiedKeyName();
+        $kind = $this->fieldKind($field);
 
         try {
-            $this->queryBuilder->where(function (Builder $group) use ($field, $values, $typeId, $key): void {
-                foreach ($this->fieldComparisons($values, $this->fieldKind($field)) as $comparisons) {
-                    $probe = $this->recordRepository->scopedQuery($typeId)->select($key);
+            if (in_array($kind, ['option', 'reference', 'boolean'], true)) {
+                $picked = array_values(array_unique(array_map(fn (mixed $value): string => (string) $this->scalarOperand($value), $values)));
 
-                    foreach ($comparisons as [$operator, $operand]) {
-                        $this->recordRepository->whereFieldValue($probe, $typeId, $field->code, $operator, $operand);
-                    }
+                throw_if($picked === [] || count($picked) > self::OPTION_FILTER_LIMIT, InvalidArgumentException::class, 'An option filter takes between one and the limit of values.');
 
-                    $group->orWhereIn($key, $probe);
+                if ($kind === 'reference') {
+                    $this->relationRepository->whereReferences(
+                        $this->queryBuilder,
+                        'mdm_records.id',
+                        (int) $field->id,
+                        $this->recordRepository->visibleIdsByUuids(array_values(array_filter($picked, Str::isUuid(...)))),
+                    );
+
+                    return;
+                }
+
+                $this->recordRepository->whereIndexedValue($this->queryBuilder, 'mdm_records.id', (int) $this->entityType()->id, $field->code, [['in', $picked]]);
+
+                return;
+            }
+
+            $groups = $this->fieldComparisons($values, $kind);
+
+            $this->queryBuilder->where(function (Builder $group) use ($field, $groups): void {
+                foreach ($groups as $comparisons) {
+                    $this->recordRepository->whereIndexedValue($group, 'mdm_records.id', (int) $this->entityType()->id, $field->code, $comparisons, null, 'or');
                 }
             });
         } catch (InvalidArgumentException) {
@@ -668,7 +868,8 @@ class RecordDataGrid extends DataGrid
     }
 
     /**
-     * Turn the requested values of a field column into groups of operator and operand, one group per alternative.
+     * Turn the requested values of a field column into groups of operator and operand, one group per alternative;
+     * a plain text value matches anywhere in the text.
      *
      * @param  array<array-key, mixed>  $values
      * @return list<list<array{0: string, 1: mixed}>>
@@ -699,7 +900,7 @@ class RecordDataGrid extends DataGrid
                 continue;
             }
 
-            $groups[] = [[$kind === 'text' ? 'like' : '=', $this->scalarOperand($value)]];
+            $groups[] = [[$kind === 'text' ? 'contains' : '=', $this->scalarOperand($value)]];
         }
 
         return $groups;
@@ -729,14 +930,17 @@ class RecordDataGrid extends DataGrid
     protected function conditionComparisons(string|int|float|bool $operator, mixed $value, mixed $value2): array
     {
         return match ($operator) {
-            'eq'               => [['=', $value]],
-            'gt'               => [['>', $value]],
-            'gte'              => [['>=', $value]],
-            'lt'               => [['<', $value]],
-            'lte'              => [['<=', $value]],
-            'within_range'     => [['>=', $value], ['<=', $value2]],
-            'like', 'contains' => [['like', $value]],
-            default            => throw new InvalidArgumentException(sprintf('Unsupported grid filter operator [%s].', (string) $operator)),
+            'eq'              => [['=', $value]],
+            'gt'              => [['>', $value]],
+            'gte'             => [['>=', $value]],
+            'lt'              => [['<', $value]],
+            'lte'             => [['<=', $value]],
+            'within_range'    => [['>=', $value], ['<=', $value2]],
+            'has', 'contains' => [['contains', $value]],
+            'like', 'prefix'  => [['like', $value]],
+            'blank'           => [['blank', '']],
+            'not_blank'       => [['not_blank', '']],
+            default           => throw new InvalidArgumentException(sprintf('Unsupported grid filter operator [%s].', (string) $operator)),
         };
     }
 
