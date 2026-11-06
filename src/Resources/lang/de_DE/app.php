@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Endgültig löschen',
         ],
+
+        'entity-types' => [
+            'templates' => 'Vorlagen installieren',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Die Stammdaten-Migrationen werden ausgeführt.',
         'demo'      => 'Die Demodaten für die Fertigung werden installiert.',
         'done'      => 'Die Stammdatenverwaltung ist installiert. Aktive Module: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Vorlage installieren',
+        'title'           => 'Domänenvorlage installieren',
+        'info'            => 'Fügt die Entitätstypen, Felder und gemeinsamen Codelisten eines Geschäftsbereichs wie Kunden oder Lieferanten hinzu. Bereits Vorhandenes bleibt erhalten, eine erneute Installation ändert also nichts.',
+        'template'        => 'Vorlage',
+        'label'           => 'Name',
+        'select-template' => 'Vorlage auswählen',
+        'with-samples'    => 'Beispieldatensätze hinzufügen',
+        'save-btn'        => 'Installieren',
+        'installed'       => 'Die Vorlage :name ist installiert: :types Entitätstypen, :fields Felder, :lists Codelisten und :records Beispieldatensätze wurden hinzugefügt.',
+        'choose'          => 'Geben Sie mindestens eine Vorlage an oder verwenden Sie --all. Verfügbare Vorlagen: :names.',
     ],
 ];

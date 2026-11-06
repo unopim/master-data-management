@@ -24,6 +24,7 @@ use Webkul\MasterDataManagement\Services\EntityTypeFormOptions;
 use Webkul\MasterDataManagement\Services\MatchRuleFormOptions;
 use Webkul\MasterDataManagement\Services\SchemaPublisher;
 use Webkul\MasterDataManagement\Services\SurvivorshipRuleFormOptions;
+use Webkul\MasterDataManagement\Services\TemplateInstaller;
 
 class EntityTypeController extends Controller
 {
@@ -37,6 +38,7 @@ class EntityTypeController extends Controller
         protected QualityScanner $qualityScanner,
         protected MatchRuleFormOptions $matchRuleFormOptions,
         protected SurvivorshipRuleFormOptions $survivorshipRuleFormOptions,
+        protected TemplateInstaller $templateInstaller,
     ) {}
 
     /**
@@ -50,7 +52,11 @@ class EntityTypeController extends Controller
             return resolve(EntityTypeDataGrid::class)->toJson();
         }
 
-        return view('masterdata::entity-types.index', $this->formOptions->quickCreateData(new EntityTypeModel));
+        return view('masterdata::entity-types.index', $this->formOptions->quickCreateData(new EntityTypeModel) + [
+            'templateOptions' => bouncer()->hasPermission('masterdata.entity_types.templates')
+                ? $this->templateInstaller->options(app()->getLocale())
+                : [],
+        ]);
     }
 
     /**

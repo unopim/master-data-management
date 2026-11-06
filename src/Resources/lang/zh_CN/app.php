@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => '永久清除',
         ],
+
+        'entity-types' => [
+            'templates' => '安装模板',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => '正在运行主数据迁移。',
         'demo'      => '正在安装制造业演示数据。',
         'done'      => '主数据管理已安装。已启用的模块::modules。',
+    ],
+
+    'templates' => [
+        'install-btn'     => '安装模板',
+        'title'           => '安装领域模板',
+        'info'            => '添加某个业务领域（如客户或供应商）的实体类型、字段和共享代码列表。已存在的内容会保留，因此再次安装模板不会产生任何变化。',
+        'template'        => '模板',
+        'label'           => '名称',
+        'select-template' => '选择模板',
+        'with-samples'    => '添加示例记录',
+        'save-btn'        => '安装',
+        'installed'       => '已安装模板 :name：新增 :types 个实体类型、:fields 个字段、:lists 个代码列表和 :records 条示例记录。',
+        'choose'          => '请至少指定一个模板，或使用 --all。可用模板：:names。',
     ],
 ];

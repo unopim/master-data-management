@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Definitief wissen',
         ],
+
+        'entity-types' => [
+            'templates' => 'Sjablonen installeren',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'De stamgegevensmigraties worden uitgevoerd.',
         'demo'      => 'De demogegevens voor productie worden geïnstalleerd.',
         'done'      => 'Stamgegevensbeheer is geïnstalleerd. Actieve modules: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Sjabloon installeren',
+        'title'           => 'Domeinsjabloon installeren',
+        'info'            => 'Voegt de entiteittypen, velden en gedeelde codelijsten van een bedrijfsdomein toe, zoals klanten of leveranciers. Alles wat al bestaat blijft behouden, dus een sjabloon opnieuw installeren verandert niets.',
+        'template'        => 'Sjabloon',
+        'label'           => 'Naam',
+        'select-template' => 'Selecteer een sjabloon',
+        'with-samples'    => 'Voorbeeldrecords toevoegen',
+        'save-btn'        => 'Installeren',
+        'installed'       => 'Het sjabloon :name is geïnstalleerd: :types entiteittypen, :fields velden, :lists codelijsten en :records voorbeeldrecords toegevoegd.',
+        'choose'          => 'Geef minstens één sjabloon op of gebruik --all. Beschikbare sjablonen: :names.',
     ],
 ];

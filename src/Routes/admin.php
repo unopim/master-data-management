@@ -23,6 +23,7 @@ use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordXrefController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RelationTypeController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\SourceSystemController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\SurvivorshipRuleController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\TemplateController;
 use Webkul\MasterDataManagement\Repositories\EntityTypeRepository;
 
 Route::bind('entity_type', fn (string $code) => resolve(EntityTypeRepository::class)->findOneByField('code', $code) ?? abort(404));
@@ -43,6 +44,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
             Route::delete('{id}', 'destroy')->name('admin.masterdata.entity_types.destroy')->whereNumber('id');
             Route::post('mass-delete', 'massDestroy')->name('admin.masterdata.entity_types.mass_delete');
         });
+
+        Route::post('templates', [TemplateController::class, 'store'])->name('admin.masterdata.templates.install');
 
         Route::controller(FieldController::class)->prefix('entity-types/{entityTypeId}/fields')->whereNumber('entityTypeId')->group(function (): void {
             Route::get('', 'index')->name('admin.masterdata.fields.index');

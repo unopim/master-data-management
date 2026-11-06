@@ -5,6 +5,84 @@
 
     <x-admin::layouts.page-header :title="trans('masterdata::app.entity-types.index.title')">
         <x-slot:actions>
+            @if ($templateOptions !== [])
+                <x-admin::form
+                    :action="route('admin.masterdata.templates.install')"
+                    ajax="true"
+                    :track-dirty="false"
+                >
+                    <x-admin::modal>
+                        <x-slot:toggle>
+                            <button
+                                type="button"
+                                class="secondary-button"
+                            >
+                                @lang('masterdata::app.templates.install-btn')
+                            </button>
+                        </x-slot>
+
+                        <x-slot:header>
+                            <p class="text-lg text-gray-800 dark:text-white font-bold">
+                                @lang('masterdata::app.templates.title')
+                            </p>
+                        </x-slot>
+
+                        <x-slot:content>
+                            <p class="mb-4 text-xs text-gray-500 dark:text-gray-300">
+                                @lang('masterdata::app.templates.info')
+                            </p>
+
+                            <x-admin::form.control-group>
+                                <x-admin::form.control-group.label class="required">
+                                    @lang('masterdata::app.templates.template')
+                                </x-admin::form.control-group.label>
+
+                                <x-admin::form.control-group.control
+                                    type="select"
+                                    name="template"
+                                    rules="required"
+                                    :label="trans('masterdata::app.templates.template')"
+                                    :placeholder="trans('masterdata::app.templates.select-template')"
+                                    :options="json_encode($templateOptions)"
+                                    track-by="id"
+                                    label-by="label"
+                                />
+
+                                <x-admin::form.control-group.error control-name="template" />
+                            </x-admin::form.control-group>
+
+                            <x-admin::form.control-group>
+                                <x-admin::form.control-group.label>
+                                    @lang('masterdata::app.templates.with-samples')
+                                </x-admin::form.control-group.label>
+
+                                <x-admin::form.control-group.control
+                                    type="hidden"
+                                    name="with_samples"
+                                    value="0"
+                                />
+
+                                <x-admin::form.control-group.control
+                                    type="switch"
+                                    name="with_samples"
+                                    value="1"
+                                    :label="trans('masterdata::app.templates.with-samples')"
+                                />
+                            </x-admin::form.control-group>
+                        </x-slot>
+
+                        <x-slot:footer>
+                            <button
+                                type="submit"
+                                class="primary-button"
+                            >
+                                @lang('masterdata::app.templates.save-btn')
+                            </button>
+                        </x-slot>
+                    </x-admin::modal>
+                </x-admin::form>
+            @endif
+
             @if (bouncer()->hasPermission('masterdata.entity_types.create'))
                 <x-admin::catalog.quick-create-modal
                     id="entityTypeCreateModal"

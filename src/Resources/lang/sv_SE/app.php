@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Radera permanent',
         ],
+
+        'entity-types' => [
+            'templates' => 'Installera mallar',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Kör migreringarna för huvuddata.',
         'demo'      => 'Installerar demodata för tillverkning.',
         'done'      => 'Hantering av huvuddata är installerad. Aktiva moduler: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Installera mall',
+        'title'           => 'Installera domänmall',
+        'info'            => 'Lägger till entitetstyper, fält och delade kodlistor för ett affärsområde, till exempel kunder eller leverantörer. Allt som redan finns behålls, så att installera en mall igen ändrar ingenting.',
+        'template'        => 'Mall',
+        'label'           => 'Namn',
+        'select-template' => 'Välj en mall',
+        'with-samples'    => 'Lägg till exempelposter',
+        'save-btn'        => 'Installera',
+        'installed'       => 'Mallen :name är installerad: :types entitetstyper, :fields fält, :lists kodlistor och :records exempelposter lades till.',
+        'choose'          => 'Ange minst en mall eller använd --all. Tillgängliga mallar: :names.',
     ],
 ];

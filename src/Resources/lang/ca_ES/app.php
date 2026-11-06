@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Esborra definitivament',
         ],
+
+        'entity-types' => [
+            'templates' => 'Instal·lar plantilles',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'S\'estan executant les migracions de dades mestres.',
         'demo'      => 'S\'estan instal·lant les dades de demostració de fabricació.',
         'done'      => 'La gestió de dades mestres està instal·lada. Mòduls actius: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Instal·la una plantilla',
+        'title'           => 'Instal·la una plantilla de domini',
+        'info'            => 'Afegeix els tipus d\'entitat, els camps i les llistes de codis compartides d\'un domini de negoci, com ara clients o proveïdors. Tot el que ja existeix es conserva, de manera que tornar a instal·lar una plantilla no canvia res.',
+        'template'        => 'Plantilla',
+        'label'           => 'Nom',
+        'select-template' => 'Selecciona una plantilla',
+        'with-samples'    => 'Afegeix registres de mostra',
+        'save-btn'        => 'Instal·la',
+        'installed'       => 'S\'ha instal·lat la plantilla :name: s\'han afegit :types tipus d\'entitat, :fields camps, :lists llistes de codis i :records registres de mostra.',
+        'choose'          => 'Indica com a mínim una plantilla o fes servir --all. Plantilles disponibles: :names.',
     ],
 ];

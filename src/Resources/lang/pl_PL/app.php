@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Usuń trwale',
         ],
+
+        'entity-types' => [
+            'templates' => 'Instalowanie szablonów',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Uruchamianie migracji danych głównych.',
         'demo'      => 'Instalowanie danych demonstracyjnych dla produkcji.',
         'done'      => 'Zarządzanie danymi głównymi zostało zainstalowane. Aktywne moduły: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Zainstaluj szablon',
+        'title'           => 'Zainstaluj szablon domeny',
+        'info'            => 'Dodaje typy encji, pola i współdzielone listy kodów domeny biznesowej, takiej jak klienci lub dostawcy. Wszystko, co już istnieje, zostaje zachowane, więc ponowna instalacja szablonu niczego nie zmienia.',
+        'template'        => 'Szablon',
+        'label'           => 'Nazwa',
+        'select-template' => 'Wybierz szablon',
+        'with-samples'    => 'Dodaj przykładowe rekordy',
+        'save-btn'        => 'Zainstaluj',
+        'installed'       => 'Szablon :name został zainstalowany: dodano typy encji (:types), pola (:fields), listy kodów (:lists) i przykładowe rekordy (:records).',
+        'choose'          => 'Podaj co najmniej jeden szablon lub użyj --all. Dostępne szablony: :names.',
     ],
 ];

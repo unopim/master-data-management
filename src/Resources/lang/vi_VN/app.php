@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Xóa vĩnh viễn',
         ],
+
+        'entity-types' => [
+            'templates' => 'Cài đặt mẫu',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Đang chạy các bản di chuyển dữ liệu chủ.',
         'demo'      => 'Đang cài đặt dữ liệu demo sản xuất.',
         'done'      => 'Đã cài đặt quản lý dữ liệu chủ. Các mô-đun đang hoạt động: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Cài đặt mẫu',
+        'title'           => 'Cài đặt mẫu miền dữ liệu',
+        'info'            => 'Thêm các loại thực thể, trường và danh sách mã dùng chung của một miền nghiệp vụ, chẳng hạn khách hàng hoặc nhà cung cấp. Mọi thứ đã có đều được giữ nguyên, nên cài lại một mẫu sẽ không thay đổi gì.',
+        'template'        => 'Mẫu',
+        'label'           => 'Tên',
+        'select-template' => 'Chọn một mẫu',
+        'with-samples'    => 'Thêm bản ghi mẫu',
+        'save-btn'        => 'Cài đặt',
+        'installed'       => 'Đã cài đặt mẫu :name: đã thêm :types loại thực thể, :fields trường, :lists danh sách mã và :records bản ghi mẫu.',
+        'choose'          => 'Hãy chỉ định ít nhất một mẫu hoặc dùng --all. Các mẫu có sẵn: :names.',
     ],
 ];

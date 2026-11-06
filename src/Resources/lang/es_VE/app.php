@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Borrar definitivamente',
         ],
+
+        'entity-types' => [
+            'templates' => 'Instalar plantillas',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Ejecutando las migraciones de datos maestros.',
         'demo'      => 'Instalando los datos de demostración de manufactura.',
         'done'      => 'La gestión de datos maestros está instalada. Módulos activos: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Instalar plantilla',
+        'title'           => 'Instalar plantilla de dominio',
+        'info'            => 'Agrega los tipos de entidad, los campos y las listas de códigos compartidas de un dominio de negocio, como clientes o proveedores. Todo lo que ya existe se conserva, así que volver a instalar una plantilla no cambia nada.',
+        'template'        => 'Plantilla',
+        'label'           => 'Nombre',
+        'select-template' => 'Seleccione una plantilla',
+        'with-samples'    => 'Agregar registros de ejemplo',
+        'save-btn'        => 'Instalar',
+        'installed'       => 'La plantilla :name está instalada: se agregaron :types tipos de entidad, :fields campos, :lists listas de códigos y :records registros de ejemplo.',
+        'choose'          => 'Indique al menos una plantilla o use --all. Plantillas disponibles: :names.',
     ],
 ];

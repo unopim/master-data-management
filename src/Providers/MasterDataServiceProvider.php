@@ -13,6 +13,7 @@ use Webkul\MasterDataManagement\Console\Commands\ImportCommand;
 use Webkul\MasterDataManagement\Console\Commands\InstallCommand;
 use Webkul\MasterDataManagement\Console\Commands\PruneIdempotencyKeys;
 use Webkul\MasterDataManagement\Console\Commands\QualityScanCommand;
+use Webkul\MasterDataManagement\Console\Commands\TemplateInstallCommand;
 use Webkul\MasterDataManagement\Contracts\ChangeGate;
 use Webkul\MasterDataManagement\Contracts\CodeLookup;
 use Webkul\MasterDataManagement\Contracts\ExportDestination;
@@ -83,7 +84,7 @@ class MasterDataServiceProvider extends ServiceProvider
         FieldProxy::modelClass()::observe(FieldObserver::class);
 
         if ($this->app->runningInConsole()) {
-            $this->commands([InstallCommand::class, DemoManufacturingCommand::class, ImportCommand::class, QualityScanCommand::class, PruneIdempotencyKeys::class]);
+            $this->commands([InstallCommand::class, DemoManufacturingCommand::class, ImportCommand::class, QualityScanCommand::class, PruneIdempotencyKeys::class, TemplateInstallCommand::class]);
         }
 
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule): void {

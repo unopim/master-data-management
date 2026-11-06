@@ -18,6 +18,10 @@ return [
         'records' => [
             'erase' => 'Hapus Permanen',
         ],
+
+        'entity-types' => [
+            'templates' => 'Pasang templat',
+        ],
     ],
 
     'dashboard' => [
@@ -471,5 +475,18 @@ return [
         'migrating' => 'Menjalankan migrasi data master.',
         'demo'      => 'Memasang data demo manufaktur.',
         'done'      => 'Manajemen data master telah terpasang. Modul aktif: :modules.',
+    ],
+
+    'templates' => [
+        'install-btn'     => 'Pasang templat',
+        'title'           => 'Pasang templat domain',
+        'info'            => 'Menambahkan tipe entitas, bidang, dan daftar kode bersama dari sebuah domain bisnis, seperti pelanggan atau pemasok. Semua yang sudah ada tetap dipertahankan, sehingga memasang templat lagi tidak mengubah apa pun.',
+        'template'        => 'Templat',
+        'label'           => 'Nama',
+        'select-template' => 'Pilih templat',
+        'with-samples'    => 'Tambahkan rekaman contoh',
+        'save-btn'        => 'Pasang',
+        'installed'       => 'Templat :name terpasang: :types tipe entitas, :fields bidang, :lists daftar kode, dan :records rekaman contoh ditambahkan.',
+        'choose'          => 'Sebutkan setidaknya satu templat atau gunakan --all. Templat yang tersedia: :names.',
     ],
 ];
