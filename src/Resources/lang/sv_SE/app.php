@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute måste vara :operator :field.',
             'one_of_codes' => ':attribute måste vara en av följande: :codes.',
             'date_range'   => ':attribute måste vara ett datum inom det tillåtna intervallet.',
+            'unavailable'  => 'Kontrollen :rule för :attribute är inte längre tillgänglig. Be en administratör ta bort eller ersätta regeln.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Transformationen har skapats.',
         'update-success' => 'Transformationen har uppdaterats.',
         'delete-success' => 'Transformationen har tagits bort.',
+        'unavailable'    => 'Omvandlingen :transform för :attribute är inte längre tillgänglig. Be en administratör ta bort eller ersätta den.',
 
         'create' => [
             'title' => 'Lägg till transformation',

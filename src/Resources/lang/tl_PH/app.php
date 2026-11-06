@@ -426,6 +426,7 @@ return [
             'cross_field'  => 'Ang :attribute ay dapat na :operator :field.',
             'one_of_codes' => 'Ang :attribute ay dapat na isa sa: :codes.',
             'date_range'   => 'Ang :attribute ay dapat na petsang nasa pinapayagang saklaw.',
+            'unavailable'  => 'Hindi na available ang pagsusuring :rule sa :attribute. Hilingin sa isang administrator na alisin o palitan ang patakaran.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Matagumpay na nagawa ang transform.',
         'update-success' => 'Matagumpay na na-update ang transform.',
         'delete-success' => 'Matagumpay na natanggal ang transform.',
+        'unavailable'    => 'Hindi na available ang transform na :transform sa :attribute. Hilingin sa isang administrator na alisin o palitan ito.',
 
         'create' => [
             'title' => 'Magdagdag ng Transform',

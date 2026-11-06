@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute は :field:operator値にする必要があります。',
             'one_of_codes' => ':attribute は次のいずれかである必要があります: :codes',
             'date_range'   => ':attribute は許可された範囲内の日付である必要があります。',
+            'unavailable'  => ':attribute の :rule チェックは利用できなくなりました。管理者にルールの削除または置き換えを依頼してください。',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => '変換を作成しました。',
         'update-success' => '変換を更新しました。',
         'delete-success' => '変換を削除しました。',
+        'unavailable'    => ':attribute の :transform 変換は利用できなくなりました。管理者に削除または置き換えを依頼してください。',
 
         'create' => [
             'title' => '変換を追加',

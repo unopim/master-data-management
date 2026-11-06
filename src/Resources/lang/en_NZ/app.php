@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute must be :operator :field.',
             'one_of_codes' => ':attribute must be one of: :codes.',
             'date_range'   => ':attribute must be a date within the allowed range.',
+            'unavailable'  => 'The :rule check on :attribute is no longer available. Ask an administrator to remove or replace the rule.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Transform created successfully.',
         'update-success' => 'Transform updated successfully.',
         'delete-success' => 'Transform deleted successfully.',
+        'unavailable'    => 'The :transform transform on :attribute is no longer available. Ask an administrator to remove or replace it.',
 
         'create' => [
             'title' => 'Add Transform',

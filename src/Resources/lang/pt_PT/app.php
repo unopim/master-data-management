@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute deve ser :operator :field.',
             'one_of_codes' => ':attribute deve ser um dos seguintes: :codes.',
             'date_range'   => ':attribute deve ser uma data dentro do intervalo permitido.',
+            'unavailable'  => 'A verificação :rule em :attribute já não está disponível. Peça a um administrador que remova ou substitua a regra.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Transformação criada com sucesso.',
         'update-success' => 'Transformação atualizada com sucesso.',
         'delete-success' => 'Transformação eliminada com sucesso.',
+        'unavailable'    => 'A transformação :transform em :attribute já não está disponível. Peça a um administrador que a remova ou substitua.',
 
         'create' => [
             'title' => 'Adicionar transformação',

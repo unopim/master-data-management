@@ -426,6 +426,7 @@ return [
             'cross_field'  => 'يجب أن يكون :attribute :operator :field.',
             'one_of_codes' => 'يجب أن يكون :attribute أحد الرموز التالية: :codes.',
             'date_range'   => 'يجب أن يكون :attribute تاريخًا ضمن النطاق المسموح به.',
+            'unavailable'  => 'لم يعد فحص :rule على :attribute متاحًا. اطلب من المسؤول إزالة القاعدة أو استبدالها.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'تم إنشاء التحويل بنجاح.',
         'update-success' => 'تم تحديث التحويل بنجاح.',
         'delete-success' => 'تم حذف التحويل بنجاح.',
+        'unavailable'    => 'لم يعد التحويل :transform على :attribute متاحًا. اطلب من المسؤول إزالته أو استبداله.',
 
         'create' => [
             'title' => 'إضافة تحويل',

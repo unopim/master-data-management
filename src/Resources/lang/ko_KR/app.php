@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute 값은 :field 값과 비교하여 :operator 합니다.',
             'one_of_codes' => ':attribute 값은 다음 중 하나여야 합니다: :codes.',
             'date_range'   => ':attribute 값은 허용된 범위 내의 날짜여야 합니다.',
+            'unavailable'  => ':attribute의 :rule 검사를 더 이상 사용할 수 없습니다. 관리자에게 규칙을 제거하거나 교체해 달라고 요청하세요.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => '변환을 만들었습니다.',
         'update-success' => '변환을 업데이트했습니다.',
         'delete-success' => '변환을 삭제했습니다.',
+        'unavailable'    => ':attribute의 :transform 변환을 더 이상 사용할 수 없습니다. 관리자에게 제거하거나 교체해 달라고 요청하세요.',
 
         'create' => [
             'title' => '변환 추가',

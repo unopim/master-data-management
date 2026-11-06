@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute phải :operator :field.',
             'one_of_codes' => ':attribute phải là một trong các mã: :codes.',
             'date_range'   => ':attribute phải là ngày nằm trong khoảng cho phép.',
+            'unavailable'  => 'Kiểm tra :rule trên :attribute không còn khả dụng. Hãy yêu cầu quản trị viên xóa hoặc thay thế quy tắc.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Đã tạo phép biến đổi thành công.',
         'update-success' => 'Đã cập nhật phép biến đổi thành công.',
         'delete-success' => 'Đã xóa phép biến đổi thành công.',
+        'unavailable'    => 'Phép biến đổi :transform trên :attribute không còn khả dụng. Hãy yêu cầu quản trị viên xóa hoặc thay thế nó.',
 
         'create' => [
             'title' => 'Thêm phép biến đổi',

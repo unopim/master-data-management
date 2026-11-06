@@ -2,6 +2,7 @@
 
 namespace Webkul\MasterDataManagement\Standardization;
 
+use Illuminate\Validation\ValidationException;
 use Webkul\MasterDataManagement\Models\EntityType;
 use Webkul\MasterDataManagement\Models\Field;
 use Webkul\MasterDataManagement\Models\FieldTransform;
@@ -11,7 +12,7 @@ use Webkul\MasterDataManagement\Repositories\FieldTransformRepository;
 /**
  * Standardizes submitted field values with each field's transforms, in their sort order, before the values are
  * validated. Only text is rewritten (each entry of a list value too); other values and fields without transforms
- * pass through unchanged, and a transform no longer registered is skipped.
+ * pass through unchanged. A submitted value whose field has a transform no longer registered fails closed.
  */
 class FieldTransformer
 {
@@ -26,6 +27,8 @@ class FieldTransformer
      *
      * @param  array<string, mixed>  $input
      * @return array<string, mixed>
+     *
+     * @throws ValidationException When a submitted value's field has a transform that is no longer registered.
      */
     public function transformInput(EntityType $type, array $input): array
     {
@@ -39,16 +42,24 @@ class FieldTransformer
             return $input;
         }
 
+        $sections = [];
+
         if (is_array($input['values']['common'] ?? null)) {
-            $input['values']['common'] = $this->transformSection($input['values']['common'], $codes);
+            $sections['values.common'] = $input['values']['common'];
         }
 
         if (is_array($input['values']['locale_specific'] ?? null)) {
             foreach ($input['values']['locale_specific'] as $locale => $section) {
                 if (is_array($section)) {
-                    $input['values']['locale_specific'][$locale] = $this->transformSection($section, $codes);
+                    $sections['values.locale_specific.'.$locale] = $section;
                 }
             }
+        }
+
+        $this->ensureAvailable((int) $type->id, $codes, $sections);
+
+        foreach ($sections as $path => $section) {
+            data_set($input, $path, $this->transformSection($section, $codes));
         }
 
         return $input;
@@ -90,6 +101,49 @@ class FieldTransformer
         }
 
         return $codes;
+    }
+
+    /**
+     * Refuse the submitted values whose field has a transform that is no longer registered.
+     *
+     * @param  array<string, list<string>>  $codes
+     * @param  array<string, array<array-key, mixed>>  $sections
+     *
+     * @throws ValidationException
+     */
+    protected function ensureAvailable(int $entityTypeId, array $codes, array $sections): void
+    {
+        $missing = array_filter(array_map(
+            fn (array $transforms): array => array_values(array_filter($transforms, fn (string $code): bool => ! $this->transformRegistry->has($code))),
+            $codes,
+        ));
+
+        if ($missing === []) {
+            return;
+        }
+
+        $labels = $this->fieldRepository->activeFor($entityTypeId)->keyBy('code');
+
+        $errors = [];
+
+        foreach ($sections as $path => $section) {
+            foreach (array_intersect_key($missing, $section) as $field => $transforms) {
+                if (in_array($section[$field], [null, '', []], true)) {
+                    continue;
+                }
+
+                $label = $labels->get($field)?->label;
+
+                $errors[$path.'.'.$field] = trans('masterdata::app.field-transforms.unavailable', [
+                    'attribute' => is_string($label) && $label !== '' ? $label : (string) $field,
+                    'transform' => implode(', ', $transforms),
+                ]);
+            }
+        }
+
+        if ($errors !== []) {
+            throw ValidationException::withMessages($errors);
+        }
     }
 
     /**

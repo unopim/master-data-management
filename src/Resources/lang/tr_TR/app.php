@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute, :field alanının değeriyle karşılaştırıldığında :operator olmalıdır.',
             'one_of_codes' => ':attribute şunlardan biri olmalıdır: :codes.',
             'date_range'   => ':attribute izin verilen aralıkta bir tarih olmalıdır.',
+            'unavailable'  => ':attribute için :rule denetimi artık kullanılamıyor. Bir yöneticiden kuralı kaldırmasını veya değiştirmesini isteyin.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Dönüşüm başarıyla oluşturuldu.',
         'update-success' => 'Dönüşüm başarıyla güncellendi.',
         'delete-success' => 'Dönüşüm başarıyla silindi.',
+        'unavailable'    => ':attribute için :transform dönüşümü artık kullanılamıyor. Bir yöneticiden bunu kaldırmasını veya değiştirmesini isteyin.',
 
         'create' => [
             'title' => 'Dönüşüm Ekle',

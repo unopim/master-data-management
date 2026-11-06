@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute mora biti :operator :field.',
             'one_of_codes' => ':attribute mora biti jedan od: :codes.',
             'date_range'   => ':attribute mora biti datum unutar dopuštenog raspona.',
+            'unavailable'  => 'Provjera :rule za :attribute više nije dostupna. Zamolite administratora da ukloni ili zamijeni pravilo.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Transformacija je uspješno stvorena.',
         'update-success' => 'Transformacija je uspješno ažurirana.',
         'delete-success' => 'Transformacija je uspješno izbrisana.',
+        'unavailable'    => 'Transformacija :transform za :attribute više nije dostupna. Zamolite administratora da je ukloni ili zamijeni.',
 
         'create' => [
             'title' => 'Dodaj transformaciju',

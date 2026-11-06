@@ -426,6 +426,7 @@ return [
             'cross_field'  => 'Pole :attribute musi być :operator :field.',
             'one_of_codes' => 'Pole :attribute musi być jednym z: :codes.',
             'date_range'   => 'Pole :attribute musi zawierać datę z dozwolonego zakresu.',
+            'unavailable'  => 'Sprawdzanie :rule dla :attribute nie jest już dostępne. Poproś administratora o usunięcie lub zastąpienie reguły.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Transformacja została utworzona.',
         'update-success' => 'Transformacja została zaktualizowana.',
         'delete-success' => 'Transformacja została usunięta.',
+        'unavailable'    => 'Przekształcenie :transform dla :attribute nie jest już dostępne. Poproś administratora o jego usunięcie lub zastąpienie.',
 
         'create' => [
             'title' => 'Dodaj transformację',

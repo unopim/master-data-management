@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute का मान :field :operator होना चाहिए।',
             'one_of_codes' => ':attribute इनमें से एक होना चाहिए: :codes।',
             'date_range'   => ':attribute अनुमत सीमा के भीतर की तारीख़ होनी चाहिए।',
+            'unavailable'  => ':attribute पर :rule जाँच अब उपलब्ध नहीं है। नियम हटाने या बदलने के लिए किसी व्यवस्थापक से कहें।',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'ट्रांसफ़ॉर्म सफलतापूर्वक बनाया गया।',
         'update-success' => 'ट्रांसफ़ॉर्म सफलतापूर्वक अपडेट किया गया।',
         'delete-success' => 'ट्रांसफ़ॉर्म सफलतापूर्वक हटाया गया।',
+        'unavailable'    => ':attribute पर :transform रूपांतरण अब उपलब्ध नहीं है। इसे हटाने या बदलने के लिए किसी व्यवस्थापक से कहें।',
 
         'create' => [
             'title' => 'ट्रांसफ़ॉर्म जोड़ें',

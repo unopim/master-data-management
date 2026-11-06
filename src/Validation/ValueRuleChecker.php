@@ -10,8 +10,8 @@ use Webkul\MasterDataManagement\Repositories\FieldValidationRuleRepository;
 /**
  * Checks field values against their configured validation rules and words the failures.
  *
- * Empty values pass every rule, as presence is the field's `required` flag's job; a rule whose type is no longer
- * registered is skipped rather than refusing every write of the type.
+ * Empty values pass every rule, as presence is the field's `required` flag's job. A rule whose type is no longer
+ * registered fails closed, so removing a package cannot silently drop a check.
  */
 class ValueRuleChecker
 {
@@ -45,8 +45,14 @@ class ValueRuleChecker
      */
     public function failure(FieldValidationRule $rule, Field $field, mixed $value, array $siblings): ?string
     {
-        if (in_array($value, [null, '', []], true) || ! $this->ruleTypeRegistry->has((string) $rule->type)) {
+        if (in_array($value, [null, '', []], true)) {
             return null;
+        }
+
+        $attribute = is_string($field->label) && $field->label !== '' ? $field->label : (string) $field->code;
+
+        if (! $this->ruleTypeRegistry->has((string) $rule->type)) {
+            return trans('masterdata::app.validation-rules.messages.unavailable', ['attribute' => $attribute, 'rule' => (string) $rule->type]);
         }
 
         $type = $this->ruleTypeRegistry->get((string) $rule->type);
@@ -57,7 +63,7 @@ class ValueRuleChecker
             return null;
         }
 
-        $replace = ['attribute' => is_string($field->label) && $field->label !== '' ? $field->label : (string) $field->code] + $type->placeholders($params);
+        $replace = ['attribute' => $attribute] + $type->placeholders($params);
 
         $custom = $this->customMessage($rule);
 

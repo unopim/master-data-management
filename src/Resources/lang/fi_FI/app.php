@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute on oltava :operator :field.',
             'one_of_codes' => ':attribute on oltava jokin seuraavista: :codes.',
             'date_range'   => ':attribute on oltava sallitulla välillä oleva päivämäärä.',
+            'unavailable'  => 'Kentän :attribute tarkistus :rule ei ole enää käytettävissä. Pyydä ylläpitäjää poistamaan tai korvaamaan sääntö.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Muunnos luotu.',
         'update-success' => 'Muunnos päivitetty.',
         'delete-success' => 'Muunnos poistettu.',
+        'unavailable'    => 'Kentän :attribute muunnos :transform ei ole enää käytettävissä. Pyydä ylläpitäjää poistamaan tai korvaamaan se.',
 
         'create' => [
             'title' => 'Lisää muunnos',

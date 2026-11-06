@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute harus :operator :field.',
             'one_of_codes' => ':attribute harus salah satu dari: :codes.',
             'date_range'   => ':attribute harus berupa tanggal dalam rentang yang diizinkan.',
+            'unavailable'  => 'Pemeriksaan :rule pada :attribute tidak lagi tersedia. Minta administrator untuk menghapus atau mengganti aturan tersebut.',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => 'Transformasi berhasil dibuat.',
         'update-success' => 'Transformasi berhasil diperbarui.',
         'delete-success' => 'Transformasi berhasil dihapus.',
+        'unavailable'    => 'Transformasi :transform pada :attribute tidak lagi tersedia. Minta administrator untuk menghapus atau menggantinya.',
 
         'create' => [
             'title' => 'Tambah Transformasi',

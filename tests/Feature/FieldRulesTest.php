@@ -90,6 +90,30 @@ it('runs the transforms before the validation rules', function () {
     expect($record->values['common']['vat'])->toBe('DE123456');
 });
 
+it('refuses a write while a validation rule type is no longer registered', function () {
+    ($this->rule)($this->vat, 'vat_check', []);
+
+    $errors = ($this->violation)(fn () => $this->writer->create($this->type, ['code' => 'S-1', 'values' => ['common' => ['vat' => 'DE123']]], null));
+
+    expect($errors)->toHaveKey('values.common.vat')
+        ->and($errors['values.common.vat'][0])->toContain('vat_check')
+        ->and(Record::query()->where('entity_type_id', $this->type->id)->exists())->toBeFalse();
+});
+
+it('refuses a write while a transform is no longer registered', function () {
+    ($this->transform)($this->vat, ['trim', 'legacy_clean']);
+
+    $errors = ($this->violation)(fn () => $this->writer->create($this->type, ['code' => 'S-1', 'values' => ['common' => ['vat' => ' DE123 ']]], null));
+
+    expect($errors)->toHaveKey('values.common.vat')
+        ->and($errors['values.common.vat'][0])->toContain('legacy_clean')
+        ->and(Record::query()->where('entity_type_id', $this->type->id)->exists())->toBeFalse();
+
+    $record = $this->writer->create($this->type, ['code' => 'S-2', 'values' => ['common' => ['name' => 'Acme']]], null);
+
+    expect($record->values['common']['name'])->toBe('Acme');
+});
+
 it('refuses a value breaking a block rule with the message of the current locale', function () {
     ($this->rule)($this->vat, 'regex', ['pattern' => '/^[A-Z]{2}[0-9]+$/'], 'block', [
         'en_US' => 'Enter the VAT number with its country prefix.',

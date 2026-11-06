@@ -426,6 +426,7 @@ return [
             'cross_field'  => ':attribute 必须 :operator :field。',
             'one_of_codes' => ':attribute 必须是以下之一：:codes。',
             'date_range'   => ':attribute 必须是允许范围内的日期。',
+            'unavailable'  => ':attribute 的 :rule 校验已不可用。请联系管理员删除或替换该规则。',
         ],
 
         'datagrid' => [
@@ -450,6 +451,7 @@ return [
         'create-success' => '转换创建成功。',
         'update-success' => '转换更新成功。',
         'delete-success' => '转换删除成功。',
+        'unavailable'    => ':attribute 的 :transform 转换已不可用。请联系管理员删除或替换它。',
 
         'create' => [
             'title' => '添加转换',
