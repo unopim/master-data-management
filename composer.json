@@ -2,7 +2,7 @@
     "name": "unopim/master-data-management",
     "description": "Master Data Management (MDM) for UnoPim: governed master records, matching, approvals and code lists, alongside UnoPim PIM or standalone.",
     "type": "library",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "UnoPim",
