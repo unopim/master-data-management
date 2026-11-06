@@ -41,6 +41,15 @@
         @endif
 
         <x-slot:actions>
+            @if ($entityType->is_hierarchical)
+                <a
+                    href="{{ route('admin.masterdata.records.tree', $entityType->code) }}"
+                    class="secondary-button"
+                >
+                    @lang('masterdata::app.hierarchies.tree.open')
+                </a>
+            @endif
+
             @if ($topLevelUrl)
                 <a
                     href="{{ $topLevelUrl }}"

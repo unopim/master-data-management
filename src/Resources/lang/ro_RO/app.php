@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'Se instalează datele demo pentru producție.',
         'done'      => 'Gestionarea datelor master este instalată. Module active: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Ierarhii',
+        'title'          => 'Ierarhii',
+        'info'           => 'Aranjați înregistrările de acest tip în mai mult de un arbore. Ierarhia principală urmează părintele fiecărei înregistrări; ierarhiile alternative, cum ar fi o structură de vânzări sau de raportare, sunt păstrate separat.',
+        'create-btn'     => 'Adaugă ierarhie',
+        'primary-label'  => 'Principală',
+        'create-success' => 'Ierarhie adăugată.',
+        'update-success' => 'Ierarhie actualizată.',
+        'delete-success' => 'Ierarhie ștearsă.',
+
+        'create' => [
+            'title' => 'Adaugă ierarhie',
+        ],
+
+        'edit' => [
+            'title' => 'Editează ierarhia',
+        ],
+
+        'form' => [
+            'code'      => 'Cod',
+            'code-info' => 'Litere mici, cifre și caractere de subliniere, începând cu o literă. Nu poate fi modificat ulterior.',
+            'labels'    => 'Etichete',
+            'label'     => 'Etichetă',
+            'save-btn'  => 'Salvează ierarhia',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Cod',
+            'label'  => 'Etichetă',
+            'kind'   => 'Tip',
+            'edit'   => 'Editează',
+            'delete' => 'Șterge',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Principală',
+            'alternate' => 'Alternativă',
+        ],
+
+        'validation' => [
+            'primary'           => 'Ierarhia principală urmează părintele fiecărei înregistrări. Schimbați în schimb părintele din înregistrare.',
+            'primary-delete'    => 'Ierarhia principală nu poate fi ștearsă.',
+            'wrong-type'        => 'În această ierarhie pot fi plasate doar înregistrări de tipul ei de entitate.',
+            'subtree-too-large' => 'Această înregistrare are peste :count înregistrări sub ea în această ierarhie, prea multe pentru a fi mutate deodată.',
+            'code-taken'        => 'O altă ierarhie a acestui tip de entitate folosește deja acest cod.',
+            'too-many'          => 'Un tip de entitate poate avea cel mult :count ierarhii.',
+        ],
+
+        'tree' => [
+            'open'       => 'Vizualizare arbore',
+            'title'      => 'Arbore :type',
+            'switch'     => 'Schimbă ierarhia',
+            'empty'      => 'Nicio ierarhie încă',
+            'empty-info' => 'Faceți tipul de entitate ierarhic sau adăugați o ierarhie alternativă pentru a-i vedea înregistrările ca arbore.',
+            'loading'    => 'Se încarcă…',
+            'no-nodes'   => 'Nicio înregistrare nu este încă plasată în această ierarhie.',
+            'expand'     => 'Extinde',
+            'collapse'   => 'Restrânge',
+            'limited'    => 'Se afișează primele :count înregistrări de la acest nivel.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Ierarhii',
+            'title'                  => 'Ierarhii alternative',
+            'info'                   => 'Unde se află această înregistrare în ierarhiile alternative ale tipului său de entitate. Ierarhia principală este afișată mai sus.',
+            'empty'                  => 'Nicio ierarhie alternativă',
+            'empty-info'             => 'Adăugați o ierarhie alternativă tipului de entitate pentru a plasa această înregistrare în ea.',
+            'hierarchy'              => 'Ierarhie',
+            'path'                   => 'Cale',
+            'actions'                => 'Acțiuni',
+            'not-placed'             => 'Neplasată',
+            'place'                  => 'Plasează',
+            'place-title'            => 'Plasează în :hierarchy',
+            'parent-info'            => 'Alegeți o înregistrare de același tip sau niciun părinte pentru a pune această înregistrare în vârf. Un părinte care nu se află încă în ierarhie este plasat mai întâi în vârf.',
+            'remove'                 => 'Elimină',
+            'remove-confirm-title'   => 'Eliminați din ierarhie?',
+            'remove-confirm-message' => 'Înregistrările de sub ea urcă un nivel.',
+            'placed'                 => 'Înregistrare plasată în :hierarchy.',
+            'removed'                => 'Înregistrare eliminată din :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Ierarhia nu a fost găsită.',
+        ],
+    ],
 ];

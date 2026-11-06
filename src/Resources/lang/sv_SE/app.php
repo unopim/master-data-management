@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'Installerar demodata för tillverkning.',
         'done'      => 'Hantering av huvuddata är installerad. Aktiva moduler: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarkier',
+        'title'          => 'Hierarkier',
+        'info'           => 'Ordna poster av den här typen i mer än ett träd. Den primära hierarkin följer varje posts överordnade; alternativa hierarkier, till exempel en försäljnings- eller rapporteringsstruktur, hålls separat.',
+        'create-btn'     => 'Lägg till hierarki',
+        'primary-label'  => 'Primär',
+        'create-success' => 'Hierarki tillagd.',
+        'update-success' => 'Hierarki uppdaterad.',
+        'delete-success' => 'Hierarki borttagen.',
+
+        'create' => [
+            'title' => 'Lägg till hierarki',
+        ],
+
+        'edit' => [
+            'title' => 'Redigera hierarki',
+        ],
+
+        'form' => [
+            'code'      => 'Kod',
+            'code-info' => 'Gemener, siffror och understreck, och måste börja med en bokstav. Kan inte ändras senare.',
+            'labels'    => 'Etiketter',
+            'label'     => 'Etikett',
+            'save-btn'  => 'Spara hierarki',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Kod',
+            'label'  => 'Etikett',
+            'kind'   => 'Typ',
+            'edit'   => 'Redigera',
+            'delete' => 'Ta bort',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Primär',
+            'alternate' => 'Alternativ',
+        ],
+
+        'validation' => [
+            'primary'           => 'Den primära hierarkin följer varje posts överordnade. Ändra i stället den överordnade på posten.',
+            'primary-delete'    => 'Den primära hierarkin kan inte tas bort.',
+            'wrong-type'        => 'Bara poster av den här hierarkins entitetstyp kan placeras i den.',
+            'subtree-too-large' => 'Den här posten har fler än :count poster under sig i hierarkin, för många för att flytta på en gång.',
+            'code-taken'        => 'En annan hierarki av den här entitetstypen använder redan koden.',
+            'too-many'          => 'En entitetstyp kan ha högst :count hierarkier.',
+        ],
+
+        'tree' => [
+            'open'       => 'Trädvy',
+            'title'      => ':type-träd',
+            'switch'     => 'Byt hierarki',
+            'empty'      => 'Ingen hierarki ännu',
+            'empty-info' => 'Gör entitetstypen hierarkisk eller lägg till en alternativ hierarki för att se dess poster som ett träd.',
+            'loading'    => 'Läser in…',
+            'no-nodes'   => 'Inga poster har placerats i den här hierarkin ännu.',
+            'expand'     => 'Expandera',
+            'collapse'   => 'Dölj',
+            'limited'    => 'Visar de första :count posterna på den här nivån.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarkier',
+            'title'                  => 'Alternativa hierarkier',
+            'info'                   => 'Var den här posten finns i entitetstypens alternativa hierarkier. Den primära hierarkin visas ovan.',
+            'empty'                  => 'Inga alternativa hierarkier',
+            'empty-info'             => 'Lägg till en alternativ hierarki på entitetstypen för att placera den här posten i den.',
+            'hierarchy'              => 'Hierarki',
+            'path'                   => 'Sökväg',
+            'actions'                => 'Åtgärder',
+            'not-placed'             => 'Inte placerad',
+            'place'                  => 'Placera',
+            'place-title'            => 'Placera i :hierarchy',
+            'parent-info'            => 'Välj en post av samma typ, eller ingen överordnad för att placera posten överst. En överordnad som ännu inte finns i hierarkin placeras först överst.',
+            'remove'                 => 'Ta bort',
+            'remove-confirm-title'   => 'Ta bort från hierarkin?',
+            'remove-confirm-message' => 'Posterna under flyttas upp en nivå.',
+            'placed'                 => 'Post placerad i :hierarchy.',
+            'removed'                => 'Post borttagen från :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarkin hittades inte.',
+        ],
+    ],
 ];

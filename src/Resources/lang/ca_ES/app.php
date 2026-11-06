@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'S\'estan instal·lant les dades de demostració de fabricació.',
         'done'      => 'La gestió de dades mestres està instal·lada. Mòduls actius: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Jerarquies',
+        'title'          => 'Jerarquies',
+        'info'           => 'Organitza els registres d\'aquest tipus en més d\'un arbre. La jerarquia principal segueix el pare de cada registre; les jerarquies alternatives, com una estructura de vendes o d\'informes, es mantenen per separat.',
+        'create-btn'     => 'Afegeix jerarquia',
+        'primary-label'  => 'Principal',
+        'create-success' => 'Jerarquia afegida.',
+        'update-success' => 'Jerarquia actualitzada.',
+        'delete-success' => 'Jerarquia eliminada.',
+
+        'create' => [
+            'title' => 'Afegeix jerarquia',
+        ],
+
+        'edit' => [
+            'title' => 'Edita la jerarquia',
+        ],
+
+        'form' => [
+            'code'      => 'Codi',
+            'code-info' => 'Lletres minúscules, dígits i guions baixos, començant per una lletra. No es pot canviar més endavant.',
+            'labels'    => 'Etiquetes',
+            'label'     => 'Etiqueta',
+            'save-btn'  => 'Desa la jerarquia',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Codi',
+            'label'  => 'Etiqueta',
+            'kind'   => 'Tipus',
+            'edit'   => 'Edita',
+            'delete' => 'Elimina',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Principal',
+            'alternate' => 'Alternativa',
+        ],
+
+        'validation' => [
+            'primary'           => 'La jerarquia principal segueix el pare de cada registre. Canvia el pare al registre.',
+            'primary-delete'    => 'No es pot eliminar la jerarquia principal.',
+            'wrong-type'        => 'Només es poden col·locar en aquesta jerarquia registres del seu tipus d\'entitat.',
+            'subtree-too-large' => 'Aquest registre té més de :count registres per sota en aquesta jerarquia, massa per moure\'ls alhora.',
+            'code-taken'        => 'Una altra jerarquia d\'aquest tipus d\'entitat ja utilitza aquest codi.',
+            'too-many'          => 'Un tipus d\'entitat pot tenir com a màxim :count jerarquies.',
+        ],
+
+        'tree' => [
+            'open'       => 'Vista d\'arbre',
+            'title'      => 'Arbre de :type',
+            'switch'     => 'Canvia de jerarquia',
+            'empty'      => 'Encara no hi ha cap jerarquia',
+            'empty-info' => 'Fes que el tipus d\'entitat sigui jeràrquic o afegeix una jerarquia alternativa per veure\'n els registres com a arbre.',
+            'loading'    => 'Carregant…',
+            'no-nodes'   => 'Encara no hi ha cap registre col·locat en aquesta jerarquia.',
+            'expand'     => 'Expandeix',
+            'collapse'   => 'Replega',
+            'limited'    => 'Es mostren els primers :count registres d\'aquest nivell.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Jerarquies',
+            'title'                  => 'Jerarquies alternatives',
+            'info'                   => 'On es troba aquest registre a les jerarquies alternatives del seu tipus d\'entitat. La jerarquia principal es mostra a dalt.',
+            'empty'                  => 'Cap jerarquia alternativa',
+            'empty-info'             => 'Afegeix una jerarquia alternativa al tipus d\'entitat per col·locar-hi aquest registre.',
+            'hierarchy'              => 'Jerarquia',
+            'path'                   => 'Camí',
+            'actions'                => 'Accions',
+            'not-placed'             => 'No col·locat',
+            'place'                  => 'Col·loca',
+            'place-title'            => 'Col·loca a :hierarchy',
+            'parent-info'            => 'Tria un registre del mateix tipus, o cap pare per posar aquest registre a dalt de tot. Un pare que encara no és a la jerarquia es col·loca primer a dalt de tot.',
+            'remove'                 => 'Elimina',
+            'remove-confirm-title'   => 'Vols treure\'l de la jerarquia?',
+            'remove-confirm-message' => 'Els registres que té per sota pugen un nivell.',
+            'placed'                 => 'Registre col·locat a :hierarchy.',
+            'removed'                => 'Registre tret de :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'No s\'ha trobat la jerarquia.',
+        ],
+    ],
 ];

@@ -204,6 +204,10 @@
                 @include('masterdata::records._merges')
             </x-admin::tabs.item>
 
+            <x-admin::tabs.item :title="trans('masterdata::app.hierarchies.record.tab')">
+                @include('masterdata::records._hierarchies')
+            </x-admin::tabs.item>
+
             <x-admin::tabs.item :title="trans('masterdata::app.lineage.title')">
                 @include('masterdata::records._lineage', ['lineage' => $lineage])
             </x-admin::tabs.item>

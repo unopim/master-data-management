@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'Asennetaan valmistuksen demotiedot.',
         'done'      => 'Perustietojen hallinta on asennettu. Aktiiviset moduulit: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarkiat',
+        'title'          => 'Hierarkiat',
+        'info'           => 'Järjestä tämän tyyppiset tietueet useampaan kuin yhteen puuhun. Ensisijainen hierarkia noudattaa kunkin tietueen ylätasoa; vaihtoehtoiset hierarkiat, kuten myynti- tai raportointirakenne, säilytetään erillään.',
+        'create-btn'     => 'Lisää hierarkia',
+        'primary-label'  => 'Ensisijainen',
+        'create-success' => 'Hierarkia lisätty.',
+        'update-success' => 'Hierarkia päivitetty.',
+        'delete-success' => 'Hierarkia poistettu.',
+
+        'create' => [
+            'title' => 'Lisää hierarkia',
+        ],
+
+        'edit' => [
+            'title' => 'Muokkaa hierarkiaa',
+        ],
+
+        'form' => [
+            'code'      => 'Koodi',
+            'code-info' => 'Pieniä kirjaimia, numeroita ja alaviivoja, alkaen kirjaimella. Ei voi muuttaa myöhemmin.',
+            'labels'    => 'Nimikkeet',
+            'label'     => 'Nimike',
+            'save-btn'  => 'Tallenna hierarkia',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Koodi',
+            'label'  => 'Nimike',
+            'kind'   => 'Laji',
+            'edit'   => 'Muokkaa',
+            'delete' => 'Poista',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Ensisijainen',
+            'alternate' => 'Vaihtoehtoinen',
+        ],
+
+        'validation' => [
+            'primary'           => 'Ensisijainen hierarkia noudattaa kunkin tietueen ylätasoa. Vaihda ylätaso tietueesta.',
+            'primary-delete'    => 'Ensisijaista hierarkiaa ei voi poistaa.',
+            'wrong-type'        => 'Hierarkiaan voi sijoittaa vain sen entiteettityypin tietueita.',
+            'subtree-too-large' => 'Tällä tietueella on tässä hierarkiassa yli :count tietuetta alapuolellaan, liian monta siirrettäväksi kerralla.',
+            'code-taken'        => 'Toinen tämän entiteettityypin hierarkia käyttää jo tätä koodia.',
+            'too-many'          => 'Entiteettityypillä voi olla enintään :count hierarkiaa.',
+        ],
+
+        'tree' => [
+            'open'       => 'Puunäkymä',
+            'title'      => ':type-puu',
+            'switch'     => 'Vaihda hierarkiaa',
+            'empty'      => 'Ei vielä hierarkiaa',
+            'empty-info' => 'Tee entiteettityypistä hierarkkinen tai lisää vaihtoehtoinen hierarkia nähdäksesi sen tietueet puuna.',
+            'loading'    => 'Ladataan…',
+            'no-nodes'   => 'Tähän hierarkiaan ei ole vielä sijoitettu tietueita.',
+            'expand'     => 'Laajenna',
+            'collapse'   => 'Tiivistä',
+            'limited'    => 'Näytetään tämän tason :count ensimmäistä tietuetta.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarkiat',
+            'title'                  => 'Vaihtoehtoiset hierarkiat',
+            'info'                   => 'Missä tämä tietue sijaitsee entiteettityypin vaihtoehtoisissa hierarkioissa. Ensisijainen hierarkia näkyy yllä.',
+            'empty'                  => 'Ei vaihtoehtoisia hierarkioita',
+            'empty-info'             => 'Lisää entiteettityypille vaihtoehtoinen hierarkia, johon tämän tietueen voi sijoittaa.',
+            'hierarchy'              => 'Hierarkia',
+            'path'                   => 'Polku',
+            'actions'                => 'Toiminnot',
+            'not-placed'             => 'Ei sijoitettu',
+            'place'                  => 'Sijoita',
+            'place-title'            => 'Sijoita hierarkiaan :hierarchy',
+            'parent-info'            => 'Valitse samantyyppinen tietue tai älä valitse ylätasoa, jos haluat tämän tietueen ylimmäksi. Ylätaso, joka ei vielä ole hierarkiassa, sijoitetaan ensin ylimmäksi.',
+            'remove'                 => 'Poista',
+            'remove-confirm-title'   => 'Poistetaanko hierarkiasta?',
+            'remove-confirm-message' => 'Sen alapuolella olevat tietueet siirtyvät yhden tason ylöspäin.',
+            'placed'                 => 'Tietue sijoitettu hierarkiaan :hierarchy.',
+            'removed'                => 'Tietue poistettu hierarkiasta :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarkiaa ei löytynyt.',
+        ],
+    ],
 ];

@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'Installerer demodata for produksjon.',
         'done'      => 'Stamdatahåndtering er installert. Aktive moduler: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarkier',
+        'title'          => 'Hierarkier',
+        'info'           => 'Ordne poster av denne typen i mer enn ett tre. Det primære hierarkiet følger hver posts overordnede; alternative hierarkier, for eksempel en salgs- eller rapporteringsstruktur, lagres separat.',
+        'create-btn'     => 'Legg til hierarki',
+        'primary-label'  => 'Primær',
+        'create-success' => 'Hierarki lagt til.',
+        'update-success' => 'Hierarki oppdatert.',
+        'delete-success' => 'Hierarki slettet.',
+
+        'create' => [
+            'title' => 'Legg til hierarki',
+        ],
+
+        'edit' => [
+            'title' => 'Rediger hierarki',
+        ],
+
+        'form' => [
+            'code'      => 'Kode',
+            'code-info' => 'Små bokstaver, sifre og understreker, og må starte med en bokstav. Kan ikke endres senere.',
+            'labels'    => 'Etiketter',
+            'label'     => 'Etikett',
+            'save-btn'  => 'Lagre hierarki',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Kode',
+            'label'  => 'Etikett',
+            'kind'   => 'Type',
+            'edit'   => 'Rediger',
+            'delete' => 'Slett',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Primær',
+            'alternate' => 'Alternativ',
+        ],
+
+        'validation' => [
+            'primary'           => 'Det primære hierarkiet følger hver posts overordnede. Endre heller den overordnede på posten.',
+            'primary-delete'    => 'Det primære hierarkiet kan ikke slettes.',
+            'wrong-type'        => 'Bare poster av dette hierarkiets enhetstype kan plasseres i det.',
+            'subtree-too-large' => 'Denne posten har mer enn :count poster under seg i dette hierarkiet, for mange til å flytte på én gang.',
+            'code-taken'        => 'Et annet hierarki av denne enhetstypen bruker allerede denne koden.',
+            'too-many'          => 'En enhetstype kan ha maksimalt :count hierarkier.',
+        ],
+
+        'tree' => [
+            'open'       => 'Trevisning',
+            'title'      => ':type-tre',
+            'switch'     => 'Bytt hierarki',
+            'empty'      => 'Ingen hierarki ennå',
+            'empty-info' => 'Gjør enhetstypen hierarkisk, eller legg til et alternativt hierarki for å se postene som et tre.',
+            'loading'    => 'Laster…',
+            'no-nodes'   => 'Ingen poster er plassert i dette hierarkiet ennå.',
+            'expand'     => 'Utvid',
+            'collapse'   => 'Skjul',
+            'limited'    => 'Viser de første :count postene på dette nivået.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarkier',
+            'title'                  => 'Alternative hierarkier',
+            'info'                   => 'Hvor denne posten står i enhetstypens alternative hierarkier. Det primære hierarkiet vises ovenfor.',
+            'empty'                  => 'Ingen alternative hierarkier',
+            'empty-info'             => 'Legg til et alternativt hierarki på enhetstypen for å plassere denne posten i det.',
+            'hierarchy'              => 'Hierarki',
+            'path'                   => 'Bane',
+            'actions'                => 'Handlinger',
+            'not-placed'             => 'Ikke plassert',
+            'place'                  => 'Plasser',
+            'place-title'            => 'Plasser i :hierarchy',
+            'parent-info'            => 'Velg en post av samme type, eller ingen overordnet for å plassere denne posten øverst. En overordnet som ikke er i hierarkiet ennå, plasseres først øverst.',
+            'remove'                 => 'Fjern',
+            'remove-confirm-title'   => 'Fjerne fra hierarkiet?',
+            'remove-confirm-message' => 'Postene under flyttes ett nivå opp.',
+            'placed'                 => 'Post plassert i :hierarchy.',
+            'removed'                => 'Post fjernet fra :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Fant ikke hierarkiet.',
+        ],
+    ],
 ];

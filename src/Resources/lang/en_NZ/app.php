@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'Installing the manufacturing demo data now.',
         'done'      => 'Master data management has been installed. Active modules: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarchies',
+        'title'          => 'Hierarchies',
+        'info'           => 'Arrange records of this type in more than one tree. The primary hierarchy follows each record\'s parent; alternate hierarchies, such as a sales or reporting structure, are kept separately.',
+        'create-btn'     => 'Add Hierarchy',
+        'primary-label'  => 'Primary',
+        'create-success' => 'Hierarchy added.',
+        'update-success' => 'Hierarchy updated.',
+        'delete-success' => 'Hierarchy deleted.',
+
+        'create' => [
+            'title' => 'Add Hierarchy',
+        ],
+
+        'edit' => [
+            'title' => 'Edit Hierarchy',
+        ],
+
+        'form' => [
+            'code'      => 'Code',
+            'code-info' => 'Lowercase letters, digits and underscores, starting with a letter. It cannot change later.',
+            'labels'    => 'Labels',
+            'label'     => 'Label',
+            'save-btn'  => 'Save Hierarchy',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Code',
+            'label'  => 'Label',
+            'kind'   => 'Kind',
+            'edit'   => 'Edit',
+            'delete' => 'Delete',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Primary',
+            'alternate' => 'Alternate',
+        ],
+
+        'validation' => [
+            'primary'           => 'The primary hierarchy follows each record\'s parent. Change the parent on the record instead.',
+            'primary-delete'    => 'The primary hierarchy cannot be deleted.',
+            'wrong-type'        => 'Only records of this hierarchy\'s entity type can be placed in it.',
+            'subtree-too-large' => 'This record has more than :count records below it in this hierarchy, too many to move at once.',
+            'code-taken'        => 'Another hierarchy of this entity type already uses this code.',
+            'too-many'          => 'An entity type can have at most :count hierarchies.',
+        ],
+
+        'tree' => [
+            'open'       => 'Tree View',
+            'title'      => ':type Tree',
+            'switch'     => 'Switch hierarchy',
+            'empty'      => 'No hierarchy yet',
+            'empty-info' => 'Make the entity type hierarchical or add an alternate hierarchy to see its records as a tree.',
+            'loading'    => 'Loading…',
+            'no-nodes'   => 'No records are placed in this hierarchy yet.',
+            'expand'     => 'Expand',
+            'collapse'   => 'Collapse',
+            'limited'    => 'Showing the first :count records at this level.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarchies',
+            'title'                  => 'Alternate Hierarchies',
+            'info'                   => 'Where this record sits in the alternate hierarchies of its entity type. The primary hierarchy is shown above.',
+            'empty'                  => 'No alternate hierarchies',
+            'empty-info'             => 'Add an alternate hierarchy on the entity type to place this record in it.',
+            'hierarchy'              => 'Hierarchy',
+            'path'                   => 'Path',
+            'actions'                => 'Actions',
+            'not-placed'             => 'Not placed',
+            'place'                  => 'Place',
+            'place-title'            => 'Place in :hierarchy',
+            'parent-info'            => 'Choose a record of the same type, or no parent to put this record at the top. A parent not yet in the hierarchy is placed at the top first.',
+            'remove'                 => 'Remove',
+            'remove-confirm-title'   => 'Remove from hierarchy?',
+            'remove-confirm-message' => 'The records below it move up one level.',
+            'placed'                 => 'Record placed in :hierarchy.',
+            'removed'                => 'Record removed from :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarchy not found.',
+        ],
+    ],
 ];

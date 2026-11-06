@@ -23,6 +23,16 @@ return [
         'route' => 'admin.api.masterdata.records.index',
         'sort'  => 1,
     ], [
+        'key'   => 'api.masterdata.records',
+        'name'  => 'masterdata::app.api.acl.records',
+        'route' => 'admin.api.masterdata.hierarchies.index',
+        'sort'  => 1,
+    ], [
+        'key'   => 'api.masterdata.records',
+        'name'  => 'masterdata::app.api.acl.records',
+        'route' => 'admin.api.masterdata.records.hierarchies.index',
+        'sort'  => 1,
+    ], [
         'key'   => 'api.masterdata.records.create',
         'name'  => 'masterdata::app.api.acl.create',
         'route' => 'admin.api.masterdata.records.store',
@@ -31,6 +41,16 @@ return [
         'key'   => 'api.masterdata.records.edit',
         'name'  => 'masterdata::app.api.acl.edit',
         'route' => 'admin.api.masterdata.records.update',
+        'sort'  => 2,
+    ], [
+        'key'   => 'api.masterdata.records.edit',
+        'name'  => 'masterdata::app.api.acl.edit',
+        'route' => 'admin.api.masterdata.records.hierarchies.update',
+        'sort'  => 2,
+    ], [
+        'key'   => 'api.masterdata.records.edit',
+        'name'  => 'masterdata::app.api.acl.edit',
+        'route' => 'admin.api.masterdata.records.hierarchies.destroy',
         'sort'  => 2,
     ], [
         'key'   => 'api.masterdata.records.delete',

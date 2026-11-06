@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'Memasang data demo manufaktur.',
         'done'      => 'Manajemen data master telah terpasang. Modul aktif: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarki',
+        'title'          => 'Hierarki',
+        'info'           => 'Susun rekaman bertipe ini dalam lebih dari satu pohon. Hierarki utama mengikuti induk setiap rekaman; hierarki alternatif, seperti struktur penjualan atau pelaporan, disimpan terpisah.',
+        'create-btn'     => 'Tambah Hierarki',
+        'primary-label'  => 'Utama',
+        'create-success' => 'Hierarki ditambahkan.',
+        'update-success' => 'Hierarki diperbarui.',
+        'delete-success' => 'Hierarki dihapus.',
+
+        'create' => [
+            'title' => 'Tambah Hierarki',
+        ],
+
+        'edit' => [
+            'title' => 'Edit Hierarki',
+        ],
+
+        'form' => [
+            'code'      => 'Kode',
+            'code-info' => 'Huruf kecil, angka, dan garis bawah, diawali huruf. Tidak dapat diubah kemudian.',
+            'labels'    => 'Label',
+            'label'     => 'Label',
+            'save-btn'  => 'Simpan Hierarki',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Kode',
+            'label'  => 'Label',
+            'kind'   => 'Jenis',
+            'edit'   => 'Edit',
+            'delete' => 'Hapus',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Utama',
+            'alternate' => 'Alternatif',
+        ],
+
+        'validation' => [
+            'primary'           => 'Hierarki utama mengikuti induk setiap rekaman. Ubah induk pada rekaman tersebut.',
+            'primary-delete'    => 'Hierarki utama tidak dapat dihapus.',
+            'wrong-type'        => 'Hanya rekaman dengan tipe entitas hierarki ini yang dapat ditempatkan di dalamnya.',
+            'subtree-too-large' => 'Rekaman ini memiliki lebih dari :count rekaman di bawahnya dalam hierarki ini, terlalu banyak untuk dipindahkan sekaligus.',
+            'code-taken'        => 'Hierarki lain dengan tipe entitas ini sudah menggunakan kode ini.',
+            'too-many'          => 'Sebuah tipe entitas dapat memiliki paling banyak :count hierarki.',
+        ],
+
+        'tree' => [
+            'open'       => 'Tampilan Pohon',
+            'title'      => 'Pohon :type',
+            'switch'     => 'Ganti hierarki',
+            'empty'      => 'Belum ada hierarki',
+            'empty-info' => 'Jadikan tipe entitas hierarkis atau tambahkan hierarki alternatif untuk melihat rekamannya sebagai pohon.',
+            'loading'    => 'Memuat…',
+            'no-nodes'   => 'Belum ada rekaman yang ditempatkan dalam hierarki ini.',
+            'expand'     => 'Luaskan',
+            'collapse'   => 'Ciutkan',
+            'limited'    => 'Menampilkan :count rekaman pertama pada tingkat ini.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarki',
+            'title'                  => 'Hierarki Alternatif',
+            'info'                   => 'Posisi rekaman ini dalam hierarki alternatif tipe entitasnya. Hierarki utama ditampilkan di atas.',
+            'empty'                  => 'Tidak ada hierarki alternatif',
+            'empty-info'             => 'Tambahkan hierarki alternatif pada tipe entitas untuk menempatkan rekaman ini di dalamnya.',
+            'hierarchy'              => 'Hierarki',
+            'path'                   => 'Jalur',
+            'actions'                => 'Tindakan',
+            'not-placed'             => 'Belum ditempatkan',
+            'place'                  => 'Tempatkan',
+            'place-title'            => 'Tempatkan di :hierarchy',
+            'parent-info'            => 'Pilih rekaman bertipe sama, atau tanpa induk untuk menaruh rekaman ini di paling atas. Induk yang belum ada dalam hierarki ditempatkan di paling atas terlebih dahulu.',
+            'remove'                 => 'Hapus',
+            'remove-confirm-title'   => 'Hapus dari hierarki?',
+            'remove-confirm-message' => 'Rekaman di bawahnya naik satu tingkat.',
+            'placed'                 => 'Rekaman ditempatkan di :hierarchy.',
+            'removed'                => 'Rekaman dihapus dari :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarki tidak ditemukan.',
+        ],
+    ],
 ];

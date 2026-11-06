@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'De demogegevens voor productie worden geïnstalleerd.',
         'done'      => 'Stamgegevensbeheer is geïnstalleerd. Actieve modules: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hiërarchieën',
+        'title'          => 'Hiërarchieën',
+        'info'           => 'Rangschik records van dit type in meer dan één boom. De primaire hiërarchie volgt de bovenliggende van elk record; alternatieve hiërarchieën, zoals een verkoop- of rapportagestructuur, worden apart bijgehouden.',
+        'create-btn'     => 'Hiërarchie toevoegen',
+        'primary-label'  => 'Primair',
+        'create-success' => 'Hiërarchie toegevoegd.',
+        'update-success' => 'Hiërarchie bijgewerkt.',
+        'delete-success' => 'Hiërarchie verwijderd.',
+
+        'create' => [
+            'title' => 'Hiërarchie toevoegen',
+        ],
+
+        'edit' => [
+            'title' => 'Hiërarchie bewerken',
+        ],
+
+        'form' => [
+            'code'      => 'Code',
+            'code-info' => 'Kleine letters, cijfers en underscores, beginnend met een letter. Kan later niet meer worden gewijzigd.',
+            'labels'    => 'Labels',
+            'label'     => 'Label',
+            'save-btn'  => 'Hiërarchie opslaan',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Code',
+            'label'  => 'Label',
+            'kind'   => 'Soort',
+            'edit'   => 'Bewerken',
+            'delete' => 'Verwijderen',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Primair',
+            'alternate' => 'Alternatief',
+        ],
+
+        'validation' => [
+            'primary'           => 'De primaire hiërarchie volgt de bovenliggende van elk record. Wijzig in plaats daarvan de bovenliggende op het record.',
+            'primary-delete'    => 'De primaire hiërarchie kan niet worden verwijderd.',
+            'wrong-type'        => 'Alleen records van het entiteitstype van deze hiërarchie kunnen erin worden geplaatst.',
+            'subtree-too-large' => 'Dit record heeft in deze hiërarchie meer dan :count records onder zich, te veel om in één keer te verplaatsen.',
+            'code-taken'        => 'Een andere hiërarchie van dit entiteitstype gebruikt deze code al.',
+            'too-many'          => 'Een entiteitstype kan maximaal :count hiërarchieën hebben.',
+        ],
+
+        'tree' => [
+            'open'       => 'Boomweergave',
+            'title'      => ':type-boom',
+            'switch'     => 'Hiërarchie wisselen',
+            'empty'      => 'Nog geen hiërarchie',
+            'empty-info' => 'Maak het entiteitstype hiërarchisch of voeg een alternatieve hiërarchie toe om de records als boom te zien.',
+            'loading'    => 'Laden…',
+            'no-nodes'   => 'Er zijn nog geen records in deze hiërarchie geplaatst.',
+            'expand'     => 'Uitklappen',
+            'collapse'   => 'Inklappen',
+            'limited'    => 'De eerste :count records op dit niveau worden getoond.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hiërarchieën',
+            'title'                  => 'Alternatieve hiërarchieën',
+            'info'                   => 'Waar dit record staat in de alternatieve hiërarchieën van het entiteitstype. De primaire hiërarchie wordt hierboven getoond.',
+            'empty'                  => 'Geen alternatieve hiërarchieën',
+            'empty-info'             => 'Voeg een alternatieve hiërarchie toe aan het entiteitstype om dit record erin te plaatsen.',
+            'hierarchy'              => 'Hiërarchie',
+            'path'                   => 'Pad',
+            'actions'                => 'Acties',
+            'not-placed'             => 'Niet geplaatst',
+            'place'                  => 'Plaatsen',
+            'place-title'            => 'Plaatsen in :hierarchy',
+            'parent-info'            => 'Kies een record van hetzelfde type, of geen bovenliggende om dit record bovenaan te zetten. Een bovenliggende die nog niet in de hiërarchie staat, wordt eerst bovenaan geplaatst.',
+            'remove'                 => 'Verwijderen',
+            'remove-confirm-title'   => 'Uit hiërarchie verwijderen?',
+            'remove-confirm-message' => 'De records eronder schuiven één niveau omhoog.',
+            'placed'                 => 'Record geplaatst in :hierarchy.',
+            'removed'                => 'Record verwijderd uit :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hiërarchie niet gevonden.',
+        ],
+    ],
 ];

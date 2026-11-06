@@ -123,6 +123,26 @@ return [
         'route' => 'admin.masterdata.survivorship_rules.destroy',
         'sort'  => 2,
     ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.hierarchies.index',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.hierarchies.store',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.hierarchies.update',
+        'sort'  => 2,
+    ], [
+        'key'   => 'masterdata.entity_types.edit',
+        'name'  => 'masterdata::app.acl.entity-types.edit',
+        'route' => 'admin.masterdata.hierarchies.destroy',
+        'sort'  => 2,
+    ], [
         'key'  => 'masterdata.entity_types.governance',
         'name' => 'masterdata::app.acl.entity-types.governance',
         'sort' => 4,
@@ -153,6 +173,16 @@ return [
         'route' => 'admin.masterdata.exports.filters.entity_types',
         'sort'  => 3,
     ], [
+        'key'   => 'masterdata.records',
+        'name'  => 'masterdata::app.acl.records.index',
+        'route' => 'admin.masterdata.records.tree',
+        'sort'  => 3,
+    ], [
+        'key'   => 'masterdata.records',
+        'name'  => 'masterdata::app.acl.records.index',
+        'route' => 'admin.masterdata.records.tree.nodes',
+        'sort'  => 3,
+    ], [
         'key'   => 'masterdata.records.create',
         'name'  => 'masterdata::app.acl.records.create',
         'route' => 'admin.masterdata.records.create',
@@ -171,6 +201,21 @@ return [
         'key'   => 'masterdata.records.edit',
         'name'  => 'masterdata::app.acl.records.edit',
         'route' => 'admin.masterdata.records.hierarchy.update',
+        'sort'  => 3,
+    ], [
+        'key'   => 'masterdata.records.edit',
+        'name'  => 'masterdata::app.acl.records.edit',
+        'route' => 'admin.masterdata.records.hierarchies.options',
+        'sort'  => 3,
+    ], [
+        'key'   => 'masterdata.records.edit',
+        'name'  => 'masterdata::app.acl.records.edit',
+        'route' => 'admin.masterdata.records.hierarchies.update',
+        'sort'  => 3,
+    ], [
+        'key'   => 'masterdata.records.edit',
+        'name'  => 'masterdata::app.acl.records.edit',
+        'route' => 'admin.masterdata.records.hierarchies.destroy',
         'sort'  => 3,
     ], [
         'key'   => 'masterdata.records.delete',

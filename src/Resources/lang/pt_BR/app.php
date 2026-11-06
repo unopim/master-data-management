@@ -1689,4 +1689,90 @@ return [
         'demo'      => 'Instalando os dados de demonstração de manufatura.',
         'done'      => 'O gerenciamento de dados mestres está instalado. Módulos ativos: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarquias',
+        'title'          => 'Hierarquias',
+        'info'           => 'Organize os registros deste tipo em mais de uma árvore. A hierarquia principal segue o pai de cada registro; as hierarquias alternativas, como uma estrutura de vendas ou de relatórios, são mantidas separadamente.',
+        'create-btn'     => 'Adicionar hierarquia',
+        'primary-label'  => 'Principal',
+        'create-success' => 'Hierarquia adicionada.',
+        'update-success' => 'Hierarquia atualizada.',
+        'delete-success' => 'Hierarquia excluída.',
+
+        'create' => [
+            'title' => 'Adicionar hierarquia',
+        ],
+
+        'edit' => [
+            'title' => 'Editar hierarquia',
+        ],
+
+        'form' => [
+            'code'      => 'Código',
+            'code-info' => 'Letras minúsculas, dígitos e sublinhados, começando com uma letra. Não pode ser alterado depois.',
+            'labels'    => 'Rótulos',
+            'label'     => 'Rótulo',
+            'save-btn'  => 'Salvar hierarquia',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Código',
+            'label'  => 'Rótulo',
+            'kind'   => 'Tipo',
+            'edit'   => 'Editar',
+            'delete' => 'Excluir',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Principal',
+            'alternate' => 'Alternativa',
+        ],
+
+        'validation' => [
+            'primary'           => 'A hierarquia principal segue o pai de cada registro. Altere o pai no próprio registro.',
+            'primary-delete'    => 'A hierarquia principal não pode ser excluída.',
+            'wrong-type'        => 'Somente registros do tipo de entidade desta hierarquia podem ser colocados nela.',
+            'subtree-too-large' => 'Este registro tem mais de :count registros abaixo dele nesta hierarquia, muitos para mover de uma só vez.',
+            'code-taken'        => 'Outra hierarquia deste tipo de entidade já usa este código.',
+            'too-many'          => 'Um tipo de entidade pode ter no máximo :count hierarquias.',
+        ],
+
+        'tree' => [
+            'open'       => 'Visualização em árvore',
+            'title'      => 'Árvore de :type',
+            'switch'     => 'Alternar hierarquia',
+            'empty'      => 'Nenhuma hierarquia ainda',
+            'empty-info' => 'Torne o tipo de entidade hierárquico ou adicione uma hierarquia alternativa para ver seus registros como uma árvore.',
+            'loading'    => 'Carregando…',
+            'no-nodes'   => 'Nenhum registro foi colocado nesta hierarquia ainda.',
+            'expand'     => 'Expandir',
+            'collapse'   => 'Recolher',
+            'limited'    => 'Mostrando os primeiros :count registros neste nível.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarquias',
+            'title'                  => 'Hierarquias alternativas',
+            'info'                   => 'Onde este registro está nas hierarquias alternativas do seu tipo de entidade. A hierarquia principal é mostrada acima.',
+            'empty'                  => 'Nenhuma hierarquia alternativa',
+            'empty-info'             => 'Adicione uma hierarquia alternativa ao tipo de entidade para colocar este registro nela.',
+            'hierarchy'              => 'Hierarquia',
+            'path'                   => 'Caminho',
+            'actions'                => 'Ações',
+            'not-placed'             => 'Não colocado',
+            'place'                  => 'Colocar',
+            'place-title'            => 'Colocar em :hierarchy',
+            'parent-info'            => 'Escolha um registro do mesmo tipo, ou nenhum pai para colocar este registro no topo. Um pai que ainda não está na hierarquia é colocado primeiro no topo.',
+            'remove'                 => 'Remover',
+            'remove-confirm-title'   => 'Remover da hierarquia?',
+            'remove-confirm-message' => 'Os registros abaixo dele sobem um nível.',
+            'placed'                 => 'Registro colocado em :hierarchy.',
+            'removed'                => 'Registro removido de :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarquia não encontrada.',
+        ],
+    ],
 ];

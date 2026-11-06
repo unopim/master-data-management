@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Webkul\MasterDataManagement\Http\Controllers\Api\CodeListController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\EntityTypeController;
+use Webkul\MasterDataManagement\Http\Controllers\Api\HierarchyController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\MatchCandidateController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\RecordController;
 use Webkul\MasterDataManagement\Http\Controllers\Api\RecordUpsertController;
@@ -28,6 +29,14 @@ Route::group([
     Route::get('code-lists', [CodeListController::class, 'index'])->name('admin.api.masterdata.code_lists.index');
 
     Route::get('code-lists/{listCode}', [CodeListController::class, 'get'])->name('admin.api.masterdata.code_lists.get');
+
+    Route::get('{type}/hierarchies', [HierarchyController::class, 'index'])->name('admin.api.masterdata.hierarchies.index');
+
+    Route::get('{type}/records/{uuid}/hierarchies', [HierarchyController::class, 'placements'])->name('admin.api.masterdata.records.hierarchies.index');
+
+    Route::put('{type}/records/{uuid}/hierarchies/{hierarchyCode}', [HierarchyController::class, 'place'])->name('admin.api.masterdata.records.hierarchies.update');
+
+    Route::delete('{type}/records/{uuid}/hierarchies/{hierarchyCode}', [HierarchyController::class, 'remove'])->name('admin.api.masterdata.records.hierarchies.destroy');
 
     Route::get('{type}/records', [RecordController::class, 'index'])->name('admin.api.masterdata.records.index');
 

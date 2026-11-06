@@ -39,6 +39,9 @@ use Webkul\MasterDataManagement\Survivorship\Strategies\SourcePriorityStrategy;
  * AZURE_STORAGE_CONNECTION_STRING, AZURE_STORAGE_CONTAINER and optionally AZURE_STORAGE_PREFIX. Any other configured
  * disk, such as `s3`, works the same way.
  *
+ * `hierarchies.max_subtree` caps the records below a node that one move in an alternate hierarchy rewrites in the
+ * request; larger subtrees are refused.
+ *
  * `scheduled_imports` feeds the `masterdata:import {job_code}` command: an integration tool drops files into
  * `{path}/{job_code}/` on `disk`, the command imports the oldest one as `user` (an admin e-mail) and moves it to
  * `processed/`. `jobs` maps job codes to cron expressions the scheduler runs the command on.
@@ -99,6 +102,10 @@ return [
 
     'merge' => [
         'max_children' => 500,
+    ],
+
+    'hierarchies' => [
+        'max_subtree' => 10000,
     ],
 
     'survivorship' => [
