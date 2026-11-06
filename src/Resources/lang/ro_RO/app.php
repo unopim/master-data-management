@@ -466,4 +466,10 @@ return [
         'update-success' => 'Permisiunea de acces la date a fost actualizată.',
         'delete-success' => 'Permisiunea de acces la date a fost ștearsă.',
     ],
+
+    'install' => [
+        'migrating' => 'Se rulează migrările datelor master.',
+        'demo'      => 'Se instalează datele demo pentru producție.',
+        'done'      => 'Gestionarea datelor master este instalată. Module active: :modules.',
+    ],
 ];

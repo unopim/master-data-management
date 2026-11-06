@@ -466,4 +466,10 @@ return [
         'update-success' => 'Dataadgangstildelingen er opdateret.',
         'delete-success' => 'Dataadgangstildelingen er slettet.',
     ],
+
+    'install' => [
+        'migrating' => 'Kører migreringerne for stamdata.',
+        'demo'      => 'Installerer demodata for produktion.',
+        'done'      => 'Stamdatastyring er installeret. Aktive moduler: :modules.',
+    ],
 ];

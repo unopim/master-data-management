@@ -466,4 +466,10 @@ return [
         'update-success' => 'Izin akses data diperbarui.',
         'delete-success' => 'Izin akses data dihapus.',
     ],
+
+    'install' => [
+        'migrating' => 'Menjalankan migrasi data master.',
+        'demo'      => 'Memasang data demo manufaktur.',
+        'done'      => 'Manajemen data master telah terpasang. Modul aktif: :modules.',
+    ],
 ];

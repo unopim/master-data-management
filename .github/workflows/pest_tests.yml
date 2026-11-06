@@ -1,0 +1,103 @@
+name: Pest Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      core_ref:
+        description: UnoPim core branch or tag to test against
+        default: 3.x
+
+permissions:
+  contents: read
+
+env:
+  CORE_REF: ${{ inputs.core_ref || vars.UNOPIM_CORE_REF || '3.x' }}
+
+jobs:
+  pest:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        database: [mysql, pgsql]
+
+    name: Pest (${{ matrix.database }})
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: unopim
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: unopim
+        ports:
+          - 5432
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=5
+
+    steps:
+      - name: Checkout package
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, pdo_mysql, pdo_pgsql, tokenizer, zip
+          tools: composer:v2
+
+      - name: Clone UnoPim core
+        run: git clone --depth 1 --branch "$CORE_REF" https://github.com/unopim/unopim.git core
+
+      - name: Copy package into core
+        run: |
+          mkdir -p core/packages/Webkul/MasterDataManagement
+          rsync -a ./ core/packages/Webkul/MasterDataManagement --exclude core --exclude .git
+
+      - name: Require package from path
+        working-directory: core
+        run: |
+          composer config repositories.mdm path packages/Webkul/MasterDataManagement
+          composer config --json autoload-dev.psr-4 "$(jq -c '."autoload-dev"."psr-4" + {"Webkul\\MasterDataManagement\\Tests\\": "packages/Webkul/MasterDataManagement/tests/"}' composer.json)"
+          composer require unopim/master-data-management:@dev --no-interaction --prefer-dist
+
+      - name: Setup environment
+        working-directory: core
+        run: |
+          cp .env.example .env
+          if [ "${{ matrix.database }}" = "pgsql" ]; then
+            PORT=${{ job.services.postgres.ports['5432'] }}
+          else
+            PORT=${{ job.services.mysql.ports['3306'] }}
+          fi
+          sed -i "s|^\(APP_ENV=\s*\).*$|\1testing|" .env
+          sed -i "s|^\(DB_CONNECTION=\s*\).*$|\1${{ matrix.database }}|" .env
+          sed -i "s|^\(DB_HOST=\s*\).*$|\1127.0.0.1|" .env
+          sed -i "s|^\(DB_PORT=\s*\).*$|\1$PORT|" .env
+          sed -i "s|^\(DB_DATABASE=\s*\).*$|\1unopim|" .env
+          sed -i "s|^\(DB_USERNAME=\s*\).*$|\1root|" .env
+          sed -i "s|^\(DB_PASSWORD=\s*\).*$|\1root|" .env
+
+      - name: Install UnoPim with MDM
+        working-directory: core
+        run: |
+          php artisan unopim:install --skip-env-check --skip-admin-creation --modules=pim,mdm
+          php artisan masterdata:install
+
+      - name: Bind package tests to Pest
+        working-directory: core
+        run: echo "uses(Webkul\MasterDataManagement\Tests\MasterDataTestCase::class)->in('../packages/Webkul/MasterDataManagement/tests');" >> tests/Pest.php
+
+      - name: Run tests
+        working-directory: core
+        run: vendor/bin/pest packages/Webkul/MasterDataManagement/tests --colors=always

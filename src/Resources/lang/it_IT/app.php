@@ -466,4 +466,10 @@ return [
         'update-success' => 'Autorizzazione di accesso ai dati aggiornata.',
         'delete-success' => 'Autorizzazione di accesso ai dati eliminata.',
     ],
+
+    'install' => [
+        'migrating' => 'Esecuzione delle migrazioni dei dati anagrafici.',
+        'demo'      => 'Installazione dei dati demo di produzione.',
+        'done'      => 'La gestione dei dati anagrafici è installata. Moduli attivi: :modules.',
+    ],
 ];

@@ -466,4 +466,10 @@ return [
         'update-success' => 'Gegevenstoegangsmachtiging bijgewerkt.',
         'delete-success' => 'Gegevenstoegangsmachtiging verwijderd.',
     ],
+
+    'install' => [
+        'migrating' => 'De stamgegevensmigraties worden uitgevoerd.',
+        'demo'      => 'De demogegevens voor productie worden geïnstalleerd.',
+        'done'      => 'Stamgegevensbeheer is geïnstalleerd. Actieve modules: :modules.',
+    ],
 ];

@@ -466,4 +466,10 @@ return [
         'update-success' => 'Autorisation d\'accès aux données mise à jour.',
         'delete-success' => 'Autorisation d\'accès aux données supprimée.',
     ],
+
+    'install' => [
+        'migrating' => 'Exécution des migrations des données de référence.',
+        'demo'      => 'Installation des données de démonstration de fabrication.',
+        'done'      => 'La gestion des données de référence est installée. Modules actifs : :modules.',
+    ],
 ];

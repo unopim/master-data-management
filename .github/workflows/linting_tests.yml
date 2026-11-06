@@ -1,0 +1,23 @@
+name: Linting
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  pint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout package
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2, pint
+
+      - name: Run Pint
+        run: pint --test --preset laravel

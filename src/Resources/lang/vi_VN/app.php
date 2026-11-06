@@ -466,4 +466,10 @@ return [
         'update-success' => 'Đã cập nhật quyền truy cập dữ liệu.',
         'delete-success' => 'Đã xóa quyền truy cập dữ liệu.',
     ],
+
+    'install' => [
+        'migrating' => 'Đang chạy các bản di chuyển dữ liệu chủ.',
+        'demo'      => 'Đang cài đặt dữ liệu demo sản xuất.',
+        'done'      => 'Đã cài đặt quản lý dữ liệu chủ. Các mô-đun đang hoạt động: :modules.',
+    ],
 ];

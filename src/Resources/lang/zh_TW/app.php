@@ -466,4 +466,10 @@ return [
         'update-success' => '已更新資料存取授權。',
         'delete-success' => '已刪除資料存取授權。',
     ],
+
+    'install' => [
+        'migrating' => '正在執行主資料遷移。',
+        'demo'      => '正在安裝製造業示範資料。',
+        'done'      => '主資料管理已安裝。啟用的模組::modules。',
+    ],
 ];

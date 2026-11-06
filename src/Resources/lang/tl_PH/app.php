@@ -466,4 +466,10 @@ return [
         'update-success' => 'Na-update ang pahintulot sa access sa data.',
         'delete-success' => 'Nabura ang pahintulot sa access sa data.',
     ],
+
+    'install' => [
+        'migrating' => 'Pinapatakbo ang mga migration ng master data.',
+        'demo'      => 'Ini-install ang demo data ng manufacturing.',
+        'done'      => 'Naka-install na ang master data management. Mga aktibong module: :modules.',
+    ],
 ];

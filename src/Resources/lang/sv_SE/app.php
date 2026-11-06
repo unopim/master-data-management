@@ -466,4 +466,10 @@ return [
         'update-success' => 'Dataåtkomstbehörigheten har uppdaterats.',
         'delete-success' => 'Dataåtkomstbehörigheten har tagits bort.',
     ],
+
+    'install' => [
+        'migrating' => 'Kör migreringarna för huvuddata.',
+        'demo'      => 'Installerar demodata för tillverkning.',
+        'done'      => 'Hantering av huvuddata är installerad. Aktiva moduler: :modules.',
+    ],
 ];

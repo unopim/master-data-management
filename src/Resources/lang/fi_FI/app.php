@@ -466,4 +466,10 @@ return [
         'update-success' => 'Tietojen käyttöoikeuden myöntö päivitetty.',
         'delete-success' => 'Tietojen käyttöoikeuden myöntö poistettu.',
     ],
+
+    'install' => [
+        'migrating' => 'Suoritetaan perustietojen migraatioita.',
+        'demo'      => 'Asennetaan valmistuksen demotiedot.',
+        'done'      => 'Perustietojen hallinta on asennettu. Aktiiviset moduulit: :modules.',
+    ],
 ];
