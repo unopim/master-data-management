@@ -5,6 +5,7 @@ namespace Webkul\MasterDataManagement\Repositories;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Support\Facades\DB;
 use Webkul\Core\Eloquent\Repository;
@@ -234,7 +235,11 @@ class RelationRepository extends Repository
                 'mdm_fields.code as field_code',
                 'mdm_relation_types.cardinality',
                 'target.uuid as target_uuid',
+                'target.code as target_code',
+                'target.label as target_label',
                 'survivor.uuid as survivor_uuid',
+                'survivor.code as survivor_code',
+                'survivor.label as survivor_label',
             ]);
     }
 
@@ -312,6 +317,64 @@ class RelationRepository extends Repository
     public function existsForType(int $relationTypeId): bool
     {
         return $this->model->newQuery()->where('relation_type_id', $relationTypeId)->exists();
+    }
+
+    /**
+     * The labels of the reference targets of each record the admin may see, keyed by record id then field code, in
+     * two queries for all the records; a target without a label shows its code.
+     *
+     * @param  list<int>  $recordIds
+     * @return array<int, array<string, list<string>>>
+     */
+    public function referenceLabelsFor(array $recordIds, ?Admin $admin = null): array
+    {
+        if ($recordIds === []) {
+            return [];
+        }
+
+        $rows = $this->referenceRows($recordIds);
+
+        $visible = array_flip($this->recordRepository->visibleUuids(
+            array_values(array_unique($rows->map(fn (object $row): string => (string) ($row->survivor_uuid ?? $row->target_uuid))->all())),
+            $admin,
+        ));
+
+        $labels = [];
+
+        foreach ($rows as $row) {
+            $merged = $row->survivor_uuid !== null;
+
+            if (! isset($visible[(string) ($merged ? $row->survivor_uuid : $row->target_uuid)])) {
+                continue;
+            }
+
+            $label = (string) ($merged ? $row->survivor_label : $row->target_label);
+
+            $labels[(int) $row->from_record_id][(string) $row->field_code][] = $label !== '' ? $label : (string) ($merged ? $row->survivor_code : $row->target_code);
+        }
+
+        return $labels;
+    }
+
+    /**
+     * Constrain a query keyed by record id to records whose reference field points at any of the target records,
+     * through a single semi-join on the relations.
+     *
+     * @param  list<int>  $targetIds
+     */
+    public function whereReferences(QueryBuilder $query, string $recordKey, int $fieldId, array $targetIds, string $boolean = 'and'): QueryBuilder
+    {
+        if ($targetIds === []) {
+            return $query->whereIn($recordKey, [], $boolean);
+        }
+
+        return $query->whereExists(fn (QueryBuilder $relation) => $relation
+            ->from('mdm_relations')
+            ->join('mdm_relation_types', 'mdm_relation_types.id', '=', 'mdm_relations.relation_type_id')
+            ->whereColumn('mdm_relations.from_record_id', $recordKey)
+            ->where('mdm_relation_types.is_system', true)
+            ->where('mdm_relation_types.field_id', $fieldId)
+            ->whereIn('mdm_relations.to_record_id', $targetIds), $boolean);
     }
 
     /**

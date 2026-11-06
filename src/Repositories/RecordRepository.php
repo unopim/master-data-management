@@ -60,7 +60,7 @@ class RecordRepository extends Repository
      */
     public function scopedQuery(int $entityTypeId, ?Admin $admin = null): Builder
     {
-        $query = $this->model->newQuery()->where('entity_type_id', $entityTypeId);
+        $query = $this->model->newQuery()->where($this->model->qualifyColumn('entity_type_id'), $entityTypeId);
 
         $admin ??= $this->currentAdmin();
 
@@ -240,7 +240,7 @@ class RecordRepository extends Repository
     /**
      * Constrain a record query to records whose indexed value of a searchable field matches.
      *
-     * Text compares normalised values with `=` or a prefix `like`; numeric and date values compare with
+     * Text compares normalised values with `=`, a prefix `like` or `contains`; numeric and date values compare with
      * `=`, `<`, `<=`, `>` or `>=`. The field type converts the operand, so a value it cannot convert matches
      * nothing. Without a locale, a per-locale field matches a value in any locale.
      *
@@ -248,29 +248,73 @@ class RecordRepository extends Repository
      */
     public function whereFieldValue(Builder $query, int $entityTypeId, string $fieldCode, string $operator, mixed $value, ?string $locale = null): Builder
     {
+        $this->whereIndexedValue($query->getQuery(), $query->getModel()->getQualifiedKeyName(), $entityTypeId, $fieldCode, [[$operator, $value]], $locale);
+
+        return $query;
+    }
+
+    /**
+     * Constrain a query keyed by record id to records holding one indexed value of the searchable field that meets
+     * every comparison, through a single semi-join on the index.
+     *
+     * Beyond the `whereFieldValue()` operators, `in` takes a list of operands matched by equality, `blank` keeps
+     * the records without any value of the field and `not_blank` those with one.
+     *
+     * @param  list<array{0: string, 1: mixed}>  $comparisons
+     *
+     * @throws InvalidArgumentException When the field is not searchable or an operator does not fit its values.
+     */
+    public function whereIndexedValue(QueryBuilder $query, string $recordKey, int $entityTypeId, string $fieldCode, array $comparisons, ?string $locale = null, string $boolean = 'and'): QueryBuilder
+    {
         $field = $this->fieldRepository->searchableFor($entityTypeId)->firstWhere('code', $fieldCode);
 
         if (! $field instanceof Field) {
             throw new InvalidArgumentException(sprintf('Master data field [%s] is not searchable.', $fieldCode));
         }
 
-        $comparison = $this->indexComparison($field, strtolower($operator), $value);
+        $constraints = [];
 
-        if ($comparison === null) {
-            return $query->whereIn($query->getModel()->getQualifiedKeyName(), []);
+        $blank = false;
+
+        foreach ($comparisons as [$operator, $value]) {
+            $operator = strtolower($operator);
+
+            if ($operator === 'blank' || $operator === 'not_blank') {
+                $blank = $operator === 'blank';
+
+                continue;
+            }
+
+            $constraint = $operator === 'in'
+                ? $this->indexListComparison($field, $value)
+                : $this->indexComparison($field, $operator, $value);
+
+            if ($constraint === null) {
+                return $query->whereIn($recordKey, [], $boolean);
+            }
+
+            $constraints[] = $constraint;
         }
-
-        [$column, $operator, $operand] = $comparison;
 
         $table = RecordIndexer::TABLE;
 
-        return $query->whereExists(fn (QueryBuilder $index) => $index
-            ->from($table)
-            ->whereColumn($table.'.record_id', $query->getModel()->getQualifiedKeyName())
-            ->where($table.'.entity_type_id', $entityTypeId)
-            ->where($table.'.field_code', $fieldCode)
-            ->when($locale !== null, fn (QueryBuilder $index) => $index->where($table.'.locale', $locale))
-            ->where($table.'.'.$column, $operator, $operand));
+        return $query->whereExists(function (QueryBuilder $index) use ($table, $recordKey, $entityTypeId, $fieldCode, $locale, $blank, $constraints): void {
+            $index->from($table)
+                ->whereColumn($table.'.record_id', $recordKey)
+                ->where($table.'.entity_type_id', $entityTypeId)
+                ->where($table.'.field_code', $fieldCode)
+                ->when($locale !== null, fn (QueryBuilder $index) => $index->where($table.'.locale', $locale));
+
+            if ($blank) {
+                return;
+            }
+
+            foreach ($constraints as [$column, $operator, $operand]) {
+                is_array($operand)
+                    ? $index->whereIn($table.'.'.$column, $operand)
+                    : $index->where($table.'.'.$column, $operator, $operand);
+            }
+        }, $boolean, $blank);
     }
 
     /**
@@ -980,14 +1024,14 @@ class RecordRepository extends Repository
      */
     protected function indexComparison(Field $field, string $operator, mixed $value): ?array
     {
-        if (! in_array($operator, ['=', 'like', '<', '<=', '>', '>='], true)) {
+        if (! in_array($operator, ['=', 'like', 'contains', '<', '<=', '>', '>='], true)) {
             throw new InvalidArgumentException(sprintf('Unsupported master data filter operator [%s].', $operator));
         }
 
-        if ($operator === 'like') {
+        if ($operator === 'like' || $operator === 'contains') {
             $text = is_scalar($value) ? $this->normalizedOperand((string) $value) : null;
 
-            return $text === null ? null : ['value_normalized', 'like', $text.'%'];
+            return $text === null ? null : ['value_normalized', 'like', ($operator === 'contains' ? '%' : '').$text.'%'];
         }
 
         $index = resolve(FieldTypeRegistry::class)->get($field->type)->indexValue($value, $field);
@@ -1009,6 +1053,35 @@ class RecordRepository extends Repository
         }
 
         return is_numeric($value) ? ['value_numeric', $operator, (string) $value] : null;
+    }
+
+    /**
+     * The index column and the operands of an equality match against any of the values, or null when none of them
+     * can match. Values converting to another index column than the first one are dropped.
+     *
+     * @return array{0: string, 1: string, 2: list<string>}|null
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function indexListComparison(Field $field, mixed $values): ?array
+    {
+        $column = null;
+
+        $operands = [];
+
+        foreach (is_array($values) ? $values : [$values] as $value) {
+            $comparison = $this->indexComparison($field, '=', $value);
+
+            if ($comparison === null || ($column !== null && $comparison[0] !== $column)) {
+                continue;
+            }
+
+            $column = $comparison[0];
+
+            $operands[] = $comparison[2];
+        }
+
+        return $column === null ? null : [$column, 'in', array_values(array_unique($operands))];
     }
 
     /**

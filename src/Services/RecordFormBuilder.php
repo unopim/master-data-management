@@ -270,6 +270,24 @@ class RecordFormBuilder
     }
 
     /**
+     * One page of the codes of the field's code list version in effect today matching the term, or the options of
+     * the given codes, in the async select shape.
+     *
+     * @param  list<string>  $codes
+     * @return array{options: list<array{id: string, label: string}>, page: int, lastPage: int}
+     */
+    public function searchCodeOptions(Field $field, ?string $term, array $codes, int $page, int $perPage): array
+    {
+        $today = new DateTimeImmutable('today');
+
+        $version = $field->code_list_id === null ? null : $this->codeListVersionRepository->effectiveOn($field->code_list_id, $today);
+
+        return $version instanceof CodeListVersion
+            ? $this->codeRepository->searchForVersion($version->id, $today, $term, $codes, $page, $perPage)
+            : ['options' => [], 'page' => 1, 'lastPage' => 1];
+    }
+
+    /**
      * The codes of the field's code list version in effect today.
      *
      * @return list<array{id: string, label: string}>
