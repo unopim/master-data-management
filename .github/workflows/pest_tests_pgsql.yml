@@ -1,0 +1,190 @@
+name: Pest Tests (PostgreSQL)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+    inputs:
+      core_ref:
+        description: UnoPim core branch or tag to test against
+        default: 3.x
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  CORE_REF: ${{ inputs.core_ref || vars.UNOPIM_CORE_REF || '3.x' }}
+
+jobs:
+  pest-pgsql:
+    if: github.repository == 'unopim/master-data-management' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    name: Pest Tests (PostgreSQL)
+    continue-on-error: true
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: unopim
+          POSTGRES_PASSWORD: unopim
+          POSTGRES_DB: unopim
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U unopim"
+          --health-interval=5s
+          --health-timeout=3s
+          --health-retries=3
+          --tmpfs /var/lib/postgresql/data:rw,noexec,nosuid,size=600m
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          path: package
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.4'
+          extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, pdo_pgsql, tokenizer, zip
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: none
+
+      - name: Set up UnoPim core with the package
+        uses: ./package/.github/actions/setup-core
+        with:
+          core-ref: ${{ env.CORE_REF }}
+          install-package: 'true'
+          install-node: 'true'
+
+      - name: Setting Environment
+        working-directory: core
+        run: |
+          cp .env.example .env
+          sed -i "s|^\(APP_ENV=\s*\).*$|\1testing|" .env
+          sed -i "s|^\(DB_CONNECTION=\s*\).*$|\1pgsql|" .env
+          sed -i "s|^\(DB_HOST=\s*\).*$|\1127.0.0.1|" .env
+          sed -i "s|^\(DB_PORT=\s*\).*$|\15432|" .env
+          sed -i "s|^\(DB_DATABASE=\s*\).*$|\1unopim|" .env
+          sed -i "s|^\(DB_USERNAME=\s*\).*$|\1unopim|" .env
+          sed -i "s|^\(DB_PASSWORD=\s*\).*$|\1unopim|" .env
+
+      - name: Running UnoPim Installer with MDM
+        working-directory: core
+        run: |
+          php artisan unopim:install --skip-env-check --skip-admin-creation --modules=pim,mdm
+          php artisan masterdata:install
+
+      - name: Bind package tests to Pest
+        working-directory: core
+        run: |
+          cat >> tests/Pest.php <<'PHP'
+          uses(Webkul\MasterDataManagement\Tests\MasterDataTestCase::class)->in('../packages/Webkul/MasterDataManagement/tests');
+          PHP
+
+      - name: Running Pest Tests
+        working-directory: core
+        run: vendor/bin/pest --parallel --processes=4 --colors=always  packages/Webkul/MasterDataManagement/tests
+
+  pest-pgsql-elasticsearch:
+    if: github.repository == 'unopim/master-data-management' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    name: Pest Tests (PostgreSQL + Elasticsearch)
+    continue-on-error: true
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: unopim
+          POSTGRES_PASSWORD: unopim
+          POSTGRES_DB: unopim
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U unopim"
+          --health-interval=5s
+          --health-timeout=3s
+          --health-retries=3
+          --tmpfs /var/lib/postgresql/data:rw,noexec,nosuid,size=600m
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          path: package
+
+      - name: Start Elasticsearch
+        uses: ./package/.github/actions/elasticsearch
+        with:
+          step: start
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.4'
+          extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, pdo_pgsql, tokenizer, zip
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: none
+
+      - name: Set up UnoPim core with the package
+        uses: ./package/.github/actions/setup-core
+        with:
+          core-ref: ${{ env.CORE_REF }}
+          install-package: 'true'
+          install-node: 'true'
+
+      - name: Setting Environment
+        working-directory: core
+        run: |
+          cp .env.example .env
+          sed -i "s|^\(APP_ENV=\s*\).*$|\1testing|" .env
+          sed -i "s|^\(DB_CONNECTION=\s*\).*$|\1pgsql|" .env
+          sed -i "s|^\(DB_HOST=\s*\).*$|\1127.0.0.1|" .env
+          sed -i "s|^\(DB_PORT=\s*\).*$|\15432|" .env
+          sed -i "s|^\(DB_DATABASE=\s*\).*$|\1unopim|" .env
+          sed -i "s|^\(DB_USERNAME=\s*\).*$|\1unopim|" .env
+          sed -i "s|^\(DB_PASSWORD=\s*\).*$|\1unopim|" .env
+          sed -i "s|^\(DB_PREFIX=\s*\).*$|\13X_|" .env
+
+      - name: Running UnoPim Installer with MDM
+        working-directory: core
+        run: |
+          php artisan unopim:install --skip-env-check --skip-admin-creation --modules=pim,mdm
+          php artisan masterdata:install
+
+      - name: Bind package tests to Pest
+        working-directory: core
+        run: |
+          cat >> tests/Pest.php <<'PHP'
+          uses(Webkul\MasterDataManagement\Tests\MasterDataTestCase::class)->in('../packages/Webkul/MasterDataManagement/tests');
+          PHP
+
+      - name: Wait for Elasticsearch
+        uses: ./package/.github/actions/elasticsearch
+        with:
+          step: wait
+
+      - name: Enable Elasticsearch and build indexes
+        working-directory: core
+        run: |
+          sed -i "s|^\(ELASTICSEARCH_ENABLED=\s*\).*$|\1true|" .env
+          sed -i "s|^\(ELASTICSEARCH_HOST=\s*\).*$|\1http://127.0.0.1:9200|" .env
+          sed -i "s|^\(ELASTICSEARCH_INDEX_PREFIX=\s*\).*$|\1unopim_test|" .env
+          php artisan config:clear
+          php artisan unopim:product:index
+          php artisan unopim:category:index
+
+      - name: Running Pest Tests
+        working-directory: core
+        run: vendor/bin/pest --parallel --processes=4 --colors=always  packages/Webkul/MasterDataManagement/tests
