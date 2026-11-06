@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Panel jakości',
+        'acl'      => 'Panel jakości',
+        'index'    => [
+            'title'         => 'Panel jakości danych',
+            'info'          => 'Codzienne migawki kompletności, poprawności i duplikatów dla każdego typu encji wraz z pracą oczekującą na każdego opiekuna danych.',
+            'empty'         => 'Brak typów encji do raportowania.',
+            'scorecards'    => 'Karty wyników',
+            'no-snapshot'   => 'Nie wykonano jeszcze żadnej migawki.',
+            'not-available' => 'b.d.',
+            'percent'       => ':value%',
+            'delta'         => ':value pkt',
+            'records'       => 'Rekordy: :count',
+            'open-tasks'    => 'Otwarte zadania: :count',
+            'snapshot-date' => 'Migawka z :date',
+            'trend'         => 'Trend: :type',
+            'trend-empty'   => 'W tym okresie nie ma jeszcze migawek.',
+            'chart-label'   => 'Trend jakości danych :type od :from do :to',
+            'workload'      => 'Obciążenie opiekunów danych',
+        ],
+        'ranges' => [
+            '7'  => 'Ostatnie 7 dni',
+            '30' => 'Ostatnie 30 dni',
+            '90' => 'Ostatnie 90 dni',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Kompletność',
+            'validity_rate'    => 'Poprawność',
+            'duplicate_rate'   => 'Duplikaty',
+        ],
+        'workload' => [
+            'steward'          => 'Opiekun danych',
+            'change-requests'  => 'Otwarte wnioski o zmianę',
+            'match-candidates' => 'Otwarte kandydatury dopasowań',
+            'unassigned'       => 'Brak właściciela danych',
+            'empty'            => 'Brak otwartych zadań opiekunów.',
+            'buckets'          => [
+                'day'   => 'Poniżej 1 dnia',
+                'week'  => 'Od 1 do 7 dni',
+                'month' => 'Od 7 do 30 dni',
+                'older' => 'Ponad 30 dni',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Wykonanie migawki jakości dodano do kolejki.',
+            'done'   => 'Wykonano migawki jakości dla :count typów encji.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Wymagane zatwierdzenie: prośba o zmianę #:id',

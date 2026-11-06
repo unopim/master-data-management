@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Kwaliteitsdashboard',
+        'acl'      => 'Kwaliteitsdashboard',
+        'index'    => [
+            'title'         => 'Datakwaliteitsdashboard',
+            'info'          => 'Dagelijkse momentopnamen van volledigheid, geldigheid en duplicaten per entiteitstype, met het werk dat bij elke data steward wacht.',
+            'empty'         => 'Er zijn geen entiteitstypen om over te rapporteren.',
+            'scorecards'    => 'Scorekaarten',
+            'no-snapshot'   => 'Er is nog geen momentopname gemaakt.',
+            'not-available' => 'n.v.t.',
+            'percent'       => ':value%',
+            'delta'         => ':value ptn',
+            'records'       => 'Records: :count',
+            'open-tasks'    => 'Openstaande taken: :count',
+            'snapshot-date' => 'Momentopname van :date',
+            'trend'         => 'Verloop: :type',
+            'trend-empty'   => 'Nog geen momentopnamen in deze periode.',
+            'chart-label'   => 'Verloop van de datakwaliteit van :type van :from tot :to',
+            'workload'      => 'Werklast van data stewards',
+        ],
+        'ranges' => [
+            '7'  => 'Laatste 7 dagen',
+            '30' => 'Laatste 30 dagen',
+            '90' => 'Laatste 90 dagen',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Volledigheid',
+            'validity_rate'    => 'Geldigheid',
+            'duplicate_rate'   => 'Duplicaten',
+        ],
+        'workload' => [
+            'steward'          => 'Data steward',
+            'change-requests'  => 'Openstaande wijzigingsverzoeken',
+            'match-candidates' => 'Openstaande matchkandidaten',
+            'unassigned'       => 'Geen data-eigenaar',
+            'empty'            => 'Geen openstaande taken voor data stewards.',
+            'buckets'          => [
+                'day'   => 'Minder dan 1 dag',
+                'week'  => '1 tot 7 dagen',
+                'month' => '7 tot 30 dagen',
+                'older' => 'Meer dan 30 dagen',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Vastleggen van kwaliteitsmomentopname in de wachtrij gezet.',
+            'done'   => 'Kwaliteitsmomentopnamen vastgelegd voor :count entiteitstypen.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Goedkeuring nodig: wijzigingsverzoek #:id',

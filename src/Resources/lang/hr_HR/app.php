@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Nadzorna ploča kvalitete',
+        'acl'      => 'Nadzorna ploča kvalitete',
+        'index'    => [
+            'title'         => 'Nadzorna ploča kvalitete podataka',
+            'info'          => 'Dnevne snimke potpunosti, valjanosti i duplikata po vrsti entiteta, uz posao koji čeka svakog upravitelja podataka.',
+            'empty'         => 'Nema vrsta entiteta za izvješćivanje.',
+            'scorecards'    => 'Kartice rezultata',
+            'no-snapshot'   => 'Još nije napravljena nijedna snimka.',
+            'not-available' => 'n/d',
+            'percent'       => ':value %',
+            'delta'         => ':value bod.',
+            'records'       => 'Zapisi: :count',
+            'open-tasks'    => 'Otvoreni zadaci: :count',
+            'snapshot-date' => 'Snimka od :date',
+            'trend'         => 'Trend: :type',
+            'trend-empty'   => 'U ovom razdoblju još nema snimki.',
+            'chart-label'   => 'Trend kvalitete podataka za :type od :from do :to',
+            'workload'      => 'Opterećenje upravitelja podataka',
+        ],
+        'ranges' => [
+            '7'  => 'Zadnjih 7 dana',
+            '30' => 'Zadnjih 30 dana',
+            '90' => 'Zadnjih 90 dana',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Potpunost',
+            'validity_rate'    => 'Valjanost',
+            'duplicate_rate'   => 'Duplikati',
+        ],
+        'workload' => [
+            'steward'          => 'Upravitelj podataka',
+            'change-requests'  => 'Otvoreni zahtjevi za promjenu',
+            'match-candidates' => 'Otvoreni kandidati za podudaranje',
+            'unassigned'       => 'Bez vlasnika podataka',
+            'empty'            => 'Nema otvorenih zadataka upravitelja.',
+            'buckets'          => [
+                'day'   => 'Manje od 1 dana',
+                'week'  => '1 do 7 dana',
+                'month' => '7 do 30 dana',
+                'older' => 'Više od 30 dana',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Snimanje snimke kvalitete stavljeno je u red čekanja.',
+            'done'   => 'Snimke kvalitete spremljene su za :count vrsta entiteta.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Potrebno odobrenje: zahtjev za promjenu #:id',

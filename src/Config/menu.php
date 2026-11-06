@@ -65,6 +65,13 @@ return [
         'sort'   => 6,
         'icon'   => '',
     ], [
+        'key'    => 'masterdata.quality_dashboard',
+        'module' => 'mdm',
+        'name'   => 'masterdata::app.quality-dashboard.menu',
+        'route'  => 'admin.masterdata.quality_dashboard.index',
+        'sort'   => 6,
+        'icon'   => '',
+    ], [
         'key'    => 'masterdata.approvals',
         'module' => 'mdm',
         'name'   => 'masterdata::app.menu.approvals',

@@ -13,6 +13,7 @@ use Webkul\MasterDataManagement\Console\Commands\ImportCommand;
 use Webkul\MasterDataManagement\Console\Commands\InstallCommand;
 use Webkul\MasterDataManagement\Console\Commands\PruneIdempotencyKeys;
 use Webkul\MasterDataManagement\Console\Commands\QualityScanCommand;
+use Webkul\MasterDataManagement\Console\Commands\QualitySnapshotCommand;
 use Webkul\MasterDataManagement\Contracts\ChangeGate;
 use Webkul\MasterDataManagement\Contracts\CodeLookup;
 use Webkul\MasterDataManagement\Contracts\ExportDestination;
@@ -29,6 +30,7 @@ use Webkul\MasterDataManagement\FieldTypes\FieldTypeRegistry;
 use Webkul\MasterDataManagement\FieldTypes\MeasurementType;
 use Webkul\MasterDataManagement\Http\Middleware\IdempotentRequest;
 use Webkul\MasterDataManagement\Http\ViewComposers\RoleAccessCardComposer;
+use Webkul\MasterDataManagement\Jobs\CaptureQualitySnapshots;
 use Webkul\MasterDataManagement\Listeners\AddImportReviewCounts;
 use Webkul\MasterDataManagement\Listeners\DeletePrincipalAccessGrants;
 use Webkul\MasterDataManagement\Listeners\EvaluateRecordQuality;
@@ -83,11 +85,13 @@ class MasterDataServiceProvider extends ServiceProvider
         FieldProxy::modelClass()::observe(FieldObserver::class);
 
         if ($this->app->runningInConsole()) {
-            $this->commands([InstallCommand::class, DemoManufacturingCommand::class, ImportCommand::class, QualityScanCommand::class, PruneIdempotencyKeys::class]);
+            $this->commands([InstallCommand::class, DemoManufacturingCommand::class, ImportCommand::class, QualityScanCommand::class, QualitySnapshotCommand::class, PruneIdempotencyKeys::class]);
         }
 
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule): void {
             $schedule->command(PruneIdempotencyKeys::class)->daily()->withoutOverlapping();
+
+            $schedule->job(new CaptureQualitySnapshots)->daily()->withoutOverlapping()->onOneServer();
 
             $this->scheduleImports($schedule);
         });

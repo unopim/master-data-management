@@ -16,11 +16,14 @@ use LogicException;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\MasterDataManagement\Contracts\Record;
+use Webkul\MasterDataManagement\Enums\QualityIssueStatus;
 use Webkul\MasterDataManagement\Enums\RecordStatus;
 use Webkul\MasterDataManagement\FieldTypes\FieldTypeRegistry;
 use Webkul\MasterDataManagement\Models\Field;
 use Webkul\MasterDataManagement\Models\Record as RecordModel;
 use Webkul\MasterDataManagement\Quality\Completeness;
+use Webkul\MasterDataManagement\Quality\Rules\DuplicateRule;
+use Webkul\MasterDataManagement\Quality\Rules\ValidityRule;
 use Webkul\MasterDataManagement\Security\EntityTypePermissions;
 use Webkul\MasterDataManagement\Security\RecordScope;
 use Webkul\MasterDataManagement\Services\Normalizer;
@@ -807,6 +810,58 @@ class RecordRepository extends Repository
                 'average'  => $row->average === null ? null : (int) round((float) $row->average),
                 'complete' => (int) $row->complete,
                 'unscored' => (int) $row->unscored,
+            ]])
+            ->all();
+    }
+
+    /**
+     * Count the draft and active records per entity type with their average completeness, those with an open
+     * validity issue and those in an open duplicate pair, in one grouped query regardless of row scope.
+     *
+     * @param  list<int>  $entityTypeIds
+     * @return array<int, array{records: int, average: ?float, invalid: int, duplicates: int}> Keyed by entity type id.
+     */
+    public function qualityAggregates(array $entityTypeIds): array
+    {
+        if ($entityTypeIds === []) {
+            return [];
+        }
+
+        $query = $this->model->newQuery()->toBase();
+
+        $grammar = $query->getGrammar();
+
+        $openIssue = fn (string $column, string $rule): QueryBuilder => $query->newQuery()
+            ->from('mdm_dq_issues')
+            ->selectRaw('1')
+            ->whereColumn('mdm_dq_issues.'.$column, 'mdm_records.id')
+            ->where('mdm_dq_issues.rule', $rule)
+            ->where('mdm_dq_issues.status', QualityIssueStatus::Open->value);
+
+        $invalid = $openIssue('record_id', ValidityRule::CODE);
+
+        $owner = $openIssue('record_id', DuplicateRule::CODE);
+
+        $related = $openIssue('related_record_id', DuplicateRule::CODE);
+
+        return $query
+            ->whereIn('mdm_records.entity_type_id', $entityTypeIds)
+            ->whereIn('mdm_records.status', [RecordStatus::Draft->value, RecordStatus::Active->value])
+            ->groupBy('mdm_records.entity_type_id')
+            ->select('mdm_records.entity_type_id')
+            ->selectRaw('count(*) as records')
+            ->selectRaw('avg('.$grammar->wrap('mdm_records.completeness').') as average')
+            ->selectRaw('sum(case when exists ('.$invalid->toSql().') then 1 else 0 end) as invalid', $invalid->getBindings())
+            ->selectRaw(
+                'sum(case when exists ('.$owner->toSql().') or exists ('.$related->toSql().') then 1 else 0 end) as duplicates',
+                [...$owner->getBindings(), ...$related->getBindings()],
+            )
+            ->get()
+            ->mapWithKeys(fn (object $row): array => [(int) $row->entity_type_id => [
+                'records'    => (int) $row->records,
+                'average'    => $row->average === null ? null : (float) $row->average,
+                'invalid'    => (int) $row->invalid,
+                'duplicates' => (int) $row->duplicates,
             ]])
             ->all();
     }

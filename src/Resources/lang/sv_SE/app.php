@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Kvalitetsöversikt',
+        'acl'      => 'Kvalitetsöversikt',
+        'index'    => [
+            'title'         => 'Översikt över datakvalitet',
+            'info'          => 'Dagliga ögonblicksbilder av fullständighet, giltighet och dubbletter per entitetstyp, med det arbete som väntar på varje dataförvaltare.',
+            'empty'         => 'Det finns inga entitetstyper att rapportera om.',
+            'scorecards'    => 'Resultatkort',
+            'no-snapshot'   => 'Ingen ögonblicksbild har tagits ännu.',
+            'not-available' => 'e/t',
+            'percent'       => ':value %',
+            'delta'         => ':value p',
+            'records'       => 'Poster: :count',
+            'open-tasks'    => 'Öppna uppgifter: :count',
+            'snapshot-date' => 'Ögonblicksbild från :date',
+            'trend'         => 'Utveckling: :type',
+            'trend-empty'   => 'Inga ögonblicksbilder i detta intervall ännu.',
+            'chart-label'   => 'Utveckling av datakvaliteten för :type från :from till :to',
+            'workload'      => 'Dataförvaltarnas arbetsbelastning',
+        ],
+        'ranges' => [
+            '7'  => 'Senaste 7 dagarna',
+            '30' => 'Senaste 30 dagarna',
+            '90' => 'Senaste 90 dagarna',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Fullständighet',
+            'validity_rate'    => 'Giltighet',
+            'duplicate_rate'   => 'Dubbletter',
+        ],
+        'workload' => [
+            'steward'          => 'Dataförvaltare',
+            'change-requests'  => 'Öppna ändringsbegäranden',
+            'match-candidates' => 'Öppna matchningskandidater',
+            'unassigned'       => 'Ingen dataägare',
+            'empty'            => 'Inga öppna uppgifter för dataförvaltare.',
+            'buckets'          => [
+                'day'   => 'Under 1 dag',
+                'week'  => '1 till 7 dagar',
+                'month' => '7 till 30 dagar',
+                'older' => 'Över 30 dagar',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Lagring av kvalitetsögonblicksbild har köats.',
+            'done'   => 'Kvalitetsögonblicksbilder har lagrats för :count entitetstyper.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Godkännande krävs: ändringsbegäran #:id',

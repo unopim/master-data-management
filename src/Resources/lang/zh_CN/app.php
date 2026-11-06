@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => '质量仪表板',
+        'acl'      => '质量仪表板',
+        'index'    => [
+            'title'         => '数据质量仪表板',
+            'info'          => '按实体类型每日记录完整性、有效性和重复项快照，并显示每位数据管理员的待办工作。',
+            'empty'         => '没有可报告的实体类型。',
+            'scorecards'    => '记分卡',
+            'no-snapshot'   => '尚未生成快照。',
+            'not-available' => '无',
+            'percent'       => ':value%',
+            'delta'         => ':value 个百分点',
+            'records'       => '记录：:count',
+            'open-tasks'    => '未完成任务：:count',
+            'snapshot-date' => ':date 的快照',
+            'trend'         => '趋势：:type',
+            'trend-empty'   => '此范围内尚无快照。',
+            'chart-label'   => ':type 从 :from 到 :to 的数据质量趋势',
+            'workload'      => '管理员工作量',
+        ],
+        'ranges' => [
+            '7'  => '最近 7 天',
+            '30' => '最近 30 天',
+            '90' => '最近 90 天',
+        ],
+        'metrics' => [
+            'completeness_avg' => '完整性',
+            'validity_rate'    => '有效性',
+            'duplicate_rate'   => '重复项',
+        ],
+        'workload' => [
+            'steward'          => '数据管理员',
+            'change-requests'  => '未处理的变更请求',
+            'match-candidates' => '未处理的匹配候选',
+            'unassigned'       => '无数据所有者',
+            'empty'            => '数据管理员没有未完成的任务。',
+            'buckets'          => [
+                'day'   => '少于 1 天',
+                'week'  => '1 至 7 天',
+                'month' => '7 至 30 天',
+                'older' => '超过 30 天',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => '质量快照采集已加入队列。',
+            'done'   => '已采集 :count 个实体类型的质量快照。',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => '需要审批：变更请求 #:id',

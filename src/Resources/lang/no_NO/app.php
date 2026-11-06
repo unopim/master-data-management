@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Kvalitetsdashbord',
+        'acl'      => 'Kvalitetsdashbord',
+        'index'    => [
+            'title'         => 'Datakvalitetsdashbord',
+            'info'          => 'Daglige øyeblikksbilder av fullstendighet, gyldighet og duplikater per enhetstype, med arbeidet som venter på hver dataforvalter.',
+            'empty'         => 'Det finnes ingen enhetstyper å rapportere om.',
+            'scorecards'    => 'Resultatkort',
+            'no-snapshot'   => 'Ingen øyeblikksbilder er tatt ennå.',
+            'not-available' => 'i/t',
+            'percent'       => ':value %',
+            'delta'         => ':value poeng',
+            'records'       => 'Poster: :count',
+            'open-tasks'    => 'Åpne oppgaver: :count',
+            'snapshot-date' => 'Øyeblikksbilde fra :date',
+            'trend'         => 'Utvikling: :type',
+            'trend-empty'   => 'Ingen øyeblikksbilder i dette tidsrommet ennå.',
+            'chart-label'   => 'Utvikling i datakvalitet for :type fra :from til :to',
+            'workload'      => 'Arbeidsmengde for dataforvaltere',
+        ],
+        'ranges' => [
+            '7'  => 'Siste 7 dager',
+            '30' => 'Siste 30 dager',
+            '90' => 'Siste 90 dager',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Fullstendighet',
+            'validity_rate'    => 'Gyldighet',
+            'duplicate_rate'   => 'Duplikater',
+        ],
+        'workload' => [
+            'steward'          => 'Dataforvalter',
+            'change-requests'  => 'Åpne endringsforespørsler',
+            'match-candidates' => 'Åpne samsvarskandidater',
+            'unassigned'       => 'Ingen dataeier',
+            'empty'            => 'Ingen åpne oppgaver for dataforvaltere.',
+            'buckets'          => [
+                'day'   => 'Under 1 dag',
+                'week'  => '1 til 7 dager',
+                'month' => '7 til 30 dager',
+                'older' => 'Over 30 dager',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Lagring av kvalitetsøyeblikksbilde er satt i kø.',
+            'done'   => 'Kvalitetsøyeblikksbilder er lagret for :count enhetstyper.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Godkjenning kreves: endringsforespørsel #:id',

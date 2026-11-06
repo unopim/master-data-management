@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Dashboard qualità',
+        'acl'      => 'Dashboard qualità',
+        'index'    => [
+            'title'         => 'Dashboard della qualità dei dati',
+            'info'          => 'Istantanee giornaliere di completezza, validità e duplicati per tipo di entità, con il lavoro in attesa di ciascun responsabile dei dati.',
+            'empty'         => 'Non ci sono tipi di entità da riportare.',
+            'scorecards'    => 'Scorecard',
+            'no-snapshot'   => 'Nessuna istantanea ancora acquisita.',
+            'not-available' => 'n/d',
+            'percent'       => ':value%',
+            'delta'         => ':value pt',
+            'records'       => 'Record: :count',
+            'open-tasks'    => 'Attività aperte: :count',
+            'snapshot-date' => 'Istantanea del :date',
+            'trend'         => 'Andamento: :type',
+            'trend-empty'   => 'Nessuna istantanea in questo intervallo per ora.',
+            'chart-label'   => 'Andamento della qualità dei dati di :type dal :from al :to',
+            'workload'      => 'Carico di lavoro dei responsabili',
+        ],
+        'ranges' => [
+            '7'  => 'Ultimi 7 giorni',
+            '30' => 'Ultimi 30 giorni',
+            '90' => 'Ultimi 90 giorni',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Completezza',
+            'validity_rate'    => 'Validità',
+            'duplicate_rate'   => 'Duplicati',
+        ],
+        'workload' => [
+            'steward'          => 'Responsabile',
+            'change-requests'  => 'Richieste di modifica aperte',
+            'match-candidates' => 'Candidati di corrispondenza aperti',
+            'unassigned'       => 'Nessun proprietario dei dati',
+            'empty'            => 'Nessuna attività aperta per i responsabili.',
+            'buckets'          => [
+                'day'   => 'Meno di 1 giorno',
+                'week'  => 'Da 1 a 7 giorni',
+                'month' => 'Da 7 a 30 giorni',
+                'older' => 'Oltre 30 giorni',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Acquisizione dell\'istantanea di qualità messa in coda.',
+            'done'   => 'Acquisite le istantanee di qualità di :count tipi di entità.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Approvazione richiesta: richiesta di modifica #:id',

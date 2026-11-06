@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Laatunäkymä',
+        'acl'      => 'Laatunäkymä',
+        'index'    => [
+            'title'         => 'Datan laadun näkymä',
+            'info'          => 'Päivittäiset tilannekuvat täydellisyydestä, kelpoisuudesta ja kaksoiskappaleista entiteettityypeittäin sekä kunkin datavastaavan odottavat työt.',
+            'empty'         => 'Raportoitavia entiteettityyppejä ei ole.',
+            'scorecards'    => 'Tuloskortit',
+            'no-snapshot'   => 'Tilannekuvaa ei ole vielä otettu.',
+            'not-available' => 'ei saatavilla',
+            'percent'       => ':value %',
+            'delta'         => ':value pist.',
+            'records'       => 'Tietueet: :count',
+            'open-tasks'    => 'Avoimet tehtävät: :count',
+            'snapshot-date' => 'Tilannekuva :date',
+            'trend'         => 'Kehitys: :type',
+            'trend-empty'   => 'Tällä aikavälillä ei ole vielä tilannekuvia.',
+            'chart-label'   => 'Tyypin :type datan laadun kehitys :from–:to',
+            'workload'      => 'Datavastaavien työkuorma',
+        ],
+        'ranges' => [
+            '7'  => 'Viimeiset 7 päivää',
+            '30' => 'Viimeiset 30 päivää',
+            '90' => 'Viimeiset 90 päivää',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Täydellisyys',
+            'validity_rate'    => 'Kelpoisuus',
+            'duplicate_rate'   => 'Kaksoiskappaleet',
+        ],
+        'workload' => [
+            'steward'          => 'Datavastaava',
+            'change-requests'  => 'Avoimet muutospyynnöt',
+            'match-candidates' => 'Avoimet täsmäysehdokkaat',
+            'unassigned'       => 'Ei datan omistajaa',
+            'empty'            => 'Datavastaavilla ei ole avoimia tehtäviä.',
+            'buckets'          => [
+                'day'   => 'Alle 1 päivä',
+                'week'  => '1–7 päivää',
+                'month' => '7–30 päivää',
+                'older' => 'Yli 30 päivää',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Laadun tilannekuvan tallennus lisätty jonoon.',
+            'done'   => 'Laadun tilannekuvat tallennettu :count entiteettityypille.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Hyväksyntä tarvitaan: muutospyyntö #:id',

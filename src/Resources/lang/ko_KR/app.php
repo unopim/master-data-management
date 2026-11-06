@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => '품질 대시보드',
+        'acl'      => '품질 대시보드',
+        'index'    => [
+            'title'         => '데이터 품질 대시보드',
+            'info'          => '엔터티 유형별 완전성, 유효성, 중복의 일일 스냅샷과 각 데이터 스튜어드에게 대기 중인 작업을 보여 줍니다.',
+            'empty'         => '보고할 엔터티 유형이 없습니다.',
+            'scorecards'    => '스코어카드',
+            'no-snapshot'   => '아직 생성된 스냅샷이 없습니다.',
+            'not-available' => '해당 없음',
+            'percent'       => ':value%',
+            'delta'         => ':value포인트',
+            'records'       => '레코드: :count',
+            'open-tasks'    => '미결 작업: :count',
+            'snapshot-date' => ':date 스냅샷',
+            'trend'         => '추이: :type',
+            'trend-empty'   => '이 기간에는 아직 스냅샷이 없습니다.',
+            'chart-label'   => ':from부터 :to까지 :type의 데이터 품질 추이',
+            'workload'      => '스튜어드 작업량',
+        ],
+        'ranges' => [
+            '7'  => '최근 7일',
+            '30' => '최근 30일',
+            '90' => '최근 90일',
+        ],
+        'metrics' => [
+            'completeness_avg' => '완전성',
+            'validity_rate'    => '유효성',
+            'duplicate_rate'   => '중복',
+        ],
+        'workload' => [
+            'steward'          => '스튜어드',
+            'change-requests'  => '미결 변경 요청',
+            'match-candidates' => '미결 매칭 후보',
+            'unassigned'       => '데이터 소유자 없음',
+            'empty'            => '스튜어드의 미결 작업이 없습니다.',
+            'buckets'          => [
+                'day'   => '1일 미만',
+                'week'  => '1~7일',
+                'month' => '7~30일',
+                'older' => '30일 초과',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => '품질 스냅샷 생성이 대기열에 추가되었습니다.',
+            'done'   => ':count개 엔터티 유형의 품질 스냅샷을 생성했습니다.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => '승인 필요: 변경 요청 #:id',

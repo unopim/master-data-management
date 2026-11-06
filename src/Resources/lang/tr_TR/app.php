@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Kalite Panosu',
+        'acl'      => 'Kalite Panosu',
+        'index'    => [
+            'title'         => 'Veri Kalitesi Panosu',
+            'info'          => 'Varlık türü başına tamlık, geçerlilik ve yinelenenlerin günlük anlık görüntüleri ile her veri sorumlusunu bekleyen işler.',
+            'empty'         => 'Raporlanacak varlık türü yok.',
+            'scorecards'    => 'Puan kartları',
+            'no-snapshot'   => 'Henüz anlık görüntü alınmadı.',
+            'not-available' => 'yok',
+            'percent'       => '%:value',
+            'delta'         => ':value puan',
+            'records'       => 'Kayıtlar: :count',
+            'open-tasks'    => 'Açık görevler: :count',
+            'snapshot-date' => ':date tarihli anlık görüntü',
+            'trend'         => 'Eğilim: :type',
+            'trend-empty'   => 'Bu aralıkta henüz anlık görüntü yok.',
+            'chart-label'   => ':type için :from ile :to arasındaki veri kalitesi eğilimi',
+            'workload'      => 'Veri sorumlularının iş yükü',
+        ],
+        'ranges' => [
+            '7'  => 'Son 7 gün',
+            '30' => 'Son 30 gün',
+            '90' => 'Son 90 gün',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Tamlık',
+            'validity_rate'    => 'Geçerlilik',
+            'duplicate_rate'   => 'Yinelenenler',
+        ],
+        'workload' => [
+            'steward'          => 'Veri sorumlusu',
+            'change-requests'  => 'Açık değişiklik talepleri',
+            'match-candidates' => 'Açık eşleşme adayları',
+            'unassigned'       => 'Veri sahibi yok',
+            'empty'            => 'Veri sorumlularının açık görevi yok.',
+            'buckets'          => [
+                'day'   => '1 günden az',
+                'week'  => '1 ila 7 gün',
+                'month' => '7 ila 30 gün',
+                'older' => '30 günden fazla',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Kalite anlık görüntüsü alma işlemi kuyruğa eklendi.',
+            'done'   => ':count varlık türünün kalite anlık görüntüsü alındı.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Onay gerekiyor: değişiklik talebi #:id',

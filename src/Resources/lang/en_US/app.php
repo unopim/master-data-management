@@ -1536,6 +1536,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Quality Dashboard',
+        'acl'      => 'Quality Dashboard',
+        'index'    => [
+            'title'         => 'Data Quality Dashboard',
+            'info'          => 'Daily snapshots of completeness, validity and duplicates per entity type, with the work waiting on each data steward.',
+            'empty'         => 'There are no entity types to report on.',
+            'scorecards'    => 'Scorecards',
+            'no-snapshot'   => 'No snapshot taken yet.',
+            'not-available' => 'n/a',
+            'percent'       => ':value%',
+            'delta'         => ':value pts',
+            'records'       => 'Records: :count',
+            'open-tasks'    => 'Open tasks: :count',
+            'snapshot-date' => 'Snapshot of :date',
+            'trend'         => 'Trend: :type',
+            'trend-empty'   => 'No snapshots in this range yet.',
+            'chart-label'   => 'Data quality trend of :type from :from to :to',
+            'workload'      => 'Steward workload',
+        ],
+        'ranges' => [
+            '7'  => 'Last 7 days',
+            '30' => 'Last 30 days',
+            '90' => 'Last 90 days',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Completeness',
+            'validity_rate'    => 'Validity',
+            'duplicate_rate'   => 'Duplicates',
+        ],
+        'workload' => [
+            'steward'          => 'Steward',
+            'change-requests'  => 'Open change requests',
+            'match-candidates' => 'Open match candidates',
+            'unassigned'       => 'No data owner',
+            'empty'            => 'No open steward tasks.',
+            'buckets'          => [
+                'day'   => 'Under 1 day',
+                'week'  => '1 to 7 days',
+                'month' => '7 to 30 days',
+                'older' => 'Over 30 days',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Quality snapshot capture queued.',
+            'done'   => 'Captured the quality snapshots of :count entity types.',
+        ],
+    ],
+
     'approvals' => [
         'new-record'      => 'New record',
         'approve-success' => 'Change approved and applied.',

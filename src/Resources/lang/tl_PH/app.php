@@ -383,6 +383,55 @@ return [
         ],
     ],
 
+    'quality-dashboard' => [
+        'menu'     => 'Dashboard ng Kalidad',
+        'acl'      => 'Dashboard ng Kalidad',
+        'index'    => [
+            'title'         => 'Dashboard ng Kalidad ng Data',
+            'info'          => 'Pang-araw-araw na snapshot ng pagkakumpleto, bisa at mga duplicate bawat uri ng entity, kasama ang trabahong naghihintay sa bawat data steward.',
+            'empty'         => 'Walang uri ng entity na maiuulat.',
+            'scorecards'    => 'Mga scorecard',
+            'no-snapshot'   => 'Wala pang snapshot na nakuha.',
+            'not-available' => 'wala',
+            'percent'       => ':value%',
+            'delta'         => ':value puntos',
+            'records'       => 'Mga record: :count',
+            'open-tasks'    => 'Mga bukas na gawain: :count',
+            'snapshot-date' => 'Snapshot ng :date',
+            'trend'         => 'Trend: :type',
+            'trend-empty'   => 'Wala pang snapshot sa saklaw na ito.',
+            'chart-label'   => 'Trend ng kalidad ng data ng :type mula :from hanggang :to',
+            'workload'      => 'Workload ng mga steward',
+        ],
+        'ranges' => [
+            '7'  => 'Huling 7 araw',
+            '30' => 'Huling 30 araw',
+            '90' => 'Huling 90 araw',
+        ],
+        'metrics' => [
+            'completeness_avg' => 'Pagkakumpleto',
+            'validity_rate'    => 'Bisa',
+            'duplicate_rate'   => 'Mga duplicate',
+        ],
+        'workload' => [
+            'steward'          => 'Steward',
+            'change-requests'  => 'Mga bukas na kahilingan sa pagbabago',
+            'match-candidates' => 'Mga bukas na kandidato sa pagtutugma',
+            'unassigned'       => 'Walang may-ari ng data',
+            'empty'            => 'Walang bukas na gawain ang mga steward.',
+            'buckets'          => [
+                'day'   => 'Wala pang 1 araw',
+                'week'  => '1 hanggang 7 araw',
+                'month' => '7 hanggang 30 araw',
+                'older' => 'Higit sa 30 araw',
+            ],
+        ],
+        'snapshot' => [
+            'queued' => 'Nakapila na ang pagkuha ng snapshot ng kalidad.',
+            'done'   => 'Nakuha ang mga snapshot ng kalidad ng :count uri ng entity.',
+        ],
+    ],
+
     'approvals' => [
         'notification' => [
             'title'                 => 'Kailangan ng pag-apruba: kahilingan sa pagbabago #:id',

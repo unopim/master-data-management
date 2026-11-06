@@ -16,6 +16,7 @@ use Webkul\MasterDataManagement\Http\Controllers\Admin\ImportFilterController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchingController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchRuleController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\QualityController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\QualityDashboardController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordLifecycleController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordMergeController;
@@ -159,6 +160,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
             Route::post('issues/{id}/resolve', 'resolve')->name('admin.masterdata.quality.issues.resolve')->whereNumber('id');
             Route::post('issues/{id}/ignore', 'ignore')->name('admin.masterdata.quality.issues.ignore')->whereNumber('id');
         });
+
+        Route::get('quality-dashboard', [QualityDashboardController::class, 'index'])->name('admin.masterdata.quality_dashboard.index');
 
         Route::controller(IconController::class)->prefix('icons')->group(function (): void {
             Route::get('', 'index')->name('admin.masterdata.icons.index');
