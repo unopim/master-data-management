@@ -1689,4 +1689,113 @@ return [
         'demo'      => '正在安裝製造業示範資料。',
         'done'      => '主資料管理已安裝。啟用的模組::modules。',
     ],
+
+    'hierarchies' => [
+        'tab'            => '階層',
+        'title'          => '階層',
+        'info'           => '將此類型的記錄排列在多棵樹中。主要階層會依循每筆記錄的父層；銷售或報告結構等替代階層則另外保存。',
+        'create-btn'     => '新增階層',
+        'primary-label'  => '主要',
+        'create-success' => '已新增階層。',
+        'update-success' => '已更新階層。',
+        'delete-success' => '已刪除階層。',
+
+        'create' => [
+            'title' => '新增階層',
+        ],
+
+        'edit' => [
+            'title' => '編輯階層',
+        ],
+
+        'form' => [
+            'code'      => '代碼',
+            'code-info' => '小寫字母、數字和底線，且以字母開頭。之後無法變更。',
+            'labels'    => '標籤',
+            'label'     => '標籤',
+            'save-btn'  => '儲存階層',
+        ],
+
+        'datagrid' => [
+            'code'   => '代碼',
+            'label'  => '標籤',
+            'kind'   => '類別',
+            'edit'   => '編輯',
+            'delete' => '刪除',
+        ],
+
+        'kinds' => [
+            'primary'   => '主要',
+            'alternate' => '替代',
+        ],
+
+        'validation' => [
+            'primary'           => '主要階層會依循每筆記錄的父層。請改為在記錄上變更父層。',
+            'primary-delete'    => '主要階層無法刪除。',
+            'wrong-type'        => '只有此階層實體類型的記錄可以放入其中。',
+            'subtree-too-large' => '此記錄在該階層中的下層記錄超過 :count 筆，數量過多，無法一次移動。',
+            'code-taken'        => '此實體類型的另一個階層已使用此代碼。',
+            'too-many'          => '一個實體類型最多可以有 :count 個階層。',
+        ],
+
+        'tree' => [
+            'open'       => '樹狀檢視',
+            'title'      => ':type 樹',
+            'switch'     => '切換階層',
+            'empty'      => '尚無階層',
+            'empty-info' => '將實體類型設為階層式或新增替代階層，即可以樹狀方式檢視其記錄。',
+            'loading'    => '載入中…',
+            'no-nodes'   => '此階層中尚未放置任何記錄。',
+            'expand'     => '展開',
+            'collapse'   => '摺疊',
+            'limited'    => '正在顯示此層級的前 :count 筆記錄。',
+        ],
+
+        'record' => [
+            'tab'                    => '階層',
+            'title'                  => '替代階層',
+            'info'                   => '此記錄在其實體類型的替代階層中所處的位置。主要階層顯示於上方。',
+            'empty'                  => '沒有替代階層',
+            'empty-info'             => '在實體類型上新增替代階層，即可將此記錄放入其中。',
+            'hierarchy'              => '階層',
+            'path'                   => '路徑',
+            'actions'                => '動作',
+            'not-placed'             => '未放置',
+            'place'                  => '放置',
+            'place-title'            => '放置到 :hierarchy',
+            'parent-info'            => '選擇相同類型的記錄，或不選父層以將此記錄置於頂層。尚未在階層中的父層會先被放到頂層。',
+            'remove'                 => '移除',
+            'remove-confirm-title'   => '要從階層中移除嗎？',
+            'remove-confirm-message' => '其下的記錄會上移一層。',
+            'placed'                 => '記錄已放置到 :hierarchy。',
+            'removed'                => '記錄已從 :hierarchy 移除。',
+        ],
+
+        'api' => [
+            'not-found' => '找不到階層。',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => '圖譜',
+        'title'       => '關係圖譜',
+        'info'        => '透過關係、階層與來源系統與此記錄關聯的記錄。選擇一筆記錄即可開啟。',
+        'hops'        => '距離',
+        'hop-count'   => ':count 跳|:count 跳',
+        'loading'     => '載入中…',
+        'empty'       => '此記錄沒有您可以檢視的關聯記錄。',
+        'truncated'   => '圖譜已達大小上限，部分關聯記錄未顯示。',
+        'description' => '由 :edges 條連結組成、包含 :nodes 筆記錄與來源 ID 的圖譜。',
+
+        'edges' => [
+            'parent' => '上層',
+            'source' => '在來源系統中已知',
+        ],
+
+        'legend' => [
+            'relation' => '關係',
+            'parent'   => '階層',
+            'source'   => '來源 ID',
+        ],
+    ],
 ];

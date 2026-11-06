@@ -28,6 +28,7 @@ use Webkul\MasterDataManagement\Export\FilesystemDiskDestination;
 use Webkul\MasterDataManagement\FieldTypes\FieldTypeRegistry;
 use Webkul\MasterDataManagement\FieldTypes\MeasurementType;
 use Webkul\MasterDataManagement\Http\Middleware\IdempotentRequest;
+use Webkul\MasterDataManagement\Http\ViewComposers\RecordPlacementsComposer;
 use Webkul\MasterDataManagement\Http\ViewComposers\RoleAccessCardComposer;
 use Webkul\MasterDataManagement\Listeners\AddImportReviewCounts;
 use Webkul\MasterDataManagement\Listeners\DeletePrincipalAccessGrants;
@@ -164,6 +165,7 @@ class MasterDataServiceProvider extends ServiceProvider
     protected function registerRoleAccessCard(): void
     {
         View::composer('masterdata::access.role-card', RoleAccessCardComposer::class);
+        View::composer('masterdata::records._hierarchies', RecordPlacementsComposer::class);
 
         Event::listen(['user.role.create.before', 'user.role.update.before'], [SyncRoleAccessGrants::class, 'validate']);
 

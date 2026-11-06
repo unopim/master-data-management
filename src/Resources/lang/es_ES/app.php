@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Instalando los datos de demostración de fabricación.',
         'done'      => 'La gestión de datos maestros está instalada. Módulos activos: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Jerarquías',
+        'title'          => 'Jerarquías',
+        'info'           => 'Organiza los registros de este tipo en más de un árbol. La jerarquía principal sigue el padre de cada registro; las jerarquías alternativas, como una estructura de ventas o de informes, se mantienen por separado.',
+        'create-btn'     => 'Añadir jerarquía',
+        'primary-label'  => 'Principal',
+        'create-success' => 'Jerarquía añadida.',
+        'update-success' => 'Jerarquía actualizada.',
+        'delete-success' => 'Jerarquía eliminada.',
+
+        'create' => [
+            'title' => 'Añadir jerarquía',
+        ],
+
+        'edit' => [
+            'title' => 'Editar jerarquía',
+        ],
+
+        'form' => [
+            'code'      => 'Código',
+            'code-info' => 'Letras minúsculas, dígitos y guiones bajos, empezando por una letra. No se puede cambiar después.',
+            'labels'    => 'Etiquetas',
+            'label'     => 'Etiqueta',
+            'save-btn'  => 'Guardar jerarquía',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Código',
+            'label'  => 'Etiqueta',
+            'kind'   => 'Clase',
+            'edit'   => 'Editar',
+            'delete' => 'Eliminar',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Principal',
+            'alternate' => 'Alternativa',
+        ],
+
+        'validation' => [
+            'primary'           => 'La jerarquía principal sigue el padre de cada registro. Cambia el padre en el propio registro.',
+            'primary-delete'    => 'La jerarquía principal no se puede eliminar.',
+            'wrong-type'        => 'Solo se pueden colocar en esta jerarquía registros de su tipo de entidad.',
+            'subtree-too-large' => 'Este registro tiene más de :count registros por debajo en esta jerarquía, demasiados para moverlos a la vez.',
+            'code-taken'        => 'Otra jerarquía de este tipo de entidad ya usa este código.',
+            'too-many'          => 'Un tipo de entidad puede tener como máximo :count jerarquías.',
+        ],
+
+        'tree' => [
+            'open'       => 'Vista de árbol',
+            'title'      => 'Árbol de :type',
+            'switch'     => 'Cambiar de jerarquía',
+            'empty'      => 'Aún no hay jerarquía',
+            'empty-info' => 'Haz que el tipo de entidad sea jerárquico o añade una jerarquía alternativa para ver sus registros como un árbol.',
+            'loading'    => 'Cargando…',
+            'no-nodes'   => 'Aún no hay registros colocados en esta jerarquía.',
+            'expand'     => 'Expandir',
+            'collapse'   => 'Contraer',
+            'limited'    => 'Se muestran los primeros :count registros de este nivel.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Jerarquías',
+            'title'                  => 'Jerarquías alternativas',
+            'info'                   => 'Dónde se sitúa este registro en las jerarquías alternativas de su tipo de entidad. La jerarquía principal se muestra arriba.',
+            'empty'                  => 'Sin jerarquías alternativas',
+            'empty-info'             => 'Añade una jerarquía alternativa al tipo de entidad para colocar este registro en ella.',
+            'hierarchy'              => 'Jerarquía',
+            'path'                   => 'Ruta',
+            'actions'                => 'Acciones',
+            'not-placed'             => 'Sin colocar',
+            'place'                  => 'Colocar',
+            'place-title'            => 'Colocar en :hierarchy',
+            'parent-info'            => 'Elige un registro del mismo tipo, o ningún padre para poner este registro en la parte superior. Un padre que aún no está en la jerarquía se coloca primero en la parte superior.',
+            'remove'                 => 'Quitar',
+            'remove-confirm-title'   => '¿Quitar de la jerarquía?',
+            'remove-confirm-message' => 'Los registros que tiene debajo suben un nivel.',
+            'placed'                 => 'Registro colocado en :hierarchy.',
+            'removed'                => 'Registro quitado de :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'No se encontró la jerarquía.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Grafo',
+        'title'       => 'Grafo de relaciones',
+        'info'        => 'Registros vinculados a este mediante relaciones, la jerarquía y los sistemas de origen. Seleccione un registro para abrirlo.',
+        'hops'        => 'Distancia',
+        'hop-count'   => ':count salto|:count saltos',
+        'loading'     => 'Cargando…',
+        'empty'       => 'Este registro no tiene registros vinculados que pueda ver.',
+        'truncated'   => 'Algunos registros vinculados no se muestran porque el grafo alcanzó su límite de tamaño.',
+        'description' => 'Grafo de :nodes registros e identificadores de origen unidos por :edges enlaces.',
+
+        'edges' => [
+            'parent' => 'Padre de',
+            'source' => 'Conocido en el sistema de origen',
+        ],
+
+        'legend' => [
+            'relation' => 'Relación',
+            'parent'   => 'Jerarquía',
+            'source'   => 'Identificador de origen',
+        ],
+    ],
 ];

@@ -16,6 +16,9 @@ use Webkul\MasterDataManagement\Models\EntityTypeTranslation;
 use Webkul\MasterDataManagement\Models\EntityTypeVersion;
 use Webkul\MasterDataManagement\Models\Field;
 use Webkul\MasterDataManagement\Models\FieldTranslation;
+use Webkul\MasterDataManagement\Models\Hierarchy;
+use Webkul\MasterDataManagement\Models\HierarchyNode;
+use Webkul\MasterDataManagement\Models\HierarchyTranslation;
 use Webkul\MasterDataManagement\Models\Icon;
 use Webkul\MasterDataManagement\Models\IdempotencyKey;
 use Webkul\MasterDataManagement\Models\MatchCandidate;
@@ -47,6 +50,9 @@ class ModuleServiceProvider extends CoreModuleServiceProvider
         EntityTypeVersion::class,
         Field::class,
         FieldTranslation::class,
+        Hierarchy::class,
+        HierarchyNode::class,
+        HierarchyTranslation::class,
         Icon::class,
         IdempotencyKey::class,
         MatchCandidate::class,

@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Instalacija demo podataka za proizvodnju.',
         'done'      => 'Upravljanje glavnim podacima je instalirano. Aktivni moduli: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hijerarhije',
+        'title'          => 'Hijerarhije',
+        'info'           => 'Rasporedite zapise ove vrste u više od jednog stabla. Primarna hijerarhija prati nadređeni zapis svakog zapisa; alternativne hijerarhije, poput prodajne ili izvještajne strukture, vode se zasebno.',
+        'create-btn'     => 'Dodaj hijerarhiju',
+        'primary-label'  => 'Primarna',
+        'create-success' => 'Hijerarhija je dodana.',
+        'update-success' => 'Hijerarhija je ažurirana.',
+        'delete-success' => 'Hijerarhija je izbrisana.',
+
+        'create' => [
+            'title' => 'Dodaj hijerarhiju',
+        ],
+
+        'edit' => [
+            'title' => 'Uredi hijerarhiju',
+        ],
+
+        'form' => [
+            'code'      => 'Šifra',
+            'code-info' => 'Mala slova, znamenke i podcrte, počevši slovom. Poslije se ne može mijenjati.',
+            'labels'    => 'Oznake',
+            'label'     => 'Oznaka',
+            'save-btn'  => 'Spremi hijerarhiju',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Šifra',
+            'label'  => 'Oznaka',
+            'kind'   => 'Vrsta',
+            'edit'   => 'Uredi',
+            'delete' => 'Izbriši',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Primarna',
+            'alternate' => 'Alternativna',
+        ],
+
+        'validation' => [
+            'primary'           => 'Primarna hijerarhija prati nadređeni zapis svakog zapisa. Umjesto toga promijenite nadređeni zapis na samom zapisu.',
+            'primary-delete'    => 'Primarna hijerarhija ne može se izbrisati.',
+            'wrong-type'        => 'U ovu hijerarhiju mogu se smjestiti samo zapisi njezine vrste entiteta.',
+            'subtree-too-large' => 'Ovaj zapis ima više od :count zapisa ispod sebe u ovoj hijerarhiji, što je previše za premještanje odjednom.',
+            'code-taken'        => 'Druga hijerarhija ove vrste entiteta već koristi ovu šifru.',
+            'too-many'          => 'Vrsta entiteta može imati najviše :count hijerarhija.',
+        ],
+
+        'tree' => [
+            'open'       => 'Prikaz stabla',
+            'title'      => 'Stablo: :type',
+            'switch'     => 'Promijeni hijerarhiju',
+            'empty'      => 'Još nema hijerarhije',
+            'empty-info' => 'Postavite vrstu entiteta kao hijerarhijsku ili dodajte alternativnu hijerarhiju da biste njezine zapise vidjeli kao stablo.',
+            'loading'    => 'Učitavanje…',
+            'no-nodes'   => 'U ovoj hijerarhiji još nema smještenih zapisa.',
+            'expand'     => 'Proširi',
+            'collapse'   => 'Sažmi',
+            'limited'    => 'Prikazano je prvih :count zapisa na ovoj razini.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hijerarhije',
+            'title'                  => 'Alternativne hijerarhije',
+            'info'                   => 'Gdje se ovaj zapis nalazi u alternativnim hijerarhijama svoje vrste entiteta. Primarna hijerarhija prikazana je iznad.',
+            'empty'                  => 'Nema alternativnih hijerarhija',
+            'empty-info'             => 'Dodajte alternativnu hijerarhiju vrsti entiteta kako biste u nju smjestili ovaj zapis.',
+            'hierarchy'              => 'Hijerarhija',
+            'path'                   => 'Putanja',
+            'actions'                => 'Radnje',
+            'not-placed'             => 'Nije smješteno',
+            'place'                  => 'Smjesti',
+            'place-title'            => 'Smjesti u :hierarchy',
+            'parent-info'            => 'Odaberite zapis iste vrste ili bez nadređenog da ovaj zapis bude na vrhu. Nadređeni zapis koji još nije u hijerarhiji prvo se smješta na vrh.',
+            'remove'                 => 'Ukloni',
+            'remove-confirm-title'   => 'Ukloniti iz hijerarhije?',
+            'remove-confirm-message' => 'Zapisi ispod njega pomiču se za jednu razinu više.',
+            'placed'                 => 'Zapis je smješten u :hierarchy.',
+            'removed'                => 'Zapis je uklonjen iz :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hijerarhija nije pronađena.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Graf odnosa',
+        'info'        => 'Zapisi povezani s ovim putem odnosa, hijerarhije i izvornih sustava. Odaberite zapis da biste ga otvorili.',
+        'hops'        => 'Udaljenost',
+        'hop-count'   => ':count korak|:count koraka',
+        'loading'     => 'Učitavanje…',
+        'empty'       => 'Ovaj zapis nema povezanih zapisa koje možete vidjeti.',
+        'truncated'   => 'Neki povezani zapisi nisu prikazani jer je graf dosegao ograničenje veličine.',
+        'description' => 'Graf od :nodes zapisa i izvornih ID-ova povezanih s :edges veza.',
+
+        'edges' => [
+            'parent' => 'Nadređeni za',
+            'source' => 'Poznat u izvornom sustavu',
+        ],
+
+        'legend' => [
+            'relation' => 'Odnos',
+            'parent'   => 'Hijerarhija',
+            'source'   => 'Izvorni ID',
+        ],
+    ],
 ];

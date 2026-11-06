@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Installation des données de démonstration de fabrication.',
         'done'      => 'La gestion des données de référence est installée. Modules actifs : :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hiérarchies',
+        'title'          => 'Hiérarchies',
+        'info'           => 'Organisez les enregistrements de ce type dans plus d\'un arbre. La hiérarchie principale suit le parent de chaque enregistrement ; les hiérarchies alternatives, comme une structure commerciale ou de reporting, sont conservées séparément.',
+        'create-btn'     => 'Ajouter une hiérarchie',
+        'primary-label'  => 'Principale',
+        'create-success' => 'Hiérarchie ajoutée.',
+        'update-success' => 'Hiérarchie mise à jour.',
+        'delete-success' => 'Hiérarchie supprimée.',
+
+        'create' => [
+            'title' => 'Ajouter une hiérarchie',
+        ],
+
+        'edit' => [
+            'title' => 'Modifier la hiérarchie',
+        ],
+
+        'form' => [
+            'code'      => 'Code',
+            'code-info' => 'Lettres minuscules, chiffres et tirets bas, en commençant par une lettre. Ne peut plus être modifié ensuite.',
+            'labels'    => 'Libellés',
+            'label'     => 'Libellé',
+            'save-btn'  => 'Enregistrer la hiérarchie',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Code',
+            'label'  => 'Libellé',
+            'kind'   => 'Nature',
+            'edit'   => 'Modifier',
+            'delete' => 'Supprimer',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Principale',
+            'alternate' => 'Alternative',
+        ],
+
+        'validation' => [
+            'primary'           => 'La hiérarchie principale suit le parent de chaque enregistrement. Modifiez plutôt le parent sur l\'enregistrement.',
+            'primary-delete'    => 'La hiérarchie principale ne peut pas être supprimée.',
+            'wrong-type'        => 'Seuls les enregistrements du type d\'entité de cette hiérarchie peuvent y être placés.',
+            'subtree-too-large' => 'Cet enregistrement a plus de :count enregistrements en dessous dans cette hiérarchie, trop pour les déplacer en une fois.',
+            'code-taken'        => 'Une autre hiérarchie de ce type d\'entité utilise déjà ce code.',
+            'too-many'          => 'Un type d\'entité peut avoir au plus :count hiérarchies.',
+        ],
+
+        'tree' => [
+            'open'       => 'Vue en arbre',
+            'title'      => 'Arbre :type',
+            'switch'     => 'Changer de hiérarchie',
+            'empty'      => 'Aucune hiérarchie pour le moment',
+            'empty-info' => 'Rendez le type d\'entité hiérarchique ou ajoutez une hiérarchie alternative pour voir ses enregistrements sous forme d\'arbre.',
+            'loading'    => 'Chargement…',
+            'no-nodes'   => 'Aucun enregistrement n\'est encore placé dans cette hiérarchie.',
+            'expand'     => 'Développer',
+            'collapse'   => 'Réduire',
+            'limited'    => 'Affichage des :count premiers enregistrements de ce niveau.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hiérarchies',
+            'title'                  => 'Hiérarchies alternatives',
+            'info'                   => 'Position de cet enregistrement dans les hiérarchies alternatives de son type d\'entité. La hiérarchie principale est affichée ci-dessus.',
+            'empty'                  => 'Aucune hiérarchie alternative',
+            'empty-info'             => 'Ajoutez une hiérarchie alternative au type d\'entité pour y placer cet enregistrement.',
+            'hierarchy'              => 'Hiérarchie',
+            'path'                   => 'Chemin',
+            'actions'                => 'Actions',
+            'not-placed'             => 'Non placé',
+            'place'                  => 'Placer',
+            'place-title'            => 'Placer dans :hierarchy',
+            'parent-info'            => 'Choisissez un enregistrement du même type, ou aucun parent pour placer cet enregistrement tout en haut. Un parent qui n\'est pas encore dans la hiérarchie est d\'abord placé tout en haut.',
+            'remove'                 => 'Retirer',
+            'remove-confirm-title'   => 'Retirer de la hiérarchie ?',
+            'remove-confirm-message' => 'Les enregistrements situés en dessous remontent d\'un niveau.',
+            'placed'                 => 'Enregistrement placé dans :hierarchy.',
+            'removed'                => 'Enregistrement retiré de :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hiérarchie introuvable.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Graphe',
+        'title'       => 'Graphe des relations',
+        'info'        => 'Enregistrements liés à celui-ci par des relations, la hiérarchie et les systèmes sources. Sélectionnez un enregistrement pour l\'ouvrir.',
+        'hops'        => 'Distance',
+        'hop-count'   => ':count saut|:count sauts',
+        'loading'     => 'Chargement…',
+        'empty'       => 'Cet enregistrement n\'a aucun enregistrement lié que vous pouvez voir.',
+        'truncated'   => 'Certains enregistrements liés ne sont pas affichés car le graphe a atteint sa taille maximale.',
+        'description' => 'Graphe de :nodes enregistrements et identifiants source reliés par :edges liens.',
+
+        'edges' => [
+            'parent' => 'Parent de',
+            'source' => 'Connu dans le système source',
+        ],
+
+        'legend' => [
+            'relation' => 'Relation',
+            'parent'   => 'Hiérarchie',
+            'source'   => 'Identifiant source',
+        ],
+    ],
 ];

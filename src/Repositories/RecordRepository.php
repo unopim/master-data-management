@@ -368,6 +368,35 @@ class RecordRepository extends Repository
     }
 
     /**
+     * The uuid, code, label, status, entity type and parent of the given record ids the admin may see, across entity
+     * types, keyed by id, in one query.
+     *
+     * @param  list<int>  $ids
+     * @return array<int, array{id: int, uuid: string, code: string, label: string, status: string, entity_type_id: int, parent_id: ?int}>
+     */
+    public function summaries(array $ids, ?Admin $admin = null): array
+    {
+        if ($ids === []) {
+            return [];
+        }
+
+        return $this->crossTypeQuery($admin)
+            ->whereKey($ids)
+            ->toBase()
+            ->get(['id', 'uuid', 'code', 'label', 'status', 'entity_type_id', 'parent_id'])
+            ->mapWithKeys(fn (object $row): array => [(int) $row->id => [
+                'id'             => (int) $row->id,
+                'uuid'           => (string) $row->uuid,
+                'code'           => (string) $row->code,
+                'label'          => (string) $row->label,
+                'status'         => (string) $row->status,
+                'entity_type_id' => (int) $row->entity_type_id,
+                'parent_id'      => $row->parent_id === null ? null : (int) $row->parent_id,
+            ]])
+            ->all();
+    }
+
+    /**
      * Count the direct children of the given entity types the admin may see under each given parent, in one query.
      *
      * @param  list<int>  $parentIds
@@ -462,13 +491,15 @@ class RecordRepository extends Repository
      * Get the draft or active records of the given entity types that can become a record's parent or reference target.
      *
      * For an existing record, the record itself and its descendants are left out, since either would close a cycle.
-     * The optional term matches the code or label case-insensitively; the optional uuids restrict the result to them.
+     * The optional term matches the code or label case-insensitively; the optional uuids restrict the result to them,
+     * and the optional constraint narrows the query further, such as to records outside a subtree of another hierarchy.
      *
      * @param  list<int>  $entityTypeIds
      * @param  list<string>  $uuids
+     * @param  (Closure(Builder): mixed)|null  $constrain
      * @return Collection<int, RecordModel>
      */
-    public function parentCandidates(?RecordModel $record, array $entityTypeIds, int $limit = 100, ?Admin $admin = null, ?string $term = null, array $uuids = []): Collection
+    public function parentCandidates(?RecordModel $record, array $entityTypeIds, int $limit = 100, ?Admin $admin = null, ?string $term = null, array $uuids = [], ?Closure $constrain = null): Collection
     {
         if ($entityTypeIds === []) {
             return $this->model->newCollection();
@@ -485,6 +516,7 @@ class RecordRepository extends Repository
                 ->whereKeyNot($record->id)
                 ->where('path', 'not like', $record->path.'%'))
             ->when($uuids !== [], fn (Builder $query) => $query->whereIn('uuid', $uuids))
+            ->when($constrain instanceof Closure, $constrain)
             ->when($term !== '', fn (Builder $query) => $query->where(fn (Builder $match) => $match
                 ->whereLike('code', $pattern)
                 ->orWhereLike('label', $pattern)))
@@ -649,6 +681,22 @@ class RecordRepository extends Repository
     }
 
     /**
+     * Walk the placed records of the entity type with their parent_id, path and depth in batches, regardless of row scope.
+     *
+     * @internal For HierarchyService, which copies the records' own placement into the primary hierarchy.
+     *
+     * @param  Closure(Collection<int, RecordModel>): void  $callback
+     */
+    public function chunkPlacementsForEntityType(int $entityTypeId, int $size, Closure $callback): void
+    {
+        $this->model->newQuery()
+            ->where('entity_type_id', $entityTypeId)
+            ->whereNotNull('path')
+            ->select(['id', 'parent_id', 'path', 'depth'])
+            ->chunkById($size, $callback);
+    }
+
+    /**
      * Read the records with a row lock for re-indexing, regardless of row scope; call inside a transaction.
      *
      * @param  list<int>  $ids
@@ -735,6 +783,31 @@ class RecordRepository extends Repository
             ->limit($limit)
             ->pluck('id')
             ->map(intval(...))
+            ->all();
+    }
+
+    /**
+     * The direct children of the given records as [child id, parent id] pairs in id order, regardless of row scope,
+     * up to the limit.
+     *
+     * @internal For the record graph, which keeps only the children the admin may see.
+     *
+     * @param  list<int>  $parentIds
+     * @return list<array{0: int, 1: int}>
+     */
+    public function childLinks(array $parentIds, int $limit): array
+    {
+        if ($parentIds === []) {
+            return [];
+        }
+
+        return $this->model->newQuery()
+            ->whereIn('parent_id', $parentIds)
+            ->orderBy('id')
+            ->limit($limit)
+            ->toBase()
+            ->get(['id', 'parent_id'])
+            ->map(fn (object $row): array => [(int) $row->id, (int) $row->parent_id])
             ->all();
     }
 

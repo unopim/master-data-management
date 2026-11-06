@@ -11,12 +11,15 @@ use Webkul\MasterDataManagement\Http\Controllers\Admin\DashboardController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\EntityTypeController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\ExportFilterController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\FieldController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\HierarchyController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\IconController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\ImportFilterController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchingController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchRuleController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\QualityController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordGraphController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordHierarchyController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordLifecycleController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordMergeController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordXrefController;
@@ -72,6 +75,21 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
             Route::delete('{id}', 'destroy')->name('admin.masterdata.survivorship_rules.destroy')->whereNumber('id');
         });
 
+        Route::controller(HierarchyController::class)->prefix('entity-types/{entityTypeId}/hierarchies')->whereNumber('entityTypeId')->group(function (): void {
+            Route::get('', 'index')->name('admin.masterdata.hierarchies.index');
+            Route::post('', 'store')->name('admin.masterdata.hierarchies.store');
+            Route::put('{id}', 'update')->name('admin.masterdata.hierarchies.update')->whereNumber('id');
+            Route::delete('{id}', 'destroy')->name('admin.masterdata.hierarchies.destroy')->whereNumber('id');
+        });
+
+        Route::controller(RecordHierarchyController::class)->prefix('records')->group(function (): void {
+            Route::get('{entity_type}/tree', 'tree')->name('admin.masterdata.records.tree')->where('entity_type', '[A-Za-z0-9_\-]+');
+            Route::get('{entity_type}/tree/nodes', 'nodes')->name('admin.masterdata.records.tree.nodes')->where('entity_type', '[A-Za-z0-9_\-]+');
+            Route::get('record/{uuid}/hierarchies/{hierarchyId}/options', 'options')->name('admin.masterdata.records.hierarchies.options')->whereUuid('uuid')->whereNumber('hierarchyId');
+            Route::put('record/{uuid}/hierarchies/{hierarchyId}', 'update')->name('admin.masterdata.records.hierarchies.update')->whereUuid('uuid')->whereNumber('hierarchyId');
+            Route::delete('record/{uuid}/hierarchies/{hierarchyId}', 'destroy')->name('admin.masterdata.records.hierarchies.destroy')->whereUuid('uuid')->whereNumber('hierarchyId');
+        });
+
         Route::controller(AliasController::class)->prefix('code-lists/aliases')->group(function (): void {
             Route::get('', 'index')->name('admin.masterdata.aliases.index');
             Route::post('', 'store')->name('admin.masterdata.aliases.store');
@@ -114,6 +132,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
             Route::post('{entity_type}/mass-retire', 'massRetire')->name('admin.masterdata.records.mass_retire')->where('entity_type', '[A-Za-z0-9_\-]+');
             Route::post('record/{uuid}/erase', 'erase')->name('admin.masterdata.records.erase')->whereUuid('uuid');
         });
+
+        Route::get('records/record/{uuid}/graph', [RecordGraphController::class, 'show'])->name('admin.masterdata.records.graph')->whereUuid('uuid');
 
         Route::controller(RecordMergeController::class)->prefix('records/record/{uuid}')->whereUuid('uuid')->group(function (): void {
             Route::get('merge', 'create')->name('admin.masterdata.records.merge.create');

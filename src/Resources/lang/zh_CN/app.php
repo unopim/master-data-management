@@ -1689,4 +1689,113 @@ return [
         'demo'      => '正在安装制造业演示数据。',
         'done'      => '主数据管理已安装。已启用的模块::modules。',
     ],
+
+    'hierarchies' => [
+        'tab'            => '层级',
+        'title'          => '层级',
+        'info'           => '将此类型的记录排列在多棵树中。主层级遵循每条记录的父级；销售或汇报结构等备用层级则单独保存。',
+        'create-btn'     => '添加层级',
+        'primary-label'  => '主层级',
+        'create-success' => '层级已添加。',
+        'update-success' => '层级已更新。',
+        'delete-success' => '层级已删除。',
+
+        'create' => [
+            'title' => '添加层级',
+        ],
+
+        'edit' => [
+            'title' => '编辑层级',
+        ],
+
+        'form' => [
+            'code'      => '代码',
+            'code-info' => '小写字母、数字和下划线，且以字母开头。之后无法更改。',
+            'labels'    => '标签',
+            'label'     => '标签',
+            'save-btn'  => '保存层级',
+        ],
+
+        'datagrid' => [
+            'code'   => '代码',
+            'label'  => '标签',
+            'kind'   => '类别',
+            'edit'   => '编辑',
+            'delete' => '删除',
+        ],
+
+        'kinds' => [
+            'primary'   => '主层级',
+            'alternate' => '备用',
+        ],
+
+        'validation' => [
+            'primary'           => '主层级遵循每条记录的父级。请改为在记录上更改父级。',
+            'primary-delete'    => '主层级无法删除。',
+            'wrong-type'        => '只能将属于此层级实体类型的记录放入其中。',
+            'subtree-too-large' => '此记录在该层级中的下级记录超过 :count 条，数量过多，无法一次性移动。',
+            'code-taken'        => '此实体类型的另一个层级已使用该代码。',
+            'too-many'          => '一个实体类型最多可以有 :count 个层级。',
+        ],
+
+        'tree' => [
+            'open'       => '树状视图',
+            'title'      => ':type 树',
+            'switch'     => '切换层级',
+            'empty'      => '暂无层级',
+            'empty-info' => '将实体类型设为层级结构或添加备用层级，即可以树状形式查看其记录。',
+            'loading'    => '加载中…',
+            'no-nodes'   => '此层级中尚未放置任何记录。',
+            'expand'     => '展开',
+            'collapse'   => '折叠',
+            'limited'    => '正在显示此级别的前 :count 条记录。',
+        ],
+
+        'record' => [
+            'tab'                    => '层级',
+            'title'                  => '备用层级',
+            'info'                   => '此记录在其实体类型的备用层级中所处的位置。主层级显示在上方。',
+            'empty'                  => '没有备用层级',
+            'empty-info'             => '在实体类型上添加备用层级，即可将此记录放入其中。',
+            'hierarchy'              => '层级',
+            'path'                   => '路径',
+            'actions'                => '操作',
+            'not-placed'             => '未放置',
+            'place'                  => '放置',
+            'place-title'            => '放置到 :hierarchy',
+            'parent-info'            => '选择同类型的记录，或不选父级以将此记录置于顶层。尚未在层级中的父级会先被放到顶层。',
+            'remove'                 => '移除',
+            'remove-confirm-title'   => '从层级中移除？',
+            'remove-confirm-message' => '其下的记录将上移一级。',
+            'placed'                 => '记录已放置到 :hierarchy。',
+            'removed'                => '记录已从 :hierarchy 中移除。',
+        ],
+
+        'api' => [
+            'not-found' => '未找到层级。',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => '图谱',
+        'title'       => '关系图谱',
+        'info'        => '通过关系、层级和源系统与此记录关联的记录。选择一条记录即可打开。',
+        'hops'        => '距离',
+        'hop-count'   => ':count 跳|:count 跳',
+        'loading'     => '加载中…',
+        'empty'       => '此记录没有您可以查看的关联记录。',
+        'truncated'   => '图谱已达到大小上限，部分关联记录未显示。',
+        'description' => '由 :edges 条连接组成、包含 :nodes 条记录和源 ID 的图谱。',
+
+        'edges' => [
+            'parent' => '上级',
+            'source' => '在源系统中已知',
+        ],
+
+        'legend' => [
+            'relation' => '关系',
+            'parent'   => '层级',
+            'source'   => '源 ID',
+        ],
+    ],
 ];

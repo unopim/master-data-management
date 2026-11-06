@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Installazione dei dati demo di produzione.',
         'done'      => 'La gestione dei dati anagrafici è installata. Moduli attivi: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Gerarchie',
+        'title'          => 'Gerarchie',
+        'info'           => 'Organizza i record di questo tipo in più di un albero. La gerarchia principale segue il genitore di ogni record; le gerarchie alternative, come una struttura commerciale o di reportistica, vengono mantenute separatamente.',
+        'create-btn'     => 'Aggiungi gerarchia',
+        'primary-label'  => 'Principale',
+        'create-success' => 'Gerarchia aggiunta.',
+        'update-success' => 'Gerarchia aggiornata.',
+        'delete-success' => 'Gerarchia eliminata.',
+
+        'create' => [
+            'title' => 'Aggiungi gerarchia',
+        ],
+
+        'edit' => [
+            'title' => 'Modifica gerarchia',
+        ],
+
+        'form' => [
+            'code'      => 'Codice',
+            'code-info' => 'Lettere minuscole, cifre e trattini bassi, a partire da una lettera. Non può essere modificato in seguito.',
+            'labels'    => 'Etichette',
+            'label'     => 'Etichetta',
+            'save-btn'  => 'Salva gerarchia',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Codice',
+            'label'  => 'Etichetta',
+            'kind'   => 'Tipo',
+            'edit'   => 'Modifica',
+            'delete' => 'Elimina',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Principale',
+            'alternate' => 'Alternativa',
+        ],
+
+        'validation' => [
+            'primary'           => 'La gerarchia principale segue il genitore di ogni record. Modifica invece il genitore sul record.',
+            'primary-delete'    => 'La gerarchia principale non può essere eliminata.',
+            'wrong-type'        => 'In questa gerarchia possono essere inseriti solo record del suo tipo di entità.',
+            'subtree-too-large' => 'Questo record ha più di :count record sotto di sé in questa gerarchia, troppi per spostarli in una volta.',
+            'code-taken'        => 'Un\'altra gerarchia di questo tipo di entità usa già questo codice.',
+            'too-many'          => 'Un tipo di entità può avere al massimo :count gerarchie.',
+        ],
+
+        'tree' => [
+            'open'       => 'Vista ad albero',
+            'title'      => 'Albero :type',
+            'switch'     => 'Cambia gerarchia',
+            'empty'      => 'Nessuna gerarchia',
+            'empty-info' => 'Rendi gerarchico il tipo di entità o aggiungi una gerarchia alternativa per vederne i record come albero.',
+            'loading'    => 'Caricamento…',
+            'no-nodes'   => 'Nessun record è ancora inserito in questa gerarchia.',
+            'expand'     => 'Espandi',
+            'collapse'   => 'Comprimi',
+            'limited'    => 'Visualizzazione dei primi :count record di questo livello.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Gerarchie',
+            'title'                  => 'Gerarchie alternative',
+            'info'                   => 'Dove si trova questo record nelle gerarchie alternative del suo tipo di entità. La gerarchia principale è mostrata sopra.',
+            'empty'                  => 'Nessuna gerarchia alternativa',
+            'empty-info'             => 'Aggiungi una gerarchia alternativa al tipo di entità per inserirvi questo record.',
+            'hierarchy'              => 'Gerarchia',
+            'path'                   => 'Percorso',
+            'actions'                => 'Azioni',
+            'not-placed'             => 'Non inserito',
+            'place'                  => 'Inserisci',
+            'place-title'            => 'Inserisci in :hierarchy',
+            'parent-info'            => 'Scegli un record dello stesso tipo, oppure nessun genitore per mettere questo record in cima. Un genitore non ancora nella gerarchia viene prima messo in cima.',
+            'remove'                 => 'Rimuovi',
+            'remove-confirm-title'   => 'Rimuovere dalla gerarchia?',
+            'remove-confirm-message' => 'I record sottostanti salgono di un livello.',
+            'placed'                 => 'Record inserito in :hierarchy.',
+            'removed'                => 'Record rimosso da :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Gerarchia non trovata.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Grafo',
+        'title'       => 'Grafo delle relazioni',
+        'info'        => 'Record collegati a questo tramite relazioni, gerarchia e sistemi di origine. Seleziona un record per aprirlo.',
+        'hops'        => 'Distanza',
+        'hop-count'   => ':count passo|:count passi',
+        'loading'     => 'Caricamento…',
+        'empty'       => 'Questo record non ha record collegati che puoi vedere.',
+        'truncated'   => 'Alcuni record collegati non sono mostrati perché il grafo ha raggiunto il limite di dimensione.',
+        'description' => 'Grafo di :nodes record e ID di origine uniti da :edges collegamenti.',
+
+        'edges' => [
+            'parent' => 'Padre di',
+            'source' => 'Noto nel sistema di origine',
+        ],
+
+        'legend' => [
+            'relation' => 'Relazione',
+            'parent'   => 'Gerarchia',
+            'source'   => 'ID di origine',
+        ],
+    ],
 ];

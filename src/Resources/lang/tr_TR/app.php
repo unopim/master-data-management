@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Üretim demo verileri yükleniyor.',
         'done'      => 'Ana veri yönetimi yüklendi. Etkin modüller: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hiyerarşiler',
+        'title'          => 'Hiyerarşiler',
+        'info'           => 'Bu türdeki kayıtları birden fazla ağaçta düzenleyin. Birincil hiyerarşi her kaydın üst kaydını izler; satış veya raporlama yapısı gibi alternatif hiyerarşiler ayrı tutulur.',
+        'create-btn'     => 'Hiyerarşi Ekle',
+        'primary-label'  => 'Birincil',
+        'create-success' => 'Hiyerarşi eklendi.',
+        'update-success' => 'Hiyerarşi güncellendi.',
+        'delete-success' => 'Hiyerarşi silindi.',
+
+        'create' => [
+            'title' => 'Hiyerarşi Ekle',
+        ],
+
+        'edit' => [
+            'title' => 'Hiyerarşiyi Düzenle',
+        ],
+
+        'form' => [
+            'code'      => 'Kod',
+            'code-info' => 'Küçük harfler, rakamlar ve alt çizgiler; bir harfle başlamalıdır. Daha sonra değiştirilemez.',
+            'labels'    => 'Etiketler',
+            'label'     => 'Etiket',
+            'save-btn'  => 'Hiyerarşiyi Kaydet',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Kod',
+            'label'  => 'Etiket',
+            'kind'   => 'Tür',
+            'edit'   => 'Düzenle',
+            'delete' => 'Sil',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Birincil',
+            'alternate' => 'Alternatif',
+        ],
+
+        'validation' => [
+            'primary'           => 'Birincil hiyerarşi her kaydın üst kaydını izler. Bunun yerine kayıttaki üst kaydı değiştirin.',
+            'primary-delete'    => 'Birincil hiyerarşi silinemez.',
+            'wrong-type'        => 'Bu hiyerarşiye yalnızca kendi varlık türündeki kayıtlar yerleştirilebilir.',
+            'subtree-too-large' => 'Bu kaydın bu hiyerarşide altında :count kayıttan fazlası var; hepsini bir kerede taşımak için çok fazla.',
+            'code-taken'        => 'Bu varlık türünün başka bir hiyerarşisi bu kodu zaten kullanıyor.',
+            'too-many'          => 'Bir varlık türü en fazla :count hiyerarşiye sahip olabilir.',
+        ],
+
+        'tree' => [
+            'open'       => 'Ağaç Görünümü',
+            'title'      => ':type Ağacı',
+            'switch'     => 'Hiyerarşiyi değiştir',
+            'empty'      => 'Henüz hiyerarşi yok',
+            'empty-info' => 'Kayıtlarını ağaç olarak görmek için varlık türünü hiyerarşik yapın veya alternatif bir hiyerarşi ekleyin.',
+            'loading'    => 'Yükleniyor…',
+            'no-nodes'   => 'Bu hiyerarşiye henüz kayıt yerleştirilmedi.',
+            'expand'     => 'Genişlet',
+            'collapse'   => 'Daralt',
+            'limited'    => 'Bu düzeydeki ilk :count kayıt gösteriliyor.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hiyerarşiler',
+            'title'                  => 'Alternatif Hiyerarşiler',
+            'info'                   => 'Bu kaydın, varlık türünün alternatif hiyerarşilerinde nerede durduğu. Birincil hiyerarşi yukarıda gösterilir.',
+            'empty'                  => 'Alternatif hiyerarşi yok',
+            'empty-info'             => 'Bu kaydı yerleştirmek için varlık türüne alternatif bir hiyerarşi ekleyin.',
+            'hierarchy'              => 'Hiyerarşi',
+            'path'                   => 'Yol',
+            'actions'                => 'İşlemler',
+            'not-placed'             => 'Yerleştirilmedi',
+            'place'                  => 'Yerleştir',
+            'place-title'            => ':hierarchy içine yerleştir',
+            'parent-info'            => 'Aynı türde bir kayıt seçin veya bu kaydı en üste koymak için üst kayıt seçmeyin. Henüz hiyerarşide olmayan bir üst kayıt önce en üste yerleştirilir.',
+            'remove'                 => 'Kaldır',
+            'remove-confirm-title'   => 'Hiyerarşiden kaldırılsın mı?',
+            'remove-confirm-message' => 'Altındaki kayıtlar bir düzey yukarı çıkar.',
+            'placed'                 => 'Kayıt :hierarchy içine yerleştirildi.',
+            'removed'                => 'Kayıt :hierarchy içinden kaldırıldı.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hiyerarşi bulunamadı.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Grafik',
+        'title'       => 'İlişki Grafiği',
+        'info'        => 'İlişkiler, hiyerarşi ve kaynak sistemler aracılığıyla bu kayda bağlı kayıtlar. Açmak için bir kayıt seçin.',
+        'hops'        => 'Uzaklık',
+        'hop-count'   => ':count adım|:count adım',
+        'loading'     => 'Yükleniyor…',
+        'empty'       => 'Bu kaydın görebileceğiniz bağlı kaydı yok.',
+        'truncated'   => 'Grafik boyut sınırına ulaştığı için bazı bağlı kayıtlar gösterilmiyor.',
+        'description' => ':edges bağlantıyla birleşen :nodes kayıt ve kaynak kimliğinden oluşan grafik.',
+
+        'edges' => [
+            'parent' => 'Üst kaydı',
+            'source' => 'Kaynak sistemde biliniyor',
+        ],
+
+        'legend' => [
+            'relation' => 'İlişki',
+            'parent'   => 'Hiyerarşi',
+            'source'   => 'Kaynak kimliği',
+        ],
+    ],
 ];

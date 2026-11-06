@@ -19,6 +19,7 @@ use Webkul\User\Models\Admin;
 /**
  * Permanently removes the personal data of a retired record while keeping the row as an erased tombstone, so its
  * UUID, source IDs, hierarchy and relations still resolve and a source system cannot recreate it on the next sync.
+ * Alternate hierarchies drop the erased records and lift their children; the primary hierarchy keeps the tombstone.
  */
 class RecordEraser
 {
@@ -35,6 +36,7 @@ class RecordEraser
         protected QualityIssueRepository $qualityIssueRepository,
         protected MatchCandidateRepository $matchCandidateRepository,
         protected RecordMergeRepository $recordMergeRepository,
+        protected HierarchyService $hierarchyService,
     ) {}
 
     /**
@@ -80,6 +82,7 @@ class RecordEraser
             $this->qualityIssueRepository->deleteForRecords($ids);
             $this->matchCandidateRepository->eraseForRecords($ids);
             $this->recordMergeRepository->eraseForRecords($ids);
+            $this->hierarchyService->detachRecords($ids);
 
             return $ids;
         });

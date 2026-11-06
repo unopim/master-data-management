@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Đang cài đặt dữ liệu demo sản xuất.',
         'done'      => 'Đã cài đặt quản lý dữ liệu chủ. Các mô-đun đang hoạt động: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Phân cấp',
+        'title'          => 'Phân cấp',
+        'info'           => 'Sắp xếp các bản ghi thuộc loại này trong nhiều hơn một cây. Phân cấp chính theo bản ghi cha của từng bản ghi; các phân cấp thay thế, chẳng hạn cơ cấu bán hàng hoặc báo cáo, được lưu riêng.',
+        'create-btn'     => 'Thêm phân cấp',
+        'primary-label'  => 'Chính',
+        'create-success' => 'Đã thêm phân cấp.',
+        'update-success' => 'Đã cập nhật phân cấp.',
+        'delete-success' => 'Đã xóa phân cấp.',
+
+        'create' => [
+            'title' => 'Thêm phân cấp',
+        ],
+
+        'edit' => [
+            'title' => 'Chỉnh sửa phân cấp',
+        ],
+
+        'form' => [
+            'code'      => 'Mã',
+            'code-info' => 'Chữ thường, chữ số và dấu gạch dưới, bắt đầu bằng một chữ cái. Không thể thay đổi sau này.',
+            'labels'    => 'Nhãn',
+            'label'     => 'Nhãn',
+            'save-btn'  => 'Lưu phân cấp',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Mã',
+            'label'  => 'Nhãn',
+            'kind'   => 'Loại',
+            'edit'   => 'Chỉnh sửa',
+            'delete' => 'Xóa',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Chính',
+            'alternate' => 'Thay thế',
+        ],
+
+        'validation' => [
+            'primary'           => 'Phân cấp chính theo bản ghi cha của từng bản ghi. Hãy đổi bản ghi cha trên chính bản ghi đó.',
+            'primary-delete'    => 'Không thể xóa phân cấp chính.',
+            'wrong-type'        => 'Chỉ các bản ghi thuộc loại thực thể của phân cấp này mới có thể được đặt vào đó.',
+            'subtree-too-large' => 'Bản ghi này có hơn :count bản ghi bên dưới trong phân cấp này, quá nhiều để di chuyển cùng lúc.',
+            'code-taken'        => 'Một phân cấp khác của loại thực thể này đã dùng mã này.',
+            'too-many'          => 'Một loại thực thể có thể có tối đa :count phân cấp.',
+        ],
+
+        'tree' => [
+            'open'       => 'Dạng cây',
+            'title'      => 'Cây :type',
+            'switch'     => 'Chuyển phân cấp',
+            'empty'      => 'Chưa có phân cấp',
+            'empty-info' => 'Đặt loại thực thể thành dạng phân cấp hoặc thêm phân cấp thay thế để xem các bản ghi dưới dạng cây.',
+            'loading'    => 'Đang tải…',
+            'no-nodes'   => 'Chưa có bản ghi nào được đặt trong phân cấp này.',
+            'expand'     => 'Mở rộng',
+            'collapse'   => 'Thu gọn',
+            'limited'    => 'Đang hiển thị :count bản ghi đầu tiên ở cấp này.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Phân cấp',
+            'title'                  => 'Phân cấp thay thế',
+            'info'                   => 'Vị trí của bản ghi này trong các phân cấp thay thế của loại thực thể. Phân cấp chính được hiển thị ở trên.',
+            'empty'                  => 'Không có phân cấp thay thế',
+            'empty-info'             => 'Thêm phân cấp thay thế vào loại thực thể để đặt bản ghi này vào đó.',
+            'hierarchy'              => 'Phân cấp',
+            'path'                   => 'Đường dẫn',
+            'actions'                => 'Thao tác',
+            'not-placed'             => 'Chưa đặt',
+            'place'                  => 'Đặt',
+            'place-title'            => 'Đặt vào :hierarchy',
+            'parent-info'            => 'Chọn một bản ghi cùng loại, hoặc không chọn bản ghi cha để đặt bản ghi này ở trên cùng. Bản ghi cha chưa có trong phân cấp sẽ được đặt ở trên cùng trước.',
+            'remove'                 => 'Gỡ bỏ',
+            'remove-confirm-title'   => 'Gỡ khỏi phân cấp?',
+            'remove-confirm-message' => 'Các bản ghi bên dưới sẽ dịch lên một cấp.',
+            'placed'                 => 'Đã đặt bản ghi vào :hierarchy.',
+            'removed'                => 'Đã gỡ bản ghi khỏi :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Không tìm thấy phân cấp.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Biểu đồ',
+        'title'       => 'Biểu đồ quan hệ',
+        'info'        => 'Các bản ghi liên kết với bản ghi này qua quan hệ, phân cấp và hệ thống nguồn. Chọn một bản ghi để mở.',
+        'hops'        => 'Khoảng cách',
+        'hop-count'   => ':count bước|:count bước',
+        'loading'     => 'Đang tải…',
+        'empty'       => 'Bản ghi này không có bản ghi liên kết nào bạn có thể xem.',
+        'truncated'   => 'Một số bản ghi liên kết không được hiển thị vì biểu đồ đã đạt giới hạn kích thước.',
+        'description' => 'Biểu đồ gồm :nodes bản ghi và mã nguồn nối bởi :edges liên kết.',
+
+        'edges' => [
+            'parent' => 'Cha của',
+            'source' => 'Được biết trong hệ thống nguồn',
+        ],
+
+        'legend' => [
+            'relation' => 'Quan hệ',
+            'parent'   => 'Phân cấp',
+            'source'   => 'Mã nguồn',
+        ],
+    ],
 ];

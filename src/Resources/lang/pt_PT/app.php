@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'A instalar os dados de demonstração de fabrico.',
         'done'      => 'A gestão de dados mestres está instalada. Módulos ativos: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarquias',
+        'title'          => 'Hierarquias',
+        'info'           => 'Organize os registos deste tipo em mais de uma árvore. A hierarquia principal segue o pai de cada registo; as hierarquias alternativas, como uma estrutura de vendas ou de relatórios, são mantidas em separado.',
+        'create-btn'     => 'Adicionar hierarquia',
+        'primary-label'  => 'Principal',
+        'create-success' => 'Hierarquia adicionada.',
+        'update-success' => 'Hierarquia atualizada.',
+        'delete-success' => 'Hierarquia eliminada.',
+
+        'create' => [
+            'title' => 'Adicionar hierarquia',
+        ],
+
+        'edit' => [
+            'title' => 'Editar hierarquia',
+        ],
+
+        'form' => [
+            'code'      => 'Código',
+            'code-info' => 'Letras minúsculas, dígitos e sublinhados, começando por uma letra. Não pode ser alterado mais tarde.',
+            'labels'    => 'Etiquetas',
+            'label'     => 'Etiqueta',
+            'save-btn'  => 'Guardar hierarquia',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Código',
+            'label'  => 'Etiqueta',
+            'kind'   => 'Tipo',
+            'edit'   => 'Editar',
+            'delete' => 'Eliminar',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Principal',
+            'alternate' => 'Alternativa',
+        ],
+
+        'validation' => [
+            'primary'           => 'A hierarquia principal segue o pai de cada registo. Altere o pai no próprio registo.',
+            'primary-delete'    => 'A hierarquia principal não pode ser eliminada.',
+            'wrong-type'        => 'Só podem ser colocados nesta hierarquia registos do respetivo tipo de entidade.',
+            'subtree-too-large' => 'Este registo tem mais de :count registos abaixo dele nesta hierarquia, demasiados para mover de uma só vez.',
+            'code-taken'        => 'Outra hierarquia deste tipo de entidade já utiliza este código.',
+            'too-many'          => 'Um tipo de entidade pode ter no máximo :count hierarquias.',
+        ],
+
+        'tree' => [
+            'open'       => 'Vista em árvore',
+            'title'      => 'Árvore de :type',
+            'switch'     => 'Mudar de hierarquia',
+            'empty'      => 'Ainda sem hierarquia',
+            'empty-info' => 'Torne o tipo de entidade hierárquico ou adicione uma hierarquia alternativa para ver os seus registos como uma árvore.',
+            'loading'    => 'A carregar…',
+            'no-nodes'   => 'Ainda não há registos colocados nesta hierarquia.',
+            'expand'     => 'Expandir',
+            'collapse'   => 'Recolher',
+            'limited'    => 'A mostrar os primeiros :count registos neste nível.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarquias',
+            'title'                  => 'Hierarquias alternativas',
+            'info'                   => 'Onde este registo se encontra nas hierarquias alternativas do seu tipo de entidade. A hierarquia principal é apresentada acima.',
+            'empty'                  => 'Sem hierarquias alternativas',
+            'empty-info'             => 'Adicione uma hierarquia alternativa ao tipo de entidade para nela colocar este registo.',
+            'hierarchy'              => 'Hierarquia',
+            'path'                   => 'Caminho',
+            'actions'                => 'Ações',
+            'not-placed'             => 'Não colocado',
+            'place'                  => 'Colocar',
+            'place-title'            => 'Colocar em :hierarchy',
+            'parent-info'            => 'Escolha um registo do mesmo tipo, ou nenhum pai para colocar este registo no topo. Um pai que ainda não esteja na hierarquia é colocado primeiro no topo.',
+            'remove'                 => 'Remover',
+            'remove-confirm-title'   => 'Remover da hierarquia?',
+            'remove-confirm-message' => 'Os registos abaixo dele sobem um nível.',
+            'placed'                 => 'Registo colocado em :hierarchy.',
+            'removed'                => 'Registo removido de :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarquia não encontrada.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Grafo',
+        'title'       => 'Grafo de relações',
+        'info'        => 'Registos ligados a este através de relações, da hierarquia e dos sistemas de origem. Selecione um registo para o abrir.',
+        'hops'        => 'Distância',
+        'hop-count'   => ':count salto|:count saltos',
+        'loading'     => 'A carregar…',
+        'empty'       => 'Este registo não tem registos ligados que possa ver.',
+        'truncated'   => 'Alguns registos ligados não são mostrados porque o grafo atingiu o limite de tamanho.',
+        'description' => 'Grafo de :nodes registos e IDs de origem ligados por :edges ligações.',
+
+        'edges' => [
+            'parent' => 'Pai de',
+            'source' => 'Conhecido no sistema de origem',
+        ],
+
+        'legend' => [
+            'relation' => 'Relação',
+            'parent'   => 'Hierarquia',
+            'source'   => 'ID de origem',
+        ],
+    ],
 ];

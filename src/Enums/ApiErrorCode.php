@@ -12,6 +12,7 @@ enum ApiErrorCode: string
     case RecordNotFound = 'record_not_found';
     case XrefNotFound = 'xref_not_found';
     case CodeListNotFound = 'code_list_not_found';
+    case HierarchyNotFound = 'hierarchy_not_found';
     case ForbiddenEntityType = 'forbidden_entity_type';
     case FilterNotSearchable = 'filter_not_searchable';
     case StaleRevision = 'stale_revision';

@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Instalowanie danych demonstracyjnych dla produkcji.',
         'done'      => 'Zarządzanie danymi głównymi zostało zainstalowane. Aktywne moduły: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarchie',
+        'title'          => 'Hierarchie',
+        'info'           => 'Rozmieść rekordy tego typu w więcej niż jednym drzewie. Hierarchia podstawowa podąża za rekordem nadrzędnym każdego rekordu; hierarchie alternatywne, takie jak struktura sprzedaży lub raportowania, są przechowywane osobno.',
+        'create-btn'     => 'Dodaj hierarchię',
+        'primary-label'  => 'Podstawowa',
+        'create-success' => 'Dodano hierarchię.',
+        'update-success' => 'Zaktualizowano hierarchię.',
+        'delete-success' => 'Usunięto hierarchię.',
+
+        'create' => [
+            'title' => 'Dodaj hierarchię',
+        ],
+
+        'edit' => [
+            'title' => 'Edytuj hierarchię',
+        ],
+
+        'form' => [
+            'code'      => 'Kod',
+            'code-info' => 'Małe litery, cyfry i podkreślenia, zaczynając od litery. Nie można go później zmienić.',
+            'labels'    => 'Etykiety',
+            'label'     => 'Etykieta',
+            'save-btn'  => 'Zapisz hierarchię',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Kod',
+            'label'  => 'Etykieta',
+            'kind'   => 'Rodzaj',
+            'edit'   => 'Edytuj',
+            'delete' => 'Usuń',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Podstawowa',
+            'alternate' => 'Alternatywna',
+        ],
+
+        'validation' => [
+            'primary'           => 'Hierarchia podstawowa podąża za rekordem nadrzędnym każdego rekordu. Zamiast tego zmień rekord nadrzędny w samym rekordzie.',
+            'primary-delete'    => 'Hierarchii podstawowej nie można usunąć.',
+            'wrong-type'        => 'W tej hierarchii można umieszczać tylko rekordy jej typu encji.',
+            'subtree-too-large' => 'Ten rekord ma w tej hierarchii ponad :count rekordów poniżej, zbyt wiele, aby przenieść je naraz.',
+            'code-taken'        => 'Inna hierarchia tego typu encji używa już tego kodu.',
+            'too-many'          => 'Typ encji może mieć co najwyżej :count hierarchii.',
+        ],
+
+        'tree' => [
+            'open'       => 'Widok drzewa',
+            'title'      => 'Drzewo: :type',
+            'switch'     => 'Przełącz hierarchię',
+            'empty'      => 'Brak hierarchii',
+            'empty-info' => 'Ustaw typ encji jako hierarchiczny lub dodaj hierarchię alternatywną, aby zobaczyć jego rekordy jako drzewo.',
+            'loading'    => 'Ładowanie…',
+            'no-nodes'   => 'W tej hierarchii nie umieszczono jeszcze żadnych rekordów.',
+            'expand'     => 'Rozwiń',
+            'collapse'   => 'Zwiń',
+            'limited'    => 'Wyświetlono pierwsze :count rekordów na tym poziomie.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarchie',
+            'title'                  => 'Hierarchie alternatywne',
+            'info'                   => 'Gdzie ten rekord znajduje się w hierarchiach alternatywnych jego typu encji. Hierarchia podstawowa jest widoczna powyżej.',
+            'empty'                  => 'Brak hierarchii alternatywnych',
+            'empty-info'             => 'Dodaj hierarchię alternatywną do typu encji, aby umieścić w niej ten rekord.',
+            'hierarchy'              => 'Hierarchia',
+            'path'                   => 'Ścieżka',
+            'actions'                => 'Akcje',
+            'not-placed'             => 'Nie umieszczono',
+            'place'                  => 'Umieść',
+            'place-title'            => 'Umieść w: :hierarchy',
+            'parent-info'            => 'Wybierz rekord tego samego typu albo brak rekordu nadrzędnego, aby umieścić ten rekord na samej górze. Rekord nadrzędny, którego nie ma jeszcze w hierarchii, jest najpierw umieszczany na górze.',
+            'remove'                 => 'Usuń',
+            'remove-confirm-title'   => 'Usunąć z hierarchii?',
+            'remove-confirm-message' => 'Rekordy poniżej przesuwają się o jeden poziom wyżej.',
+            'placed'                 => 'Rekord umieszczono w: :hierarchy.',
+            'removed'                => 'Rekord usunięto z: :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Nie znaleziono hierarchii.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Graf powiązań',
+        'info'        => 'Rekordy powiązane z tym rekordem przez relacje, hierarchię i systemy źródłowe. Wybierz rekord, aby go otworzyć.',
+        'hops'        => 'Odległość',
+        'hop-count'   => ':count krok|:count kroki|:count kroków',
+        'loading'     => 'Ładowanie…',
+        'empty'       => 'Ten rekord nie ma powiązanych rekordów, które możesz zobaczyć.',
+        'truncated'   => 'Niektóre powiązane rekordy nie są wyświetlane, ponieważ graf osiągnął limit rozmiaru.',
+        'description' => 'Graf :nodes rekordów i identyfikatorów źródłowych połączonych :edges powiązaniami.',
+
+        'edges' => [
+            'parent' => 'Nadrzędny dla',
+            'source' => 'Znany w systemie źródłowym',
+        ],
+
+        'legend' => [
+            'relation' => 'Relacja',
+            'parent'   => 'Hierarchia',
+            'source'   => 'Identyfikator źródłowy',
+        ],
+    ],
 ];

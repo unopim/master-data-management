@@ -29,7 +29,8 @@ use Webkul\User\Models\Admin;
  * Folds a duplicate record into a surviving golden record, and undoes that.
  *
  * A merge keeps the survivor's identity, takes each field's value from the side survivorship picks, moves the merged
- * record's active source ids, children, relations and earlier merges onto the survivor, and marks it merged. The
+ * record's active source ids, children, relations, alternate hierarchy placements and earlier merges onto the
+ * survivor, and marks it merged. The
  * merge log keeps what moved, so an unmerge puts back exactly that, leaving anything changed since alone.
  * Both pass the change gate, so an entity type that requires approval holds them until an approver applies them.
  */
@@ -171,6 +172,8 @@ class RecordMerger
                 'outbound' => $this->relationRepository->repointOutbound((int) $merged->id, (int) $survivor->id),
                 'chained'  => $this->recordRepository->repointMergedInto((int) $merged->id, (int) $survivor->id),
             ];
+
+            $this->hierarchyService->foldInto($merged, $survivor);
 
             $merged->forceFill([
                 'status'         => RecordStatus::Merged,

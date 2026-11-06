@@ -2,6 +2,7 @@
 
 namespace Webkul\MasterDataManagement\Services;
 
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -10,9 +11,14 @@ use Webkul\MasterDataManagement\Enums\ChangeOperation;
 use Webkul\MasterDataManagement\Enums\RecordStatus;
 use Webkul\MasterDataManagement\Events\RecordUpdated;
 use Webkul\MasterDataManagement\Exceptions\StaleRecordException;
+use Webkul\MasterDataManagement\Jobs\BackfillPrimaryHierarchy;
 use Webkul\MasterDataManagement\Jobs\RewriteDescendantPaths;
 use Webkul\MasterDataManagement\Models\EntityType;
+use Webkul\MasterDataManagement\Models\Hierarchy;
+use Webkul\MasterDataManagement\Models\HierarchyNode;
 use Webkul\MasterDataManagement\Models\Record;
+use Webkul\MasterDataManagement\Repositories\HierarchyNodeRepository;
+use Webkul\MasterDataManagement\Repositories\HierarchyRepository;
 use Webkul\MasterDataManagement\Repositories\RecordRepository;
 use Webkul\MasterDataManagement\ValueObjects\ChangeSet;
 use Webkul\User\Models\Admin;
@@ -22,7 +28,12 @@ use Webkul\User\Models\Admin;
  * record, `/{root}/.../{id}/`, so a subtree is a prefix scan; moving a node rewrites its subtree on the queue.
  *
  * parent_id is authoritative and paths are derived: cycle checks and new paths walk the parent_id chain, since
- * stored paths below a moved record stay stale until its queued rewrite has run.
+ * stored paths below a moved record stay stale until its queued rewrite has run. The primary hierarchy's nodes mirror
+ * these columns and follow every placement and rewrite.
+ *
+ * Alternate hierarchies keep their placement in nodes only. Writes to one alternate hierarchy run one at a time under
+ * a lock of its row, and rewrite the moved subtree in batches inside the same transaction, so their stored paths are
+ * always current and a cycle check reads them directly.
  */
 class HierarchyService
 {
@@ -39,6 +50,8 @@ class HierarchyService
     public function __construct(
         protected RecordRepository $recordRepository,
         protected RecordIndexer $recordIndexer,
+        protected HierarchyRepository $hierarchyRepository,
+        protected HierarchyNodeRepository $hierarchyNodeRepository,
     ) {}
 
     /**
@@ -53,6 +66,8 @@ class HierarchyService
         }
 
         $record->forceFill($placement)->saveQuietly();
+
+        $this->syncPrimaryNode($record);
     }
 
     /**
@@ -131,6 +146,8 @@ class HierarchyService
 
         $record->forceFill($placement);
 
+        $this->syncPrimaryNode($record);
+
         if ($oldPath !== $record->path) {
             dispatch(new RewriteDescendantPaths($record->id, $oldPath, $record->path, $record->depth - $oldDepth))->afterCommit();
         }
@@ -179,7 +196,8 @@ class HierarchyService
     /**
      * Rewrite the path prefix and shift the depth of every record below the old path, in batches.
      *
-     * One UPDATE per batch replaces the leading old path with the new one, so the subtree keeps its shape. The
+     * One UPDATE per batch replaces the leading old path with the new one, so the subtree keeps its shape, in the
+     * records and in the primary hierarchy nodes that mirror them. The
      * target is the moved record's placement when the job runs, so two queued moves of one record land the same
      * way in either order; the given new path and delta only apply when the record is gone.
      */
@@ -197,13 +215,328 @@ class HierarchyService
             return;
         }
 
-        $this->recordRepository->pathPrefixQuery($oldPath, $recordId)
-            ->select('id')
-            ->chunkById($this->recordIndexer->batchSize(), function (Collection $records) use ($recordId, $oldPath, $newPath, $depthDelta): void {
-                $query = $this->recordRepository->pathPrefixQuery($oldPath, $recordId)->whereKey($records->modelKeys());
+        $this->rewritePrefix(fn (): Builder => $this->recordRepository->pathPrefixQuery($oldPath, $recordId), $oldPath, $newPath, $depthDelta);
 
-                $this->updatePaths($query, $newPath, strlen($oldPath) + 1, $depthDelta);
+        $this->rewritePrefix(fn (): Builder => $this->hierarchyNodeRepository->primarySubtreeQuery($oldPath, $recordId), $oldPath, $newPath, $depthDelta);
+    }
+
+    /**
+     * The primary hierarchy of the entity type, created on first use; a new one is filled from the records' own
+     * placement on the queue.
+     */
+    public function ensurePrimary(EntityType $type): Hierarchy
+    {
+        [$hierarchy, $created] = $this->hierarchyRepository->firstOrCreatePrimary((int) $type->id);
+
+        if ($created) {
+            dispatch(new BackfillPrimaryHierarchy((int) $hierarchy->id))->afterCommit();
+        }
+
+        return $hierarchy;
+    }
+
+    /**
+     * Copy the records' own parent_id, path and depth into the primary hierarchy's nodes in batches; a record the
+     * hierarchy already places keeps its node.
+     */
+    public function backfillPrimary(Hierarchy $hierarchy): void
+    {
+        $this->recordRepository->chunkPlacementsForEntityType((int) $hierarchy->entity_type_id, $this->recordIndexer->batchSize(), function (Collection $records) use ($hierarchy): void {
+            $this->hierarchyNodeRepository->insertMissing($records->map(fn (Record $record): array => [
+                'hierarchy_id' => (int) $hierarchy->id,
+                'record_id'    => (int) $record->id,
+                'parent_id'    => $record->parent_id,
+                'path'         => (string) $record->path,
+                'depth'        => (int) $record->depth,
+            ])->values()->all());
+        });
+    }
+
+    /**
+     * Place a record under a parent in an alternate hierarchy, or at its root, moving its subtree along.
+     *
+     * Both records belong to the hierarchy's entity type; a parent the hierarchy does not place yet goes to its root.
+     *
+     * @throws ValidationException
+     */
+    public function place(Hierarchy $hierarchy, Record $record, ?Record $parent): HierarchyNode
+    {
+        $this->ensureAlternate($hierarchy);
+
+        $this->ensurePlaceable($hierarchy, $record, $parent);
+
+        return DB::transaction(function () use ($hierarchy, $record, $parent): HierarchyNode {
+            $this->hierarchyRepository->lockForWrite((int) $hierarchy->id);
+
+            $node = $this->hierarchyNodeRepository->nodeFor((int) $hierarchy->id, (int) $record->id);
+
+            $parentNode = $parent instanceof Record ? $this->nodeOrRoot($hierarchy, $parent) : null;
+
+            if ($node instanceof HierarchyNode && $parentNode instanceof HierarchyNode && str_starts_with((string) $parentNode->path, (string) $node->path)) {
+                $this->fail('cycle');
+            }
+
+            $path = ($parentNode?->path ?? '/').$record->id.'/';
+
+            $depth = $parentNode instanceof HierarchyNode ? $parentNode->depth + 1 : 0;
+
+            if (! $node instanceof HierarchyNode) {
+                if (strlen($path) > self::MAX_PATH_LENGTH) {
+                    $this->fail('path-too-long');
+                }
+
+                $this->hierarchyNodeRepository->put((int) $hierarchy->id, (int) $record->id, $parent?->id, $path, $depth);
+
+                return $this->hierarchyNodeRepository->nodeFor((int) $hierarchy->id, (int) $record->id);
+            }
+
+            if ($node->path === $path) {
+                return $node;
+            }
+
+            $oldPath = (string) $node->path;
+
+            $limit = (int) config('masterdata.hierarchies.max_subtree', 10000);
+
+            if ($this->hierarchyNodeRepository->subtreeSize((int) $hierarchy->id, $oldPath, (int) $record->id, $limit) > $limit) {
+                $this->failAlternate('subtree-too-large', ['count' => $limit]);
+            }
+
+            $longest = max(strlen($oldPath), $this->hierarchyNodeRepository->maxPathLength((int) $hierarchy->id, $oldPath, (int) $record->id));
+
+            if (strlen($path) + $longest - strlen($oldPath) > self::MAX_PATH_LENGTH) {
+                $this->fail('path-too-long');
+            }
+
+            $this->moveNode($node, $parent?->id, $path, $depth);
+
+            return $node;
+        });
+    }
+
+    /**
+     * Take a record out of an alternate hierarchy; its children move up to its parent, or to the root.
+     *
+     * @throws ValidationException
+     */
+    public function remove(Hierarchy $hierarchy, Record $record): void
+    {
+        $this->ensureAlternate($hierarchy);
+
+        DB::transaction(function () use ($hierarchy, $record): void {
+            $this->hierarchyRepository->lockForWrite((int) $hierarchy->id);
+
+            $node = $this->hierarchyNodeRepository->nodeFor((int) $hierarchy->id, (int) $record->id);
+
+            if ($node instanceof HierarchyNode) {
+                $this->detachNode($node);
+            }
+        });
+    }
+
+    /**
+     * Hand the merged record's alternate placements to the survivor; call inside the merge transaction.
+     *
+     * Where the survivor is not placed, it takes the merged record's node. Where it is, the merged record's children
+     * move below the survivor, which first leaves the merged record's subtree when it sits inside it.
+     */
+    public function foldInto(Record $merged, Record $survivor): void
+    {
+        foreach ($this->hierarchyNodeRepository->forRecords([(int) $merged->id]) as $placed) {
+            $hierarchyId = (int) $placed->hierarchy_id;
+
+            $this->hierarchyRepository->lockForWrite($hierarchyId);
+
+            $node = $this->hierarchyNodeRepository->nodeFor($hierarchyId, (int) $merged->id);
+
+            if (! $node instanceof HierarchyNode) {
+                continue;
+            }
+
+            $oldPath = (string) $node->path;
+
+            $target = $this->hierarchyNodeRepository->nodeFor($hierarchyId, (int) $survivor->id);
+
+            if (! $target instanceof HierarchyNode) {
+                $path = $this->parentPath($node).$survivor->id.'/';
+
+                $this->rewritePrefix(fn (): Builder => $this->hierarchyNodeRepository->subtreeQuery($hierarchyId, $oldPath, (int) $merged->id), $oldPath, $path, 0);
+
+                $this->hierarchyNodeRepository->repointChildren($hierarchyId, (int) $merged->id, (int) $survivor->id);
+
+                $node->forceFill(['record_id' => $survivor->id, 'path' => $path])->save();
+
+                continue;
+            }
+
+            if (str_starts_with((string) $target->path, $oldPath)) {
+                $this->moveNode($target, $node->parent_id, $this->parentPath($node).$survivor->id.'/', (int) $node->depth);
+            }
+
+            $this->rewritePrefix(fn (): Builder => $this->hierarchyNodeRepository->subtreeQuery($hierarchyId, $oldPath, (int) $merged->id), $oldPath, (string) $target->path, $target->depth - $node->depth);
+
+            $this->hierarchyNodeRepository->repointChildren($hierarchyId, (int) $merged->id, (int) $survivor->id);
+
+            $this->hierarchyNodeRepository->deleteNode((int) $node->id);
+        }
+    }
+
+    /**
+     * Take the records out of every alternate hierarchy, lifting their children to their parents; call inside the
+     * erase transaction. The primary hierarchy keeps an erased tombstone where it was.
+     *
+     * @param  list<int>  $recordIds
+     */
+    public function detachRecords(array $recordIds): void
+    {
+        foreach ($this->hierarchyNodeRepository->forRecords($recordIds) as $placed) {
+            $this->hierarchyRepository->lockForWrite((int) $placed->hierarchy_id);
+
+            $node = $this->hierarchyNodeRepository->nodeFor((int) $placed->hierarchy_id, (int) $placed->record_id);
+
+            if ($node instanceof HierarchyNode) {
+                $this->detachNode($node);
+            }
+        }
+    }
+
+    /**
+     * Mirror the record's placement into its entity type's primary hierarchy, creating it for a hierarchical type.
+     */
+    protected function syncPrimaryNode(Record $record): void
+    {
+        $hierarchy = $this->hierarchyRepository->primaryFor((int) $record->entity_type_id);
+
+        if (! $hierarchy instanceof Hierarchy) {
+            $type = $record->entityType;
+
+            if (! $type instanceof EntityType || ! $type->is_hierarchical) {
+                return;
+            }
+
+            $hierarchy = $this->ensurePrimary($type);
+        }
+
+        $this->hierarchyNodeRepository->put((int) $hierarchy->id, (int) $record->id, $record->parent_id, (string) $record->path, (int) $record->depth);
+    }
+
+    /**
+     * Move a node and its subtree to the placement, rewriting the descendants' paths in batches first.
+     */
+    protected function moveNode(HierarchyNode $node, ?int $parentId, string $path, int $depth): void
+    {
+        $oldPath = (string) $node->path;
+
+        $hierarchyId = (int) $node->hierarchy_id;
+
+        $recordId = (int) $node->record_id;
+
+        $this->rewritePrefix(fn (): Builder => $this->hierarchyNodeRepository->subtreeQuery($hierarchyId, $oldPath, $recordId), $oldPath, $path, $depth - (int) $node->depth);
+
+        $node->forceFill(['parent_id' => $parentId, 'path' => $path, 'depth' => $depth])->save();
+    }
+
+    /**
+     * Delete a node after lifting its subtree one level, below the node's parent or to the root.
+     */
+    protected function detachNode(HierarchyNode $node): void
+    {
+        $oldPath = (string) $node->path;
+
+        $hierarchyId = (int) $node->hierarchy_id;
+
+        $recordId = (int) $node->record_id;
+
+        $this->rewritePrefix(fn (): Builder => $this->hierarchyNodeRepository->subtreeQuery($hierarchyId, $oldPath, $recordId), $oldPath, $this->parentPath($node), -1);
+
+        $this->hierarchyNodeRepository->repointChildren($hierarchyId, $recordId, $node->parent_id);
+
+        $this->hierarchyNodeRepository->deleteNode((int) $node->id);
+    }
+
+    /**
+     * The node of the parent record in the hierarchy, placing it at the root when the hierarchy does not hold it.
+     */
+    protected function nodeOrRoot(Hierarchy $hierarchy, Record $parent): HierarchyNode
+    {
+        $node = $this->hierarchyNodeRepository->nodeFor((int) $hierarchy->id, (int) $parent->id);
+
+        if ($node instanceof HierarchyNode) {
+            return $node;
+        }
+
+        $this->hierarchyNodeRepository->put((int) $hierarchy->id, (int) $parent->id, null, '/'.$parent->id.'/', 0);
+
+        return $this->hierarchyNodeRepository->nodeFor((int) $hierarchy->id, (int) $parent->id);
+    }
+
+    /**
+     * The path of the node's parent: its own path without the last segment, `/` at the root.
+     */
+    protected function parentPath(HierarchyNode $node): string
+    {
+        return substr((string) $node->path, 0, -strlen($node->record_id.'/'));
+    }
+
+    /**
+     * Swap the old path prefix for the new one on every row the query reaches, one UPDATE per batch.
+     *
+     * @param  Closure(): Builder  $query  Builds the rows below the old path afresh for each batch.
+     */
+    protected function rewritePrefix(Closure $query, string $oldPath, string $newPath, int $depthDelta): void
+    {
+        if ($oldPath === $newPath && $depthDelta === 0) {
+            return;
+        }
+
+        $query()
+            ->select('id')
+            ->chunkById($this->recordIndexer->batchSize(), function (Collection $rows) use ($query, $oldPath, $newPath, $depthDelta): void {
+                $this->updatePaths($query()->whereKey($rows->modelKeys()), $newPath, strlen($oldPath) + 1, $depthDelta);
             });
+    }
+
+    /**
+     * Refuse writing a primary hierarchy's nodes directly; its placement follows the records' parent.
+     *
+     * @throws ValidationException
+     */
+    protected function ensureAlternate(Hierarchy $hierarchy): void
+    {
+        if ($hierarchy->is_primary) {
+            $this->failAlternate('primary');
+        }
+    }
+
+    /**
+     * Refuse placing a record of another entity type, a record out of the active lifecycle, itself, or below a
+     * parent of another type or out of the active lifecycle.
+     *
+     * @throws ValidationException
+     */
+    protected function ensurePlaceable(Hierarchy $hierarchy, Record $record, ?Record $parent): void
+    {
+        if ((int) $record->entity_type_id !== (int) $hierarchy->entity_type_id) {
+            $this->failAlternate('wrong-type');
+        }
+
+        $this->ensureMovable($record);
+
+        if (! $parent instanceof Record) {
+            return;
+        }
+
+        if ((int) $parent->id === (int) $record->id) {
+            $this->fail('cycle');
+        }
+
+        if ((int) $parent->entity_type_id !== (int) $hierarchy->entity_type_id) {
+            $this->failAlternate('wrong-type');
+        }
+
+        if (! in_array($parent->status, [RecordStatus::Draft, RecordStatus::Active], true)) {
+            $this->fail('parent-not-active');
+        }
     }
 
     /**
@@ -316,5 +649,15 @@ class HierarchyService
     protected function fail(string $reason): never
     {
         throw ValidationException::withMessages(['parent' => trans('masterdata::app.hierarchy.validation.'.$reason)]);
+    }
+
+    /**
+     * @param  array<string, int|string>  $replace
+     *
+     * @throws ValidationException
+     */
+    protected function failAlternate(string $reason, array $replace = []): never
+    {
+        throw ValidationException::withMessages(['parent' => trans('masterdata::app.hierarchies.validation.'.$reason, $replace)]);
     }
 }

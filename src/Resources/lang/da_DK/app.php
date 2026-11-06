@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Installerer demodata for produktion.',
         'done'      => 'Stamdatastyring er installeret. Aktive moduler: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarkier',
+        'title'          => 'Hierarkier',
+        'info'           => 'Arranger poster af denne type i mere end ét træ. Det primære hierarki følger hver posts overordnede; alternative hierarkier, f.eks. en salgs- eller rapporteringsstruktur, gemmes separat.',
+        'create-btn'     => 'Tilføj hierarki',
+        'primary-label'  => 'Primær',
+        'create-success' => 'Hierarki tilføjet.',
+        'update-success' => 'Hierarki opdateret.',
+        'delete-success' => 'Hierarki slettet.',
+
+        'create' => [
+            'title' => 'Tilføj hierarki',
+        ],
+
+        'edit' => [
+            'title' => 'Rediger hierarki',
+        ],
+
+        'form' => [
+            'code'      => 'Kode',
+            'code-info' => 'Små bogstaver, cifre og understregninger, begyndende med et bogstav. Kan ikke ændres senere.',
+            'labels'    => 'Etiketter',
+            'label'     => 'Etiket',
+            'save-btn'  => 'Gem hierarki',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Kode',
+            'label'  => 'Etiket',
+            'kind'   => 'Art',
+            'edit'   => 'Rediger',
+            'delete' => 'Slet',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Primær',
+            'alternate' => 'Alternativ',
+        ],
+
+        'validation' => [
+            'primary'           => 'Det primære hierarki følger hver posts overordnede. Skift i stedet den overordnede på posten.',
+            'primary-delete'    => 'Det primære hierarki kan ikke slettes.',
+            'wrong-type'        => 'Kun poster af dette hierarkis enhedstype kan placeres i det.',
+            'subtree-too-large' => 'Denne post har mere end :count poster under sig i dette hierarki, for mange til at flytte på én gang.',
+            'code-taken'        => 'Et andet hierarki af denne enhedstype bruger allerede denne kode.',
+            'too-many'          => 'En enhedstype kan højst have :count hierarkier.',
+        ],
+
+        'tree' => [
+            'open'       => 'Trævisning',
+            'title'      => ':type-træ',
+            'switch'     => 'Skift hierarki',
+            'empty'      => 'Intet hierarki endnu',
+            'empty-info' => 'Gør enhedstypen hierarkisk, eller tilføj et alternativt hierarki for at se dens poster som et træ.',
+            'loading'    => 'Indlæser…',
+            'no-nodes'   => 'Der er endnu ingen poster placeret i dette hierarki.',
+            'expand'     => 'Udvid',
+            'collapse'   => 'Skjul',
+            'limited'    => 'Viser de første :count poster på dette niveau.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarkier',
+            'title'                  => 'Alternative hierarkier',
+            'info'                   => 'Hvor denne post er placeret i enhedstypens alternative hierarkier. Det primære hierarki vises ovenfor.',
+            'empty'                  => 'Ingen alternative hierarkier',
+            'empty-info'             => 'Tilføj et alternativt hierarki på enhedstypen for at placere denne post i det.',
+            'hierarchy'              => 'Hierarki',
+            'path'                   => 'Sti',
+            'actions'                => 'Handlinger',
+            'not-placed'             => 'Ikke placeret',
+            'place'                  => 'Placér',
+            'place-title'            => 'Placér i :hierarchy',
+            'parent-info'            => 'Vælg en post af samme type, eller ingen overordnet for at placere denne post øverst. En overordnet, der endnu ikke er i hierarkiet, placeres først øverst.',
+            'remove'                 => 'Fjern',
+            'remove-confirm-title'   => 'Fjern fra hierarkiet?',
+            'remove-confirm-message' => 'Posterne under den rykker ét niveau op.',
+            'placed'                 => 'Post placeret i :hierarchy.',
+            'removed'                => 'Post fjernet fra :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarkiet blev ikke fundet.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Relationsgraf',
+        'info'        => 'Poster, der er knyttet til denne via relationer, hierarkiet og kildesystemer. Vælg en post for at åbne den.',
+        'hops'        => 'Afstand',
+        'hop-count'   => ':count trin|:count trin',
+        'loading'     => 'Indlæser…',
+        'empty'       => 'Denne post har ingen tilknyttede poster, som du kan se.',
+        'truncated'   => 'Nogle tilknyttede poster vises ikke, fordi grafen har nået sin størrelsesgrænse.',
+        'description' => 'Graf med :nodes poster og kilde-id\'er forbundet af :edges links.',
+
+        'edges' => [
+            'parent' => 'Overordnet til',
+            'source' => 'Kendt i kildesystem',
+        ],
+
+        'legend' => [
+            'relation' => 'Relation',
+            'parent'   => 'Hierarki',
+            'source'   => 'Kilde-id',
+        ],
+    ],
 ];

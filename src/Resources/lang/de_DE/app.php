@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Die Demodaten für die Fertigung werden installiert.',
         'done'      => 'Die Stammdatenverwaltung ist installiert. Aktive Module: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Hierarchien',
+        'title'          => 'Hierarchien',
+        'info'           => 'Ordnen Sie Datensätze dieses Typs in mehr als einem Baum an. Die primäre Hierarchie folgt dem übergeordneten Datensatz; alternative Hierarchien, etwa eine Vertriebs- oder Berichtsstruktur, werden separat geführt.',
+        'create-btn'     => 'Hierarchie hinzufügen',
+        'primary-label'  => 'Primär',
+        'create-success' => 'Hierarchie hinzugefügt.',
+        'update-success' => 'Hierarchie aktualisiert.',
+        'delete-success' => 'Hierarchie gelöscht.',
+
+        'create' => [
+            'title' => 'Hierarchie hinzufügen',
+        ],
+
+        'edit' => [
+            'title' => 'Hierarchie bearbeiten',
+        ],
+
+        'form' => [
+            'code'      => 'Code',
+            'code-info' => 'Kleinbuchstaben, Ziffern und Unterstriche, beginnend mit einem Buchstaben. Kann später nicht geändert werden.',
+            'labels'    => 'Bezeichnungen',
+            'label'     => 'Bezeichnung',
+            'save-btn'  => 'Hierarchie speichern',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Code',
+            'label'  => 'Bezeichnung',
+            'kind'   => 'Art',
+            'edit'   => 'Bearbeiten',
+            'delete' => 'Löschen',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Primär',
+            'alternate' => 'Alternativ',
+        ],
+
+        'validation' => [
+            'primary'           => 'Die primäre Hierarchie folgt dem übergeordneten Datensatz. Ändern Sie stattdessen den übergeordneten Datensatz am Datensatz.',
+            'primary-delete'    => 'Die primäre Hierarchie kann nicht gelöscht werden.',
+            'wrong-type'        => 'Nur Datensätze des Entitätstyps dieser Hierarchie können darin platziert werden.',
+            'subtree-too-large' => 'Unterhalb dieses Datensatzes befinden sich in dieser Hierarchie mehr als :count Datensätze, zu viele, um sie auf einmal zu verschieben.',
+            'code-taken'        => 'Eine andere Hierarchie dieses Entitätstyps verwendet diesen Code bereits.',
+            'too-many'          => 'Ein Entitätstyp kann höchstens :count Hierarchien haben.',
+        ],
+
+        'tree' => [
+            'open'       => 'Baumansicht',
+            'title'      => ':type-Baum',
+            'switch'     => 'Hierarchie wechseln',
+            'empty'      => 'Noch keine Hierarchie',
+            'empty-info' => 'Machen Sie den Entitätstyp hierarchisch oder fügen Sie eine alternative Hierarchie hinzu, um seine Datensätze als Baum zu sehen.',
+            'loading'    => 'Wird geladen…',
+            'no-nodes'   => 'In dieser Hierarchie sind noch keine Datensätze platziert.',
+            'expand'     => 'Aufklappen',
+            'collapse'   => 'Zuklappen',
+            'limited'    => 'Es werden die ersten :count Datensätze dieser Ebene angezeigt.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Hierarchien',
+            'title'                  => 'Alternative Hierarchien',
+            'info'                   => 'Wo dieser Datensatz in den alternativen Hierarchien seines Entitätstyps steht. Die primäre Hierarchie wird oben angezeigt.',
+            'empty'                  => 'Keine alternativen Hierarchien',
+            'empty-info'             => 'Fügen Sie dem Entitätstyp eine alternative Hierarchie hinzu, um diesen Datensatz darin zu platzieren.',
+            'hierarchy'              => 'Hierarchie',
+            'path'                   => 'Pfad',
+            'actions'                => 'Aktionen',
+            'not-placed'             => 'Nicht platziert',
+            'place'                  => 'Platzieren',
+            'place-title'            => 'In :hierarchy platzieren',
+            'parent-info'            => 'Wählen Sie einen Datensatz desselben Typs oder keinen übergeordneten Datensatz, um diesen Datensatz ganz oben einzuordnen. Ein übergeordneter Datensatz, der noch nicht in der Hierarchie ist, wird zuerst ganz oben platziert.',
+            'remove'                 => 'Entfernen',
+            'remove-confirm-title'   => 'Aus der Hierarchie entfernen?',
+            'remove-confirm-message' => 'Die darunterliegenden Datensätze rücken eine Ebene nach oben.',
+            'placed'                 => 'Datensatz in :hierarchy platziert.',
+            'removed'                => 'Datensatz aus :hierarchy entfernt.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hierarchie nicht gefunden.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Graph',
+        'title'       => 'Beziehungsgraph',
+        'info'        => 'Datensätze, die über Beziehungen, die Hierarchie und Quellsysteme mit diesem verknüpft sind. Wählen Sie einen Datensatz aus, um ihn zu öffnen.',
+        'hops'        => 'Entfernung',
+        'hop-count'   => ':count Schritt|:count Schritte',
+        'loading'     => 'Wird geladen…',
+        'empty'       => 'Dieser Datensatz hat keine verknüpften Datensätze, die Sie sehen können.',
+        'truncated'   => 'Einige verknüpfte Datensätze werden nicht angezeigt, da der Graph seine Größenbegrenzung erreicht hat.',
+        'description' => 'Graph aus :nodes Datensätzen und Quell-IDs, verbunden durch :edges Verknüpfungen.',
+
+        'edges' => [
+            'parent' => 'Übergeordnet zu',
+            'source' => 'Im Quellsystem bekannt',
+        ],
+
+        'legend' => [
+            'relation' => 'Beziehung',
+            'parent'   => 'Hierarchie',
+            'source'   => 'Quell-ID',
+        ],
+    ],
 ];

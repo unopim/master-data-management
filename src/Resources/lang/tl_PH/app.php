@@ -1689,4 +1689,113 @@ return [
         'demo'      => 'Ini-install ang demo data ng manufacturing.',
         'done'      => 'Naka-install na ang master data management. Mga aktibong module: :modules.',
     ],
+
+    'hierarchies' => [
+        'tab'            => 'Mga Hierarkiya',
+        'title'          => 'Mga Hierarkiya',
+        'info'           => 'Ayusin ang mga tala ng ganitong uri sa higit sa isang puno. Sinusunod ng pangunahing hierarkiya ang magulang ng bawat tala; ang mga alternatibong hierarkiya, tulad ng istruktura ng benta o ng pag-uulat, ay itinatabi nang hiwalay.',
+        'create-btn'     => 'Magdagdag ng Hierarkiya',
+        'primary-label'  => 'Pangunahin',
+        'create-success' => 'Naidagdag ang hierarkiya.',
+        'update-success' => 'Na-update ang hierarkiya.',
+        'delete-success' => 'Nabura ang hierarkiya.',
+
+        'create' => [
+            'title' => 'Magdagdag ng Hierarkiya',
+        ],
+
+        'edit' => [
+            'title' => 'I-edit ang Hierarkiya',
+        ],
+
+        'form' => [
+            'code'      => 'Code',
+            'code-info' => 'Maliliit na titik, numero at underscore, na nagsisimula sa titik. Hindi na ito mababago pagkatapos.',
+            'labels'    => 'Mga Label',
+            'label'     => 'Label',
+            'save-btn'  => 'I-save ang Hierarkiya',
+        ],
+
+        'datagrid' => [
+            'code'   => 'Code',
+            'label'  => 'Label',
+            'kind'   => 'Uri',
+            'edit'   => 'I-edit',
+            'delete' => 'Burahin',
+        ],
+
+        'kinds' => [
+            'primary'   => 'Pangunahin',
+            'alternate' => 'Alternatibo',
+        ],
+
+        'validation' => [
+            'primary'           => 'Sinusunod ng pangunahing hierarkiya ang magulang ng bawat tala. Palitan na lang ang magulang sa mismong tala.',
+            'primary-delete'    => 'Hindi mabubura ang pangunahing hierarkiya.',
+            'wrong-type'        => 'Mga tala lamang ng uri ng entity ng hierarkiyang ito ang maaaring ilagay rito.',
+            'subtree-too-large' => 'May higit sa :count tala sa ilalim ng talang ito sa hierarkiyang ito, masyadong marami para ilipat nang sabay-sabay.',
+            'code-taken'        => 'Ginagamit na ng isa pang hierarkiya ng uri ng entity na ito ang code na ito.',
+            'too-many'          => 'Ang isang uri ng entity ay maaaring magkaroon ng hanggang :count hierarkiya.',
+        ],
+
+        'tree' => [
+            'open'       => 'Tanaw na Puno',
+            'title'      => 'Puno ng :type',
+            'switch'     => 'Magpalit ng hierarkiya',
+            'empty'      => 'Wala pang hierarkiya',
+            'empty-info' => 'Gawing hierarkikal ang uri ng entity o magdagdag ng alternatibong hierarkiya para makita ang mga tala nito bilang puno.',
+            'loading'    => 'Naglo-load…',
+            'no-nodes'   => 'Wala pang talang nakalagay sa hierarkiyang ito.',
+            'expand'     => 'Palawakin',
+            'collapse'   => 'Itiklop',
+            'limited'    => 'Ipinapakita ang unang :count tala sa antas na ito.',
+        ],
+
+        'record' => [
+            'tab'                    => 'Mga Hierarkiya',
+            'title'                  => 'Mga Alternatibong Hierarkiya',
+            'info'                   => 'Kung nasaan ang talang ito sa mga alternatibong hierarkiya ng uri ng entity nito. Nasa itaas ang pangunahing hierarkiya.',
+            'empty'                  => 'Walang alternatibong hierarkiya',
+            'empty-info'             => 'Magdagdag ng alternatibong hierarkiya sa uri ng entity para mailagay rito ang talang ito.',
+            'hierarchy'              => 'Hierarkiya',
+            'path'                   => 'Landas',
+            'actions'                => 'Mga Aksyon',
+            'not-placed'             => 'Hindi nailagay',
+            'place'                  => 'Ilagay',
+            'place-title'            => 'Ilagay sa :hierarchy',
+            'parent-info'            => 'Pumili ng tala ng parehong uri, o walang magulang para mailagay ang talang ito sa pinakataas. Ang magulang na wala pa sa hierarkiya ay inilalagay muna sa pinakataas.',
+            'remove'                 => 'Alisin',
+            'remove-confirm-title'   => 'Alisin sa hierarkiya?',
+            'remove-confirm-message' => 'Aakyat nang isang antas ang mga tala sa ilalim nito.',
+            'placed'                 => 'Nailagay ang tala sa :hierarchy.',
+            'removed'                => 'Naalis ang tala sa :hierarchy.',
+        ],
+
+        'api' => [
+            'not-found' => 'Hindi nahanap ang hierarkiya.',
+        ],
+    ],
+
+    'graph' => [
+        'tab'         => 'Graph',
+        'title'       => 'Graph ng Ugnayan',
+        'info'        => 'Mga record na naka-link dito sa pamamagitan ng mga ugnayan, hierarchy at source system. Pumili ng record para buksan ito.',
+        'hops'        => 'Layo',
+        'hop-count'   => ':count hakbang|:count hakbang',
+        'loading'     => 'Naglo-load…',
+        'empty'       => 'Walang naka-link na record ang record na ito na makikita mo.',
+        'truncated'   => 'Hindi ipinapakita ang ilang naka-link na record dahil naabot ng graph ang limitasyon ng laki nito.',
+        'description' => 'Graph ng :nodes record at source id na pinagdugtong ng :edges link.',
+
+        'edges' => [
+            'parent' => 'Magulang ng',
+            'source' => 'Kilala sa source system',
+        ],
+
+        'legend' => [
+            'relation' => 'Ugnayan',
+            'parent'   => 'Hirarkiya',
+            'source'   => 'ID ng pinagmulan',
+        ],
+    ],
 ];
