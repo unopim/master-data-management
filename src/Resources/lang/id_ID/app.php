@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Memasang data demo manufaktur.',
         'done'      => 'Manajemen data master telah terpasang. Modul aktif: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Ekspor model',
+            'import' => 'Impor model',
+        ],
+        'export' => [
+            'button' => 'Ekspor model',
+        ],
+        'import' => [
+            'button'       => 'Impor model',
+            'title'        => 'Impor paket model',
+            'file'         => 'Paket model (JSON)',
+            'file-info'    => 'Paket model JSON yang diekspor dari instalasi data master, hingga :size KB. Definisi dicocokkan berdasarkan kode; yang tidak ada di paket tetap dipertahankan.',
+            'publish'      => 'Publikasikan setelah impor',
+            'publish-info' => 'Publikasikan skema tipe entitas dan daftar kode yang berubah. Jika tidak, semuanya tetap menjadi draf untuk ditinjau.',
+            'save-btn'     => 'Impor',
+            'success'      => 'Model diimpor: :created dibuat, :updated diperbarui, :published dipublikasikan.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'File ini bukan paket model JSON yang valid.',
+            'unsupported-version' => 'Versi format paket ":version" tidak didukung. Instalasi ini membaca versi :supported.',
+            'unknown-reference'   => 'Paket merujuk ke ":value", yang tidak ada di paket maupun di instalasi ini.',
+            'duplicate'           => '":value" muncul lebih dari sekali.',
+            'effective-range'     => 'Kode :code harus berakhir setelah dimulai.',
+            'code-pattern'        => 'Pola kode :code harus berisi token {seq}.',
+            'code-list-required'  => 'Bidang :code memerlukan daftar kode.',
+            'reference-required'  => 'Bidang referensi :code memerlukan tipe entitas untuk dirujuk.',
+            'type-locked'         => 'Tipe bidang :code yang sudah ada tidak dapat diubah.',
+            'reference-locked'    => 'Bidang referensi :code digunakan oleh data, sehingga target dan kardinalitasnya tidak dapat diubah.',
+            'relation-locked'     => 'Tipe relasi :code sedang digunakan, sehingga tipe entitas dan kardinalitasnya tidak dapat diubah.',
+            'system-relation'     => 'Tipe relasi :code milik bidang referensi dan tidak dapat diimpor.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Tidak ada tipe entitas dengan kode: :codes.',
+            'path-invalid'  => 'Path :path bukan file .json yang dapat dibaca dalam batas ukuran.',
+            'exported'      => 'Mengekspor :types tipe entitas dan :lists daftar kode ke :path.',
+            'imported'      => 'Mengimpor :path: :created dibuat, :updated diperbarui, :published dipublikasikan.',
+        ],
+    ],
 ];

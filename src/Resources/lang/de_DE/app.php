@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Die Demodaten für die Fertigung werden installiert.',
         'done'      => 'Die Stammdatenverwaltung ist installiert. Aktive Module: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Modell exportieren',
+            'import' => 'Modell importieren',
+        ],
+        'export' => [
+            'button' => 'Modell exportieren',
+        ],
+        'import' => [
+            'button'       => 'Modell importieren',
+            'title'        => 'Modellpaket importieren',
+            'file'         => 'Modellpaket (JSON)',
+            'file-info'    => 'Ein JSON-Modellpaket aus einer Stammdaten-Installation, bis zu :size KB. Definitionen werden über den Code zugeordnet; nicht im Paket enthaltene bleiben erhalten.',
+            'publish'      => 'Nach dem Import veröffentlichen',
+            'publish-info' => 'Die geänderten Entitätstyp-Schemas und Codelisten veröffentlichen. Andernfalls bleiben sie als Entwürfe zur Prüfung bestehen.',
+            'save-btn'     => 'Importieren',
+            'success'      => 'Modell importiert: :created erstellt, :updated aktualisiert, :published veröffentlicht.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Die Datei ist kein gültiges JSON-Modellpaket.',
+            'unsupported-version' => 'Die Paketformatversion ":version" wird nicht unterstützt. Diese Installation liest Version :supported.',
+            'unknown-reference'   => 'Das Paket verweist auf ":value", das weder im Paket noch in dieser Installation vorhanden ist.',
+            'duplicate'           => '":value" kommt mehrfach vor.',
+            'effective-range'     => 'Der Code :code muss nach seinem Beginn enden.',
+            'code-pattern'        => 'Das Codemuster von :code muss ein {seq}-Token enthalten.',
+            'code-list-required'  => 'Das Feld :code benötigt eine Codeliste.',
+            'reference-required'  => 'Das Referenzfeld :code benötigt einen Entitätstyp, auf den es verweist.',
+            'type-locked'         => 'Der Typ des vorhandenen Feldes :code kann nicht geändert werden.',
+            'reference-locked'    => 'Das Referenzfeld :code wird von Datensätzen verwendet, daher können Ziel und Kardinalität nicht geändert werden.',
+            'relation-locked'     => 'Der Beziehungstyp :code wird verwendet, daher können seine Entitätstypen und die Kardinalität nicht geändert werden.',
+            'system-relation'     => 'Der Beziehungstyp :code gehört zu einem Referenzfeld und kann nicht importiert werden.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Kein Entitätstyp hat die Codes: :codes.',
+            'path-invalid'  => 'Der Pfad :path ist keine lesbare .json-Datei innerhalb der Größenbeschränkung.',
+            'exported'      => ':types Entitätstyp(en) und :lists Codeliste(n) nach :path exportiert.',
+            'imported'      => ':path importiert: :created erstellt, :updated aktualisiert, :published veröffentlicht.',
+        ],
+    ],
 ];

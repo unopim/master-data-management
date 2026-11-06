@@ -15,6 +15,7 @@ use Webkul\MasterDataManagement\Http\Controllers\Admin\IconController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\ImportFilterController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchingController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchRuleController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\ModelTransferController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\QualityController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordLifecycleController;
@@ -42,6 +43,11 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
             Route::post('{id}/publish', 'publish')->name('admin.masterdata.entity_types.publish')->whereNumber('id');
             Route::delete('{id}', 'destroy')->name('admin.masterdata.entity_types.destroy')->whereNumber('id');
             Route::post('mass-delete', 'massDestroy')->name('admin.masterdata.entity_types.mass_delete');
+        });
+
+        Route::controller(ModelTransferController::class)->prefix('model')->group(function (): void {
+            Route::get('export', 'export')->name('admin.masterdata.model_transfer.export');
+            Route::post('import', 'import')->name('admin.masterdata.model_transfer.import');
         });
 
         Route::controller(FieldController::class)->prefix('entity-types/{entityTypeId}/fields')->whereNumber('entityTypeId')->group(function (): void {

@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Instalowanie danych demonstracyjnych dla produkcji.',
         'done'      => 'Zarządzanie danymi głównymi zostało zainstalowane. Aktywne moduły: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Eksportuj model',
+            'import' => 'Importuj model',
+        ],
+        'export' => [
+            'button' => 'Eksportuj model',
+        ],
+        'import' => [
+            'button'       => 'Importuj model',
+            'title'        => 'Importuj pakiet modelu',
+            'file'         => 'Pakiet modelu (JSON)',
+            'file-info'    => 'Pakiet modelu JSON wyeksportowany z instalacji danych podstawowych, do :size KB. Definicje są dopasowywane według kodu; pominięte w pakiecie zostają zachowane.',
+            'publish'      => 'Opublikuj po imporcie',
+            'publish-info' => 'Opublikuj zmienione schematy typów encji i listy kodów. W przeciwnym razie pozostaną wersjami roboczymi do przeglądu.',
+            'save-btn'     => 'Importuj',
+            'success'      => 'Model zaimportowany: :created utworzono, :updated zaktualizowano, :published opublikowano.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Plik nie jest prawidłowym pakietem modelu JSON.',
+            'unsupported-version' => 'Wersja formatu pakietu ":version" nie jest obsługiwana. Ta instalacja odczytuje wersję :supported.',
+            'unknown-reference'   => 'Pakiet odwołuje się do ":value", którego nie ma ani w pakiecie, ani w tej instalacji.',
+            'duplicate'           => '":value" występuje więcej niż raz.',
+            'effective-range'     => 'Kod :code musi kończyć się po swoim rozpoczęciu.',
+            'code-pattern'        => 'Wzorzec kodu :code musi zawierać token {seq}.',
+            'code-list-required'  => 'Pole :code wymaga listy kodów.',
+            'reference-required'  => 'Pole referencyjne :code wymaga typu encji, do którego się odwołuje.',
+            'type-locked'         => 'Typu istniejącego pola :code nie można zmienić.',
+            'reference-locked'    => 'Pole referencyjne :code jest używane przez rekordy, więc jego cel i liczności nie mogą zostać zmienione.',
+            'relation-locked'     => 'Typ relacji :code jest używany, więc jego typy encji i liczności nie mogą zostać zmienione.',
+            'system-relation'     => 'Typ relacji :code należy do pola referencyjnego i nie może zostać zaimportowany.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Żaden typ encji nie ma kodów: :codes.',
+            'path-invalid'  => 'Ścieżka :path nie jest czytelnym plikiem .json w granicach limitu rozmiaru.',
+            'exported'      => 'Wyeksportowano typy encji (:types) i listy kodów (:lists) do :path.',
+            'imported'      => 'Zaimportowano :path: :created utworzono, :updated zaktualizowano, :published opublikowano.',
+        ],
+    ],
 ];

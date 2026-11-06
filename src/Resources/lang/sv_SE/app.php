@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Installerar demodata för tillverkning.',
         'done'      => 'Hantering av huvuddata är installerad. Aktiva moduler: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Exportera modell',
+            'import' => 'Importera modell',
+        ],
+        'export' => [
+            'button' => 'Exportera modell',
+        ],
+        'import' => [
+            'button'       => 'Importera modell',
+            'title'        => 'Importera ett modellpaket',
+            'file'         => 'Modellpaket (JSON)',
+            'file-info'    => 'Ett JSON-modellpaket exporterat från en masterdatainstallation, upp till :size KB. Definitioner matchas via kod; de som paketet utelämnar behålls.',
+            'publish'      => 'Publicera efter import',
+            'publish-info' => 'Publicera de ändrade scheman för entitetstyper och kodlistor. Annars förblir de utkast att granska.',
+            'save-btn'     => 'Importera',
+            'success'      => 'Modell importerad: :created skapade, :updated uppdaterade, :published publicerade.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Filen är inte ett giltigt JSON-modellpaket.',
+            'unsupported-version' => 'Paketets formatversion ":version" stöds inte. Den här installationen läser version :supported.',
+            'unknown-reference'   => 'Paketet hänvisar till ":value", som varken finns i paketet eller i den här installationen.',
+            'duplicate'           => '":value" förekommer mer än en gång.',
+            'effective-range'     => 'Koden :code måste sluta efter att den börjar.',
+            'code-pattern'        => 'Kodmönstret för :code måste innehålla en {seq}-token.',
+            'code-list-required'  => 'Fältet :code behöver en kodlista.',
+            'reference-required'  => 'Referensfältet :code behöver en entitetstyp att hänvisa till.',
+            'type-locked'         => 'Typen för det befintliga fältet :code kan inte ändras.',
+            'reference-locked'    => 'Referensfältet :code används av poster, så dess mål och kardinalitet kan inte ändras.',
+            'relation-locked'     => 'Relationstypen :code används, så dess entitetstyper och kardinalitet kan inte ändras.',
+            'system-relation'     => 'Relationstypen :code tillhör ett referensfält och kan inte importeras.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Ingen entitetstyp har koderna: :codes.',
+            'path-invalid'  => 'Sökvägen :path är inte en läsbar .json-fil inom storleksgränsen.',
+            'exported'      => 'Exporterade :types entitetstyp(er) och :lists kodlista/kodlistor till :path.',
+            'imported'      => 'Importerade :path: :created skapade, :updated uppdaterade, :published publicerade.',
+        ],
+    ],
 ];

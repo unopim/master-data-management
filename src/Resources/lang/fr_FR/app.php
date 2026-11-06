@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Installation des données de démonstration de fabrication.',
         'done'      => 'La gestion des données de référence est installée. Modules actifs : :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Exporter le modèle',
+            'import' => 'Importer le modèle',
+        ],
+        'export' => [
+            'button' => 'Exporter le modèle',
+        ],
+        'import' => [
+            'button'       => 'Importer le modèle',
+            'title'        => 'Importer un lot de modèle',
+            'file'         => 'Lot de modèle (JSON)',
+            'file-info'    => 'Un lot de modèle JSON exporté depuis une installation de données de référence, jusqu\'à :size Ko. Les définitions sont rapprochées par code ; celles absentes du lot sont conservées.',
+            'publish'      => 'Publier après l\'import',
+            'publish-info' => 'Publier les schémas de types d\'entités et les listes de codes modifiés. Sinon, ils restent à l\'état de brouillon à vérifier.',
+            'save-btn'     => 'Importer',
+            'success'      => 'Modèle importé : :created créé(s), :updated mis à jour, :published publié(s).',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Le fichier n\'est pas un lot de modèle JSON valide.',
+            'unsupported-version' => 'La version ":version" du format du lot n\'est pas prise en charge. Cette installation lit la version :supported.',
+            'unknown-reference'   => 'Le lot fait référence à ":value", qui ne figure ni dans le lot ni dans cette installation.',
+            'duplicate'           => '":value" apparaît plusieurs fois.',
+            'effective-range'     => 'Le code :code doit se terminer après son début.',
+            'code-pattern'        => 'Le modèle de code de :code doit contenir un jeton {seq}.',
+            'code-list-required'  => 'Le champ :code nécessite une liste de codes.',
+            'reference-required'  => 'Le champ de référence :code nécessite un type d\'entité cible.',
+            'type-locked'         => 'Le type du champ existant :code ne peut pas être modifié.',
+            'reference-locked'    => 'Le champ de référence :code est utilisé par des enregistrements ; sa cible et sa cardinalité ne peuvent donc pas être modifiées.',
+            'relation-locked'     => 'Le type de relation :code est utilisé ; ses types d\'entités et sa cardinalité ne peuvent donc pas être modifiés.',
+            'system-relation'     => 'Le type de relation :code appartient à un champ de référence et ne peut pas être importé.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Aucun type d\'entité n\'a le ou les codes : :codes.',
+            'path-invalid'  => 'Le chemin :path n\'est pas un fichier .json lisible respectant la limite de taille.',
+            'exported'      => ':types type(s) d\'entité et :lists liste(s) de codes exportés vers :path.',
+            'imported'      => ':path importé : :created créé(s), :updated mis à jour, :published publié(s).',
+        ],
+    ],
 ];

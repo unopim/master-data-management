@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Installing the manufacturing demo data now.',
         'done'      => 'Master data management has been installed. Active modules: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Export model',
+            'import' => 'Import model',
+        ],
+        'export' => [
+            'button' => 'Export model',
+        ],
+        'import' => [
+            'button'       => 'Import model',
+            'title'        => 'Import a model bundle',
+            'file'         => 'Model bundle (JSON)',
+            'file-info'    => 'A JSON model bundle exported from a master data install, up to :size KB. Definitions are matched by code; ones the bundle leaves out are kept.',
+            'publish'      => 'Publish after import',
+            'publish-info' => 'Publish the changed entity type schemas and code lists. Otherwise they stay as drafts to review.',
+            'save-btn'     => 'Import',
+            'success'      => 'Model imported: :created created, :updated updated, :published published.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'The file is not a valid JSON model bundle.',
+            'unsupported-version' => 'The bundle format version ":version" is not supported. This install reads version :supported.',
+            'unknown-reference'   => 'The bundle refers to ":value", which is neither in the bundle nor on this install.',
+            'duplicate'           => '":value" appears more than once.',
+            'effective-range'     => 'The code :code must end after it starts.',
+            'code-pattern'        => 'The code pattern of :code must contain a {seq} token.',
+            'code-list-required'  => 'The field :code needs a code list.',
+            'reference-required'  => 'The reference field :code needs an entity type to refer to.',
+            'type-locked'         => 'The type of the existing field :code cannot change.',
+            'reference-locked'    => 'The reference field :code is used by records, so its target and cardinality cannot change.',
+            'relation-locked'     => 'The relation type :code is in use, so its entity types and cardinality cannot change.',
+            'system-relation'     => 'The relation type :code belongs to a reference field and cannot be imported.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'No entity type has the code(s): :codes.',
+            'path-invalid'  => 'The path :path is not a readable .json file within the size limit.',
+            'exported'      => 'Exported :types entity type(s) and :lists code list(s) to :path.',
+            'imported'      => 'Imported :path: :created created, :updated updated, :published published.',
+        ],
+    ],
 ];

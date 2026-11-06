@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'S\'estan instal·lant les dades de demostració de fabricació.',
         'done'      => 'La gestió de dades mestres està instal·lada. Mòduls actius: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Exporta el model',
+            'import' => 'Importa el model',
+        ],
+        'export' => [
+            'button' => 'Exporta el model',
+        ],
+        'import' => [
+            'button'       => 'Importa el model',
+            'title'        => 'Importa un paquet de model',
+            'file'         => 'Paquet de model (JSON)',
+            'file-info'    => 'Un paquet de model JSON exportat des d\'una instal·lació de dades mestres, de fins a :size KB. Les definicions s\'associen per codi; les que el paquet omet es conserven.',
+            'publish'      => 'Publica després d\'importar',
+            'publish-info' => 'Publica els esquemes de tipus d\'entitat i les llistes de codis modificats. Altrament, queden com a esborranys per revisar.',
+            'save-btn'     => 'Importa',
+            'success'      => 'Model importat: :created creats, :updated actualitzats, :published publicats.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'El fitxer no és un paquet de model JSON vàlid.',
+            'unsupported-version' => 'La versió del format del paquet ":version" no és compatible. Aquesta instal·lació llegeix la versió :supported.',
+            'unknown-reference'   => 'El paquet fa referència a ":value", que no és ni al paquet ni en aquesta instal·lació.',
+            'duplicate'           => '":value" apareix més d\'una vegada.',
+            'effective-range'     => 'El codi :code ha d\'acabar després de començar.',
+            'code-pattern'        => 'El patró de codi de :code ha de contenir un testimoni {seq}.',
+            'code-list-required'  => 'El camp :code necessita una llista de codis.',
+            'reference-required'  => 'El camp de referència :code necessita un tipus d\'entitat al qual fer referència.',
+            'type-locked'         => 'El tipus del camp existent :code no es pot canviar.',
+            'reference-locked'    => 'El camp de referència :code el fan servir registres, per la qual cosa la seva destinació i cardinalitat no es poden canviar.',
+            'relation-locked'     => 'El tipus de relació :code està en ús, per la qual cosa els seus tipus d\'entitat i cardinalitat no es poden canviar.',
+            'system-relation'     => 'El tipus de relació :code pertany a un camp de referència i no es pot importar.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Cap tipus d\'entitat té els codis: :codes.',
+            'path-invalid'  => 'La ruta :path no és un fitxer .json llegible dins del límit de mida.',
+            'exported'      => 'S\'han exportat :types tipus d\'entitat i :lists llistes de codis a :path.',
+            'imported'      => 'S\'ha importat :path: :created creats, :updated actualitzats, :published publicats.',
+        ],
+    ],
 ];

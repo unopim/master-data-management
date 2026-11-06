@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'A instalar os dados de demonstração de fabrico.',
         'done'      => 'A gestão de dados mestres está instalada. Módulos ativos: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Exportar modelo',
+            'import' => 'Importar modelo',
+        ],
+        'export' => [
+            'button' => 'Exportar modelo',
+        ],
+        'import' => [
+            'button'       => 'Importar modelo',
+            'title'        => 'Importar um pacote de modelo',
+            'file'         => 'Pacote de modelo (JSON)',
+            'file-info'    => 'Um pacote de modelo JSON exportado de uma instalação de dados mestre, até :size KB. As definições são associadas pelo código; as que o pacote não inclui são mantidas.',
+            'publish'      => 'Publicar após a importação',
+            'publish-info' => 'Publica os esquemas dos tipos de entidade e as listas de códigos alterados. Caso contrário, ficam como rascunhos para revisão.',
+            'save-btn'     => 'Importar',
+            'success'      => 'Modelo importado: :created criados, :updated atualizados, :published publicados.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'O ficheiro não é um pacote de modelo JSON válido.',
+            'unsupported-version' => 'A versão do formato do pacote ":version" não é suportada. Esta instalação lê a versão :supported.',
+            'unknown-reference'   => 'O pacote refere ":value", que não existe nem no pacote nem nesta instalação.',
+            'duplicate'           => '":value" aparece mais do que uma vez.',
+            'effective-range'     => 'O código :code tem de terminar depois de começar.',
+            'code-pattern'        => 'O padrão de código de :code tem de conter um token {seq}.',
+            'code-list-required'  => 'O campo :code necessita de uma lista de códigos.',
+            'reference-required'  => 'O campo de referência :code necessita de um tipo de entidade a que se referir.',
+            'type-locked'         => 'O tipo do campo existente :code não pode ser alterado.',
+            'reference-locked'    => 'O campo de referência :code é utilizado por registos, pelo que o seu destino e a cardinalidade não podem ser alterados.',
+            'relation-locked'     => 'O tipo de relação :code está em utilização, pelo que os seus tipos de entidade e a cardinalidade não podem ser alterados.',
+            'system-relation'     => 'O tipo de relação :code pertence a um campo de referência e não pode ser importado.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Nenhum tipo de entidade tem os códigos: :codes.',
+            'path-invalid'  => 'O caminho :path não é um ficheiro .json legível dentro do limite de tamanho.',
+            'exported'      => 'Exportados :types tipo(s) de entidade e :lists lista(s) de códigos para :path.',
+            'imported'      => 'Importado :path: :created criados, :updated atualizados, :published publicados.',
+        ],
+    ],
 ];

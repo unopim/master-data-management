@@ -122,6 +122,10 @@ return [
         ],
     ],
 
+    'model_transfer' => [
+        'max_file_kb' => (int) env('MASTERDATA_MODEL_MAX_FILE_KB', 5120),
+    ],
+
     'field_types' => [
         'text'        => TextType::class,
         'textarea'    => TextareaType::class,

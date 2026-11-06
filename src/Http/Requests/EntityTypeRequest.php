@@ -155,13 +155,28 @@ class EntityTypeRequest extends FormRequest
             'status'                                => ['sometimes', Rule::enum(EntityTypeStatus::class)],
             'sort_order'                            => ['sometimes', 'required', 'integer', 'min:0', 'max:9999'],
             'settings'                              => ['sometimes', 'nullable', 'array'],
-            'settings.sla_hours'                    => ['nullable', 'array'],
-            'settings.sla_hours.*'                  => ['nullable', 'integer', 'min:1', 'max:87600'],
-            'settings.completeness_scope'           => ['nullable', Rule::in([CompletenessCalculator::SCOPE_ALL, CompletenessCalculator::SCOPE_REQUIRED])],
             'settings.required_source_system_ids'   => ['nullable', 'array'],
             'settings.required_source_system_ids.*' => ['integer', Rule::exists(SourceSystemProxy::modelClass(), 'id')],
-            'settings.auto_match_threshold'         => ['nullable', 'numeric', 'between:'.MatchInbox::MIN_THRESHOLD.','.MatchInbox::MAX_THRESHOLD],
-            'settings.match_on_write'               => ['sometimes', 'boolean'],
+            ...array_combine(
+                array_map(fn (string $key): string => 'settings.'.$key, array_keys(self::settingsRules())),
+                self::settingsRules(),
+            ),
+        ];
+    }
+
+    /**
+     * The rules of the entity type settings that hold no ids, keyed by setting; the model bundle import shares them.
+     *
+     * @return array<string, list<mixed>>
+     */
+    public static function settingsRules(): array
+    {
+        return [
+            'sla_hours'            => ['nullable', 'array'],
+            'sla_hours.*'          => ['nullable', 'integer', 'min:1', 'max:87600'],
+            'completeness_scope'   => ['nullable', Rule::in([CompletenessCalculator::SCOPE_ALL, CompletenessCalculator::SCOPE_REQUIRED])],
+            'auto_match_threshold' => ['nullable', 'numeric', 'between:'.MatchInbox::MIN_THRESHOLD.','.MatchInbox::MAX_THRESHOLD],
+            'match_on_write'       => ['sometimes', 'boolean'],
         ];
     }
 

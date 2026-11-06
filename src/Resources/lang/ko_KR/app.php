@@ -1690,4 +1690,45 @@ return [
         'demo'      => '제조 데모 데이터를 설치하는 중입니다.',
         'done'      => '마스터 데이터 관리가 설치되었습니다. 활성 모듈: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => '모델 내보내기',
+            'import' => '모델 가져오기',
+        ],
+        'export' => [
+            'button' => '모델 내보내기',
+        ],
+        'import' => [
+            'button'       => '모델 가져오기',
+            'title'        => '모델 번들 가져오기',
+            'file'         => '모델 번들(JSON)',
+            'file-info'    => '마스터 데이터 설치본에서 내보낸 JSON 모델 번들(최대 :size KB). 정의는 코드로 매칭되며, 번들에 없는 항목은 유지됩니다.',
+            'publish'      => '가져온 후 게시',
+            'publish-info' => '변경된 엔티티 유형 스키마와 코드 목록을 게시합니다. 게시하지 않으면 검토할 초안으로 남습니다.',
+            'save-btn'     => '가져오기',
+            'success'      => '모델을 가져왔습니다: 생성 :created건, 업데이트 :updated건, 게시 :published건.',
+        ],
+        'errors' => [
+            'invalid-json'        => '유효한 JSON 모델 번들 파일이 아닙니다.',
+            'unsupported-version' => '번들 형식 버전 ":version"은(는) 지원되지 않습니다. 이 설치본은 버전 :supported을(를) 읽습니다.',
+            'unknown-reference'   => '번들이 ":value"을(를) 참조하지만 번들과 이 설치본 어디에도 없습니다.',
+            'duplicate'           => '":value"이(가) 두 번 이상 나타납니다.',
+            'effective-range'     => '코드 :code은(는) 시작 이후에 종료되어야 합니다.',
+            'code-pattern'        => ':code의 코드 패턴에는 {seq} 토큰이 포함되어야 합니다.',
+            'code-list-required'  => '필드 :code에는 코드 목록이 필요합니다.',
+            'reference-required'  => '참조 필드 :code에는 참조할 엔티티 유형이 필요합니다.',
+            'type-locked'         => '기존 필드 :code의 유형은 변경할 수 없습니다.',
+            'reference-locked'    => '참조 필드 :code은(는) 레코드에서 사용 중이므로 대상과 카디널리티를 변경할 수 없습니다.',
+            'relation-locked'     => '관계 유형 :code은(는) 사용 중이므로 엔티티 유형과 카디널리티를 변경할 수 없습니다.',
+            'system-relation'     => '관계 유형 :code은(는) 참조 필드에 속하므로 가져올 수 없습니다.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => '코드가 :codes인 엔티티 유형이 없습니다.',
+            'path-invalid'  => '경로 :path은(는) 크기 제한 내에서 읽을 수 있는 .json 파일이 아닙니다.',
+            'exported'      => '엔티티 유형 :types개와 코드 목록 :lists개를 :path(으)로 내보냈습니다.',
+            'imported'      => ':path을(를) 가져왔습니다: 생성 :created건, 업데이트 :updated건, 게시 :published건.',
+        ],
+    ],
 ];

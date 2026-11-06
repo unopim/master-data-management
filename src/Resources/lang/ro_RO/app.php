@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Se instalează datele demo pentru producție.',
         'done'      => 'Gestionarea datelor master este instalată. Module active: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Exportă modelul',
+            'import' => 'Importă modelul',
+        ],
+        'export' => [
+            'button' => 'Exportă modelul',
+        ],
+        'import' => [
+            'button'       => 'Importă modelul',
+            'title'        => 'Importă un pachet de model',
+            'file'         => 'Pachet de model (JSON)',
+            'file-info'    => 'Un pachet de model JSON exportat dintr-o instalare de date master, de până la :size KB. Definițiile sunt asociate după cod; cele omise din pachet sunt păstrate.',
+            'publish'      => 'Publică după import',
+            'publish-info' => 'Publică schemele tipurilor de entități și listele de coduri modificate. Altfel rămân ciorne de revizuit.',
+            'save-btn'     => 'Importă',
+            'success'      => 'Model importat: :created create, :updated actualizate, :published publicate.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Fișierul nu este un pachet de model JSON valid.',
+            'unsupported-version' => 'Versiunea formatului pachetului „:version” nu este acceptată. Această instalare citește versiunea :supported.',
+            'unknown-reference'   => 'Pachetul face referire la „:value”, care nu se află nici în pachet, nici în această instalare.',
+            'duplicate'           => '„:value” apare de mai multe ori.',
+            'effective-range'     => 'Codul :code trebuie să se termine după ce începe.',
+            'code-pattern'        => 'Modelul de cod al :code trebuie să conțină un token {seq}.',
+            'code-list-required'  => 'Câmpul :code necesită o listă de coduri.',
+            'reference-required'  => 'Câmpul de referință :code necesită un tip de entitate la care să facă referire.',
+            'type-locked'         => 'Tipul câmpului existent :code nu poate fi schimbat.',
+            'reference-locked'    => 'Câmpul de referință :code este folosit de înregistrări, deci ținta și cardinalitatea lui nu pot fi schimbate.',
+            'relation-locked'     => 'Tipul de relație :code este în uz, deci tipurile de entități și cardinalitatea lui nu pot fi schimbate.',
+            'system-relation'     => 'Tipul de relație :code aparține unui câmp de referință și nu poate fi importat.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Niciun tip de entitate nu are codurile: :codes.',
+            'path-invalid'  => 'Calea :path nu este un fișier .json lizibil în limita de dimensiune.',
+            'exported'      => 'Au fost exportate :types tipuri de entități și :lists liste de coduri în :path.',
+            'imported'      => 'Importat :path: :created create, :updated actualizate, :published publicate.',
+        ],
+    ],
 ];

@@ -1690,4 +1690,45 @@ return [
         'demo'      => 'Installerer demodata for produksjon.',
         'done'      => 'Stamdatahåndtering er installert. Aktive moduler: :modules.',
     ],
+
+    'model-transfer' => [
+        'acl' => [
+            'export' => 'Eksporter modell',
+            'import' => 'Importer modell',
+        ],
+        'export' => [
+            'button' => 'Eksporter modell',
+        ],
+        'import' => [
+            'button'       => 'Importer modell',
+            'title'        => 'Importer en modellpakke',
+            'file'         => 'Modellpakke (JSON)',
+            'file-info'    => 'En JSON-modellpakke eksportert fra en stamdatainstallasjon, opptil :size KB. Definisjoner matches på kode; de som pakken utelater, beholdes.',
+            'publish'      => 'Publiser etter import',
+            'publish-info' => 'Publiser de endrede skjemaene for enhetstyper og kodelister. Ellers forblir de utkast til gjennomgang.',
+            'save-btn'     => 'Importer',
+            'success'      => 'Modell importert: :created opprettet, :updated oppdatert, :published publisert.',
+        ],
+        'errors' => [
+            'invalid-json'        => 'Filen er ikke en gyldig JSON-modellpakke.',
+            'unsupported-version' => 'Pakkens formatversjon ":version" støttes ikke. Denne installasjonen leser versjon :supported.',
+            'unknown-reference'   => 'Pakken refererer til ":value", som verken finnes i pakken eller i denne installasjonen.',
+            'duplicate'           => '":value" forekommer mer enn én gang.',
+            'effective-range'     => 'Koden :code må slutte etter at den starter.',
+            'code-pattern'        => 'Kodemønsteret til :code må inneholde et {seq}-token.',
+            'code-list-required'  => 'Feltet :code trenger en kodeliste.',
+            'reference-required'  => 'Referansefeltet :code trenger en enhetstype å henvise til.',
+            'type-locked'         => 'Typen til det eksisterende feltet :code kan ikke endres.',
+            'reference-locked'    => 'Referansefeltet :code brukes av poster, så målet og kardinaliteten kan ikke endres.',
+            'relation-locked'     => 'Relasjonstypen :code er i bruk, så enhetstypene og kardinaliteten kan ikke endres.',
+            'system-relation'     => 'Relasjonstypen :code tilhører et referansefelt og kan ikke importeres.',
+            'at-path'             => ':path: :message',
+        ],
+        'console' => [
+            'unknown-types' => 'Ingen enhetstype har kodene: :codes.',
+            'path-invalid'  => 'Stien :path er ikke en lesbar .json-fil innenfor størrelsesgrensen.',
+            'exported'      => 'Eksporterte :types enhetstype(r) og :lists kodeliste(r) til :path.',
+            'imported'      => 'Importerte :path: :created opprettet, :updated oppdatert, :published publisert.',
+        ],
+    ],
 ];
