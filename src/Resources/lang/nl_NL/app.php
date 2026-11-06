@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel-werkmap (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Het entiteitstype :code dat voor deze export is gekozen, bestaat niet meer.',

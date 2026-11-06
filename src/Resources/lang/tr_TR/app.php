@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel çalışma kitabı (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Bu dışa aktarma için seçilen :code varlık türü artık mevcut değil.',

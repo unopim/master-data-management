@@ -13,6 +13,15 @@ class RecordCsvFlattener
 {
     public const string LIST_SEPARATOR = '|';
 
+    public const string VALUE_PREFIX = 'value_';
+
+    public const string XREF_PREFIX = 'xref_';
+
+    /**
+     * The columns the export writes for information only, which the record importer reads past.
+     */
+    public const array READ_ONLY_COLUMNS = ['uuid', 'entity_type', 'path_codes', 'completeness', 'updated_at'];
+
     /**
      * @var list<array{column: string, field: string, locale: ?string}>
      */
@@ -35,14 +44,8 @@ class RecordCsvFlattener
         $this->valueColumns = [];
 
         foreach ($fields as $field) {
-            if (! $field->value_per_locale) {
-                $this->valueColumns[] = ['column' => 'value_'.$field->code, 'field' => $field->code, 'locale' => null];
-
-                continue;
-            }
-
-            foreach ($locales as $locale) {
-                $this->valueColumns[] = ['column' => 'value_'.$field->code.'_'.$locale, 'field' => $field->code, 'locale' => $locale];
+            foreach ($field->value_per_locale ? $locales : [null] as $locale) {
+                $this->valueColumns[] = ['column' => self::valueColumn($field->code, $locale), 'field' => $field->code, 'locale' => $locale];
             }
         }
 
@@ -63,7 +66,7 @@ class RecordCsvFlattener
         return array_merge(
             ['uuid', 'code', 'label', 'status', 'entity_type', 'parent_code', 'path_codes'],
             array_column($this->valueColumns, 'column'),
-            array_map(fn (string $code): string => 'xref_'.$code, $this->systemCodes),
+            array_map(fn (string $code): string => self::XREF_PREFIX.$code, $this->systemCodes),
             ['completeness', 'updated_at'],
         );
     }
@@ -101,13 +104,29 @@ class RecordCsvFlattener
         $xrefs = (array) ($row['xrefs'] ?? []);
 
         foreach ($this->systemCodes as $code) {
-            $flat['xref_'.$code] = implode(self::LIST_SEPARATOR, (array) ($xrefs[$code] ?? []));
+            $flat[self::XREF_PREFIX.$code] = implode(self::LIST_SEPARATOR, (array) ($xrefs[$code] ?? []));
         }
 
         $flat['completeness'] = $row['completeness'] ?? null;
         $flat['updated_at'] = $row['updated_at'] ?? null;
 
         return $flat;
+    }
+
+    /**
+     * The column of a field's value, or of one locale of a per-locale field.
+     */
+    public static function valueColumn(string $fieldCode, ?string $locale = null): string
+    {
+        return self::VALUE_PREFIX.$fieldCode.($locale === null ? '' : '_'.$locale);
+    }
+
+    /**
+     * Whether the export writes the column for information only.
+     */
+    public static function isReadOnlyColumn(string $column): bool
+    {
+        return in_array($column, self::READ_ONLY_COLUMNS, true) || str_starts_with($column, self::XREF_PREFIX);
     }
 
     /**

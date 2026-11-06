@@ -95,15 +95,28 @@ abstract class MasterDataImporter extends AbstractImporter
 
         $this->initialize();
 
-        $this->validColumnNames = $this->columnNames();
+        $fileColumns = array_map(strval(...), $this->getSource()->getColumnNames());
 
-        foreach ($this->headerErrors(array_map(strval(...), $this->getSource()->getColumnNames())) as $column => $message) {
+        $this->validColumnNames = [...$this->columnNames(), ...$this->ignoredColumns($fileColumns)];
+
+        foreach ($this->headerErrors($fileColumns) as $column => $message) {
             $this->errorHelper->addError(self::ERROR_HEADER, null, null, $message);
 
             $this->validColumnNames[] = $column;
         }
 
         parent::validateData();
+    }
+
+    /**
+     * Header columns the importer reads past instead of refusing them as unknown.
+     *
+     * @param  list<string>  $columnNames
+     * @return list<string>
+     */
+    protected function ignoredColumns(array $columnNames): array
+    {
+        return [];
     }
 
     /**

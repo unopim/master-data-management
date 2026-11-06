@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel वर्कबुक (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'इस एक्सपोर्ट के लिए चुना गया इकाई प्रकार :code अब मौजूद नहीं है।',

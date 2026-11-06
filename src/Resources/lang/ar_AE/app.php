@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'مصنف Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'نوع الكيان :code المختار لهذا التصدير لم يعد موجودًا.',

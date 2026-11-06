@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel workbook (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'The entity type :code selected for this export no longer exists.',

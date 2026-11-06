@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel ажлын ном (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Энэ экспортод сонгосон нэгжийн төрөл :code байхаа больсон.',

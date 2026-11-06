@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Llibre d\'Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'El tipus d\'entitat :code triat per a aquesta exportació ja no existeix.',

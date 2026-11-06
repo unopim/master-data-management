@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Registru Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Tipul de entitate :code ales pentru acest export nu mai există.',

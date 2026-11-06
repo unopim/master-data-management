@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel-työkirja (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Tälle viennille valittua entiteettityyppiä :code ei ole enää olemassa.',

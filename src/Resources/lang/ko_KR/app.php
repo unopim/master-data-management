@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel 통합 문서(XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => '이 내보내기에 선택된 엔티티 유형 :code이(가) 더 이상 존재하지 않습니다.',

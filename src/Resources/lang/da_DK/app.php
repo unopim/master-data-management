@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel-projektmappe (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Enhedstypen :code, der er valgt til denne eksport, findes ikke længere.',

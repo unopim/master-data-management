@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel ワークブック(XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'このエクスポートに選択されたエンティティタイプ :code は存在しません。',

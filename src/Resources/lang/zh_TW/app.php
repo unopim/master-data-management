@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel 活頁簿(XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => '為此匯出選擇的實體類型 :code 已不存在。',

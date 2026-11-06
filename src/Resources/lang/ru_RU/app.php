@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Книга Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Тип сущности :code, выбранный для этого экспорта, больше не существует.',

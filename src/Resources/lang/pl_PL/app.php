@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Skoroszyt Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Typ encji :code wybrany dla tego eksportu już nie istnieje.',

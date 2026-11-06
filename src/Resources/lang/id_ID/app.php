@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Buku kerja Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Tipe entitas :code yang dipilih untuk ekspor ini sudah tidak ada.',

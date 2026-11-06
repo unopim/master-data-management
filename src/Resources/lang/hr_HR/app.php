@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel radna knjiga (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Tip entiteta :code odabran za ovaj izvoz više ne postoji.',

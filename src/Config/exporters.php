@@ -41,6 +41,9 @@ return [
                         ], [
                             'value' => ExportFormat::Csv->value,
                             'label' => 'masterdata::app.exports.records.formats.csv',
+                        ], [
+                            'value' => ExportFormat::Xlsx->value,
+                            'label' => 'masterdata::app.exports.records.formats.xlsx',
                         ],
                     ],
                 ], [

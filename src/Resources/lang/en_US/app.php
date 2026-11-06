@@ -1440,6 +1440,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Excel workbook (XLSX)',
             ],
 
             'errors' => [

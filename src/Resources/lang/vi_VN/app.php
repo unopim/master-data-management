@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Sổ làm việc Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Loại thực thể :code đã chọn cho lần xuất này không còn tồn tại.',

@@ -28,7 +28,7 @@ use Webkul\User\Models\Admin;
 use Webkul\User\Repositories\AdminRepository;
 
 /**
- * The `masterdata_records` exporter: the records of one entity type as JSON Lines or CSV, written to the job's
+ * The `masterdata_records` exporter: the records of one entity type as JSON Lines, CSV or XLSX, written to the job's
  * download file and published to the `masterdata.export_disk` destination under
  * `{export_path}/{entity_type}/{Y/m/d}/`.
  *
@@ -136,7 +136,7 @@ class RecordExporter extends AbstractExporter implements WritesExportFile
 
         $fileName = $this->getFileName();
 
-        $path = $this->format() === ExportFormat::Csv
+        $path = $this->format()->isFlat()
             ? $this->writeCsv($exportBuffer, $directory, $fileName)
             : $this->writeJsonl($exportBuffer, $directory.'/'.$fileName);
 
@@ -249,7 +249,7 @@ class RecordExporter extends AbstractExporter implements WritesExportFile
     }
 
     /**
-     * Write the rows as CSV with fixed columns through the core flat writer, which guards against formula injection.
+     * Write the rows as CSV or XLSX with fixed columns through the core flat writer, which guards against formula injection.
      *
      * @param  iterable<int, mixed>  $exportBuffer
      */

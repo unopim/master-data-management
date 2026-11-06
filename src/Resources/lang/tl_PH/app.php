@@ -1313,6 +1313,7 @@ return [
             'formats' => [
                 'jsonl' => 'JSON Lines (JSONL)',
                 'csv'   => 'CSV',
+                'xlsx'  => 'Workbook ng Excel (XLSX)',
             ],
             'errors' => [
                 'entity-type-missing' => 'Wala na ang uri ng entidad na :code na pinili para sa export na ito.',
