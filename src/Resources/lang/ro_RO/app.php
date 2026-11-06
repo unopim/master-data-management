@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Ierarhia nu a fost găsită.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Graful relațiilor',
+        'info'        => 'Înregistrări legate de aceasta prin relații, ierarhie și sisteme sursă. Selectați o înregistrare pentru a o deschide.',
+        'hops'        => 'Distanță',
+        'hop-count'   => ':count pas|:count pași',
+        'loading'     => 'Se încarcă…',
+        'empty'       => 'Această înregistrare nu are înregistrări legate pe care le puteți vedea.',
+        'truncated'   => 'Unele înregistrări legate nu sunt afișate deoarece graful a atins limita de dimensiune.',
+        'description' => 'Graf cu :nodes înregistrări și ID-uri sursă unite prin :edges legături.',
+
+        'edges' => [
+            'parent' => 'Părinte pentru',
+            'source' => 'Cunoscut în sistemul sursă',
+        ],
+
+        'legend' => [
+            'relation' => 'Relație',
+            'parent'   => 'Ierarhie',
+            'source'   => 'ID sursă',
+        ],
+    ],
 ];

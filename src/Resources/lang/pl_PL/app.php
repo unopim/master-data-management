@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Nie znaleziono hierarchii.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Graf powiązań',
+        'info'        => 'Rekordy powiązane z tym rekordem przez relacje, hierarchię i systemy źródłowe. Wybierz rekord, aby go otworzyć.',
+        'hops'        => 'Odległość',
+        'hop-count'   => ':count krok|:count kroki|:count kroków',
+        'loading'     => 'Ładowanie…',
+        'empty'       => 'Ten rekord nie ma powiązanych rekordów, które możesz zobaczyć.',
+        'truncated'   => 'Niektóre powiązane rekordy nie są wyświetlane, ponieważ graf osiągnął limit rozmiaru.',
+        'description' => 'Graf :nodes rekordów i identyfikatorów źródłowych połączonych :edges powiązaniami.',
+
+        'edges' => [
+            'parent' => 'Nadrzędny dla',
+            'source' => 'Znany w systemie źródłowym',
+        ],
+
+        'legend' => [
+            'relation' => 'Relacja',
+            'parent'   => 'Hierarchia',
+            'source'   => 'Identyfikator źródłowy',
+        ],
+    ],
 ];

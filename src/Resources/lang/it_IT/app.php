@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Gerarchia non trovata.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Grafo',
+        'title'       => 'Grafo delle relazioni',
+        'info'        => 'Record collegati a questo tramite relazioni, gerarchia e sistemi di origine. Seleziona un record per aprirlo.',
+        'hops'        => 'Distanza',
+        'hop-count'   => ':count passo|:count passi',
+        'loading'     => 'Caricamento…',
+        'empty'       => 'Questo record non ha record collegati che puoi vedere.',
+        'truncated'   => 'Alcuni record collegati non sono mostrati perché il grafo ha raggiunto il limite di dimensione.',
+        'description' => 'Grafo di :nodes record e ID di origine uniti da :edges collegamenti.',
+
+        'edges' => [
+            'parent' => 'Padre di',
+            'source' => 'Noto nel sistema di origine',
+        ],
+
+        'legend' => [
+            'relation' => 'Relazione',
+            'parent'   => 'Gerarchia',
+            'source'   => 'ID di origine',
+        ],
+    ],
 ];

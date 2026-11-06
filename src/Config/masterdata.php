@@ -40,7 +40,8 @@ use Webkul\MasterDataManagement\Survivorship\Strategies\SourcePriorityStrategy;
  * disk, such as `s3`, works the same way.
  *
  * `hierarchies.max_subtree` caps the records below a node that one move in an alternate hierarchy rewrites in the
- * request; larger subtrees are refused.
+ * request; larger subtrees are refused. `graph` bounds the record page's relationship graph: the most nodes one
+ * response holds and the most hops it reaches out.
  *
  * `scheduled_imports` feeds the `masterdata:import {job_code}` command: an integration tool drops files into
  * `{path}/{job_code}/` on `disk`, the command imports the oldest one as `user` (an admin e-mail) and moves it to
@@ -106,6 +107,11 @@ return [
 
     'hierarchies' => [
         'max_subtree' => 10000,
+    ],
+
+    'graph' => [
+        'max_nodes' => 100,
+        'max_hops'  => 2,
     ],
 
     'survivorship' => [

@@ -1934,4 +1934,27 @@ return [
             'not-found' => 'Hierarchy not found.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graph',
+        'title'       => 'Relationship Graph',
+        'info'        => 'Records linked to this one through relations, the hierarchy and source systems. Select a record to open it.',
+        'hops'        => 'Distance',
+        'hop-count'   => ':count hop|:count hops',
+        'loading'     => 'Loading…',
+        'empty'       => 'This record has no linked records you can see.',
+        'truncated'   => 'Some linked records are not shown because the graph reached its size limit.',
+        'description' => 'Graph of :nodes records and source ids joined by :edges links.',
+
+        'edges' => [
+            'parent' => 'Parent of',
+            'source' => 'Known in source system',
+        ],
+
+        'legend' => [
+            'relation' => 'Relation',
+            'parent'   => 'Hierarchy',
+            'source'   => 'Source id',
+        ],
+    ],
 ];

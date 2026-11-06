@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hierarkiaa ei löytynyt.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Kaavio',
+        'title'       => 'Suhdekaavio',
+        'info'        => 'Tähän tietueeseen suhteiden, hierarkian ja lähdejärjestelmien kautta linkitetyt tietueet. Avaa tietue valitsemalla se.',
+        'hops'        => 'Etäisyys',
+        'hop-count'   => ':count askel|:count askelta',
+        'loading'     => 'Ladataan…',
+        'empty'       => 'Tällä tietueella ei ole linkitettyjä tietueita, jotka voit nähdä.',
+        'truncated'   => 'Osaa linkitetyistä tietueista ei näytetä, koska kaavio saavutti kokorajansa.',
+        'description' => 'Kaavio, jossa on :nodes tietuetta ja lähdetunnistetta :edges linkillä yhdistettynä.',
+
+        'edges' => [
+            'parent' => 'Ylätaso kohteelle',
+            'source' => 'Tunnettu lähdejärjestelmässä',
+        ],
+
+        'legend' => [
+            'relation' => 'Suhde',
+            'parent'   => 'Hierarkia',
+            'source'   => 'Lähdetunniste',
+        ],
+    ],
 ];

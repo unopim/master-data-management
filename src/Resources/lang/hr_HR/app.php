@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hijerarhija nije pronađena.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Graf odnosa',
+        'info'        => 'Zapisi povezani s ovim putem odnosa, hijerarhije i izvornih sustava. Odaberite zapis da biste ga otvorili.',
+        'hops'        => 'Udaljenost',
+        'hop-count'   => ':count korak|:count koraka',
+        'loading'     => 'Učitavanje…',
+        'empty'       => 'Ovaj zapis nema povezanih zapisa koje možete vidjeti.',
+        'truncated'   => 'Neki povezani zapisi nisu prikazani jer je graf dosegao ograničenje veličine.',
+        'description' => 'Graf od :nodes zapisa i izvornih ID-ova povezanih s :edges veza.',
+
+        'edges' => [
+            'parent' => 'Nadređeni za',
+            'source' => 'Poznat u izvornom sustavu',
+        ],
+
+        'legend' => [
+            'relation' => 'Odnos',
+            'parent'   => 'Hijerarhija',
+            'source'   => 'Izvorni ID',
+        ],
+    ],
 ];

@@ -68,6 +68,29 @@ class RelationRepository extends Repository
     }
 
     /**
+     * The relations starting from or pointing at any of the records, as bare rows in creation order, up to the limit.
+     *
+     * Unscoped: the record graph keeps only the ends the admin may see.
+     *
+     * @param  list<int>  $recordIds
+     * @return list<object{from_record_id: int, to_record_id: int, relation_type_id: int}>
+     */
+    public function edgesTouching(array $recordIds, int $limit): array
+    {
+        if ($recordIds === []) {
+            return [];
+        }
+
+        return $this->model->newQuery()
+            ->where(fn (Builder $query) => $query->whereIn('from_record_id', $recordIds)->orWhereIn('to_record_id', $recordIds))
+            ->orderBy('id')
+            ->limit($limit)
+            ->toBase()
+            ->get(['from_record_id', 'to_record_id', 'relation_type_id'])
+            ->all();
+    }
+
+    /**
      * The reference field values of the records: record id, then field code, then the target uuids in link order.
      *
      * A target merged since it was linked reads as its surviving record (one hop). One query for all the records.

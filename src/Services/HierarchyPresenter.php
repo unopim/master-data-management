@@ -117,7 +117,7 @@ class HierarchyPresenter
      * The picker option of a placement's parent: the root, the parent itself, or a neutral label for a parent the
      * admin may not see, which keeps its uuid so saving unchanged keeps it.
      *
-     * @param  array<int, array{id: int, uuid: string, code: string, label: string, status: string, entity_type_id: int}>  $visible
+     * @param  array<int, array{id: int, uuid: string, code: string, label: string, status: string, entity_type_id: int, parent_id: ?int}>  $visible
      * @return array{id: string, label: string}
      */
     protected function parentOption(?int $parentId, array $visible, string $type): array

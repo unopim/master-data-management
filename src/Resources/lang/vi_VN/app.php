@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Không tìm thấy phân cấp.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Biểu đồ',
+        'title'       => 'Biểu đồ quan hệ',
+        'info'        => 'Các bản ghi liên kết với bản ghi này qua quan hệ, phân cấp và hệ thống nguồn. Chọn một bản ghi để mở.',
+        'hops'        => 'Khoảng cách',
+        'hop-count'   => ':count bước|:count bước',
+        'loading'     => 'Đang tải…',
+        'empty'       => 'Bản ghi này không có bản ghi liên kết nào bạn có thể xem.',
+        'truncated'   => 'Một số bản ghi liên kết không được hiển thị vì biểu đồ đã đạt giới hạn kích thước.',
+        'description' => 'Biểu đồ gồm :nodes bản ghi và mã nguồn nối bởi :edges liên kết.',
+
+        'edges' => [
+            'parent' => 'Cha của',
+            'source' => 'Được biết trong hệ thống nguồn',
+        ],
+
+        'legend' => [
+            'relation' => 'Quan hệ',
+            'parent'   => 'Phân cấp',
+            'source'   => 'Mã nguồn',
+        ],
+    ],
 ];

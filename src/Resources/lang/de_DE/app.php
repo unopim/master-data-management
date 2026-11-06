@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hierarchie nicht gefunden.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graph',
+        'title'       => 'Beziehungsgraph',
+        'info'        => 'Datensätze, die über Beziehungen, die Hierarchie und Quellsysteme mit diesem verknüpft sind. Wählen Sie einen Datensatz aus, um ihn zu öffnen.',
+        'hops'        => 'Entfernung',
+        'hop-count'   => ':count Schritt|:count Schritte',
+        'loading'     => 'Wird geladen…',
+        'empty'       => 'Dieser Datensatz hat keine verknüpften Datensätze, die Sie sehen können.',
+        'truncated'   => 'Einige verknüpfte Datensätze werden nicht angezeigt, da der Graph seine Größenbegrenzung erreicht hat.',
+        'description' => 'Graph aus :nodes Datensätzen und Quell-IDs, verbunden durch :edges Verknüpfungen.',
+
+        'edges' => [
+            'parent' => 'Übergeordnet zu',
+            'source' => 'Im Quellsystem bekannt',
+        ],
+
+        'legend' => [
+            'relation' => 'Beziehung',
+            'parent'   => 'Hierarchie',
+            'source'   => 'Quell-ID',
+        ],
+    ],
 ];

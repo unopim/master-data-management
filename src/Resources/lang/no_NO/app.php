@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Fant ikke hierarkiet.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Relasjonsgraf',
+        'info'        => 'Poster som er knyttet til denne gjennom relasjoner, hierarkiet og kildesystemer. Velg en post for å åpne den.',
+        'hops'        => 'Avstand',
+        'hop-count'   => ':count steg|:count steg',
+        'loading'     => 'Laster…',
+        'empty'       => 'Denne posten har ingen tilknyttede poster du kan se.',
+        'truncated'   => 'Noen tilknyttede poster vises ikke fordi grafen nådde størrelsesgrensen.',
+        'description' => 'Graf med :nodes poster og kilde-ID-er koblet sammen av :edges lenker.',
+
+        'edges' => [
+            'parent' => 'Overordnet til',
+            'source' => 'Kjent i kildesystem',
+        ],
+
+        'legend' => [
+            'relation' => 'Relasjon',
+            'parent'   => 'Hierarki',
+            'source'   => 'Kilde-ID',
+        ],
+    ],
 ];

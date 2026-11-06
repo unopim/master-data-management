@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hiyerarşi bulunamadı.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Grafik',
+        'title'       => 'İlişki Grafiği',
+        'info'        => 'İlişkiler, hiyerarşi ve kaynak sistemler aracılığıyla bu kayda bağlı kayıtlar. Açmak için bir kayıt seçin.',
+        'hops'        => 'Uzaklık',
+        'hop-count'   => ':count adım|:count adım',
+        'loading'     => 'Yükleniyor…',
+        'empty'       => 'Bu kaydın görebileceğiniz bağlı kaydı yok.',
+        'truncated'   => 'Grafik boyut sınırına ulaştığı için bazı bağlı kayıtlar gösterilmiyor.',
+        'description' => ':edges bağlantıyla birleşen :nodes kayıt ve kaynak kimliğinden oluşan grafik.',
+
+        'edges' => [
+            'parent' => 'Üst kaydı',
+            'source' => 'Kaynak sistemde biliniyor',
+        ],
+
+        'legend' => [
+            'relation' => 'İlişki',
+            'parent'   => 'Hiyerarşi',
+            'source'   => 'Kaynak kimliği',
+        ],
+    ],
 ];

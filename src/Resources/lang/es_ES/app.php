@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'No se encontró la jerarquía.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Grafo',
+        'title'       => 'Grafo de relaciones',
+        'info'        => 'Registros vinculados a este mediante relaciones, la jerarquía y los sistemas de origen. Seleccione un registro para abrirlo.',
+        'hops'        => 'Distancia',
+        'hop-count'   => ':count salto|:count saltos',
+        'loading'     => 'Cargando…',
+        'empty'       => 'Este registro no tiene registros vinculados que pueda ver.',
+        'truncated'   => 'Algunos registros vinculados no se muestran porque el grafo alcanzó su límite de tamaño.',
+        'description' => 'Grafo de :nodes registros e identificadores de origen unidos por :edges enlaces.',
+
+        'edges' => [
+            'parent' => 'Padre de',
+            'source' => 'Conocido en el sistema de origen',
+        ],
+
+        'legend' => [
+            'relation' => 'Relación',
+            'parent'   => 'Jerarquía',
+            'source'   => 'Identificador de origen',
+        ],
+    ],
 ];

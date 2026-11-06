@@ -118,6 +118,26 @@ class RelationTypeRepository extends Repository
     }
 
     /**
+     * The labels of the given relation types in the current locale, else their codes, keyed by id, in one query.
+     *
+     * @param  list<int>  $ids
+     * @return array<int, string>
+     */
+    public function labelsByIds(array $ids): array
+    {
+        if ($ids === []) {
+            return [];
+        }
+
+        return $this->model->newQuery()
+            ->with('translations')
+            ->whereIn('id', $ids)
+            ->get()
+            ->mapWithKeys(fn (RelationTypeModel $type): array => [(int) $type->id => (string) ($type->label ?: $type->code)])
+            ->all();
+    }
+
+    /**
      * The code of the system relation type of a reference field.
      */
     protected function systemCode(Field $field): string

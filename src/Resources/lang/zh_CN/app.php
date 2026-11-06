@@ -1775,4 +1775,27 @@ return [
             'not-found' => '未找到层级。',
         ],
     ],
+
+    'graph' => [
+        'tab'         => '图谱',
+        'title'       => '关系图谱',
+        'info'        => '通过关系、层级和源系统与此记录关联的记录。选择一条记录即可打开。',
+        'hops'        => '距离',
+        'hop-count'   => ':count 跳|:count 跳',
+        'loading'     => '加载中…',
+        'empty'       => '此记录没有您可以查看的关联记录。',
+        'truncated'   => '图谱已达到大小上限，部分关联记录未显示。',
+        'description' => '由 :edges 条连接组成、包含 :nodes 条记录和源 ID 的图谱。',
+
+        'edges' => [
+            'parent' => '上级',
+            'source' => '在源系统中已知',
+        ],
+
+        'legend' => [
+            'relation' => '关系',
+            'parent'   => '层级',
+            'source'   => '源 ID',
+        ],
+    ],
 ];

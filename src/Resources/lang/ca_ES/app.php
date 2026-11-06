@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'No s\'ha trobat la jerarquia.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Gràfic',
+        'title'       => 'Gràfic de relacions',
+        'info'        => 'Registres vinculats a aquest a través de relacions, la jerarquia i els sistemes d\'origen. Seleccioneu un registre per obrir-lo.',
+        'hops'        => 'Distància',
+        'hop-count'   => ':count salt|:count salts',
+        'loading'     => 'S\'està carregant…',
+        'empty'       => 'Aquest registre no té registres vinculats que pugueu veure.',
+        'truncated'   => 'Alguns registres vinculats no es mostren perquè el gràfic ha arribat al límit de mida.',
+        'description' => 'Gràfic de :nodes registres i identificadors d\'origen units per :edges enllaços.',
+
+        'edges' => [
+            'parent' => 'Pare de',
+            'source' => 'Conegut al sistema d\'origen',
+        ],
+
+        'legend' => [
+            'relation' => 'Relació',
+            'parent'   => 'Jerarquia',
+            'source'   => 'Identificador d\'origen',
+        ],
+    ],
 ];

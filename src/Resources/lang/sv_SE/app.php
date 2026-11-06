@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hierarkin hittades inte.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graf',
+        'title'       => 'Relationsgraf',
+        'info'        => 'Poster som är kopplade till denna via relationer, hierarkin och källsystem. Välj en post för att öppna den.',
+        'hops'        => 'Avstånd',
+        'hop-count'   => ':count steg|:count steg',
+        'loading'     => 'Läser in…',
+        'empty'       => 'Den här posten har inga kopplade poster som du kan se.',
+        'truncated'   => 'Vissa kopplade poster visas inte eftersom grafen nådde sin storleksgräns.',
+        'description' => 'Graf med :nodes poster och käll-id:n förbundna av :edges länkar.',
+
+        'edges' => [
+            'parent' => 'Överordnad till',
+            'source' => 'Känd i källsystem',
+        ],
+
+        'legend' => [
+            'relation' => 'Relation',
+            'parent'   => 'Hierarki',
+            'source'   => 'Käll-id',
+        ],
+    ],
 ];

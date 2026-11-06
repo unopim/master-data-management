@@ -1775,4 +1775,27 @@ return [
             'not-found' => '找不到階層。',
         ],
     ],
+
+    'graph' => [
+        'tab'         => '圖譜',
+        'title'       => '關係圖譜',
+        'info'        => '透過關係、階層與來源系統與此記錄關聯的記錄。選擇一筆記錄即可開啟。',
+        'hops'        => '距離',
+        'hop-count'   => ':count 跳|:count 跳',
+        'loading'     => '載入中…',
+        'empty'       => '此記錄沒有您可以檢視的關聯記錄。',
+        'truncated'   => '圖譜已達大小上限，部分關聯記錄未顯示。',
+        'description' => '由 :edges 條連結組成、包含 :nodes 筆記錄與來源 ID 的圖譜。',
+
+        'edges' => [
+            'parent' => '上層',
+            'source' => '在來源系統中已知',
+        ],
+
+        'legend' => [
+            'relation' => '關係',
+            'parent'   => '階層',
+            'source'   => '來源 ID',
+        ],
+    ],
 ];

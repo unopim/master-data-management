@@ -163,6 +163,11 @@ return [
         'route' => 'admin.masterdata.records.edit',
         'sort'  => 1,
     ], [
+        'key'   => 'masterdata.records.view',
+        'name'  => 'masterdata::app.acl.records.view',
+        'route' => 'admin.masterdata.records.graph',
+        'sort'  => 1,
+    ], [
         'key'   => 'masterdata.records',
         'name'  => 'masterdata::app.acl.records.index',
         'route' => 'admin.masterdata.records.options',

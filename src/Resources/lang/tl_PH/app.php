@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hindi nahanap ang hierarkiya.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graph',
+        'title'       => 'Graph ng Ugnayan',
+        'info'        => 'Mga record na naka-link dito sa pamamagitan ng mga ugnayan, hierarchy at source system. Pumili ng record para buksan ito.',
+        'hops'        => 'Layo',
+        'hop-count'   => ':count hakbang|:count hakbang',
+        'loading'     => 'Naglo-load…',
+        'empty'       => 'Walang naka-link na record ang record na ito na makikita mo.',
+        'truncated'   => 'Hindi ipinapakita ang ilang naka-link na record dahil naabot ng graph ang limitasyon ng laki nito.',
+        'description' => 'Graph ng :nodes record at source id na pinagdugtong ng :edges link.',
+
+        'edges' => [
+            'parent' => 'Magulang ng',
+            'source' => 'Kilala sa source system',
+        ],
+
+        'legend' => [
+            'relation' => 'Ugnayan',
+            'parent'   => 'Hirarkiya',
+            'source'   => 'ID ng pinagmulan',
+        ],
+    ],
 ];

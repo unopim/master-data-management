@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hierarki tidak ditemukan.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Grafik',
+        'title'       => 'Grafik Relasi',
+        'info'        => 'Catatan yang terhubung dengan catatan ini melalui relasi, hierarki, dan sistem sumber. Pilih catatan untuk membukanya.',
+        'hops'        => 'Jarak',
+        'hop-count'   => ':count langkah|:count langkah',
+        'loading'     => 'Memuat…',
+        'empty'       => 'Catatan ini tidak memiliki catatan terhubung yang dapat Anda lihat.',
+        'truncated'   => 'Beberapa catatan terhubung tidak ditampilkan karena grafik mencapai batas ukurannya.',
+        'description' => 'Grafik :nodes catatan dan ID sumber yang dihubungkan oleh :edges tautan.',
+
+        'edges' => [
+            'parent' => 'Induk dari',
+            'source' => 'Dikenal di sistem sumber',
+        ],
+
+        'legend' => [
+            'relation' => 'Relasi',
+            'parent'   => 'Hierarki',
+            'source'   => 'ID sumber',
+        ],
+    ],
 ];

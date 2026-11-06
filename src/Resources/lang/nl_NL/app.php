@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hiërarchie niet gevonden.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Grafiek',
+        'title'       => 'Relatiegrafiek',
+        'info'        => 'Records die via relaties, de hiërarchie en bronsystemen aan dit record zijn gekoppeld. Selecteer een record om het te openen.',
+        'hops'        => 'Afstand',
+        'hop-count'   => ':count stap|:count stappen',
+        'loading'     => 'Laden…',
+        'empty'       => 'Dit record heeft geen gekoppelde records die u kunt zien.',
+        'truncated'   => 'Sommige gekoppelde records worden niet getoond omdat de grafiek zijn maximale grootte heeft bereikt.',
+        'description' => 'Grafiek van :nodes records en bron-ID\'s verbonden door :edges koppelingen.',
+
+        'edges' => [
+            'parent' => 'Bovenliggend aan',
+            'source' => 'Bekend in bronsysteem',
+        ],
+
+        'legend' => [
+            'relation' => 'Relatie',
+            'parent'   => 'Hiërarchie',
+            'source'   => 'Bron-ID',
+        ],
+    ],
 ];

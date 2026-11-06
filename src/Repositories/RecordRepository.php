@@ -368,11 +368,11 @@ class RecordRepository extends Repository
     }
 
     /**
-     * The uuid, code, label, status and entity type of the given record ids the admin may see, across entity types,
-     * keyed by id, in one query.
+     * The uuid, code, label, status, entity type and parent of the given record ids the admin may see, across entity
+     * types, keyed by id, in one query.
      *
      * @param  list<int>  $ids
-     * @return array<int, array{id: int, uuid: string, code: string, label: string, status: string, entity_type_id: int}>
+     * @return array<int, array{id: int, uuid: string, code: string, label: string, status: string, entity_type_id: int, parent_id: ?int}>
      */
     public function summaries(array $ids, ?Admin $admin = null): array
     {
@@ -383,7 +383,7 @@ class RecordRepository extends Repository
         return $this->crossTypeQuery($admin)
             ->whereKey($ids)
             ->toBase()
-            ->get(['id', 'uuid', 'code', 'label', 'status', 'entity_type_id'])
+            ->get(['id', 'uuid', 'code', 'label', 'status', 'entity_type_id', 'parent_id'])
             ->mapWithKeys(fn (object $row): array => [(int) $row->id => [
                 'id'             => (int) $row->id,
                 'uuid'           => (string) $row->uuid,
@@ -391,6 +391,7 @@ class RecordRepository extends Repository
                 'label'          => (string) $row->label,
                 'status'         => (string) $row->status,
                 'entity_type_id' => (int) $row->entity_type_id,
+                'parent_id'      => $row->parent_id === null ? null : (int) $row->parent_id,
             ]])
             ->all();
     }
@@ -782,6 +783,31 @@ class RecordRepository extends Repository
             ->limit($limit)
             ->pluck('id')
             ->map(intval(...))
+            ->all();
+    }
+
+    /**
+     * The direct children of the given records as [child id, parent id] pairs in id order, regardless of row scope,
+     * up to the limit.
+     *
+     * @internal For the record graph, which keeps only the children the admin may see.
+     *
+     * @param  list<int>  $parentIds
+     * @return list<array{0: int, 1: int}>
+     */
+    public function childLinks(array $parentIds, int $limit): array
+    {
+        if ($parentIds === []) {
+            return [];
+        }
+
+        return $this->model->newQuery()
+            ->whereIn('parent_id', $parentIds)
+            ->orderBy('id')
+            ->limit($limit)
+            ->toBase()
+            ->get(['id', 'parent_id'])
+            ->map(fn (object $row): array => [(int) $row->id, (int) $row->parent_id])
             ->all();
     }
 

@@ -1775,4 +1775,27 @@ return [
             'not-found' => 'Hiérarchie introuvable.',
         ],
     ],
+
+    'graph' => [
+        'tab'         => 'Graphe',
+        'title'       => 'Graphe des relations',
+        'info'        => 'Enregistrements liés à celui-ci par des relations, la hiérarchie et les systèmes sources. Sélectionnez un enregistrement pour l\'ouvrir.',
+        'hops'        => 'Distance',
+        'hop-count'   => ':count saut|:count sauts',
+        'loading'     => 'Chargement…',
+        'empty'       => 'Cet enregistrement n\'a aucun enregistrement lié que vous pouvez voir.',
+        'truncated'   => 'Certains enregistrements liés ne sont pas affichés car le graphe a atteint sa taille maximale.',
+        'description' => 'Graphe de :nodes enregistrements et identifiants source reliés par :edges liens.',
+
+        'edges' => [
+            'parent' => 'Parent de',
+            'source' => 'Connu dans le système source',
+        ],
+
+        'legend' => [
+            'relation' => 'Relation',
+            'parent'   => 'Hiérarchie',
+            'source'   => 'Identifiant source',
+        ],
+    ],
 ];

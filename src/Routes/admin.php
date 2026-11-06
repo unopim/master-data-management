@@ -18,6 +18,7 @@ use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchingController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\MatchRuleController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\QualityController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordController;
+use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordGraphController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordHierarchyController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordLifecycleController;
 use Webkul\MasterDataManagement\Http\Controllers\Admin\RecordMergeController;
@@ -131,6 +132,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
             Route::post('{entity_type}/mass-retire', 'massRetire')->name('admin.masterdata.records.mass_retire')->where('entity_type', '[A-Za-z0-9_\-]+');
             Route::post('record/{uuid}/erase', 'erase')->name('admin.masterdata.records.erase')->whereUuid('uuid');
         });
+
+        Route::get('records/record/{uuid}/graph', [RecordGraphController::class, 'show'])->name('admin.masterdata.records.graph')->whereUuid('uuid');
 
         Route::controller(RecordMergeController::class)->prefix('records/record/{uuid}')->whereUuid('uuid')->group(function (): void {
             Route::get('merge', 'create')->name('admin.masterdata.records.merge.create');
