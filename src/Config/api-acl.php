@@ -67,5 +67,10 @@ return [
         'name'  => 'masterdata::app.api.acl.matching',
         'route' => 'admin.api.masterdata.match_candidates.store',
         'sort'  => 2,
+    ], [
+        'key'   => 'api.masterdata.openapi',
+        'name'  => 'masterdata::app.openapi.acl',
+        'route' => 'admin.api.masterdata.openapi',
+        'sort'  => 30,
     ],
 ];

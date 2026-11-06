@@ -1731,4 +1731,8 @@ return [
             'imported'      => ':path आयात हुआ: :created बनाए गए, :updated अपडेट किए गए, :published प्रकाशित।',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API दस्तावेज़ीकरण',
+    ],
 ];

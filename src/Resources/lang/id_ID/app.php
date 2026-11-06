@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'Mengimpor :path: :created dibuat, :updated diperbarui, :published dipublikasikan.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'Dokumentasi API',
+    ],
 ];

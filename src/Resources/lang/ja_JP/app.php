@@ -1731,4 +1731,8 @@ return [
             'imported'      => ':path をインポートしました:作成 :created 件、更新 :updated 件、公開 :published 件。',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API ドキュメント',
+    ],
 ];

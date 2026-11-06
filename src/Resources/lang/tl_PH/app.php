@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'Na-import ang :path: :created ang nagawa, :updated ang na-update, :published ang na-publish.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'Dokumentasyon ng API',
+    ],
 ];

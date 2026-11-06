@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'Tuotu :path: :created luotu, :updated päivitetty, :published julkaistu.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API-dokumentaatio',
+    ],
 ];

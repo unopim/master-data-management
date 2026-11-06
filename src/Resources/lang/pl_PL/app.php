@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'Zaimportowano :path: :created utworzono, :updated zaktualizowano, :published opublikowano.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'Dokumentacja API',
+    ],
 ];

@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'Uvezeno :path: :created stvoreno, :updated ažurirano, :published objavljeno.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API dokumentacija',
+    ],
 ];

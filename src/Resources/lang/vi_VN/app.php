@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'Đã nhập :path: :created đã tạo, :updated đã cập nhật, :published đã xuất bản.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'Tài liệu API',
+    ],
 ];

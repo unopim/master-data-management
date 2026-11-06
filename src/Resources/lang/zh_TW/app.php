@@ -1731,4 +1731,8 @@ return [
             'imported'      => '已匯入 :path:建立 :created 項,更新 :updated 項,發佈 :published 項。',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API 文件',
+    ],
 ];

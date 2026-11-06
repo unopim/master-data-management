@@ -1731,4 +1731,8 @@ return [
             'imported'      => ':path içe aktarıldı: :created oluşturuldu, :updated güncellendi, :published yayımlandı.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API belgeleri',
+    ],
 ];

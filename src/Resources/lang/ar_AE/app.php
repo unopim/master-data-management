@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'تم استيراد :path: :created تم إنشاؤها، :updated تم تحديثها، :published تم نشرها.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'وثائق واجهة برمجة التطبيقات',
+    ],
 ];

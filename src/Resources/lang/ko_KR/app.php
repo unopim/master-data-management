@@ -1731,4 +1731,8 @@ return [
             'imported'      => ':path을(를) 가져왔습니다: 생성 :created건, 업데이트 :updated건, 게시 :published건.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API 문서',
+    ],
 ];

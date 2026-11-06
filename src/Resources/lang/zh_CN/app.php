@@ -1731,4 +1731,8 @@ return [
             'imported'      => '已导入 :path:创建 :created 项,更新 :updated 项,发布 :published 项。',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API 文档',
+    ],
 ];

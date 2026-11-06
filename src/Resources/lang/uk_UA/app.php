@@ -1731,4 +1731,8 @@ return [
             'imported'      => 'Імпортовано :path: створено :created, оновлено :updated, опубліковано :published.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'Документація API',
+    ],
 ];

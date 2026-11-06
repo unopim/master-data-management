@@ -1731,4 +1731,8 @@ return [
             'imported'      => ':path импортлогдлоо: :created үүсгэсэн, :updated шинэчилсэн, :published нийтэлсэн.',
         ],
     ],
+
+    'openapi' => [
+        'acl' => 'API баримт бичиг',
+    ],
 ];
