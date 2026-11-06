@@ -23,7 +23,7 @@ it('renders the dashboard page for an admin', function () {
 
 it('merges the menu and acl roots', function () {
     expect(collect(config('menu.admin'))->firstWhere('key', 'masterdata'))
-        ->toMatchArray(['route' => 'admin.masterdata.dashboard.index', 'icon' => 'icon-mdm', 'sort' => 4])
+        ->toMatchArray(['route' => 'admin.masterdata.dashboard.index', 'icon' => 'icon-data-hub', 'sort' => 4])
         ->and(collect(config('menu.admin'))->firstWhere('key', 'masterdata.records'))
         ->toMatchArray(['route' => 'admin.masterdata.dashboard.index', 'sort' => 0])
         ->and(collect(config('acl'))->firstWhere('key', 'masterdata'))

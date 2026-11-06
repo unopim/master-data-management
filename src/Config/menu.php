@@ -7,7 +7,7 @@ return [
         'module' => 'mdm',
         'route'  => 'admin.masterdata.dashboard.index',
         'sort'   => 4,
-        'icon'   => 'icon-mdm',
+        'icon'   => 'icon-data-hub',
     ], [
         'key'    => 'masterdata.records',
         'module' => 'mdm',
