@@ -15,7 +15,8 @@ return [
         'validator'      => RecordJobValidator::class,
         'completed_info' => 'masterdata::app.exports.records.completed-info',
         'filters'        => [
-            'fields' => [
+            'generic_card' => true,
+            'fields'       => [
                 [
                     'name'       => RecordExporter::FILTER_ENTITY_TYPE,
                     'title'      => 'masterdata::app.exports.records.filters.entity-type',
