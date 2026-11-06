@@ -2,28 +2,23 @@ name: Pest Tests (PostgreSQL)
 
 on:
   push:
-    branches: [main, master]
   pull_request:
-  merge_group:
   workflow_dispatch:
     inputs:
       core_ref:
-        description: UnoPim core branch or tag to test against
-        default: 3.x
+        description: UnoPim core branch, tag or SHA to test against
+        required: false
+        type: string
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
-env:
-  CORE_REF: ${{ inputs.core_ref || vars.UNOPIM_CORE_REF || '3.x' }}
-
 jobs:
   pest-pgsql:
-    if: github.repository == 'unopim/master-data-management' && github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     name: Pest Tests (PostgreSQL)
     continue-on-error: true
@@ -41,17 +36,39 @@ jobs:
           --health-cmd="pg_isready -U unopim"
           --health-interval=5s
           --health-timeout=3s
-          --health-retries=3
+          --health-retries=20
           --tmpfs /var/lib/postgresql/data:rw,noexec,nosuid,size=600m
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - name: Checkout MDM
+        uses: actions/checkout@v5
         with:
-          path: package
+          path: mdm-package
+
+      - name: Resolve UnoPim ref
+        id: unopim
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_REF: ${{ inputs.core_ref }}
+          VARS_REF: ${{ vars.UNOPIM_CORE_REF }}
+        run: |
+          ref="${INPUT_REF:-$VARS_REF}"
+          if [ -z "$ref" ]; then
+            ref=$(gh api repos/unopim/unopim/releases/latest --jq .tag_name)
+          fi
+          test -n "$ref"
+          echo "Testing against UnoPim $ref"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout UnoPim
+        uses: actions/checkout@v5
+        with:
+          repository: unopim/unopim
+          ref: ${{ steps.unopim.outputs.ref }}
+          path: unopim
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, pdo_pgsql, tokenizer, zip
@@ -59,15 +76,71 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Set up UnoPim core with the package
-        uses: ./package/.github/actions/setup-core
+      - name: Copy MDM into UnoPim packages
+        run: |
+          mkdir -p unopim/packages/Webkul/MasterDataManagement
+          cp -r mdm-package/src unopim/packages/Webkul/MasterDataManagement/src
+          cp -r mdm-package/tests unopim/packages/Webkul/MasterDataManagement/tests
+          cp mdm-package/composer.json unopim/packages/Webkul/MasterDataManagement/composer.json
+          if [ -f mdm-package/phpstan.neon.dist ]; then
+            cp mdm-package/phpstan.neon.dist unopim/packages/Webkul/MasterDataManagement/phpstan.neon.dist
+          fi
+          if [ -d mdm-package/publishable ]; then
+            cp -r mdm-package/publishable unopim/packages/Webkul/MasterDataManagement/publishable
+          fi
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v5
         with:
-          core-ref: ${{ env.CORE_REF }}
-          install-package: 'true'
-          install-node: 'true'
+          path: |
+            unopim/vendor
+            ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-mdm-pgsql-${{ hashFiles('unopim/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-mdm-pgsql-
+
+      - name: Install base dependencies
+        working-directory: unopim
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-progress
+
+      - name: Register MDM as a path repository and require it
+        working-directory: unopim
+        run: |
+          composer config repositories.mdm '{"type":"path","url":"packages/Webkul/MasterDataManagement","options":{"symlink":true}}' --json
+          composer require unopim/master-data-management:"*@dev" --no-interaction --no-progress --prefer-dist
+
+      - name: Register MDM test namespace in root autoload-dev
+        working-directory: unopim
+        run: |
+          php -r "
+            \$json = json_decode(file_get_contents('composer.json'), true);
+            \$json['autoload-dev']['psr-4']['Webkul\\\\MasterDataManagement\\\\Tests\\\\'] = 'packages/Webkul/MasterDataManagement/tests/';
+            file_put_contents('composer.json', json_encode(\$json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+          "
+          composer dump-autoload --optimize
+
+      - name: Add MDM test suite to phpunit.xml
+        working-directory: unopim
+        run: |
+          sed -i '/<\/testsuites>/i\
+              <testsuite name="MDM Unit">\
+                  <directory suffix="Test.php">packages/Webkul/MasterDataManagement/tests/Unit</directory>\
+              </testsuite>\
+              <testsuite name="MDM Feature">\
+                  <directory suffix="Test.php">packages/Webkul/MasterDataManagement/tests/Feature</directory>\
+              </testsuite>' phpunit.xml
+
+      - name: Register MDM test case in Pest.php
+        working-directory: unopim
+        run: |
+          sed -i '/^use Webkul\\Category\\Tests\\CategoryTestCase;/a use Webkul\\MasterDataManagement\\Tests\\MasterDataTestCase;' tests/Pest.php
+          sed -i '/^uses(CategoryTestCase::class)/a uses(MasterDataTestCase::class)->in('\''../packages/Webkul/MasterDataManagement/tests'\'');' tests/Pest.php
 
       - name: Setting Environment
-        working-directory: core
+        working-directory: unopim
         run: |
           cp .env.example .env
           sed -i "s|^\(APP_ENV=\s*\).*$|\1testing|" .env
@@ -78,25 +151,24 @@ jobs:
           sed -i "s|^\(DB_USERNAME=\s*\).*$|\1unopim|" .env
           sed -i "s|^\(DB_PASSWORD=\s*\).*$|\1unopim|" .env
 
-      - name: Running UnoPim Installer with MDM
-        working-directory: core
+      - name: Running UnoPim Installer
+        working-directory: unopim
         run: |
-          php artisan unopim:install --skip-env-check --skip-admin-creation --modules=pim,mdm
-          php artisan masterdata:install
+          if php artisan unopim:install --help | grep -q -- '--modules'; then
+            php artisan unopim:install --skip-env-check --skip-admin-creation --with-demo-data --modules=pim,mdm
+          else
+            php artisan unopim:install --skip-env-check --skip-admin-creation --with-demo-data
+          fi
 
-      - name: Bind package tests to Pest
-        working-directory: core
-        run: |
-          cat >> tests/Pest.php <<'PHP'
-          uses(Webkul\MasterDataManagement\Tests\MasterDataTestCase::class)->in('../packages/Webkul/MasterDataManagement/tests');
-          PHP
+      - name: Running MDM Installer
+        working-directory: unopim
+        run: php artisan masterdata:install
 
-      - name: Running Pest Tests
-        working-directory: core
-        run: vendor/bin/pest --parallel --processes=4 --colors=always  packages/Webkul/MasterDataManagement/tests
+      - name: Running Pest Tests (MDM)
+        working-directory: unopim
+        run: vendor/bin/pest --colors=always packages/Webkul/MasterDataManagement/tests
 
   pest-pgsql-elasticsearch:
-    if: github.repository == 'unopim/master-data-management' && github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     name: Pest Tests (PostgreSQL + Elasticsearch)
     continue-on-error: true
@@ -114,22 +186,53 @@ jobs:
           --health-cmd="pg_isready -U unopim"
           --health-interval=5s
           --health-timeout=3s
-          --health-retries=3
+          --health-retries=20
           --tmpfs /var/lib/postgresql/data:rw,noexec,nosuid,size=600m
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          path: package
+      elasticsearch:
+        image: elasticsearch:8.17.0
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: 'false'
+          ES_JAVA_OPTS: '-Xms256m -Xmx256m'
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd="curl -s http://localhost:9200/_cluster/health || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
 
-      - name: Start Elasticsearch
-        uses: ./package/.github/actions/elasticsearch
+    steps:
+      - name: Checkout MDM
+        uses: actions/checkout@v5
         with:
-          step: start
+          path: mdm-package
+
+      - name: Resolve UnoPim ref
+        id: unopim
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_REF: ${{ inputs.core_ref }}
+          VARS_REF: ${{ vars.UNOPIM_CORE_REF }}
+        run: |
+          ref="${INPUT_REF:-$VARS_REF}"
+          if [ -z "$ref" ]; then
+            ref=$(gh api repos/unopim/unopim/releases/latest --jq .tag_name)
+          fi
+          test -n "$ref"
+          echo "Testing against UnoPim $ref"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout UnoPim
+        uses: actions/checkout@v5
+        with:
+          repository: unopim/unopim
+          ref: ${{ steps.unopim.outputs.ref }}
+          path: unopim
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, pdo_pgsql, tokenizer, zip
@@ -137,15 +240,71 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Set up UnoPim core with the package
-        uses: ./package/.github/actions/setup-core
+      - name: Copy MDM into UnoPim packages
+        run: |
+          mkdir -p unopim/packages/Webkul/MasterDataManagement
+          cp -r mdm-package/src unopim/packages/Webkul/MasterDataManagement/src
+          cp -r mdm-package/tests unopim/packages/Webkul/MasterDataManagement/tests
+          cp mdm-package/composer.json unopim/packages/Webkul/MasterDataManagement/composer.json
+          if [ -f mdm-package/phpstan.neon.dist ]; then
+            cp mdm-package/phpstan.neon.dist unopim/packages/Webkul/MasterDataManagement/phpstan.neon.dist
+          fi
+          if [ -d mdm-package/publishable ]; then
+            cp -r mdm-package/publishable unopim/packages/Webkul/MasterDataManagement/publishable
+          fi
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v5
         with:
-          core-ref: ${{ env.CORE_REF }}
-          install-package: 'true'
-          install-node: 'true'
+          path: |
+            unopim/vendor
+            ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-mdm-pgsql-${{ hashFiles('unopim/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-mdm-pgsql-
+
+      - name: Install base dependencies
+        working-directory: unopim
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-progress
+
+      - name: Register MDM as a path repository and require it
+        working-directory: unopim
+        run: |
+          composer config repositories.mdm '{"type":"path","url":"packages/Webkul/MasterDataManagement","options":{"symlink":true}}' --json
+          composer require unopim/master-data-management:"*@dev" --no-interaction --no-progress --prefer-dist
+
+      - name: Register MDM test namespace in root autoload-dev
+        working-directory: unopim
+        run: |
+          php -r "
+            \$json = json_decode(file_get_contents('composer.json'), true);
+            \$json['autoload-dev']['psr-4']['Webkul\\\\MasterDataManagement\\\\Tests\\\\'] = 'packages/Webkul/MasterDataManagement/tests/';
+            file_put_contents('composer.json', json_encode(\$json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+          "
+          composer dump-autoload --optimize
+
+      - name: Add MDM test suite to phpunit.xml
+        working-directory: unopim
+        run: |
+          sed -i '/<\/testsuites>/i\
+              <testsuite name="MDM Unit">\
+                  <directory suffix="Test.php">packages/Webkul/MasterDataManagement/tests/Unit</directory>\
+              </testsuite>\
+              <testsuite name="MDM Feature">\
+                  <directory suffix="Test.php">packages/Webkul/MasterDataManagement/tests/Feature</directory>\
+              </testsuite>' phpunit.xml
+
+      - name: Register MDM test case in Pest.php
+        working-directory: unopim
+        run: |
+          sed -i '/^use Webkul\\Category\\Tests\\CategoryTestCase;/a use Webkul\\MasterDataManagement\\Tests\\MasterDataTestCase;' tests/Pest.php
+          sed -i '/^uses(CategoryTestCase::class)/a uses(MasterDataTestCase::class)->in('\''../packages/Webkul/MasterDataManagement/tests'\'');' tests/Pest.php
 
       - name: Setting Environment
-        working-directory: core
+        working-directory: unopim
         run: |
           cp .env.example .env
           sed -i "s|^\(APP_ENV=\s*\).*$|\1testing|" .env
@@ -155,36 +314,31 @@ jobs:
           sed -i "s|^\(DB_DATABASE=\s*\).*$|\1unopim|" .env
           sed -i "s|^\(DB_USERNAME=\s*\).*$|\1unopim|" .env
           sed -i "s|^\(DB_PASSWORD=\s*\).*$|\1unopim|" .env
-          sed -i "s|^\(DB_PREFIX=\s*\).*$|\13X_|" .env
 
-      - name: Running UnoPim Installer with MDM
-        working-directory: core
+      - name: Running UnoPim Installer
+        working-directory: unopim
         run: |
-          php artisan unopim:install --skip-env-check --skip-admin-creation --modules=pim,mdm
-          php artisan masterdata:install
+          if php artisan unopim:install --help | grep -q -- '--modules'; then
+            php artisan unopim:install --skip-env-check --skip-admin-creation --with-demo-data --modules=pim,mdm
+          else
+            php artisan unopim:install --skip-env-check --skip-admin-creation --with-demo-data
+          fi
 
-      - name: Bind package tests to Pest
-        working-directory: core
-        run: |
-          cat >> tests/Pest.php <<'PHP'
-          uses(Webkul\MasterDataManagement\Tests\MasterDataTestCase::class)->in('../packages/Webkul/MasterDataManagement/tests');
-          PHP
-
-      - name: Wait for Elasticsearch
-        uses: ./package/.github/actions/elasticsearch
-        with:
-          step: wait
+      - name: Running MDM Installer
+        working-directory: unopim
+        run: php artisan masterdata:install
 
       - name: Enable Elasticsearch and build indexes
-        working-directory: core
+        working-directory: unopim
         run: |
           sed -i "s|^\(ELASTICSEARCH_ENABLED=\s*\).*$|\1true|" .env
           sed -i "s|^\(ELASTICSEARCH_HOST=\s*\).*$|\1http://127.0.0.1:9200|" .env
           sed -i "s|^\(ELASTICSEARCH_INDEX_PREFIX=\s*\).*$|\1unopim_test|" .env
           php artisan config:clear
+          curl -s http://127.0.0.1:9200/_cluster/health | python3 -m json.tool
           php artisan unopim:product:index
           php artisan unopim:category:index
 
-      - name: Running Pest Tests
-        working-directory: core
-        run: vendor/bin/pest --parallel --processes=4 --colors=always  packages/Webkul/MasterDataManagement/tests
+      - name: Running Pest Tests (MDM)
+        working-directory: unopim
+        run: vendor/bin/pest --colors=always packages/Webkul/MasterDataManagement/tests

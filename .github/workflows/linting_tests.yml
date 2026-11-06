@@ -2,53 +2,32 @@ name: Linting Tests
 
 on:
   push:
-    branches: [main, master]
   pull_request:
-  merge_group:
   workflow_dispatch:
     inputs:
       core_ref:
-        description: UnoPim core branch or tag to test against
-        default: 3.x
+        description: UnoPim core branch, tag or SHA to test against
+        required: false
+        type: string
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
-env:
-  CORE_REF: ${{ inputs.core_ref || vars.UNOPIM_CORE_REF || '3.x' }}
-
 jobs:
   linting_tests:
-    if: github.repository == 'unopim/master-data-management'
     runs-on: ubuntu-24.04
     name: Laravel Pint Code Style
 
     steps:
       - name: Checkout
-        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          path: package
+        uses: actions/checkout@v5
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+      - name: Running Pint Test
+        uses: aglipanci/laravel-pint-action@2.0.0
         with:
-          php-version: '8.4'
-          extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, tokenizer, zip
-          ini-values: error_reporting=E_ALL
-          tools: composer:v2
-          coverage: none
-
-      - name: Set up UnoPim core with the package
-        uses: ./package/.github/actions/setup-core
-        with:
-          core-ref: ${{ env.CORE_REF }}
-          install-package: 'false'
-          install-node: 'false'
-
-      - name: Run Pint
-        working-directory: core
-        run: vendor/bin/pint --test packages/Webkul/MasterDataManagement
+          testMode: true
+          verboseMode: true

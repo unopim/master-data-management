@@ -2,17 +2,16 @@ name: Playwright Tests
 
 on:
   push:
-    branches: [main, master]
   pull_request:
-  merge_group:
   workflow_dispatch:
     inputs:
       core_ref:
-        description: UnoPim core branch or tag to test against
-        default: 3.x
+        description: UnoPim core branch, tag or SHA to test against
+        required: false
+        type: string
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -20,19 +19,17 @@ permissions:
 
 env:
   FORCE_COLOR: 1
-  CORE_REF: ${{ inputs.core_ref || vars.UNOPIM_CORE_REF || '3.x' }}
 
 jobs:
   playwright_tests:
-    if: github.repository == 'unopim/master-data-management' && github.event_name != 'pull_request'
     name: Playwright E2E | Shard ${{ matrix.shard-index }}/${{ matrix.shard-total }}
     runs-on: ubuntu-24.04
 
     strategy:
       fail-fast: false
       matrix:
-        shard-index: [1,2]
-        shard-total: [2]
+        shard-index: [1, 2, 3, 4, 5, 6, 7, 8]
+        shard-total: [8]
 
     services:
       mysql:
@@ -46,100 +43,221 @@ jobs:
           --health-cmd="mysqladmin ping"
           --health-interval=5s
           --health-timeout=3s
-          --health-retries=3
+          --health-retries=20
           --tmpfs /var/lib/mysql:rw,noexec,nosuid,size=600m
           --tmpfs /tmp:rw,noexec,nosuid,size=100m
 
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GROQ_INVALID_KEY: ${{ secrets.GROQ_INVALID_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      UNOPIM_URL: ${{ secrets.UNOPIM_URL }}
+      ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      INVALID_ADMIN_EMAIL: ${{ secrets.INVALID_ADMIN_EMAIL }}
+      INVALID_ADMIN_PASSWORD: ${{ secrets.INVALID_ADMIN_PASSWORD }}
+      WEBHOOK_ALLOW_LOOPBACK: 'true'
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - name: Checkout MDM
+        uses: actions/checkout@v5
         with:
-          path: package
+          path: mdm-package
+
+      - name: Resolve UnoPim ref
+        id: unopim
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_REF: ${{ inputs.core_ref }}
+          VARS_REF: ${{ vars.UNOPIM_CORE_REF }}
+        run: |
+          ref="${INPUT_REF:-$VARS_REF}"
+          if [ -z "$ref" ]; then
+            ref=$(gh api repos/unopim/unopim/releases/latest --jq .tag_name)
+          fi
+          test -n "$ref"
+          echo "Testing against UnoPim $ref"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout UnoPim
+        uses: actions/checkout@v5
+        with:
+          repository: unopim/unopim
+          ref: ${{ steps.unopim.outputs.ref }}
+          path: unopim
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, pdo_mysql, tokenizer, zip
           ini-values: error_reporting=E_ALL
           tools: composer:v2
           coverage: none
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
 
-      - name: Set up UnoPim core with the package
-        uses: ./package/.github/actions/setup-core
+      - name: Copy MDM into UnoPim packages
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        run: |
+          mkdir -p unopim/packages/Webkul/MasterDataManagement
+          cp -r mdm-package/src unopim/packages/Webkul/MasterDataManagement/src
+          cp mdm-package/composer.json unopim/packages/Webkul/MasterDataManagement/composer.json
+          if [ -d mdm-package/publishable ]; then
+            cp -r mdm-package/publishable unopim/packages/Webkul/MasterDataManagement/publishable
+          fi
+          rsync -a \
+            --exclude 'node_modules' \
+            --exclude 'playwright-report' \
+            --exclude 'test-results' \
+            --exclude '.state' \
+            mdm-package/tests/ unopim/packages/Webkul/MasterDataManagement/tests/
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        uses: actions/cache@v5
         with:
-          core-ref: ${{ env.CORE_REF }}
-          install-package: 'true'
-          install-node: 'true'
+          path: |
+            unopim/vendor
+            ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-mdm-${{ hashFiles('unopim/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-mdm-
+
+      - name: Cache UnoPim e2e npm dependencies
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        uses: actions/cache@v5
+        with:
+          path: unopim/tests/e2e-pw/node_modules
+          key: ${{ runner.os }}-npm-unopim-${{ hashFiles('unopim/tests/e2e-pw/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-unopim-
+
+      - name: Cache MDM e2e npm dependencies
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        uses: actions/cache@v5
+        with:
+          path: unopim/packages/Webkul/MasterDataManagement/tests/e2e-pw/node_modules
+          key: ${{ runner.os }}-npm-mdm-${{ hashFiles('mdm-package/tests/e2e-pw/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-mdm-
 
       - name: Cache Playwright browsers
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('package/tests/e2e-pw/package.json') }}
+          key: ${{ runner.os }}-playwright-${{ hashFiles('unopim/tests/e2e-pw/package-lock.json', 'mdm-package/tests/e2e-pw/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-playwright-
 
-      - name: Install npm & Playwright browsers
-        working-directory: core/tests/e2e-pw
+      - name: Install npm & Playwright browsers (UnoPim suite)
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
         run: |
+          cd unopim/tests/e2e-pw
           npm install --no-progress --prefer-offline
           npx playwright install --with-deps chromium
 
+      - name: Install npm & Playwright browsers (MDM suite)
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        run: |
+          cd unopim/packages/Webkul/MasterDataManagement/tests/e2e-pw
+          npm install --no-progress --prefer-offline
+          npx playwright install --with-deps chromium
+
+      - name: Install Composer dependencies
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        working-directory: unopim
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-progress
+
+      - name: Register MDM as a path repository and require it
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        working-directory: unopim
+        run: |
+          composer config repositories.mdm '{"type":"path","url":"packages/Webkul/MasterDataManagement","options":{"symlink":true}}' --json
+          composer require unopim/master-data-management:"*@dev" --no-interaction --no-progress --prefer-dist
+
       - name: Setting Environment
-        working-directory: core
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        working-directory: unopim
         run: |
           cp .env.example .env
           sed -i "s|^\(APP_ENV=\s*\).*$|\1testing|" .env
+          sed -i "s|^\(APP_DEBUG=\s*\).*$|\1false|" .env
+          sed -i "s|^\(APP_URL=\s*\).*$|\1http://127.0.0.1:8000|" .env
           sed -i "s|^\(DB_HOST=\s*\).*$|\1127.0.0.1|" .env
           sed -i "s|^\(DB_PORT=\s*\).*$|\13306|" .env
           sed -i "s|^\(DB_DATABASE=\s*\).*$|\1unopim|" .env
           sed -i "s|^\(DB_USERNAME=\s*\).*$|\1root|" .env
           sed -i "s|^\(DB_PASSWORD=\s*\).*$|\1root|" .env
-          sed -i "s|^\(APP_DEBUG=\s*\).*$|\1false|" .env
-          sed -i "s|^\(APP_URL=\s*\).*$|\1http://127.0.0.1:8000|" .env
+          sed -i "s|^\(INSTALLER_ADMIN_EMAIL=\s*\).*$|\1${ADMIN_USERNAME:-admin@example.com}|" .env
+          sed -i "s|^\(INSTALLER_ADMIN_PASSWORD=\s*\).*$|\1${ADMIN_PASSWORD:-admin123}|" .env
+          grep -E '^INSTALLER_ADMIN_(EMAIL|PASSWORD)=' .env
           echo "REST_API_RATE_LIMIT=100000" >> .env
           echo "ADMIN_LOGIN_RATE_LIMIT=20" >> .env
           echo "OAUTH_TOKEN_RATE_LIMIT=100000" >> .env
+          echo "WEBHOOK_ALLOW_LOOPBACK=true" >> .env
 
-      - name: Running UnoPim Installer with MDM & Start Server
-        working-directory: core
-        env:
-          INSTALLER_ADMIN_EMAIL: ${{ secrets.INSTALLER_ADMIN_EMAIL || 'admin@example.com' }}
-          INSTALLER_ADMIN_PASSWORD: ${{ secrets.INSTALLER_ADMIN_PASSWORD || 'admin123' }}
+      - name: Running UnoPim Installer & Start Server
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
+        working-directory: unopim
         run: |
-          php artisan unopim:install --skip-env-check --skip-admin-creation --with-demo-data --modules=pim,mdm
+          if php artisan unopim:install --help | grep -q -- '--modules'; then
+            php artisan unopim:install --skip-env-check --skip-admin-creation --with-demo-data --modules=pim,mdm
+          else
+            php artisan unopim:install --skip-env-check --skip-admin-creation --with-demo-data
+          fi
           php artisan masterdata:install
-          PHP_CLI_SERVER_WORKERS=6 php artisan serve --no-reload --host=0.0.0.0 --port=8000 > /tmp/server.log 2>&1 &
-          php artisan queue:work > /tmp/queue.log 2>&1 &
+          php artisan unopim:passport:install-preset
+          php artisan db:seed --class=DiscardQaFixtureSeeder
+          php artisan tinker tests/e2e-pw/scripts/seed-dpp-e2e.php
+          npm install --no-progress
+          npm run build
+          php artisan serve --host=0.0.0.0 --port=8000 > /tmp/server.log 2>&1 &
+          php artisan queue:work --queue=webhooks,default,system,completeness,publication > /tmp/queue.log 2>&1 &
           echo "Waiting for server..."
           timeout 30 bash -c 'until curl -s http://127.0.0.1:8000 > /dev/null; do sleep 1; done' || (cat /tmp/server.log && exit 1)
 
-      - name: Run Playwright tests
-        working-directory: core/tests/e2e-pw
+      - name: Run UnoPim Playwright tests
+        id: unopim_pw
+        if: hashFiles('mdm-package/tests/e2e-pw/package.json') != ''
         env:
-          PW_WORKERS: '3'
-        run: npx playwright test tests/masterdata --shard=${{ matrix.shard-index }}/${{ matrix.shard-total }}
+          PASSPORT_E2E_LOCAL: '1'
+          FAMILY_ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'admin123' }}
+        run: |
+          cd unopim/tests/e2e-pw
+          npx playwright test --reporter=list,html --shard=${{ matrix.shard-index }}/${{ matrix.shard-total }}
+
+      - name: Clear login rate limiter before MDM suite
+        if: always() && steps.unopim_pw.conclusion != 'skipped'
+        working-directory: unopim
+        run: php artisan optimize:clear
+
+      - name: Run MDM Playwright tests
+        id: mdm_pw
+        if: always() && steps.unopim_pw.conclusion != 'skipped'
+        run: |
+          cd unopim/packages/Webkul/MasterDataManagement/tests/e2e-pw
+          npx playwright test --reporter=list,html --shard=${{ matrix.shard-index }}/${{ matrix.shard-total }}
 
       - name: Upload test results
         if: failure()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        uses: actions/upload-artifact@v5
         with:
           name: playwright-report-shard-${{ matrix.shard-index }}-${{ github.run_id }}
           path: |
-            core/tests/e2e-pw/playwright-report
-            core/tests/e2e-pw/test-results
-            core/storage/logs/*.log
+            unopim/tests/e2e-pw/playwright-report
+            unopim/tests/e2e-pw/test-results
+            unopim/packages/Webkul/MasterDataManagement/tests/e2e-pw/playwright-report
+            unopim/packages/Webkul/MasterDataManagement/tests/e2e-pw/test-results
+            unopim/storage/logs/laravel.log
             /tmp/server.log
             /tmp/queue.log
           retention-days: 1
-
-  playwright_tests_pull_request:
-    if: github.repository == 'unopim/master-data-management' && github.event_name == 'pull_request'
-    runs-on: ubuntu-24.04
-    name: Playwright E2E | Shard ${{ matrix.shard-index }}/${{ matrix.shard-total }}
-    strategy:
-      matrix:
-        shard-index: [1,2]
-        shard-total: [2]
-    steps:
-      - name: Defer to the merge queue
-        run: echo "::notice::Playwright E2E runs in the merge queue and on the release lines."
