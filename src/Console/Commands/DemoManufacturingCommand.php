@@ -4,9 +4,9 @@ namespace Webkul\MasterDataManagement\Console\Commands;
 
 use Illuminate\Console\Command;
 use InvalidArgumentException;
-use Webkul\Core\Platform\Module;
 use Webkul\Core\Platform\ModuleGate;
 use Webkul\MasterDataManagement\Services\ManufacturingDemo;
+use Webkul\MasterDataManagement\Support\Platform;
 
 class DemoManufacturingCommand extends Command
 {
@@ -22,7 +22,7 @@ class DemoManufacturingCommand extends Command
      */
     public function handle(ManufacturingDemo $demo, ModuleGate $moduleGate): int
     {
-        if (! $moduleGate->enabled(Module::Mdm)) {
+        if (! $moduleGate->enabled(Platform::MODULE)) {
             $this->components->warn(trans('masterdata::app.demo.module-disabled'));
         }
 

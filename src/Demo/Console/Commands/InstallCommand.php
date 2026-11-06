@@ -6,9 +6,9 @@ use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Validation\ValidationException;
-use Webkul\Core\Platform\Module;
 use Webkul\Core\Platform\ModuleGate;
 use Webkul\MasterDataManagement\Demo\Services\DemoInstaller;
+use Webkul\MasterDataManagement\Support\Platform;
 
 #[Description('Install the manufacturing site reference data demo (sites, lines, areas, equipment, crosswalk, stewardship)')]
 #[Signature('masterdata-demo:install
@@ -21,7 +21,7 @@ class InstallCommand extends Command
      */
     public function handle(DemoInstaller $installer, ModuleGate $moduleGate): int
     {
-        if (! $moduleGate->enabled(Module::Mdm)) {
+        if (! $moduleGate->enabled(Platform::MODULE)) {
             $this->components->warn(trans('masterdata::app.demo.module-disabled'));
         }
 

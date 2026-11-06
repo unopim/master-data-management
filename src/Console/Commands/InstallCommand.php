@@ -5,9 +5,9 @@ namespace Webkul\MasterDataManagement\Console\Commands;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
-use Webkul\Core\Platform\Module;
 use Webkul\Core\Platform\ModuleGate;
 use Webkul\Installer\Helpers\PlatformModules;
+use Webkul\MasterDataManagement\Support\Platform;
 
 #[Description('Install master data management on this UnoPim: run its migrations and switch the module on')]
 #[Signature('masterdata:install
@@ -25,8 +25,8 @@ class InstallCommand extends Command
         $this->call('migrate', ['--force' => true]);
 
         $modules = $this->option('standalone')
-            ? [Module::Mdm->value]
-            : array_values(array_unique([...$moduleGate->modules(), Module::Mdm->value]));
+            ? [Platform::MODULE]
+            : array_values(array_unique([...$moduleGate->modules(), Platform::MODULE]));
 
         $errors = $platformModules->errors($modules);
 
