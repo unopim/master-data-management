@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Webkul\Core\Models\CoreConfig;
 use Webkul\Core\Platform\ModuleGate;
 
@@ -84,12 +85,21 @@ it('drops a menu parent from the sidebar once every child is hidden', function (
 
     CoreConfig::query()->where('code', ModuleGate::HIDDEN_SECTIONS_KEY)->delete();
 
+    foreach (['general.magic_ai.agentic_pim.enabled', 'general.magic_ai.agentic_pim.open_by_default'] as $code) {
+        CoreConfig::query()->updateOrCreate(['code' => $code], ['value' => '1']);
+    }
+
     app()->forgetScopedInstances();
 
     $this->loginAsAdmin();
 
-    $this->get(route('admin.masterdata.icons.index'))
-        ->assertOk()
-        ->assertDontSee(trans('admin::app.components.layouts.sidebar.catalog'))
-        ->assertDontSee(trans('ai-agent::app.menu.ai-agent'));
+    $sidebar = Str::between(
+        $this->get(route('admin.masterdata.icons.index'))->assertOk()->getContent(),
+        'id="unopim-sidebar"',
+        '<v-sidebar-collapse',
+    );
+
+    expect($sidebar)->toContain(trans('masterdata::app.menu.master-data'))
+        ->not->toContain(trans('admin::app.components.layouts.sidebar.catalog'))
+        ->not->toContain(trans('ai-agent::app.menu.ai-agent'));
 });

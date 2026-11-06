@@ -1,0 +1,17 @@
+includes:
+    - ../../../vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 2
+
+    treatPhpDocTypesAsCertain: false
+
+    reportUnmatchedIgnoredErrors: false
+
+    excludePaths:
+        - src/Config/*
+        - src/Resources/*
+
+    ignoreErrors:
+        - "#Access to an undefined property#"
+        - "#Call to an undefined method#"

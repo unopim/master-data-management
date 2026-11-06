@@ -43,6 +43,8 @@ it('edits per-locale fields in the requested active locale', function () {
 });
 
 it('falls back to the default locale for an inactive or unknown locale', function (string $locale) {
+    Locale::query()->where('code', 'de_DE')->update(['status' => 0]);
+
     $this->get(route('admin.masterdata.records.edit', ['uuid' => $this->record->uuid, 'locale' => $locale]))
         ->assertOk()
         ->assertSee('values[locale_specific][en_US][name]', false);

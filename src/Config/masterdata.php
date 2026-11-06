@@ -34,9 +34,10 @@ use Webkul\MasterDataManagement\Survivorship\Strategies\SourcePriorityStrategy;
 /**
  * `export_disk` names the filesystem disk the `masterdata_records` exporter publishes to, under
  * `{export_path}/{entity_type}/{Y/m/d}/`; ADLS Gen2 and Microsoft Fabric (OneLake shortcut) consumers read the JSONL
- * files from there. The `azure` disk in config/filesystems.php (azure-oss/storage-blob-laravel) writes to Azure Blob
- * Storage: set MASTERDATA_EXPORT_DISK=azure with AZURE_STORAGE_CONNECTION_STRING, AZURE_STORAGE_CONTAINER and
- * optionally AZURE_STORAGE_PREFIX. Any other configured disk, such as `s3`, works the same way.
+ * files from there. The package registers an `azure` disk (azure-oss/storage-blob-laravel, overridable in the app's
+ * config/filesystems.php) that writes to Azure Blob Storage: set MASTERDATA_EXPORT_DISK=azure with
+ * AZURE_STORAGE_CONNECTION_STRING, AZURE_STORAGE_CONTAINER and optionally AZURE_STORAGE_PREFIX. Any other configured
+ * disk, such as `s3`, works the same way.
  *
  * `scheduled_imports` feeds the `masterdata:import {job_code}` command: an integration tool drops files into
  * `{path}/{job_code}/` on `disk`, the command imports the oldest one as `user` (an admin e-mail) and moves it to

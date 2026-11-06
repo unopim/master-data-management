@@ -215,8 +215,8 @@ it('renders a library icon as a theme coloured mask on the dashboard', function 
 
     $this->get(route('admin.masterdata.dashboard.index'))
         ->assertOk()
-        ->assertSee('mask-image: url(', false)
-        ->assertSee($icon->url(), false);
+        ->assertSee('class="icon-mask', false)
+        ->assertSee("--icon-mask-url: url('".$icon->url()."')", false);
 });
 
 it('renders a raster icon as an image instead of a mask', function () {
@@ -228,13 +228,13 @@ it('renders a raster icon as an image instead of a mask', function () {
         ->assertOk()
         ->json('records.0.path');
 
-    expect($grid)->toContain('<img')->not->toContain('mask:');
+    expect($grid)->toContain('<img')->not->toContain('icon-mask');
 
     $this->get(route('admin.masterdata.dashboard.index'))
         ->assertOk()
         ->assertSee('<img', false)
         ->assertSee($icon->url(), false)
-        ->assertDontSee('mask-image: url(\''.$icon->url(), false);
+        ->assertDontSee("--icon-mask-url: url('".$icon->url(), false);
 });
 
 it('guards the icon library by permission', function () {

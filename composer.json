@@ -1,7 +1,22 @@
 {
     "name": "unopim/master-data-management",
-    "description": "Master Data Management (MDM) for UnoPim: governed master records, matching, approvals and code lists, alongside UnoPim PIM or standalone.",
+    "description": "Open-source Master Data Management (MDM) for UnoPim: governed golden records, matching and merging, survivorship, cross-references, code lists, approvals and a REST API. Runs alongside UnoPim PIM or standalone.",
     "type": "library",
+    "keywords": [
+        "unopim",
+        "mdm",
+        "master-data",
+        "master-data-management",
+        "golden-record",
+        "data-governance",
+        "data-quality",
+        "reference-data",
+        "entity-resolution",
+        "deduplication",
+        "laravel",
+        "pim"
+    ],
+    "homepage": "https://github.com/unopim/master-data-management",
     "license": "MIT",
     "authors": [
         {
@@ -9,8 +24,16 @@
             "email": "support@webkul.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/unopim/master-data-management/issues",
+        "source": "https://github.com/unopim/master-data-management",
+        "docs": "https://devdocs.unopim.com/",
+        "email": "support@webkul.com",
+        "security": "https://github.com/unopim/master-data-management/blob/main/SECURITY.md"
+    },
     "require": {
-        "php": "^8.4"
+        "php": "^8.4",
+        "azure-oss/storage-blob-laravel": "^2.2"
     },
     "autoload": {
         "psr-4": {

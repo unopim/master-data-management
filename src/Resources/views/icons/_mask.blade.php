@@ -1,7 +1,7 @@
 @if ($vector ?? true)
     <span
-        class="inline-block shrink-0 {{ $class }}"
-        style="background-color: currentColor; mask: url('{{ $url }}') center / contain no-repeat; -webkit-mask: url('{{ $url }}') center / contain no-repeat;"
+        class="icon-mask shrink-0 {{ $class }}"
+        style="--icon-mask-url: url('{{ $url }}')"
         aria-hidden="true"
     ></span>
 @else
