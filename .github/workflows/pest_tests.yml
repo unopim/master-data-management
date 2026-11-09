@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Checkout MDM
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           path: mdm-package
 
@@ -58,7 +58,7 @@ jobs:
           echo "ref=$ref" >> "$GITHUB_OUTPUT"
 
       - name: Checkout UnoPim
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: unopim/unopim
           ref: ${{ steps.unopim.outputs.ref }}
@@ -199,7 +199,7 @@ jobs:
 
     steps:
       - name: Checkout MDM
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           path: mdm-package
 
@@ -219,7 +219,7 @@ jobs:
           echo "ref=$ref" >> "$GITHUB_OUTPUT"
 
       - name: Checkout UnoPim
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: unopim/unopim
           ref: ${{ steps.unopim.outputs.ref }}
