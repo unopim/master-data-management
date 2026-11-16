@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Goedkeuring nodig: wijzigingsverzoek #:id',
             'description'           => ':requester heeft een ":operation"-wijziging op :type ter goedkeuring ingediend.',
             'description-automated' => 'Een automatische ":operation"-wijziging op :type wacht op je goedkeuring.',
+            'approved-title'        => 'Wijzigingsverzoek #:id goedgekeurd',
+            'approved-description'  => ':decider heeft je ":operation"-wijziging op :type goedgekeurd.',
+            'rejected-title'        => 'Wijzigingsverzoek #:id afgewezen',
+            'rejected-description'  => ':decider heeft je ":operation"-wijziging op :type afgewezen.',
+            'comment'               => 'Opmerking: :comment',
+            'open-request'          => 'Wijzigingsverzoek openen',
+            'open-approvals'        => 'Goedkeuringen openen',
+
+            'batch' => [
+                'title'       => 'Goedkeuring nodig: :count wijzigingen',
+                'import'      => 'Import ":name" houdt :count wijzigingen vast voor je goedkeuring.',
+                'mass-retire' => 'Een massale buitengebruikstelling houdt :count wijzigingen vast voor je goedkeuring.',
+                'default'     => ':count wijzigingen wachten op je goedkeuring.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Opmerking',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'De stamgegevensmigraties worden uitgevoerd.',
         'demo'      => 'De demogegevens voor productie worden geïnstalleerd.',
         'done'      => 'Stamgegevensbeheer is geïnstalleerd. Actieve modules: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Masterrecord aangemaakt',
+            'updated'     => 'Masterrecord bijgewerkt',
+            'retired'     => 'Masterrecord buiten gebruik gesteld',
+            'reactivated' => 'Masterrecord opnieuw geactiveerd',
+            'merged'      => 'Masterrecords samengevoegd',
+            'unmerged'    => 'Samenvoeging van masterrecords ongedaan gemaakt',
+            'erased'      => 'Masterrecord gewist',
+        ],
+
+        'card' => [
+            'title'                      => 'Stamgegevens',
+            'info'                       => 'Beperk welke wijzigingen in masterrecords deze webhook ontvangt.',
+            'entity-types'               => 'Entiteitstypen',
+            'all-entity-types'           => 'Alle entiteitstypen',
+            'ignore-source-systems'      => 'Wijzigingen van bronsystemen negeren',
+            'no-source-systems'          => 'Geen',
+            'ignore-source-systems-hint' => 'Wijzigingen die door deze systemen zijn geschreven worden niet verzonden, zodat een systeem zijn eigen wijzigingen niet terugkrijgt.',
+        ],
     ],
 ];

@@ -6,11 +6,13 @@ use Illuminate\Support\Facades\DB;
 use Webkul\DataTransfer\Contracts\JobTrack;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\DataTransfer\Repositories\JobTrackRepository;
+use Webkul\MasterDataManagement\Events\ChangeRequestBatchSubmitted;
 use Webkul\MasterDataManagement\Importers\MasterDataImporter;
 
 /**
  * Completes the summary of a finished master data import with the changes held for approval and the rows refused
- * while importing, summed over its batches; the core summary only adds up created, updated and deleted items.
+ * while importing, summed over its batches; the core summary only adds up created, updated and deleted items. An
+ * import that held changes then announces them to their approvers as one batch.
  */
 class AddImportReviewCounts
 {
@@ -20,7 +22,7 @@ class AddImportReviewCounts
     ) {}
 
     /**
-     * Add the `held` and `skipped` totals to the job's summary.
+     * Add the `held` and `skipped` totals to the job's summary and announce the held changes.
      */
     public function handle(JobTrack $import): void
     {
@@ -38,12 +40,22 @@ class AddImportReviewCounts
             ->where('job_track_id', $import->id)
             ->first();
 
+        $held = (int) ($totals?->held ?? 0);
+
         $this->jobTrackRepository->update([
             'summary' => array_merge((array) $import->summary, [
-                'held'    => (int) ($totals?->held ?? 0),
+                'held'    => $held,
                 'skipped' => (int) ($totals?->skipped ?? 0),
             ]),
         ], $import->id);
+
+        if ($held > 0) {
+            event(new ChangeRequestBatchSubmitted(
+                ChangeRequestBatchSubmitted::importKey((int) $import->id),
+                ChangeRequestBatchSubmitted::SOURCE_IMPORT,
+                $import->jobInstance?->code,
+            ));
+        }
     }
 
     /**

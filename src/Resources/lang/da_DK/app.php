@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Godkendelse påkrævet: ændringsanmodning #:id',
             'description'           => ':requester har indsendt en ":operation"-ændring til :type til din godkendelse.',
             'description-automated' => 'En automatisk ":operation"-ændring til :type venter på din godkendelse.',
+            'approved-title'        => 'Ændringsanmodning #:id godkendt',
+            'approved-description'  => ':decider godkendte din ":operation"-ændring af :type.',
+            'rejected-title'        => 'Ændringsanmodning #:id afvist',
+            'rejected-description'  => ':decider afviste din ":operation"-ændring af :type.',
+            'comment'               => 'Kommentar: :comment',
+            'open-request'          => 'Åbn ændringsanmodningen',
+            'open-approvals'        => 'Åbn godkendelser',
+
+            'batch' => [
+                'title'       => 'Godkendelse påkrævet: :count ændringer',
+                'import'      => 'Importen ":name" har :count ændringer, der venter på din godkendelse.',
+                'mass-retire' => 'En massetilbagetrækning har :count ændringer, der venter på din godkendelse.',
+                'default'     => ':count ændringer venter på din godkendelse.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Kommentar',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Kører migreringerne for stamdata.',
         'demo'      => 'Installerer demodata for produktion.',
         'done'      => 'Stamdatastyring er installeret. Aktive moduler: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Masterpost oprettet',
+            'updated'     => 'Masterpost opdateret',
+            'retired'     => 'Masterpost udfaset',
+            'reactivated' => 'Masterpost genaktiveret',
+            'merged'      => 'Masterposter flettet',
+            'unmerged'    => 'Fletning af masterposter fortrudt',
+            'erased'      => 'Masterpost slettet',
+        ],
+
+        'card' => [
+            'title'                      => 'Stamdata',
+            'info'                       => 'Begræns hvilke ændringer af masterposter denne webhook modtager.',
+            'entity-types'               => 'Enhedstyper',
+            'all-entity-types'           => 'Alle enhedstyper',
+            'ignore-source-systems'      => 'Ignorer ændringer fra kildesystemer',
+            'no-source-systems'          => 'Ingen',
+            'ignore-source-systems-hint' => 'Ændringer skrevet af disse systemer sendes ikke, så et system ikke får sine egne ændringer tilbage.',
+        ],
     ],
 ];

@@ -670,6 +670,23 @@ class RecordRepository extends Repository
     }
 
     /**
+     * Read the records with their entity type keyed by id, regardless of row scope.
+     *
+     * @internal For webhook delivery: webhooks are configured by an administrator and report every record.
+     *
+     * @param  list<int>  $ids
+     * @return Collection<int, RecordModel>
+     */
+    public function forWebhook(array $ids): Collection
+    {
+        if ($ids === []) {
+            return new Collection;
+        }
+
+        return $this->model->newQuery()->with('entityType')->whereKey($ids)->get()->keyBy('id');
+    }
+
+    /**
      * Read the code, entity type and status of the given records with their type code, keyed by id, regardless of
      * row scope.
      *

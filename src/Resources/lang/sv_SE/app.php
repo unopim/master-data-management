@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Godkännande krävs: ändringsbegäran #:id',
             'description'           => ':requester har skickat en ":operation"-ändring av :type för ditt godkännande.',
             'description-automated' => 'En automatisk ":operation"-ändring av :type väntar på ditt godkännande.',
+            'approved-title'        => 'Ändringsbegäran #:id godkänd',
+            'approved-description'  => ':decider godkände din ”:operation”-ändring av :type.',
+            'rejected-title'        => 'Ändringsbegäran #:id avvisad',
+            'rejected-description'  => ':decider avvisade din ”:operation”-ändring av :type.',
+            'comment'               => 'Kommentar: :comment',
+            'open-request'          => 'Öppna ändringsbegäran',
+            'open-approvals'        => 'Öppna godkännanden',
+
+            'batch' => [
+                'title'       => 'Godkännande krävs: :count ändringar',
+                'import'      => 'Importen ”:name” har :count ändringar som väntar på ditt godkännande.',
+                'mass-retire' => 'En massavveckling har :count ändringar som väntar på ditt godkännande.',
+                'default'     => ':count ändringar väntar på ditt godkännande.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Kommentar',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Kör migreringarna för huvuddata.',
         'demo'      => 'Installerar demodata för tillverkning.',
         'done'      => 'Hantering av huvuddata är installerad. Aktiva moduler: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Masterpost skapad',
+            'updated'     => 'Masterpost uppdaterad',
+            'retired'     => 'Masterpost utfasad',
+            'reactivated' => 'Masterpost återaktiverad',
+            'merged'      => 'Masterposter sammanslagna',
+            'unmerged'    => 'Sammanslagning av masterposter ångrad',
+            'erased'      => 'Masterpost raderad',
+        ],
+
+        'card' => [
+            'title'                      => 'Masterdata',
+            'info'                       => 'Begränsa vilka ändringar av masterposter den här webhooken tar emot.',
+            'entity-types'               => 'Entitetstyper',
+            'all-entity-types'           => 'Alla entitetstyper',
+            'ignore-source-systems'      => 'Ignorera ändringar från källsystem',
+            'no-source-systems'          => 'Inga',
+            'ignore-source-systems-hint' => 'Ändringar som skrivs av dessa system skickas inte, så att ett system inte får tillbaka sina egna ändringar.',
+        ],
     ],
 ];

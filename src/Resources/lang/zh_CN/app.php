@@ -1440,6 +1440,20 @@ return [
             'title'                 => '需要审批：变更请求 #:id',
             'description'           => ':requester 提交了对 :type 的“:operation”变更，等待您审批。',
             'description-automated' => '对 :type 的自动“:operation”变更正在等待您审批。',
+            'approved-title'        => '变更请求 #:id 已批准',
+            'approved-description'  => ':decider 已批准你对 :type 的“:operation”变更。',
+            'rejected-title'        => '变更请求 #:id 已拒绝',
+            'rejected-description'  => ':decider 已拒绝你对 :type 的“:operation”变更。',
+            'comment'               => '备注：:comment',
+            'open-request'          => '打开变更请求',
+            'open-approvals'        => '打开审批列表',
+
+            'batch' => [
+                'title'       => '需要审批：:count 项变更',
+                'import'      => '导入“:name”有 :count 项变更等待你审批。',
+                'mass-retire' => '批量停用有 :count 项变更等待你审批。',
+                'default'     => '有 :count 项变更等待你审批。',
+            ],
         ],
         'fields' => [
             'comment'             => '备注',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => '正在运行主数据迁移。',
         'demo'      => '正在安装制造业演示数据。',
         'done'      => '主数据管理已安装。已启用的模块::modules。',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => '主数据记录已创建',
+            'updated'     => '主数据记录已更新',
+            'retired'     => '主数据记录已停用',
+            'reactivated' => '主数据记录已重新启用',
+            'merged'      => '主数据记录已合并',
+            'unmerged'    => '主数据记录已取消合并',
+            'erased'      => '主数据记录已清除',
+        ],
+
+        'card' => [
+            'title'                      => '主数据',
+            'info'                       => '限制此 Webhook 接收哪些主数据记录变更。',
+            'entity-types'               => '实体类型',
+            'all-entity-types'           => '所有实体类型',
+            'ignore-source-systems'      => '忽略来自源系统的变更',
+            'no-source-systems'          => '无',
+            'ignore-source-systems-hint' => '这些系统写入的变更不会发送，避免系统收到自己的变更。',
+        ],
     ],
 ];

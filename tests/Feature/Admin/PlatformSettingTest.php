@@ -75,7 +75,7 @@ it('hides every shareable catalog section by default in mdm mode so the catalog 
     expect($gate->allowsKey('catalog.measurements'))->toBeFalse()
         ->and($visibleCatalog->pluck('key')->all())->toBe([])
         ->and($gate->allowsKey('data_transfer.imports'))->toBeTrue()
-        ->and($gate->allowsKey('configuration.webhook'))->toBeFalse()
+        ->and($gate->allowsKey('configuration.webhook'))->toBeTrue()
         ->and($gate->allowsKey('ai-agent'))->toBeFalse()
         ->and($gate->allowsKey('configuration.integrations'))->toBeTrue();
 });

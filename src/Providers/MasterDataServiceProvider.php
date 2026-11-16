@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Webkul\DataTransfer\Models\JobTrackProxy;
 use Webkul\MasterDataManagement\Console\Commands\DemoManufacturingCommand;
 use Webkul\MasterDataManagement\Console\Commands\ImportCommand;
 use Webkul\MasterDataManagement\Console\Commands\InstallCommand;
@@ -17,10 +18,15 @@ use Webkul\MasterDataManagement\Contracts\ChangeGate;
 use Webkul\MasterDataManagement\Contracts\CodeLookup;
 use Webkul\MasterDataManagement\Contracts\ExportDestination;
 use Webkul\MasterDataManagement\Demo\Providers\MasterDataDemoServiceProvider;
+use Webkul\MasterDataManagement\Enums\RecordWebhookEvent;
+use Webkul\MasterDataManagement\Events\ChangeRequestBatchSubmitted;
 use Webkul\MasterDataManagement\Events\ChangeRequestDecided;
 use Webkul\MasterDataManagement\Events\ChangeRequestSubmitted;
 use Webkul\MasterDataManagement\Events\RecordCreated;
+use Webkul\MasterDataManagement\Events\RecordErased;
+use Webkul\MasterDataManagement\Events\RecordMerged;
 use Webkul\MasterDataManagement\Events\RecordRetired;
+use Webkul\MasterDataManagement\Events\RecordUnmerged;
 use Webkul\MasterDataManagement\Events\RecordUpdated;
 use Webkul\MasterDataManagement\Events\RecordXrefsChanged;
 use Webkul\MasterDataManagement\Events\SchemaPublished;
@@ -29,25 +35,34 @@ use Webkul\MasterDataManagement\FieldTypes\FieldTypeRegistry;
 use Webkul\MasterDataManagement\FieldTypes\MeasurementType;
 use Webkul\MasterDataManagement\Http\Middleware\IdempotentRequest;
 use Webkul\MasterDataManagement\Http\ViewComposers\RoleAccessCardComposer;
+use Webkul\MasterDataManagement\Http\ViewComposers\WebhookFiltersCardComposer;
 use Webkul\MasterDataManagement\Listeners\AddImportReviewCounts;
 use Webkul\MasterDataManagement\Listeners\DeletePrincipalAccessGrants;
 use Webkul\MasterDataManagement\Listeners\EvaluateRecordQuality;
 use Webkul\MasterDataManagement\Listeners\LinkApprovedImportXref;
 use Webkul\MasterDataManagement\Listeners\LinkApprovedMatchCandidate;
 use Webkul\MasterDataManagement\Listeners\NotifyChangeRequestApprovers;
+use Webkul\MasterDataManagement\Listeners\NotifyChangeRequestBatchApprovers;
+use Webkul\MasterDataManagement\Listeners\NotifyChangeRequestRequester;
 use Webkul\MasterDataManagement\Listeners\QueueQualityScan;
 use Webkul\MasterDataManagement\Listeners\QueueRecordMatch;
+use Webkul\MasterDataManagement\Listeners\QueueRecordWebhook;
 use Webkul\MasterDataManagement\Listeners\SyncRoleAccessGrants;
+use Webkul\MasterDataManagement\Listeners\SyncWebhookRecordFilters;
 use Webkul\MasterDataManagement\Models\FieldProxy;
 use Webkul\MasterDataManagement\Models\Record;
 use Webkul\MasterDataManagement\Observers\FieldObserver;
+use Webkul\MasterDataManagement\Observers\ImportTrackObserver;
 use Webkul\MasterDataManagement\Security\AccessGrantResolver;
 use Webkul\MasterDataManagement\Security\EntityTypePermissions;
 use Webkul\MasterDataManagement\Security\RecordPolicy;
 use Webkul\MasterDataManagement\Services\DatabaseCodeLookup;
 use Webkul\MasterDataManagement\Services\NativeChangeGate;
+use Webkul\MasterDataManagement\Services\RecordWebhookBuffer;
 use Webkul\Measurement\Providers\MeasurementServiceProvider;
 use Webkul\Theme\ViewRenderEventManager;
+use Webkul\Webhook\Providers\WebhookServiceProvider;
+use Webkul\Webhook\Registry\EventRegistry;
 
 class MasterDataServiceProvider extends ServiceProvider
 {
@@ -78,9 +93,13 @@ class MasterDataServiceProvider extends ServiceProvider
 
         $this->registerRoleAccessCard();
 
+        $this->registerWebhooks();
+
         $this->registerImportSamples();
 
         FieldProxy::modelClass()::observe(FieldObserver::class);
+
+        JobTrackProxy::modelClass()::observe(ImportTrackObserver::class);
 
         if ($this->app->runningInConsole()) {
             $this->commands([InstallCommand::class, DemoManufacturingCommand::class, ImportCommand::class, QualityScanCommand::class, PruneIdempotencyKeys::class]);
@@ -112,6 +131,8 @@ class MasterDataServiceProvider extends ServiceProvider
 
         $this->app->scoped(AccessGrantResolver::class);
 
+        $this->app->scoped(RecordWebhookBuffer::class);
+
         $this->app->scoped(CodeLookup::class, DatabaseCodeLookup::class);
 
         $this->app->scoped(FieldTypeRegistry::class);
@@ -132,7 +153,8 @@ class MasterDataServiceProvider extends ServiceProvider
     /**
      * Register the listeners: record writes re-check quality, a schema publish queues a scan, an approved create from
      * the match inbox links its inbox row, an approved imported create links its external id, and a finished import
-     * reports the changes it held for approval and the rows it refused; a held change notifies its approvers.
+     * reports the changes it held for approval and the rows it refused; a held change, or a batch of them, notifies its
+     * approvers and a decision notifies the requester.
      */
     protected function registerListeners(): void
     {
@@ -143,6 +165,10 @@ class MasterDataServiceProvider extends ServiceProvider
         Event::listen(SchemaPublished::class, QueueQualityScan::class);
 
         Event::listen(ChangeRequestSubmitted::class, NotifyChangeRequestApprovers::class);
+
+        Event::listen(ChangeRequestBatchSubmitted::class, NotifyChangeRequestBatchApprovers::class);
+
+        Event::listen(ChangeRequestDecided::class, NotifyChangeRequestRequester::class);
 
         Event::listen(ChangeRequestDecided::class, LinkApprovedMatchCandidate::class);
 
@@ -184,6 +210,36 @@ class MasterDataServiceProvider extends ServiceProvider
     }
 
     /**
+     * Offer the master record events to webhooks, queue their delivery on each applied change, and add the
+     * "Master data" filter card to the webhook form, when the webhook package is loaded.
+     */
+    protected function registerWebhooks(): void
+    {
+        if (! $this->app->providerIsLoaded(WebhookServiceProvider::class)) {
+            return;
+        }
+
+        $this->callAfterResolving(EventRegistry::class, function (EventRegistry $registry): void {
+            $registry->register('masterdata', RecordWebhookEvent::registry());
+        });
+
+        Event::listen(
+            [RecordCreated::class, RecordUpdated::class, RecordRetired::class, RecordMerged::class, RecordUnmerged::class, RecordErased::class],
+            QueueRecordWebhook::class,
+        );
+
+        View::composer('masterdata::webhooks.filters-card', WebhookFiltersCardComposer::class);
+
+        Event::listen('unopim.admin.webhook.form.settings.after', function (ViewRenderEventManager $viewRenderEventManager): void {
+            $viewRenderEventManager->addTemplate('masterdata::webhooks.filters-card');
+        });
+
+        Event::listen(['webhook.create.before', 'webhook.update.before'], [SyncWebhookRecordFilters::class, 'validate']);
+
+        Event::listen(['webhook.create.after', 'webhook.update.after'], [SyncWebhookRecordFilters::class, 'handle']);
+    }
+
+    /**
      * Run `masterdata:import` for each job of `masterdata.scheduled_imports.jobs` on its cron expression.
      */
     protected function scheduleImports(Schedule $schedule): void
@@ -202,7 +258,7 @@ class MasterDataServiceProvider extends ServiceProvider
     protected function registerImportSamples(): void
     {
         $this->publishes([
-            dirname(__DIR__).'/Resources/samples' => storage_path('app/public/data-transfer/samples/import/masterdata'),
+            __DIR__.'/../Resources/samples' => storage_path('app/public/data-transfer/samples/import/masterdata'),
         ], 'masterdata-samples');
     }
 
@@ -224,20 +280,20 @@ class MasterDataServiceProvider extends ServiceProvider
      */
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/masterdata.php', 'masterdata');
+        $this->mergeConfigFrom(__DIR__.'/../Config/masterdata.php', 'masterdata');
 
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/menu.php', 'menu.admin');
+        $this->mergeConfigFrom(__DIR__.'/../Config/menu.php', 'menu.admin');
 
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/acl.php', 'acl');
+        $this->mergeConfigFrom(__DIR__.'/../Config/acl.php', 'acl');
 
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/api-acl.php', 'api-acl');
+        $this->mergeConfigFrom(__DIR__.'/../Config/api-acl.php', 'api-acl');
 
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/platform_modules.php', 'platform_modules');
+        $this->mergeConfigFrom(__DIR__.'/../Config/platform_modules.php', 'platform_modules');
 
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/exporters.php', 'exporters');
+        $this->mergeConfigFrom(__DIR__.'/../Config/exporters.php', 'exporters');
 
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/importers.php', 'importers');
+        $this->mergeConfigFrom(__DIR__.'/../Config/importers.php', 'importers');
 
-        $this->mergeConfigFrom(dirname(__DIR__).'/Config/filesystems.php', 'filesystems.disks');
+        $this->mergeConfigFrom(__DIR__.'/../Config/filesystems.php', 'filesystems.disks');
     }
 }

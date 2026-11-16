@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Hyväksyntä tarvitaan: muutospyyntö #:id',
             'description'           => ':requester lähetti kohteeseen :type muutoksen ":operation" hyväksyttäväksesi.',
             'description-automated' => 'Automaattinen muutos ":operation" kohteeseen :type odottaa hyväksyntääsi.',
+            'approved-title'        => 'Muutospyyntö #:id hyväksytty',
+            'approved-description'  => ':decider hyväksyi ":operation"-muutoksesi kohteeseen :type.',
+            'rejected-title'        => 'Muutospyyntö #:id hylätty',
+            'rejected-description'  => ':decider hylkäsi ":operation"-muutoksesi kohteeseen :type.',
+            'comment'               => 'Kommentti: :comment',
+            'open-request'          => 'Avaa muutospyyntö',
+            'open-approvals'        => 'Avaa hyväksynnät',
+
+            'batch' => [
+                'title'       => 'Hyväksyntä tarvitaan: :count muutosta',
+                'import'      => 'Tuonti ":name" odottaa hyväksyntääsi :count muutoksen osalta.',
+                'mass-retire' => 'Massapoisto käytöstä odottaa hyväksyntääsi :count muutoksen osalta.',
+                'default'     => ':count muutosta odottaa hyväksyntääsi.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Kommentti',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Suoritetaan perustietojen migraatioita.',
         'demo'      => 'Asennetaan valmistuksen demotiedot.',
         'done'      => 'Perustietojen hallinta on asennettu. Aktiiviset moduulit: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Master-tietue luotu',
+            'updated'     => 'Master-tietue päivitetty',
+            'retired'     => 'Master-tietue poistettu käytöstä',
+            'reactivated' => 'Master-tietue aktivoitu uudelleen',
+            'merged'      => 'Master-tietueet yhdistetty',
+            'unmerged'    => 'Master-tietueiden yhdistäminen peruttu',
+            'erased'      => 'Master-tietue pyyhitty',
+        ],
+
+        'card' => [
+            'title'                      => 'Perustiedot',
+            'info'                       => 'Rajaa, mitkä master-tietueiden muutokset tämä webhook vastaanottaa.',
+            'entity-types'               => 'Entiteettityypit',
+            'all-entity-types'           => 'Kaikki entiteettityypit',
+            'ignore-source-systems'      => 'Ohita lähdejärjestelmien muutokset',
+            'no-source-systems'          => 'Ei mitään',
+            'ignore-source-systems-hint' => 'Näiden järjestelmien kirjoittamia muutoksia ei lähetetä, jotta järjestelmä ei saa omia muutoksiaan takaisin.',
+        ],
     ],
 ];

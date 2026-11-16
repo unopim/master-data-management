@@ -3,9 +3,11 @@
 namespace Webkul\MasterDataManagement\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\LazyCollection;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\MasterDataManagement\Contracts\ChangeRequest;
 use Webkul\MasterDataManagement\Enums\ChangeRequestStatus;
+use Webkul\MasterDataManagement\Events\ChangeRequestBatchSubmitted;
 use Webkul\MasterDataManagement\Models\ChangeRequest as ChangeRequestModel;
 
 class ChangeRequestRepository extends Repository
@@ -51,6 +53,31 @@ class ChangeRequestRepository extends Repository
             ->where('status', ChangeRequestStatus::Pending->value)
             ->orderBy('id')
             ->first();
+    }
+
+    /**
+     * The pending change requests one import run or mass action held, read in chunks, with what deciding them needs.
+     *
+     * @return LazyCollection<int, ChangeRequestModel>
+     */
+    public function pendingInBatch(string $batch): LazyCollection
+    {
+        return $this->model->newQuery()
+            ->with(['entityType', 'record', 'parent'])
+            ->where('status', ChangeRequestStatus::Pending->value)
+            ->where('context->'.ChangeRequestBatchSubmitted::CONTEXT_KEY, $batch)
+            ->lazyById();
+    }
+
+    /**
+     * Whether one import run or mass action still has pending change requests.
+     */
+    public function hasPendingInBatch(string $batch): bool
+    {
+        return $this->model->newQuery()
+            ->where('status', ChangeRequestStatus::Pending->value)
+            ->where('context->'.ChangeRequestBatchSubmitted::CONTEXT_KEY, $batch)
+            ->exists();
     }
 
     /**

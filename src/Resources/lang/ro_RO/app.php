@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Aprobare necesară: cerere de modificare #:id',
             'description'           => ':requester a trimis o modificare „:operation” pentru :type spre aprobarea ta.',
             'description-automated' => 'O modificare automată „:operation” pentru :type așteaptă aprobarea ta.',
+            'approved-title'        => 'Cererea de modificare #:id a fost aprobată',
+            'approved-description'  => ':decider a aprobat modificarea dvs. „:operation” pentru :type.',
+            'rejected-title'        => 'Cererea de modificare #:id a fost respinsă',
+            'rejected-description'  => ':decider a respins modificarea dvs. „:operation” pentru :type.',
+            'comment'               => 'Comentariu: :comment',
+            'open-request'          => 'Deschide cererea de modificare',
+            'open-approvals'        => 'Deschide aprobările',
+
+            'batch' => [
+                'title'       => 'Aprobare necesară: :count modificări',
+                'import'      => 'Importul „:name” are :count modificări care așteaptă aprobarea dvs.',
+                'mass-retire' => 'O retragere în masă are :count modificări care așteaptă aprobarea dvs.',
+                'default'     => ':count modificări așteaptă aprobarea dvs.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Comentariu',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Se rulează migrările datelor master.',
         'demo'      => 'Se instalează datele demo pentru producție.',
         'done'      => 'Gestionarea datelor master este instalată. Module active: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Înregistrare master creată',
+            'updated'     => 'Înregistrare master actualizată',
+            'retired'     => 'Înregistrare master retrasă',
+            'reactivated' => 'Înregistrare master reactivată',
+            'merged'      => 'Înregistrări master unificate',
+            'unmerged'    => 'Unificarea înregistrărilor master anulată',
+            'erased'      => 'Înregistrare master ștearsă',
+        ],
+
+        'card' => [
+            'title'                      => 'Date master',
+            'info'                       => 'Limitați ce modificări ale înregistrărilor master primește acest webhook.',
+            'entity-types'               => 'Tipuri de entitate',
+            'all-entity-types'           => 'Toate tipurile de entitate',
+            'ignore-source-systems'      => 'Ignoră modificările din sistemele sursă',
+            'no-source-systems'          => 'Niciunul',
+            'ignore-source-systems-hint' => 'Modificările scrise de aceste sisteme nu sunt trimise, astfel încât un sistem să nu își primească înapoi propriile modificări.',
+        ],
     ],
 ];

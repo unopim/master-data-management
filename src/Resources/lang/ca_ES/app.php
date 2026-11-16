@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Cal aprovació: sol·licitud de canvi #:id',
             'description'           => ':requester ha enviat un canvi ":operation" a :type perquè l\'aprovis.',
             'description-automated' => 'Un canvi automàtic ":operation" a :type espera la teva aprovació.',
+            'approved-title'        => 'Sol·licitud de canvi #:id aprovada',
+            'approved-description'  => ':decider ha aprovat el vostre canvi «:operation» a :type.',
+            'rejected-title'        => 'Sol·licitud de canvi #:id rebutjada',
+            'rejected-description'  => ':decider ha rebutjat el vostre canvi «:operation» a :type.',
+            'comment'               => 'Comentari: :comment',
+            'open-request'          => 'Obre la sol·licitud de canvi',
+            'open-approvals'        => 'Obre les aprovacions',
+
+            'batch' => [
+                'title'       => 'Cal aprovació: :count canvis',
+                'import'      => 'La importació «:name» té :count canvis pendents de la vostra aprovació.',
+                'mass-retire' => 'Una retirada massiva té :count canvis pendents de la vostra aprovació.',
+                'default'     => ':count canvis esperen la vostra aprovació.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Comentari',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'S\'estan executant les migracions de dades mestres.',
         'demo'      => 'S\'estan instal·lant les dades de demostració de fabricació.',
         'done'      => 'La gestió de dades mestres està instal·lada. Mòduls actius: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Registre mestre creat',
+            'updated'     => 'Registre mestre actualitzat',
+            'retired'     => 'Registre mestre retirat',
+            'reactivated' => 'Registre mestre reactivat',
+            'merged'      => 'Registres mestres fusionats',
+            'unmerged'    => 'Registres mestres separats',
+            'erased'      => 'Registre mestre esborrat',
+        ],
+
+        'card' => [
+            'title'                      => 'Dades mestres',
+            'info'                       => 'Limita quins canvis de registres mestres rep aquest webhook.',
+            'entity-types'               => 'Tipus d\'entitat',
+            'all-entity-types'           => 'Tots els tipus d\'entitat',
+            'ignore-source-systems'      => 'Ignora els canvis dels sistemes d\'origen',
+            'no-source-systems'          => 'Cap',
+            'ignore-source-systems-hint' => 'Els canvis escrits per aquests sistemes no s\'envien, perquè un sistema no rebi de tornada els seus propis canvis.',
+        ],
     ],
 ];

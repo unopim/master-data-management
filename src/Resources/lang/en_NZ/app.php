@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Approval required: change request #:id',
             'description'           => ':requester has submitted a ":operation" change to :type for your approval.',
             'description-automated' => 'An automatic ":operation" change to :type is awaiting your approval.',
+            'approved-title'        => 'Change request #:id approved',
+            'approved-description'  => ':decider approved your ":operation" change to :type.',
+            'rejected-title'        => 'Change request #:id rejected',
+            'rejected-description'  => ':decider rejected your ":operation" change to :type.',
+            'comment'               => 'Comment: :comment',
+            'open-request'          => 'Open the change request',
+            'open-approvals'        => 'Open approvals',
+
+            'batch' => [
+                'title'       => 'Approval needed: :count changes',
+                'import'      => 'Import ":name" holds :count changes for your approval.',
+                'mass-retire' => 'A mass retire holds :count changes for your approval.',
+                'default'     => ':count changes are waiting for your approval.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Comment',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Running the master data migrations now.',
         'demo'      => 'Installing the manufacturing demo data now.',
         'done'      => 'Master data management has been installed. Active modules: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Master Record Created',
+            'updated'     => 'Master Record Updated',
+            'retired'     => 'Master Record Retired',
+            'reactivated' => 'Master Record Reactivated',
+            'merged'      => 'Master Records Merged',
+            'unmerged'    => 'Master Records Unmerged',
+            'erased'      => 'Master Record Erased',
+        ],
+
+        'card' => [
+            'title'                      => 'Master data',
+            'info'                       => 'Limit which master record changes this webhook receives.',
+            'entity-types'               => 'Entity types',
+            'all-entity-types'           => 'All entity types',
+            'ignore-source-systems'      => 'Ignore changes from source systems',
+            'no-source-systems'          => 'None',
+            'ignore-source-systems-hint' => 'Changes written by these systems are not sent, so a system is not sent back its own changes.',
+        ],
     ],
 ];

@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Aprovação necessária: solicitação de alteração #:id',
             'description'           => ':requester enviou uma alteração ":operation" em :type para sua aprovação.',
             'description-automated' => 'Uma alteração automática ":operation" em :type está aguardando sua aprovação.',
+            'approved-title'        => 'Solicitação de alteração #:id aprovada',
+            'approved-description'  => ':decider aprovou sua alteração ":operation" em :type.',
+            'rejected-title'        => 'Solicitação de alteração #:id rejeitada',
+            'rejected-description'  => ':decider rejeitou sua alteração ":operation" em :type.',
+            'comment'               => 'Comentário: :comment',
+            'open-request'          => 'Abrir a solicitação de alteração',
+            'open-approvals'        => 'Abrir aprovações',
+
+            'batch' => [
+                'title'       => 'Aprovação necessária: :count alterações',
+                'import'      => 'A importação ":name" retém :count alterações aguardando sua aprovação.',
+                'mass-retire' => 'Uma desativação em massa retém :count alterações aguardando sua aprovação.',
+                'default'     => ':count alterações aguardam sua aprovação.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Comentário',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Executando as migrações de dados mestres.',
         'demo'      => 'Instalando os dados de demonstração de manufatura.',
         'done'      => 'O gerenciamento de dados mestres está instalado. Módulos ativos: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Registro mestre criado',
+            'updated'     => 'Registro mestre atualizado',
+            'retired'     => 'Registro mestre desativado',
+            'reactivated' => 'Registro mestre reativado',
+            'merged'      => 'Registros mestres mesclados',
+            'unmerged'    => 'Mesclagem de registros mestres desfeita',
+            'erased'      => 'Registro mestre apagado',
+        ],
+
+        'card' => [
+            'title'                      => 'Dados mestres',
+            'info'                       => 'Limite quais alterações de registros mestres este webhook recebe.',
+            'entity-types'               => 'Tipos de entidade',
+            'all-entity-types'           => 'Todos os tipos de entidade',
+            'ignore-source-systems'      => 'Ignorar alterações de sistemas de origem',
+            'no-source-systems'          => 'Nenhum',
+            'ignore-source-systems-hint' => 'Alterações gravadas por estes sistemas não são enviadas, para que um sistema não receba de volta as próprias alterações.',
+        ],
     ],
 ];

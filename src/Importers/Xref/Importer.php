@@ -21,7 +21,6 @@ use Webkul\MasterDataManagement\Repositories\EntityTypeRepository;
 use Webkul\MasterDataManagement\Repositories\SourceSystemRepository;
 use Webkul\MasterDataManagement\Security\RecordPolicy;
 use Webkul\MasterDataManagement\Services\XrefWriter;
-use Webkul\MasterDataManagement\ValueObjects\SourceContext;
 use Webkul\User\Repositories\AdminRepository;
 
 /**
@@ -165,7 +164,7 @@ class Importer extends MasterDataImporter
             throw new XrefConflictException($this->sourceSystem, $externalId, (int) $xref->record_id);
         }
 
-        $gate = $this->xrefWriter->link($record, $this->sourceSystem, $externalId, $this->author(), new SourceContext(SourceContext::IMPORT, (int) $this->sourceSystem->id, $externalId));
+        $gate = $this->xrefWriter->link($record, $this->sourceSystem, $externalId, $this->author(), $this->sourceContext((int) $this->sourceSystem->id, $externalId));
 
         if ($gate->isPending()) {
             $this->held($rowNumber, $gate);

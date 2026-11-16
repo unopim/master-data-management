@@ -1440,6 +1440,20 @@ return [
             'title'                 => '승인 필요: 변경 요청 #:id',
             'description'           => ':requester 님이 :type 에 대한 ":operation" 변경의 승인을 요청했습니다.',
             'description-automated' => ':type 에 대한 자동 ":operation" 변경이 승인을 기다리고 있습니다.',
+            'approved-title'        => '변경 요청 #:id 승인됨',
+            'approved-description'  => ':decider님이 :type에 대한 회원님의 ":operation" 변경을 승인했습니다.',
+            'rejected-title'        => '변경 요청 #:id 거부됨',
+            'rejected-description'  => ':decider님이 :type에 대한 회원님의 ":operation" 변경을 거부했습니다.',
+            'comment'               => '댓글: :comment',
+            'open-request'          => '변경 요청 열기',
+            'open-approvals'        => '승인 목록 열기',
+
+            'batch' => [
+                'title'       => '승인 필요: 변경 :count건',
+                'import'      => '가져오기 ":name"의 변경 :count건이 승인을 기다리고 있습니다.',
+                'mass-retire' => '일괄 폐기의 변경 :count건이 승인을 기다리고 있습니다.',
+                'default'     => '변경 :count건이 승인을 기다리고 있습니다.',
+            ],
         ],
         'fields' => [
             'comment'             => '의견',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => '마스터 데이터 마이그레이션을 실행하는 중입니다.',
         'demo'      => '제조 데모 데이터를 설치하는 중입니다.',
         'done'      => '마스터 데이터 관리가 설치되었습니다. 활성 모듈: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => '마스터 레코드 생성됨',
+            'updated'     => '마스터 레코드 업데이트됨',
+            'retired'     => '마스터 레코드 폐기됨',
+            'reactivated' => '마스터 레코드 재활성화됨',
+            'merged'      => '마스터 레코드 병합됨',
+            'unmerged'    => '마스터 레코드 병합 해제됨',
+            'erased'      => '마스터 레코드 삭제됨',
+        ],
+
+        'card' => [
+            'title'                      => '마스터 데이터',
+            'info'                       => '이 웹훅이 받을 마스터 레코드 변경 사항을 제한합니다.',
+            'entity-types'               => '엔터티 유형',
+            'all-entity-types'           => '모든 엔터티 유형',
+            'ignore-source-systems'      => '소스 시스템의 변경 사항 무시',
+            'no-source-systems'          => '없음',
+            'ignore-source-systems-hint' => '이 시스템들이 기록한 변경 사항은 전송되지 않으므로, 시스템이 자신의 변경 사항을 다시 받지 않습니다.',
+        ],
     ],
 ];

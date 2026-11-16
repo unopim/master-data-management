@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Approvazione richiesta: richiesta di modifica #:id',
             'description'           => ':requester ha inviato una modifica ":operation" su :type per la tua approvazione.',
             'description-automated' => 'Una modifica automatica ":operation" su :type è in attesa della tua approvazione.',
+            'approved-title'        => 'Richiesta di modifica #:id approvata',
+            'approved-description'  => ':decider ha approvato la tua modifica ":operation" su :type.',
+            'rejected-title'        => 'Richiesta di modifica #:id rifiutata',
+            'rejected-description'  => ':decider ha rifiutato la tua modifica ":operation" su :type.',
+            'comment'               => 'Commento: :comment',
+            'open-request'          => 'Apri la richiesta di modifica',
+            'open-approvals'        => 'Apri le approvazioni',
+
+            'batch' => [
+                'title'       => 'Approvazione richiesta: :count modifiche',
+                'import'      => 'L’importazione ":name" ha :count modifiche in attesa della tua approvazione.',
+                'mass-retire' => 'Un ritiro massivo ha :count modifiche in attesa della tua approvazione.',
+                'default'     => ':count modifiche sono in attesa della tua approvazione.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Commento',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Esecuzione delle migrazioni dei dati anagrafici.',
         'demo'      => 'Installazione dei dati demo di produzione.',
         'done'      => 'La gestione dei dati anagrafici è installata. Moduli attivi: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Record master creato',
+            'updated'     => 'Record master aggiornato',
+            'retired'     => 'Record master ritirato',
+            'reactivated' => 'Record master riattivato',
+            'merged'      => 'Record master uniti',
+            'unmerged'    => 'Unione di record master annullata',
+            'erased'      => 'Record master cancellato',
+        ],
+
+        'card' => [
+            'title'                      => 'Dati anagrafici',
+            'info'                       => 'Limita quali modifiche ai record master riceve questo webhook.',
+            'entity-types'               => 'Tipi di entità',
+            'all-entity-types'           => 'Tutti i tipi di entità',
+            'ignore-source-systems'      => 'Ignora le modifiche dai sistemi di origine',
+            'no-source-systems'          => 'Nessuno',
+            'ignore-source-systems-hint' => 'Le modifiche scritte da questi sistemi non vengono inviate, così un sistema non riceve indietro le proprie modifiche.',
+        ],
     ],
 ];
