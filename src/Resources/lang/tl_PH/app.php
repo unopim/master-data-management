@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Kailangan ng pag-apruba: kahilingan sa pagbabago #:id',
             'description'           => 'Nagsumite si :requester ng ":operation" na pagbabago sa :type para sa iyong pag-apruba.',
             'description-automated' => 'Isang awtomatikong ":operation" na pagbabago sa :type ang naghihintay ng iyong pag-apruba.',
+            'approved-title'        => 'Naaprubahan ang kahilingan sa pagbabago #:id',
+            'approved-description'  => 'Inaprubahan ni :decider ang iyong ":operation" na pagbabago sa :type.',
+            'rejected-title'        => 'Tinanggihan ang kahilingan sa pagbabago #:id',
+            'rejected-description'  => 'Tinanggihan ni :decider ang iyong ":operation" na pagbabago sa :type.',
+            'comment'               => 'Komento: :comment',
+            'open-request'          => 'Buksan ang kahilingan sa pagbabago',
+            'open-approvals'        => 'Buksan ang mga pag-apruba',
+
+            'batch' => [
+                'title'       => 'Kailangan ng pag-apruba: :count na pagbabago',
+                'import'      => 'May :count na pagbabago ang import na ":name" na naghihintay ng iyong pag-apruba.',
+                'mass-retire' => 'May :count na pagbabago ang isang maramihang pagretiro na naghihintay ng iyong pag-apruba.',
+                'default'     => ':count na pagbabago ang naghihintay ng iyong pag-apruba.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Komento',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Pinapatakbo ang mga migration ng master data.',
         'demo'      => 'Ini-install ang demo data ng manufacturing.',
         'done'      => 'Naka-install na ang master data management. Mga aktibong module: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Nagawa ang master record',
+            'updated'     => 'Na-update ang master record',
+            'retired'     => 'Na-retire ang master record',
+            'reactivated' => 'Muling na-activate ang master record',
+            'merged'      => 'Pinagsama ang mga master record',
+            'unmerged'    => 'Binawi ang pagsasama ng mga master record',
+            'erased'      => 'Binura ang master record',
+        ],
+
+        'card' => [
+            'title'                      => 'Master data',
+            'info'                       => 'Limitahan kung aling mga pagbabago sa master record ang matatanggap ng webhook na ito.',
+            'entity-types'               => 'Mga uri ng entity',
+            'all-entity-types'           => 'Lahat ng uri ng entity',
+            'ignore-source-systems'      => 'Huwag pansinin ang mga pagbabago mula sa mga source system',
+            'no-source-systems'          => 'Wala',
+            'ignore-source-systems-hint' => 'Hindi ipinapadala ang mga pagbabagong isinulat ng mga system na ito, para hindi maibalik sa isang system ang sarili nitong mga pagbabago.',
+        ],
     ],
 ];

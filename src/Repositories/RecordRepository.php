@@ -307,10 +307,7 @@ class RecordRepository extends Repository
      */
     public function ancestorsOf(RecordModel $record, ?Admin $admin = null): Collection
     {
-        $ids = array_values(array_diff(
-            array_map(intval(...), array_filter(explode('/', (string) $record->path), is_numeric(...))),
-            [(int) $record->id],
-        ));
+        $ids = array_values(array_diff(RecordModel::idsInPath($record->path), [(int) $record->id]));
 
         if ($ids === []) {
             return $this->model->newCollection();
@@ -670,6 +667,23 @@ class RecordRepository extends Repository
     public function forQualityScan(array $ids): Collection
     {
         return $this->model->newQuery()->whereKey($ids)->orderBy('id')->get();
+    }
+
+    /**
+     * Read the records with their entity type keyed by id, regardless of row scope.
+     *
+     * @internal For webhook delivery: webhooks are configured by an administrator and report every record.
+     *
+     * @param  list<int>  $ids
+     * @return Collection<int, RecordModel>
+     */
+    public function forWebhook(array $ids): Collection
+    {
+        if ($ids === []) {
+            return new Collection;
+        }
+
+        return $this->model->newQuery()->with('entityType')->whereKey($ids)->get()->keyBy('id');
     }
 
     /**

@@ -69,10 +69,10 @@ It runs **alongside PIM** — products, categories and master data in one admin 
   Maintain versioned, translatable code lists — countries, units, statuses, classifications — with draft and published versions. Aliases map the values source systems send (`DE`, `Germany`, `Deutschland`) onto your canonical codes, globally, per code list or per field.
 
 - **Approvals (maker-checker)**
-  Mark an entity type as requiring approval and its creates, updates, retirements, merges and cross-reference changes are held as change requests with a field-level diff until an approver decides them. Requesters cannot approve their own changes, approvers are notified in UnoPim, and automated changes such as auto-accepted matches wait too. The change gate is a contract, so a custom workflow can replace it.
+  Mark an entity type as requiring approval and its creates, updates, retirements, merges and cross-reference changes are held as change requests with a field-level diff until an approver decides them. Requesters cannot approve their own changes, approvers are notified in UnoPim and by e-mail, an import or mass retire that holds many changes sends one notice for the batch, the requester hears back when a decision is made, and automated changes such as auto-accepted matches wait too. The change gate is a contract, so a custom workflow can replace it.
 
 - **Data access grants**
-  Scope who may view, edit or approve records of an entity type, down to a subtree of a hierarchy, by role or by user, on top of the UnoPim ACL. Every admin screen and API call applies the same scope.
+  Scope who may view, edit, merge or approve records of an entity type, down to a subtree of a hierarchy, by role or by user, on top of the UnoPim ACL. Every admin screen and API call applies the same scope.
 
 - **Data quality**
   Each record gets a completeness score. Quality scans flag invalid values, broken hierarchies, missing required cross-references and likely duplicates, and stewards resolve or ignore each issue from a quality dashboard.
@@ -91,6 +91,9 @@ It runs **alongside PIM** — products, categories and master data in one admin 
 
 - **Icon library**
   Pick entity type icons from a bundled set of [Lucide](https://lucide.dev/) icons or upload your own SVGs.
+
+- **Webhooks**
+  Send master record created, updated, retired, reactivated, merged, unmerged and erased events to UnoPim webhooks, signed and logged like product webhooks. Each webhook can be limited to some entity types and can ignore changes written by chosen source systems, so a system is not sent back its own changes. Imports send them in chunks.
 
 - **Events for extensions**
   Record created, updated, retired, merged, unmerged and erased, cross-references changed, schema and code list published, change request submitted and decided — all dispatched as Laravel events. Models, repositories and contracts follow the UnoPim Concord conventions, so the package can be extended without forking it.
@@ -200,6 +203,7 @@ The defaults work out of the box. These settings are read from `.env`:
 | `MASTERDATA_IMPORT_DISK` | `local` | Disk that scheduled imports read their inbox from. |
 | `MASTERDATA_IMPORT_PATH` | `masterdata/imports` | Inbox folder; files go into `{path}/{job_code}/` and move to `processed/`. |
 | `MASTERDATA_IMPORT_USER` | — | E-mail of the admin scheduled imports run as. |
+| `MASTERDATA_NOTIFICATIONS_EMAIL` | `true` | Also e-mail approval notifications when a mail transport is configured. |
 
 Matching comparators, survivorship strategies, quality rules, field types and the approval change gate are registered in the package's `src/Config/masterdata.php` and can be overridden or extended from your application's config.
 

@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Onay gerekiyor: değişiklik talebi #:id',
             'description'           => ':requester, :type üzerinde ":operation" değişikliğini onayınıza gönderdi.',
             'description-automated' => ':type üzerindeki otomatik ":operation" değişikliği onayınızı bekliyor.',
+            'approved-title'        => 'Değişiklik talebi #:id onaylandı',
+            'approved-description'  => ':decider, :type üzerindeki ":operation" değişikliğinizi onayladı.',
+            'rejected-title'        => 'Değişiklik talebi #:id reddedildi',
+            'rejected-description'  => ':decider, :type üzerindeki ":operation" değişikliğinizi reddetti.',
+            'comment'               => 'Yorum: :comment',
+            'open-request'          => 'Değişiklik talebini aç',
+            'open-approvals'        => 'Onayları aç',
+
+            'batch' => [
+                'title'       => 'Onay gerekli: :count değişiklik',
+                'import'      => '":name" içe aktarımı :count değişikliği onayınız için bekletiyor.',
+                'mass-retire' => 'Toplu kullanımdan kaldırma :count değişikliği onayınız için bekletiyor.',
+                'default'     => ':count değişiklik onayınızı bekliyor.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Yorum',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Ana veri geçişleri çalıştırılıyor.',
         'demo'      => 'Üretim demo verileri yükleniyor.',
         'done'      => 'Ana veri yönetimi yüklendi. Etkin modüller: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Ana kayıt oluşturuldu',
+            'updated'     => 'Ana kayıt güncellendi',
+            'retired'     => 'Ana kayıt kullanımdan kaldırıldı',
+            'reactivated' => 'Ana kayıt yeniden etkinleştirildi',
+            'merged'      => 'Ana kayıtlar birleştirildi',
+            'unmerged'    => 'Ana kayıtların birleştirmesi geri alındı',
+            'erased'      => 'Ana kayıt silindi',
+        ],
+
+        'card' => [
+            'title'                      => 'Ana veri',
+            'info'                       => 'Bu webhook\'un hangi ana kayıt değişikliklerini alacağını sınırlayın.',
+            'entity-types'               => 'Varlık türleri',
+            'all-entity-types'           => 'Tüm varlık türleri',
+            'ignore-source-systems'      => 'Kaynak sistemlerden gelen değişiklikleri yok say',
+            'no-source-systems'          => 'Hiçbiri',
+            'ignore-source-systems-hint' => 'Bu sistemlerin yazdığı değişiklikler gönderilmez, böylece bir sistem kendi değişikliklerini geri almaz.',
+        ],
     ],
 ];

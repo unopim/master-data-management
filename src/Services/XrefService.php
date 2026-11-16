@@ -145,10 +145,23 @@ class XrefService
      */
     public function idsFor(Record $record): array
     {
+        return $this->idsForRecords([(int) $record->id])[(int) $record->id] ?? [];
+    }
+
+    /**
+     * Map each record id to its source system codes and active external ids, in one query.
+     *
+     * @param  list<int>  $recordIds
+     * @return array<int, array<string, list<string>>>
+     */
+    public function idsForRecords(array $recordIds): array
+    {
         $ids = [];
 
-        foreach ($this->xrefRepository->activeIdsForRecord($record->id) as $row) {
-            $ids[$row->code][] = $row->external_id;
+        foreach ($this->xrefRepository->activeIdsForRecords($recordIds) as $recordId => $rows) {
+            foreach ($rows as $row) {
+                $ids[$recordId][$row->code][] = $row->external_id;
+            }
         }
 
         return $ids;

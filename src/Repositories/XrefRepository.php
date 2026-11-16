@@ -58,14 +58,34 @@ class XrefRepository extends Repository
      */
     public function activeIdsForRecord(int $recordId): array
     {
-        return DB::table('mdm_xrefs')
+        return $this->activeIdsForRecords([$recordId])[$recordId] ?? [];
+    }
+
+    /**
+     * List the active external ids of several records with their source system code, keyed by record id, in one query.
+     *
+     * @param  list<int>  $recordIds
+     * @return array<int, list<object{code: string, external_id: string}>>
+     */
+    public function activeIdsForRecords(array $recordIds): array
+    {
+        if ($recordIds === []) {
+            return [];
+        }
+
+        $rows = [];
+
+        foreach (DB::table('mdm_xrefs')
             ->join('mdm_source_systems', 'mdm_source_systems.id', '=', 'mdm_xrefs.source_system_id')
-            ->where('mdm_xrefs.record_id', $recordId)
+            ->whereIn('mdm_xrefs.record_id', $recordIds)
             ->where('mdm_xrefs.status', XrefStatus::Active->value)
             ->orderBy('mdm_source_systems.code')
             ->orderBy('mdm_xrefs.external_id')
-            ->get(['mdm_source_systems.code', 'mdm_xrefs.external_id'])
-            ->all();
+            ->get(['mdm_xrefs.record_id', 'mdm_source_systems.code', 'mdm_xrefs.external_id']) as $row) {
+            $rows[(int) $row->record_id][] = (object) ['code' => $row->code, 'external_id' => $row->external_id];
+        }
+
+        return $rows;
     }
 
     /**

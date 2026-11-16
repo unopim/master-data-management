@@ -76,6 +76,16 @@ class Record extends Model implements HistoryAuditable, PresentableHistoryInterf
     }
 
     /**
+     * The record ids along a materialised path, root first.
+     *
+     * @return list<int>
+     */
+    public static function idsInPath(?string $path): array
+    {
+        return array_map(intval(...), array_values(array_filter(explode('/', (string) $path), is_numeric(...))));
+    }
+
+    /**
      * Typecasts the defined columns into given types.
      */
     protected function casts(): array

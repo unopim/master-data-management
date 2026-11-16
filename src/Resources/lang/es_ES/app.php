@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Aprobación necesaria: solicitud de cambio #:id',
             'description'           => ':requester ha enviado un cambio «:operation» en :type para que lo apruebes.',
             'description-automated' => 'Un cambio automático «:operation» en :type espera tu aprobación.',
+            'approved-title'        => 'Solicitud de cambio #:id aprobada',
+            'approved-description'  => ':decider ha aprobado tu cambio «:operation» en :type.',
+            'rejected-title'        => 'Solicitud de cambio #:id rechazada',
+            'rejected-description'  => ':decider ha rechazado tu cambio «:operation» en :type.',
+            'comment'               => 'Comentario: :comment',
+            'open-request'          => 'Abrir la solicitud de cambio',
+            'open-approvals'        => 'Abrir aprobaciones',
+
+            'batch' => [
+                'title'       => 'Aprobación necesaria: :count cambios',
+                'import'      => 'La importación «:name» tiene :count cambios pendientes de tu aprobación.',
+                'mass-retire' => 'Una retirada masiva tiene :count cambios pendientes de tu aprobación.',
+                'default'     => ':count cambios esperan tu aprobación.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Comentario',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Ejecutando las migraciones de datos maestros.',
         'demo'      => 'Instalando los datos de demostración de fabricación.',
         'done'      => 'La gestión de datos maestros está instalada. Módulos activos: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Registro maestro creado',
+            'updated'     => 'Registro maestro actualizado',
+            'retired'     => 'Registro maestro retirado',
+            'reactivated' => 'Registro maestro reactivado',
+            'merged'      => 'Registros maestros fusionados',
+            'unmerged'    => 'Registros maestros separados',
+            'erased'      => 'Registro maestro borrado',
+        ],
+
+        'card' => [
+            'title'                      => 'Datos maestros',
+            'info'                       => 'Limita qué cambios de registros maestros recibe este webhook.',
+            'entity-types'               => 'Tipos de entidad',
+            'all-entity-types'           => 'Todos los tipos de entidad',
+            'ignore-source-systems'      => 'Ignorar cambios de sistemas de origen',
+            'no-source-systems'          => 'Ninguno',
+            'ignore-source-systems-hint' => 'Los cambios escritos por estos sistemas no se envían, para que un sistema no reciba de vuelta sus propios cambios.',
+        ],
     ],
 ];

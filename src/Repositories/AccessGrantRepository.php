@@ -96,6 +96,88 @@ class AccessGrantRepository extends Repository
     }
 
     /**
+     * Copy onto each moved child the grants rooted at a former ancestor of it that its new place lies outside,
+     * tagged with the merge; skips what the child or its new ancestors already grant. Returns how many were copied.
+     *
+     * @param  list<int>  $formerRootIds  The merged record and its ancestors.
+     * @param  list<int>  $keptRootIds  The survivor and its ancestors, whose grants still reach the moved children.
+     * @param  list<int>  $childIds
+     */
+    public function copyToMovedChildren(int $mergeId, array $formerRootIds, array $keptRootIds, array $childIds): int
+    {
+        $rootIds = array_values(array_diff($formerRootIds, $keptRootIds));
+
+        if ($rootIds === [] || $childIds === []) {
+            return 0;
+        }
+
+        $grants = $this->model->newQuery()->whereIn('record_id', $rootIds)->get();
+
+        if ($grants->isEmpty()) {
+            return 0;
+        }
+
+        $held = [];
+
+        $kept = array_flip($keptRootIds);
+
+        foreach ($this->model->newQuery()->whereIn('record_id', [...$keptRootIds, ...$childIds])->get() as $existing) {
+            foreach (isset($kept[$existing->record_id]) ? $childIds : [$existing->record_id] as $childId) {
+                foreach ($existing->actions as $action) {
+                    $held[$this->grantKey($existing->principal_type, $existing->principal_id, $existing->entity_type_id, $childId)][$action] = true;
+                }
+            }
+        }
+
+        $now = now();
+
+        $rows = [];
+
+        foreach ($childIds as $childId) {
+            foreach ($grants as $grant) {
+                $key = $this->grantKey($grant->principal_type, $grant->principal_id, $grant->entity_type_id, $childId);
+
+                $actions = self::normalizeActions($grant->actions ?? []);
+
+                $anyType = $this->grantKey($grant->principal_type, $grant->principal_id, null, $childId);
+
+                if (array_diff($actions, array_keys(($held[$key] ?? []) + ($held[$anyType] ?? []))) === []) {
+                    continue;
+                }
+
+                foreach ($actions as $action) {
+                    $held[$key][$action] = true;
+                }
+
+                $rows[] = [
+                    'principal_type' => $grant->principal_type->value,
+                    'principal_id'   => $grant->principal_id,
+                    'entity_type_id' => $grant->entity_type_id,
+                    'record_id'      => $childId,
+                    'actions'        => json_encode($actions),
+                    'merge_id'       => $mergeId,
+                    'created_at'     => $now,
+                    'updated_at'     => $now,
+                ];
+            }
+        }
+
+        foreach (array_chunk($rows, 500) as $chunk) {
+            $this->model->newQuery()->insert($chunk);
+        }
+
+        return count($rows);
+    }
+
+    /**
+     * Delete the grants a merge copied onto the children it moved.
+     */
+    public function deleteCopiedByMerge(int $mergeId): void
+    {
+        $this->model->newQuery()->where('merge_id', $mergeId)->delete();
+    }
+
+    /**
      * Keep only known grant actions, once each, in enum order.
      *
      * @param  array<int, mixed>  $actions
@@ -107,5 +189,13 @@ class AccessGrantRepository extends Repository
             fn (GrantAction $action): string => $action->value,
             array_filter(GrantAction::cases(), fn (GrantAction $action): bool => in_array($action->value, $actions, true)),
         ));
+    }
+
+    /**
+     * The key of one principal's grants on one record for one entity type.
+     */
+    protected function grantKey(GrantPrincipal $type, int $principalId, ?int $entityTypeId, int $recordId): string
+    {
+        return implode(':', [$type->value, $principalId, $entityTypeId ?? '*', $recordId]);
     }
 }

@@ -363,7 +363,7 @@ class Importer extends MasterDataImporter
 
         $input = $this->writerInput($data, $cells);
 
-        $source = new SourceContext(SourceContext::IMPORT, $this->sourceSystem?->id, $externalId, $externalId === null ? [] : [
+        $source = $this->sourceContext($this->sourceSystem?->id, $externalId, $externalId === null ? [] : [
             self::CONTEXT_XREF => [
                 XrefWriter::INPUT_SYSTEM      => (int) $this->sourceSystem?->id,
                 XrefWriter::INPUT_EXTERNAL_ID => $externalId,

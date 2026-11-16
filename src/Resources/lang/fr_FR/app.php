@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Approbation requise : demande de modification #:id',
             'description'           => ':requester a soumis une modification « :operation » sur :type à votre approbation.',
             'description-automated' => 'Une modification automatique « :operation » sur :type attend votre approbation.',
+            'approved-title'        => 'Demande de modification #:id approuvée',
+            'approved-description'  => ':decider a approuvé votre modification « :operation » sur :type.',
+            'rejected-title'        => 'Demande de modification #:id rejetée',
+            'rejected-description'  => ':decider a rejeté votre modification « :operation » sur :type.',
+            'comment'               => 'Commentaire : :comment',
+            'open-request'          => 'Ouvrir la demande de modification',
+            'open-approvals'        => 'Ouvrir les approbations',
+
+            'batch' => [
+                'title'       => 'Approbation requise : :count modifications',
+                'import'      => 'L’import « :name » retient :count modifications en attente de votre approbation.',
+                'mass-retire' => 'Un retrait en masse retient :count modifications en attente de votre approbation.',
+                'default'     => ':count modifications attendent votre approbation.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Commentaire',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Exécution des migrations des données de référence.',
         'demo'      => 'Installation des données de démonstration de fabrication.',
         'done'      => 'La gestion des données de référence est installée. Modules actifs : :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Enregistrement maître créé',
+            'updated'     => 'Enregistrement maître mis à jour',
+            'retired'     => 'Enregistrement maître retiré',
+            'reactivated' => 'Enregistrement maître réactivé',
+            'merged'      => 'Enregistrements maîtres fusionnés',
+            'unmerged'    => 'Fusion d\'enregistrements maîtres annulée',
+            'erased'      => 'Enregistrement maître effacé',
+        ],
+
+        'card' => [
+            'title'                      => 'Données de référence',
+            'info'                       => 'Limitez les modifications d\'enregistrements maîtres que reçoit ce webhook.',
+            'entity-types'               => 'Types d\'entité',
+            'all-entity-types'           => 'Tous les types d\'entité',
+            'ignore-source-systems'      => 'Ignorer les modifications des systèmes sources',
+            'no-source-systems'          => 'Aucun',
+            'ignore-source-systems-hint' => 'Les modifications écrites par ces systèmes ne sont pas envoyées, afin qu\'un système ne reçoive pas ses propres modifications en retour.',
+        ],
     ],
 ];

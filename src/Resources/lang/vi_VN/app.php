@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Cần phê duyệt: yêu cầu thay đổi #:id',
             'description'           => ':requester đã gửi thay đổi ":operation" cho :type để bạn phê duyệt.',
             'description-automated' => 'Một thay đổi tự động ":operation" cho :type đang chờ bạn phê duyệt.',
+            'approved-title'        => 'Yêu cầu thay đổi #:id đã được phê duyệt',
+            'approved-description'  => ':decider đã phê duyệt thay đổi ":operation" của bạn trên :type.',
+            'rejected-title'        => 'Yêu cầu thay đổi #:id đã bị từ chối',
+            'rejected-description'  => ':decider đã từ chối thay đổi ":operation" của bạn trên :type.',
+            'comment'               => 'Bình luận: :comment',
+            'open-request'          => 'Mở yêu cầu thay đổi',
+            'open-approvals'        => 'Mở danh sách phê duyệt',
+
+            'batch' => [
+                'title'       => 'Cần phê duyệt: :count thay đổi',
+                'import'      => 'Lần nhập ":name" có :count thay đổi đang chờ bạn phê duyệt.',
+                'mass-retire' => 'Một thao tác ngừng sử dụng hàng loạt có :count thay đổi đang chờ bạn phê duyệt.',
+                'default'     => ':count thay đổi đang chờ bạn phê duyệt.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Bình luận',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Đang chạy các bản di chuyển dữ liệu chủ.',
         'demo'      => 'Đang cài đặt dữ liệu demo sản xuất.',
         'done'      => 'Đã cài đặt quản lý dữ liệu chủ. Các mô-đun đang hoạt động: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Đã tạo bản ghi chính',
+            'updated'     => 'Đã cập nhật bản ghi chính',
+            'retired'     => 'Đã ngừng sử dụng bản ghi chính',
+            'reactivated' => 'Đã kích hoạt lại bản ghi chính',
+            'merged'      => 'Đã hợp nhất các bản ghi chính',
+            'unmerged'    => 'Đã hủy hợp nhất các bản ghi chính',
+            'erased'      => 'Đã xóa vĩnh viễn bản ghi chính',
+        ],
+
+        'card' => [
+            'title'                      => 'Dữ liệu chủ',
+            'info'                       => 'Giới hạn những thay đổi bản ghi chính mà webhook này nhận.',
+            'entity-types'               => 'Loại thực thể',
+            'all-entity-types'           => 'Tất cả loại thực thể',
+            'ignore-source-systems'      => 'Bỏ qua thay đổi từ hệ thống nguồn',
+            'no-source-systems'          => 'Không có',
+            'ignore-source-systems-hint' => 'Thay đổi do các hệ thống này ghi sẽ không được gửi, để một hệ thống không nhận lại chính thay đổi của nó.',
+        ],
     ],
 ];

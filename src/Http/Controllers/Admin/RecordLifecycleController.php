@@ -4,8 +4,10 @@ namespace Webkul\MasterDataManagement\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\MasterDataManagement\Events\ChangeRequestBatchSubmitted;
 use Webkul\MasterDataManagement\Exceptions\StaleRecordException;
 use Webkul\MasterDataManagement\Http\Controllers\Concerns\ResolvesAdmin;
 use Webkul\MasterDataManagement\Http\Controllers\Concerns\RespondsWithRedirect;
@@ -52,7 +54,8 @@ class RecordLifecycleController extends Controller
      * Retire the selected records of the entity type at their current revision, each through the change gate.
      *
      * Records outside the type or the admin's row scope are ignored; records that are no longer live or change
-     * while the selection is processed are skipped and counted.
+     * while the selection is processed are skipped and counted. Retirements held for approval share one batch key,
+     * so their approvers get one notice for the selection.
      */
     public function massRetire(RecordMassRetireRequest $request, EntityType $entityType): JsonResponse
     {
@@ -63,6 +66,10 @@ class RecordLifecycleController extends Controller
 
         $counts = ['retired' => 0, 'pending' => 0, 'skipped' => count($ids) - $records->count()];
 
+        $batch = ChangeRequestBatchSubmitted::SOURCE_MASS_RETIRE.':'.Str::uuid();
+
+        $source = new SourceContext('admin', context: [ChangeRequestBatchSubmitted::CONTEXT_KEY => $batch]);
+
         foreach ($records as $record) {
             if (Gate::denies('delete', $record)) {
                 $counts['skipped']++;
@@ -71,7 +78,7 @@ class RecordLifecycleController extends Controller
             }
 
             try {
-                $result = $this->recordWriter->submitRetire($record, (int) $record->revision, $this->admin(), new SourceContext('admin'));
+                $result = $this->recordWriter->submitRetire($record, (int) $record->revision, $this->admin(), $source);
             } catch (ValidationException|StaleRecordException) {
                 $counts['skipped']++;
 
@@ -79,6 +86,10 @@ class RecordLifecycleController extends Controller
             }
 
             $counts[$result->isPending() ? 'pending' : 'retired']++;
+        }
+
+        if ($counts['pending'] > 0) {
+            event(new ChangeRequestBatchSubmitted($batch, ChangeRequestBatchSubmitted::SOURCE_MASS_RETIRE));
         }
 
         $done = $counts['retired'] + $counts['pending'] > 0;

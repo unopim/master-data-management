@@ -14,6 +14,7 @@ use Webkul\MasterDataManagement\Enums\XrefStatus;
 use Webkul\MasterDataManagement\Http\Requests\RecordParentRequest;
 use Webkul\MasterDataManagement\Models\EntityType;
 use Webkul\MasterDataManagement\Models\Field;
+use Webkul\MasterDataManagement\Models\Record;
 use Webkul\MasterDataManagement\Quality\Completeness;
 use Webkul\MasterDataManagement\Repositories\EntityTypeRepository;
 use Webkul\MasterDataManagement\Repositories\FieldRepository;
@@ -438,9 +439,7 @@ class RecordDataGrid extends DataGrid
      */
     protected function ancestorIds(object $row): array
     {
-        $ids = array_map(intval(...), array_filter(explode('/', (string) ($row->path ?? '')), is_numeric(...)));
-
-        return array_values(array_filter($ids, fn (int $id): bool => $id !== (int) $row->id));
+        return array_values(array_filter(Record::idsInPath($row->path ?? null), fn (int $id): bool => $id !== (int) $row->id));
     }
 
     /**

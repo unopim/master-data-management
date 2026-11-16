@@ -1440,6 +1440,20 @@ return [
             'title'                 => '需要核准：變更請求 #:id',
             'description'           => ':requester 提交了對 :type 的「:operation」變更，等待您核准。',
             'description-automated' => '對 :type 的自動「:operation」變更正在等待您核准。',
+            'approved-title'        => '變更請求 #:id 已核准',
+            'approved-description'  => ':decider 已核准你對 :type 的「:operation」變更。',
+            'rejected-title'        => '變更請求 #:id 已拒絕',
+            'rejected-description'  => ':decider 已拒絕你對 :type 的「:operation」變更。',
+            'comment'               => '備註：:comment',
+            'open-request'          => '開啟變更請求',
+            'open-approvals'        => '開啟審核清單',
+
+            'batch' => [
+                'title'       => '需要審核：:count 項變更',
+                'import'      => '匯入「:name」有 :count 項變更等待你審核。',
+                'mass-retire' => '批次停用有 :count 項變更等待你審核。',
+                'default'     => '有 :count 項變更等待你審核。',
+            ],
         ],
         'fields' => [
             'comment'             => '備註',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => '正在執行主資料遷移。',
         'demo'      => '正在安裝製造業示範資料。',
         'done'      => '主資料管理已安裝。啟用的模組::modules。',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => '主資料記錄已建立',
+            'updated'     => '主資料記錄已更新',
+            'retired'     => '主資料記錄已停用',
+            'reactivated' => '主資料記錄已重新啟用',
+            'merged'      => '主資料記錄已合併',
+            'unmerged'    => '主資料記錄已取消合併',
+            'erased'      => '主資料記錄已清除',
+        ],
+
+        'card' => [
+            'title'                      => '主資料',
+            'info'                       => '限制此 Webhook 接收哪些主資料記錄變更。',
+            'entity-types'               => '實體類型',
+            'all-entity-types'           => '所有實體類型',
+            'ignore-source-systems'      => '忽略來自來源系統的變更',
+            'no-source-systems'          => '無',
+            'ignore-source-systems-hint' => '這些系統寫入的變更不會傳送，避免系統收到自己的變更。',
+        ],
     ],
 ];

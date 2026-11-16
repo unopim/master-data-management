@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Godkjenning kreves: endringsforespørsel #:id',
             'description'           => ':requester sendte inn en ":operation"-endring på :type til din godkjenning.',
             'description-automated' => 'En automatisk ":operation"-endring på :type venter på din godkjenning.',
+            'approved-title'        => 'Endringsforespørsel #:id godkjent',
+            'approved-description'  => ':decider godkjente ":operation"-endringen din på :type.',
+            'rejected-title'        => 'Endringsforespørsel #:id avvist',
+            'rejected-description'  => ':decider avviste ":operation"-endringen din på :type.',
+            'comment'               => 'Kommentar: :comment',
+            'open-request'          => 'Åpne endringsforespørselen',
+            'open-approvals'        => 'Åpne godkjenninger',
+
+            'batch' => [
+                'title'       => 'Godkjenning kreves: :count endringer',
+                'import'      => 'Importen ":name" har :count endringer som venter på din godkjenning.',
+                'mass-retire' => 'En massepensjonering har :count endringer som venter på din godkjenning.',
+                'default'     => ':count endringer venter på din godkjenning.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Kommentar',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Kjører migreringene for stamdata.',
         'demo'      => 'Installerer demodata for produksjon.',
         'done'      => 'Stamdatahåndtering er installert. Aktive moduler: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Masterpost opprettet',
+            'updated'     => 'Masterpost oppdatert',
+            'retired'     => 'Masterpost faset ut',
+            'reactivated' => 'Masterpost reaktivert',
+            'merged'      => 'Masterposter slått sammen',
+            'unmerged'    => 'Sammenslåing av masterposter angret',
+            'erased'      => 'Masterpost slettet',
+        ],
+
+        'card' => [
+            'title'                      => 'Masterdata',
+            'info'                       => 'Begrens hvilke endringer i masterposter denne webhooken mottar.',
+            'entity-types'               => 'Enhetstyper',
+            'all-entity-types'           => 'Alle enhetstyper',
+            'ignore-source-systems'      => 'Ignorer endringer fra kildesystemer',
+            'no-source-systems'          => 'Ingen',
+            'ignore-source-systems-hint' => 'Endringer skrevet av disse systemene sendes ikke, slik at et system ikke får sine egne endringer tilbake.',
+        ],
     ],
 ];

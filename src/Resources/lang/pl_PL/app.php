@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Wymagane zatwierdzenie: prośba o zmianę #:id',
             'description'           => ':requester przesłał(a) zmianę „:operation” w :type do Twojego zatwierdzenia.',
             'description-automated' => 'Automatyczna zmiana „:operation” w :type czeka na Twoje zatwierdzenie.',
+            'approved-title'        => 'Wniosek o zmianę #:id zatwierdzony',
+            'approved-description'  => ':decider zatwierdził(a) Twoją zmianę „:operation” w :type.',
+            'rejected-title'        => 'Wniosek o zmianę #:id odrzucony',
+            'rejected-description'  => ':decider odrzucił(a) Twoją zmianę „:operation” w :type.',
+            'comment'               => 'Komentarz: :comment',
+            'open-request'          => 'Otwórz wniosek o zmianę',
+            'open-approvals'        => 'Otwórz zatwierdzenia',
+
+            'batch' => [
+                'title'       => 'Wymagane zatwierdzenie: zmiany (:count)',
+                'import'      => 'Import „:name” wstrzymuje zmiany (:count) do Twojego zatwierdzenia.',
+                'mass-retire' => 'Masowe wycofanie wstrzymuje zmiany (:count) do Twojego zatwierdzenia.',
+                'default'     => 'Zmiany (:count) czekają na Twoje zatwierdzenie.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Komentarz',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Uruchamianie migracji danych głównych.',
         'demo'      => 'Instalowanie danych demonstracyjnych dla produkcji.',
         'done'      => 'Zarządzanie danymi głównymi zostało zainstalowane. Aktywne moduły: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Utworzono rekord główny',
+            'updated'     => 'Zaktualizowano rekord główny',
+            'retired'     => 'Wycofano rekord główny',
+            'reactivated' => 'Ponownie aktywowano rekord główny',
+            'merged'      => 'Scalono rekordy główne',
+            'unmerged'    => 'Cofnięto scalenie rekordów głównych',
+            'erased'      => 'Usunięto rekord główny',
+        ],
+
+        'card' => [
+            'title'                      => 'Dane podstawowe',
+            'info'                       => 'Ogranicz, które zmiany rekordów głównych otrzymuje ten webhook.',
+            'entity-types'               => 'Typy encji',
+            'all-entity-types'           => 'Wszystkie typy encji',
+            'ignore-source-systems'      => 'Ignoruj zmiany z systemów źródłowych',
+            'no-source-systems'          => 'Brak',
+            'ignore-source-systems-hint' => 'Zmiany zapisane przez te systemy nie są wysyłane, dzięki czemu system nie otrzymuje z powrotem własnych zmian.',
+        ],
     ],
 ];

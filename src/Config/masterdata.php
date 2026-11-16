@@ -42,6 +42,9 @@ use Webkul\MasterDataManagement\Survivorship\Strategies\SourcePriorityStrategy;
  * `scheduled_imports` feeds the `masterdata:import {job_code}` command: an integration tool drops files into
  * `{path}/{job_code}/` on `disk`, the command imports the oldest one as `user` (an admin e-mail) and moves it to
  * `processed/`. `jobs` maps job codes to cron expressions the scheduler runs the command on.
+ *
+ * `notifications.email` also e-mails the approval notifications (held changes to their approvers, decisions to the
+ * requester) when the install has a mail transport configured; the in-app notifications are sent either way.
  */
 return [
     'batch_size' => 500,
@@ -57,6 +60,10 @@ return [
         'path' => env('MASTERDATA_IMPORT_PATH', 'masterdata/imports'),
         'user' => env('MASTERDATA_IMPORT_USER'),
         'jobs' => [],
+    ],
+
+    'notifications' => [
+        'email' => (bool) env('MASTERDATA_NOTIFICATIONS_EMAIL', true),
     ],
 
     'default_locale' => env('APP_LOCALE', 'en_US'),

@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Potrebno odobrenje: zahtjev za promjenu #:id',
             'description'           => ':requester je poslao promjenu ":operation" na :type na vaše odobrenje.',
             'description-automated' => 'Automatska promjena ":operation" na :type čeka vaše odobrenje.',
+            'approved-title'        => 'Zahtjev za promjenu #:id odobren',
+            'approved-description'  => ':decider je odobrio vašu promjenu „:operation” na :type.',
+            'rejected-title'        => 'Zahtjev za promjenu #:id odbijen',
+            'rejected-description'  => ':decider je odbio vašu promjenu „:operation” na :type.',
+            'comment'               => 'Komentar: :comment',
+            'open-request'          => 'Otvori zahtjev za promjenu',
+            'open-approvals'        => 'Otvori odobrenja',
+
+            'batch' => [
+                'title'       => 'Potrebno odobrenje: :count promjena',
+                'import'      => 'Uvoz „:name” zadržava :count promjena koje čekaju vaše odobrenje.',
+                'mass-retire' => 'Masovno povlačenje zadržava :count promjena koje čekaju vaše odobrenje.',
+                'default'     => ':count promjena čeka vaše odobrenje.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Komentar',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Pokretanje migracija glavnih podataka.',
         'demo'      => 'Instalacija demo podataka za proizvodnju.',
         'done'      => 'Upravljanje glavnim podacima je instalirano. Aktivni moduli: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Glavni zapis stvoren',
+            'updated'     => 'Glavni zapis ažuriran',
+            'retired'     => 'Glavni zapis povučen',
+            'reactivated' => 'Glavni zapis ponovno aktiviran',
+            'merged'      => 'Glavni zapisi spojeni',
+            'unmerged'    => 'Spajanje glavnih zapisa poništeno',
+            'erased'      => 'Glavni zapis izbrisan',
+        ],
+
+        'card' => [
+            'title'                      => 'Matični podaci',
+            'info'                       => 'Ograničite koje promjene glavnih zapisa prima ovaj webhook.',
+            'entity-types'               => 'Vrste entiteta',
+            'all-entity-types'           => 'Sve vrste entiteta',
+            'ignore-source-systems'      => 'Zanemari promjene iz izvornih sustava',
+            'no-source-systems'          => 'Nijedan',
+            'ignore-source-systems-hint' => 'Promjene koje zapišu ovi sustavi ne šalju se, kako sustav ne bi natrag primio vlastite promjene.',
+        ],
     ],
 ];

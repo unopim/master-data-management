@@ -16,6 +16,7 @@ use Webkul\MasterDataManagement\Models\Record;
 use Webkul\MasterDataManagement\Models\RecordMerge;
 use Webkul\MasterDataManagement\Models\SurvivorshipRule;
 use Webkul\MasterDataManagement\Quality\CompletenessCalculator;
+use Webkul\MasterDataManagement\Repositories\AccessGrantRepository;
 use Webkul\MasterDataManagement\Repositories\RecordMergeRepository;
 use Webkul\MasterDataManagement\Repositories\RecordRepository;
 use Webkul\MasterDataManagement\Repositories\RelationRepository;
@@ -30,7 +31,8 @@ use Webkul\User\Models\Admin;
  *
  * A merge keeps the survivor's identity, takes each field's value from the side survivorship picks, moves the merged
  * record's active source ids, children, relations and earlier merges onto the survivor, and marks it merged. The
- * merge log keeps what moved, so an unmerge puts back exactly that, leaving anything changed since alone.
+ * merge log keeps what moved, so an unmerge puts back exactly that, leaving anything changed since alone. Data access
+ * grants that reached a moved child through the merged record are copied onto it, so nobody gains or loses access.
  * Both pass the change gate, so an entity type that requires approval holds them until an approver applies them.
  */
 class RecordMerger
@@ -58,6 +60,7 @@ class RecordMerger
         protected RelationWriter $relationWriter,
         protected SurvivorshipResolver $survivorshipResolver,
         protected CompletenessCalculator $completenessCalculator,
+        protected AccessGrantRepository $accessGrantRepository,
     ) {}
 
     /**
@@ -182,7 +185,7 @@ class RecordMerger
 
             $this->recordIndexer->sync($merged);
 
-            return $this->recordMergeRepository->create([
+            $merge = $this->recordMergeRepository->create([
                 'entity_type_id'  => $type->id,
                 'survivor_id'     => $survivor->id,
                 'merged_id'       => $merged->id,
@@ -193,6 +196,15 @@ class RecordMerger
                 'merged_by'       => $by?->id,
                 'merged_at'       => now(),
             ]);
+
+            $this->accessGrantRepository->copyToMovedChildren(
+                (int) $merge->id,
+                Record::idsInPath($merged->path),
+                Record::idsInPath($survivor->path),
+                $moved['children'],
+            );
+
+            return $merge;
         });
 
         $this->dispatchMoved($survivor, $merge);
@@ -285,6 +297,8 @@ class RecordMerger
             ])->save();
 
             $this->moveChildrenBack($moved['children'] ?? [], $survivor, $merged);
+
+            $this->accessGrantRepository->deleteCopiedByMerge((int) $merge->id);
 
             $this->recordIndexer->sync($survivor);
 

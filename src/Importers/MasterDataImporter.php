@@ -9,7 +9,10 @@ use Webkul\DataTransfer\Contracts\JobTrackBatch as JobTrackBatchContract;
 use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
+use Webkul\MasterDataManagement\Events\ChangeRequestBatchSubmitted;
+use Webkul\MasterDataManagement\Services\RecordWebhookBuffer;
 use Webkul\MasterDataManagement\ValueObjects\GateResult;
+use Webkul\MasterDataManagement\ValueObjects\SourceContext;
 use Webkul\User\Models\Admin;
 use Webkul\User\Repositories\AdminRepository;
 
@@ -144,7 +147,13 @@ abstract class MasterDataImporter extends AbstractImporter
 
         $this->initialize();
 
-        $this->importRows(array_values((array) $importBatchContract->data));
+        $this->recordWebhookBuffer()->open();
+
+        try {
+            $this->importRows(array_values((array) $importBatchContract->data));
+        } finally {
+            $this->recordWebhookBuffer()->flush();
+        }
 
         $batch = $this->importBatchRepository->update([
             'state'   => Import::STATE_PROCESSED,
@@ -234,6 +243,27 @@ abstract class MasterDataImporter extends AbstractImporter
         }
 
         return $this->author = $author;
+    }
+
+    /**
+     * The source context of a write this import makes, keyed to the import run so the changes it holds are
+     * announced to their approvers once, when the run completes.
+     *
+     * @param  array<string, mixed>  $context
+     */
+    protected function sourceContext(?int $sourceSystemId = null, ?string $externalId = null, array $context = []): SourceContext
+    {
+        return new SourceContext(SourceContext::IMPORT, $sourceSystemId, $externalId, $context + [
+            ChangeRequestBatchSubmitted::CONTEXT_KEY => ChangeRequestBatchSubmitted::importKey((int) $this->import->id),
+        ]);
+    }
+
+    /**
+     * The request's webhook buffer, which collects the batch's record webhooks so they are sent in chunks.
+     */
+    protected function recordWebhookBuffer(): RecordWebhookBuffer
+    {
+        return resolve(RecordWebhookBuffer::class);
     }
 
     /**

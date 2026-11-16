@@ -37,7 +37,8 @@ it('lists, adds, updates and deletes data access grants', function () {
     $row = collect($rows)->firstWhere('id', $grant->id);
 
     expect($row['principal'])->toBe('Pune Steward')
-        ->and($row['record_code'])->toContain('PLANT-PUNE');
+        ->and($row['record_code'])->toContain('PLANT-PUNE')
+        ->and($row['grant_actions'])->toBe(trans('masterdata::app.access.actions.edit'));
 
     $this->get(route('admin.masterdata.access.edit', $grant->id))->assertOk();
 
@@ -203,4 +204,28 @@ it('deletes grants left by roles and admins deleted before the cleanup listener'
 
     expect(AccessGrant::query()->whereKey($kept)->count())->toBe(2)
         ->and(AccessGrant::query()->whereKey($orphans)->exists())->toBeFalse();
+});
+
+it('accepts the actions as the comma separated string the multiselect submits', function () {
+    $this->loginWithPermissions('all');
+
+    $this->postJson(route('admin.masterdata.access.store'), [
+        'principal_type' => 'role',
+        'role_id'        => $this->role->id,
+        'record'         => $this->plant->uuid,
+        'actions'        => 'view,edit',
+    ])->assertOk();
+
+    expect(AccessGrant::query()->where('principal_type', 'role')->where('principal_id', $this->role->id)->sole()->actions)->toBe(['view', 'edit']);
+
+    $other = Role::factory()->create(['permission_type' => 'custom', 'permissions' => ['dashboard']]);
+
+    $this->putJson(route('admin.settings.roles.update', $other->id), [
+        'name'              => $other->name,
+        'permission_type'   => 'custom',
+        'permissions'       => ['dashboard'],
+        'masterdata_access' => ['present' => 1, 'record' => $this->plant->uuid, 'actions' => 'approve'],
+    ])->assertOk();
+
+    expect(AccessGrant::query()->where('principal_type', 'role')->where('principal_id', $other->id)->sole()->actions)->toBe(['approve']);
 });

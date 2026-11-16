@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Freigabe erforderlich: Änderungsanfrage #:id',
             'description'           => ':requester hat eine „:operation“-Änderung an :type zur Freigabe eingereicht.',
             'description-automated' => 'Eine automatische „:operation“-Änderung an :type wartet auf Ihre Freigabe.',
+            'approved-title'        => 'Änderungsanfrage #:id freigegeben',
+            'approved-description'  => ':decider hat Ihre „:operation“-Änderung an :type freigegeben.',
+            'rejected-title'        => 'Änderungsanfrage #:id abgelehnt',
+            'rejected-description'  => ':decider hat Ihre „:operation“-Änderung an :type abgelehnt.',
+            'comment'               => 'Kommentar: :comment',
+            'open-request'          => 'Änderungsanfrage öffnen',
+            'open-approvals'        => 'Freigaben öffnen',
+
+            'batch' => [
+                'title'       => 'Freigabe erforderlich: :count Änderungen',
+                'import'      => 'Der Import „:name“ hält :count Änderungen zur Freigabe zurück.',
+                'mass-retire' => 'Eine Massenstilllegung hält :count Änderungen zur Freigabe zurück.',
+                'default'     => ':count Änderungen warten auf Ihre Freigabe.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Kommentar',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Die Stammdaten-Migrationen werden ausgeführt.',
         'demo'      => 'Die Demodaten für die Fertigung werden installiert.',
         'done'      => 'Die Stammdatenverwaltung ist installiert. Aktive Module: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Stammdatensatz erstellt',
+            'updated'     => 'Stammdatensatz aktualisiert',
+            'retired'     => 'Stammdatensatz stillgelegt',
+            'reactivated' => 'Stammdatensatz reaktiviert',
+            'merged'      => 'Stammdatensätze zusammengeführt',
+            'unmerged'    => 'Zusammenführung von Stammdatensätzen aufgehoben',
+            'erased'      => 'Stammdatensatz gelöscht',
+        ],
+
+        'card' => [
+            'title'                      => 'Stammdaten',
+            'info'                       => 'Legen Sie fest, welche Änderungen an Stammdatensätzen dieser Webhook erhält.',
+            'entity-types'               => 'Entitätstypen',
+            'all-entity-types'           => 'Alle Entitätstypen',
+            'ignore-source-systems'      => 'Änderungen aus Quellsystemen ignorieren',
+            'no-source-systems'          => 'Keine',
+            'ignore-source-systems-hint' => 'Von diesen Systemen geschriebene Änderungen werden nicht gesendet, damit ein System seine eigenen Änderungen nicht zurückerhält.',
+        ],
     ],
 ];

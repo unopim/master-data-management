@@ -1440,6 +1440,20 @@ return [
             'title'                 => '承認が必要です: 変更リクエスト #:id',
             'description'           => ':requester が :type への「:operation」変更の承認を依頼しました。',
             'description-automated' => ':type への自動「:operation」変更があなたの承認を待っています。',
+            'approved-title'        => '変更リクエスト #:id が承認されました',
+            'approved-description'  => ':decider が :type へのあなたの「:operation」変更を承認しました。',
+            'rejected-title'        => '変更リクエスト #:id が却下されました',
+            'rejected-description'  => ':decider が :type へのあなたの「:operation」変更を却下しました。',
+            'comment'               => 'コメント: :comment',
+            'open-request'          => '変更リクエストを開く',
+            'open-approvals'        => '承認一覧を開く',
+
+            'batch' => [
+                'title'       => '承認が必要です: :count 件の変更',
+                'import'      => 'インポート「:name」の :count 件の変更があなたの承認を待っています。',
+                'mass-retire' => '一括廃止の :count 件の変更があなたの承認を待っています。',
+                'default'     => ':count 件の変更があなたの承認を待っています。',
+            ],
         ],
         'fields' => [
             'comment'             => 'コメント',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'マスターデータのマイグレーションを実行しています。',
         'demo'      => '製造業向けのデモデータをインストールしています。',
         'done'      => 'マスターデータ管理がインストールされました。有効なモジュール: :modules。',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'マスターレコードが作成されました',
+            'updated'     => 'マスターレコードが更新されました',
+            'retired'     => 'マスターレコードが廃止されました',
+            'reactivated' => 'マスターレコードが再有効化されました',
+            'merged'      => 'マスターレコードが統合されました',
+            'unmerged'    => 'マスターレコードの統合が解除されました',
+            'erased'      => 'マスターレコードが消去されました',
+        ],
+
+        'card' => [
+            'title'                      => 'マスターデータ',
+            'info'                       => 'この Webhook が受け取るマスターレコードの変更を絞り込みます。',
+            'entity-types'               => 'エンティティタイプ',
+            'all-entity-types'           => 'すべてのエンティティタイプ',
+            'ignore-source-systems'      => 'ソースシステムからの変更を無視',
+            'no-source-systems'          => 'なし',
+            'ignore-source-systems-hint' => 'これらのシステムが書き込んだ変更は送信されないため、システムに自身の変更が送り返されることはありません。',
+        ],
     ],
 ];

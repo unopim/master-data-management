@@ -1440,6 +1440,20 @@ return [
             'title'                 => 'Perlu persetujuan: permintaan perubahan #:id',
             'description'           => ':requester mengajukan perubahan ":operation" pada :type untuk Anda setujui.',
             'description-automated' => 'Perubahan otomatis ":operation" pada :type menunggu persetujuan Anda.',
+            'approved-title'        => 'Permintaan perubahan #:id disetujui',
+            'approved-description'  => ':decider menyetujui perubahan ":operation" Anda pada :type.',
+            'rejected-title'        => 'Permintaan perubahan #:id ditolak',
+            'rejected-description'  => ':decider menolak perubahan ":operation" Anda pada :type.',
+            'comment'               => 'Komentar: :comment',
+            'open-request'          => 'Buka permintaan perubahan',
+            'open-approvals'        => 'Buka persetujuan',
+
+            'batch' => [
+                'title'       => 'Perlu persetujuan: :count perubahan',
+                'import'      => 'Impor ":name" menahan :count perubahan untuk persetujuan Anda.',
+                'mass-retire' => 'Penghentian massal menahan :count perubahan untuk persetujuan Anda.',
+                'default'     => ':count perubahan menunggu persetujuan Anda.',
+            ],
         ],
         'fields' => [
             'comment'             => 'Komentar',
@@ -1688,5 +1702,27 @@ return [
         'migrating' => 'Menjalankan migrasi data master.',
         'demo'      => 'Memasang data demo manufaktur.',
         'done'      => 'Manajemen data master telah terpasang. Modul aktif: :modules.',
+    ],
+
+    'webhooks' => [
+        'events' => [
+            'created'     => 'Rekaman master dibuat',
+            'updated'     => 'Rekaman master diperbarui',
+            'retired'     => 'Rekaman master dipensiunkan',
+            'reactivated' => 'Rekaman master diaktifkan kembali',
+            'merged'      => 'Rekaman master digabungkan',
+            'unmerged'    => 'Penggabungan rekaman master dibatalkan',
+            'erased'      => 'Rekaman master dihapus permanen',
+        ],
+
+        'card' => [
+            'title'                      => 'Data master',
+            'info'                       => 'Batasi perubahan rekaman master yang diterima webhook ini.',
+            'entity-types'               => 'Jenis entitas',
+            'all-entity-types'           => 'Semua jenis entitas',
+            'ignore-source-systems'      => 'Abaikan perubahan dari sistem sumber',
+            'no-source-systems'          => 'Tidak ada',
+            'ignore-source-systems-hint' => 'Perubahan yang ditulis oleh sistem ini tidak dikirim, sehingga sistem tidak menerima kembali perubahannya sendiri.',
+        ],
     ],
 ];
