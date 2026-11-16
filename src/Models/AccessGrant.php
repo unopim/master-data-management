@@ -11,7 +11,8 @@ use Webkul\MasterDataManagement\Enums\GrantPrincipal;
 
 /**
  * Allows a role, team or user the listed actions on the records of a scoped entity type (or of every scoped type)
- * in the subtree below a record, the record itself included.
+ * in the subtree below a record, the record itself included. A grant copied onto a child a merge moved names that
+ * merge, so the unmerge takes the copy back.
  */
 #[Fillable([
     'principal_type',
@@ -19,6 +20,7 @@ use Webkul\MasterDataManagement\Enums\GrantPrincipal;
     'entity_type_id',
     'record_id',
     'actions',
+    'merge_id',
 ])]
 #[Table(name: 'mdm_access_grants')]
 class AccessGrant extends Model implements AccessGrantContract
@@ -50,6 +52,7 @@ class AccessGrant extends Model implements AccessGrantContract
             'entity_type_id' => 'integer',
             'record_id'      => 'integer',
             'actions'        => 'array',
+            'merge_id'       => 'integer',
         ];
     }
 }

@@ -122,7 +122,7 @@ class RecordRowBuilder
      */
     protected function pathIds(Record $record): array
     {
-        $ids = array_map(intval(...), array_values(array_filter(explode('/', (string) $record->path), is_numeric(...))));
+        $ids = Record::idsInPath($record->path);
 
         return $ids === [] ? [(int) $record->id] : $ids;
     }

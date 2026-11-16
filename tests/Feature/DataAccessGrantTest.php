@@ -18,6 +18,7 @@ use Webkul\MasterDataManagement\Repositories\SourceSystemRepository;
 use Webkul\MasterDataManagement\Security\AccessGrantResolver;
 use Webkul\MasterDataManagement\Security\ChangeApprovals;
 use Webkul\MasterDataManagement\Security\EntityTypePermissions;
+use Webkul\MasterDataManagement\Services\RecordMerger;
 use Webkul\MasterDataManagement\Services\RecordWriter;
 use Webkul\User\Models\Admin;
 use Webkul\User\Models\Role;
@@ -329,4 +330,37 @@ it('holds an approver create below a parent outside their approve grants', funct
     expect($direct->exists)->toBeTrue()
         ->and($held->gate->isPending())->toBeTrue()
         ->and(ChangeRequest::query()->whereNull('record_id')->where('parent_id', $this->siteB->id)->exists())->toBeTrue();
+});
+
+it('keeps access to the children a merge moves out of a granted subtree and drops it again on unmerge', function () {
+    $admin = ($this->customAdmin)();
+    ($this->grant)(GrantPrincipal::User, $admin->id, $this->siteB, ['view', 'edit']);
+
+    $merger = app(RecordMerger::class);
+    $merge = $merger->merge($this->siteA, $this->siteB, [], $this->siteA->revision, $this->siteB->revision, null);
+    app(AccessGrantResolver::class)->flush();
+
+    $this->loginAsAdmin($admin);
+
+    expect($this->eqB1->fresh()->parent_id)->toBe($this->siteA->id)
+        ->and(($this->gridCodes)())->toBe(['EQ-B1'])
+        ->and(app(AccessGrantResolver::class)->allows($admin, GrantAction::Edit, $this->eqB1->fresh()))->toBeTrue()
+        ->and($this->grants->forPrincipal(GrantPrincipal::User, $admin->id)->pluck('record_id')->sort()->values()->all())
+        ->toBe([$this->siteB->id, $this->eqB1->id]);
+
+    $merger->unmerge($this->siteB->fresh(), null);
+    app(AccessGrantResolver::class)->flush();
+
+    expect($this->grants->forPrincipal(GrantPrincipal::User, $admin->id)->pluck('record_id')->all())->toBe([$this->siteB->id])
+        ->and(($this->gridCodes)())->toBe(['EQ-B1']);
+});
+
+it('copies no grant on merge when the survivor subtree is already granted', function () {
+    $admin = ($this->customAdmin)();
+    ($this->grant)(GrantPrincipal::Role, $admin->role_id, $this->siteA, ['view']);
+    ($this->grant)(GrantPrincipal::Role, $admin->role_id, $this->siteB, ['view']);
+
+    app(RecordMerger::class)->merge($this->siteA, $this->siteB, [], $this->siteA->revision, $this->siteB->revision, null);
+
+    expect($this->grants->forPrincipal(GrantPrincipal::Role, $admin->role_id))->toHaveCount(2);
 });

@@ -307,10 +307,7 @@ class RecordRepository extends Repository
      */
     public function ancestorsOf(RecordModel $record, ?Admin $admin = null): Collection
     {
-        $ids = array_values(array_diff(
-            array_map(intval(...), array_filter(explode('/', (string) $record->path), is_numeric(...))),
-            [(int) $record->id],
-        ));
+        $ids = array_values(array_diff(RecordModel::idsInPath($record->path), [(int) $record->id]));
 
         if ($ids === []) {
             return $this->model->newCollection();

@@ -33,7 +33,7 @@ class AccessGrantDataGrid extends DataGrid
             ->select(
                 'mdm_access_grants.id',
                 'mdm_access_grants.principal_type',
-                'mdm_access_grants.actions',
+                'mdm_access_grants.actions as grant_actions',
                 'roles.name as role_name',
                 'admins.name as user_name',
                 'mdm_entity_types.code as entity_type_code',
@@ -113,7 +113,7 @@ class AccessGrantDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'actions',
+            'index'      => 'grant_actions',
             'label'      => trans('masterdata::app.access.datagrid.actions'),
             'type'       => 'string',
             'searchable' => false,
@@ -121,7 +121,7 @@ class AccessGrantDataGrid extends DataGrid
             'sortable'   => false,
             'closure'    => fn ($row): string => e(implode(', ', array_map(
                 fn (string $action): string => trans('masterdata::app.access.actions.'.GrantAction::from($action)->value),
-                AccessGrantRepository::normalizeActions((array) json_decode((string) $row->actions, true)),
+                AccessGrantRepository::normalizeActions((array) json_decode((string) $row->grant_actions, true)),
             ))),
         ]);
     }

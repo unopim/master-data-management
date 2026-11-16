@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Webkul\MasterDataManagement\Enums\GrantAction;
 use Webkul\MasterDataManagement\Enums\GrantPrincipal;
+use Webkul\MasterDataManagement\Http\Requests\Concerns\DecodesMultiselect;
 use Webkul\MasterDataManagement\Models\EntityTypeProxy;
 use Webkul\MasterDataManagement\Models\Record;
 use Webkul\MasterDataManagement\Repositories\AccessGrantRepository;
@@ -22,6 +23,8 @@ use Webkul\User\Models\Role;
  */
 class RoleAccessGrants
 {
+    use DecodesMultiselect;
+
     public const string INPUT = 'masterdata_access';
 
     public function __construct(
@@ -50,7 +53,11 @@ class RoleAccessGrants
 
         $key = self::INPUT;
 
-        Validator::make($request->all(), [
+        $data = $request->all();
+
+        $data[$key]['actions'] = $this->actions($request);
+
+        Validator::make($data, [
             $key.'.record'         => ['required', 'uuid'],
             $key.'.entity_type_id' => ['nullable', 'integer', Rule::exists(EntityTypeProxy::modelClass(), 'id')],
             $key.'.actions'        => ['required', 'array', 'min:1'],
@@ -97,8 +104,16 @@ class RoleAccessGrants
             'principal_id'   => (int) $role->id,
             'entity_type_id' => $request->filled(self::INPUT.'.entity_type_id') ? (int) $request->input(self::INPUT.'.entity_type_id') : null,
             'record_id'      => (int) $root->id,
-            'actions'        => AccessGrantRepository::normalizeActions((array) $request->input(self::INPUT.'.actions', [])),
+            'actions'        => AccessGrantRepository::normalizeActions((array) $this->actions($request)),
         ]);
+    }
+
+    /**
+     * The actions the card submits, decoded from the multiselect value.
+     */
+    protected function actions(Request $request): mixed
+    {
+        return $this->decodeMultiselect($request->input(self::INPUT.'.actions', []));
     }
 
     /**

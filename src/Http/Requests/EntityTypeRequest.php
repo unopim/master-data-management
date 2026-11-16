@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Webkul\MasterDataManagement\Enums\CodeStrategy;
 use Webkul\MasterDataManagement\Enums\EntityTypeStatus;
 use Webkul\MasterDataManagement\Enums\MasteringStyle;
+use Webkul\MasterDataManagement\Http\Requests\Concerns\DecodesMultiselect;
 use Webkul\MasterDataManagement\Matching\MatchInbox;
 use Webkul\MasterDataManagement\Models\EntityType;
 use Webkul\MasterDataManagement\Models\EntityTypeProxy;
@@ -19,6 +20,8 @@ use Webkul\User\Models\AdminProxy;
 
 class EntityTypeRequest extends FormRequest
 {
+    use DecodesMultiselect;
+
     /**
      * The ACL key that guards the settings deciding who skips approval: data owner and approval required.
      */
@@ -108,13 +111,7 @@ class EntityTypeRequest extends FormRequest
      */
     protected function decodeIds(string $value): array
     {
-        $decoded = json_decode($value, true);
-
-        $ids = is_array($decoded)
-            ? array_values($decoded)
-            : array_values(array_filter(array_map(trim(...), explode(',', $value))));
-
-        return array_map(fn (mixed $id): mixed => is_string($id) && ctype_digit($id) ? (int) $id : $id, $ids);
+        return array_map(fn (mixed $id): mixed => is_string($id) && ctype_digit($id) ? (int) $id : $id, $this->decodeMultiselect($value));
     }
 
     /**

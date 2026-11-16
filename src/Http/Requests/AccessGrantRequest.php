@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Webkul\MasterDataManagement\Enums\GrantAction;
 use Webkul\MasterDataManagement\Enums\GrantPrincipal;
+use Webkul\MasterDataManagement\Http\Requests\Concerns\DecodesMultiselect;
 use Webkul\MasterDataManagement\Models\EntityTypeProxy;
 use Webkul\MasterDataManagement\Models\Record;
 use Webkul\MasterDataManagement\Repositories\AccessGrantRepository;
@@ -19,11 +20,23 @@ use Webkul\User\Models\RoleProxy;
  */
 class AccessGrantRequest extends FormRequest
 {
+    use DecodesMultiselect;
+
     protected ?Record $root = null;
 
     public function authorize(): bool
     {
         return bouncer()->hasPermission($this->route('id') ? 'masterdata.access.edit' : 'masterdata.access.create');
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        if ($this->has('actions')) {
+            $this->merge(['actions' => $this->decodeMultiselect($this->input('actions'))]);
+        }
     }
 
     /**
